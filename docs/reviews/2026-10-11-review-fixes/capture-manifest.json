@@ -1,0 +1,41 @@
+{
+  "synthetic": true,
+  "version": "2.14.2",
+  "checks": [
+    "Slideshow starts advancing when a second photo arrives, and stops on one/zero photos",
+    "Clock and preset drafts stay unsaved until Save; discard and reopening retain truthful feedback",
+    "Expired saved forecast shows no stale Now/Today labels",
+    "Malformed saved city and scalar preferences recover to usable setup"
+  ],
+  "captures": [
+    {
+      "id": "slideshow-refreshed",
+      "file": "screenshots/slideshow-refreshed.jpg"
+    },
+    {
+      "id": "dashboard-unsaved",
+      "file": "screenshots/dashboard-unsaved.jpg"
+    },
+    {
+      "id": "overview",
+      "file": "screenshots/overview.jpg"
+    },
+    {
+      "id": "photos",
+      "file": "screenshots/photos.jpg"
+    },
+    {
+      "id": "calendar",
+      "file": "screenshots/calendar.jpg"
+    },
+    {
+      "id": "weather-expired",
+      "file": "screenshots/weather-expired.jpg"
+    },
+    {
+      "id": "settings-recovered",
+      "file": "screenshots/settings-recovered.jpg"
+    }
+  ],
+  "errors": []
+}

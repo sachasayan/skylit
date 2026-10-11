@@ -12,20 +12,20 @@ public final class PhotoStoreTest {
   static int checks;
   static void check(boolean value,String message){if(!value)throw new AssertionError(message);checks++;}
   static class Memory implements SharedPreferences {
-    final Map<String,String> data=new HashMap<>();
+    final Map<String,String> data=new ConcurrentHashMap<>();
     public Map<String,?> getAll(){return data;}
     public String getString(String k,String d){return data.containsKey(k)?data.get(k):d;}
     public boolean contains(String k){return data.containsKey(k);}
     public Set<String> getStringSet(String k,Set<String> d){return d;}
-    public int getInt(String k,int d){return d;}public long getLong(String k,long d){return d;}
-    public float getFloat(String k,float d){return d;}public boolean getBoolean(String k,boolean d){return d;}
+    public int getInt(String k,int d){return data.containsKey(k)?Integer.parseInt(data.get(k)):d;}public long getLong(String k,long d){return data.containsKey(k)?Long.parseLong(data.get(k)):d;}
+    public float getFloat(String k,float d){return d;}public boolean getBoolean(String k,boolean d){return data.containsKey(k)?Boolean.parseBoolean(data.get(k)):d;}
     public void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener l){}
     public void unregisterOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener l){}
     public Editor edit(){return new Editor(){
       public Editor putString(String k,String v){data.put(k,v);return this;}
       public Editor putStringSet(String k,Set<String> v){return this;}
-      public Editor putInt(String k,int v){return this;}public Editor putLong(String k,long v){return this;}
-      public Editor putFloat(String k,float v){return this;}public Editor putBoolean(String k,boolean v){return this;}
+      public Editor putInt(String k,int v){data.put(k,String.valueOf(v));return this;}public Editor putLong(String k,long v){data.put(k,String.valueOf(v));return this;}
+      public Editor putFloat(String k,float v){return this;}public Editor putBoolean(String k,boolean v){data.put(k,String.valueOf(v));return this;}
       public Editor remove(String k){data.remove(k);return this;}public Editor clear(){data.clear();return this;}
       public boolean commit(){return true;}public void apply(){}
     };}
@@ -33,6 +33,17 @@ public final class PhotoStoreTest {
   static byte[] image(int seed){Bitmap b=Bitmap.createBitmap(400,300,Bitmap.Config.ARGB_8888);Random random=new Random(seed);int[] pixels=new int[400*300];for(int i=0;i<pixels.length;i++)pixels[i]=0xff000000|random.nextInt(0xffffff);b.setPixels(pixels,0,400,0,0,400,300);ByteArrayOutputStream out=new ByteArrayOutputStream();b.compress(Bitmap.CompressFormat.PNG,100,out);b.recycle();return out.toByteArray();}
   static void remove(File f){if(f.isDirectory()){File[] files=f.listFiles();if(files!=null)for(File child:files)remove(child);}f.delete();}
   static boolean excluded(PhotoStore store,String id){return store.excluded().toString().contains(id);}
+  static InputStream stalled(byte[] bytes,CountDownLatch entered,CountDownLatch release){return new FilterInputStream(new ByteArrayInputStream(bytes)){
+    boolean waiting=true;
+    public int read(byte[] buffer,int offset,int length)throws IOException{
+      if(waiting){waiting=false;entered.countDown();try{release.await();}catch(InterruptedException e){throw new InterruptedIOException();}}
+      return in.read(buffer,offset,length);
+    }
+  };}
+  static void responsive(PhotoStore store)throws Exception{
+    ExecutorService probe=Executors.newSingleThreadExecutor();
+    try{check(probe.submit(()->store.list().length()).get(1,TimeUnit.SECONDS)==0,"cache status stays responsive during blocked read");}finally{probe.shutdownNow();}
+  }
   public static void main(String[] args)throws Exception{
     File root=new File(args[0]);root.mkdirs();long now=System.currentTimeMillis(),day=86400000L;byte[] first=image(1),second=image(2);
     try{
@@ -72,6 +83,24 @@ public final class PhotoStoreTest {
       PhotoStore raced=new PhotoStore(new File(root,"race"),new Memory());raced.add(new ByteArrayInputStream(second),now);String racedId=raced.list().getJSONObject(0).getString("id");
       final PhotoStore race=raced;Thread importer=new Thread(()->{try{for(int i=0;i<10;i++)race.add(new ByteArrayInputStream(second),now);}catch(Exception e){throw new RuntimeException(e);}});importer.start();raced.exclude(racedId,true);importer.join();check(!raced.add(new ByteArrayInputStream(second),now)&&excluded(raced,racedId),"refresh/exclusion race cannot resurrect source");
       memory.data.put("excluded",new JSONArray(Arrays.asList(id,"invalid",id)).toString());check(new PhotoStore(folder,memory).excluded().length()==1,"loaded exclusions validate and deduplicate");
+      // A slow attachment never holds the cache monitor; clear rejects its eventual publication.
+      PhotoStore blocked=new PhotoStore(new File(root,"blocked"),new Memory());CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);
+      java.util.concurrent.atomic.AtomicReference<Throwable> problem=new java.util.concurrent.atomic.AtomicReference<>();
+      Thread pending=new Thread(()->{try{check(!blocked.add(stalled(second,entered,release),now),"clear fences an in-flight image");}catch(Throwable e){problem.set(e);}});pending.start();
+      check(entered.await(2,TimeUnit.SECONDS),"attachment entered blocked read");
+      try{responsive(blocked);blocked.clear();}finally{release.countDown();pending.join(3000);}
+      check(!pending.isAlive()&&problem.get()==null,"blocked import completes without resurrection");check(blocked.list().length()==0,"clear remains empty after late completion");
+      // Privacy controls cancel an active check and erase storage even while its input is stalled.
+      android.os.Looper.prepare();android.os.Handler handler=new android.os.Handler(android.os.Looper.myLooper());
+      for(boolean disconnect:new boolean[]{false,true}){
+        PhotoStore privateCache=new PhotoStore(new File(root,"privacy"+disconnect),new Memory());Memory mailPrefs=new Memory();mailPrefs.data.put("secret","synthetic-sealed-secret");
+        PhotoMail mail=new PhotoMail(mailPrefs,privateCache,handler,()->{});MailCheck active=new MailCheck(60000);
+        java.lang.reflect.Field current=PhotoMail.class.getDeclaredField("current");current.setAccessible(true);current.set(mail,active);
+        CountDownLatch started=new CountDownLatch(1),finish=new CountDownLatch(1);Thread slow=new Thread(()->{try{privateCache.add(active.guard(stalled(second,started,finish)),now,active::active);}catch(Exception expected){}});slow.start();
+        check(started.await(2,TimeUnit.SECONDS),"privacy import starts");String oldEpoch=mail.status().getString("epoch");
+        try{check(disconnect?mail.disconnect():mail.eraseCache(),"privacy control succeeds during check");check(!mail.status().getBoolean("busy"),"cancelled check stops reporting busy");check(!oldEpoch.equals(mail.status().getString("epoch")),"privacy control changes cache epoch");check(mailPrefs.contains("secret")!=disconnect,"erase keeps delivery; disconnect removes secret");}finally{finish.countDown();slow.join(3000);mail.close();}
+        check(privateCache.list().length()==0&&!active.active(),"late import cannot repopulate privacy-erased cache");
+      }
       System.out.println("PhotoStore: "+checks+" isolated Android checks passed");
     }finally{remove(root);}
   }

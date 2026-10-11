@@ -1,5 +1,40 @@
 # Delivery verification — October 11, 2026
 
+## Version 2.14.2 — P1/P2 review fixes
+
+- All nine findings addressed: cache work outside the monitor; cancellable mail
+  checks/erase/disconnect with a 120-second total deadline and late-write fences;
+  malformed MIME/base64 isolation; slideshow refresh rescheduling; obsolete
+  calendar-worker cancellation; timestamp-based saved forecast labels; malformed
+  settings recovery; failing privacy exit status for personal commit metadata;
+  truthful staged-dashboard feedback. TLS trust/hostname checks remain intact.
+- 68 JavaScript tests, 15 Python tests, 61 isolated Android checks, four focused
+  rendered regressions, 31 full-app checks and 23 dashboard checks pass. No runtime
+  errors or startup retries in the final browser runs. Broader coverage includes
+  nine viewports and both text profiles; seven new synthetic screenshots reviewed.
+- The native harness runs actual PhotoMail/PhotoStore/Bitmap code with synthetic
+  pictures and temporary preferences, including blocked stream reads, erase,
+  disconnect and rejection of late cache publication. It does not access the
+  household account or cache.
+- Normal signed 2.14.2, code 26, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95, at
+  1920×1080 physical / 1280×720 CSS. Settings preserved; guide stayed closed.
+  Affected screens and draft/discard behavior checked privately. Reopened setup
+  guide, all three direct links and empty credential fields passed; original
+  onboarding flags were restored after the test.
+- Initial live read-only mail checks reached the total deadline during attachment
+  download and kept the saved cache. Bounded 256 KiB IMAP fetch chunks reduce round
+  trips; a subsequent check completed successfully in 24–31 seconds. A complete
+  refresh is verified; long-term unattended delivery is not established.
+- Source/history/final APK public-data and Gitleaks source/history scans pass
+  with zero findings. Private upgrade/undo record copied to frame Downloads.
+- Clock visual critique is documented separately; the four designs are unchanged.
+  No household screenshot, account identifier or event detail appears in either
+  report. Normal APK contains no household configuration or demo fixture.
+- APK SHA-256: `83244eca30d9db49f14e705ef2dde1668363f54079f5471dd30b215ba3056182`.
+- [Review fixes, evidence and screenshots](reviews/2026-10-11-review-fixes/index.html).
+  [Clock critique and every captured size](reviews/2026-10-11-clock-critique/index.html).
+
 ## Version 2.14.1 — Clock styles
 
 - Clock & date adds Classic, Analog, Stacked and Digital under Settings → Dashboard,

@@ -98,7 +98,16 @@ and runs actual PhotoStore/Bitmap/JSON code in an isolated shell-owned temporary
 directory with in-memory preferences and synthetic images. It covers received-date
 windows, count modes, deduplication, excluded-slot capacity, persistence through
 reopening/pruning/reimport, restore/erase and importer/exclusion races. It never
-opens the household cache or mailbox. Omit `--usb` to use paired TLS transport.
+opens the household cache or mailbox. It also stalls a synthetic import while
+checking responsive cache reads, erase/disconnect cancellation and rejection of
+late publication. Omit `--usb` to use paired TLS transport.
+
+For review regressions, run `node scripts/check_review_fixes.cjs` against the
+synthetic preview with the same Playwright/Chrome environment variables.
+`--capture docs/reviews/2026-10-11-review-fixes` captures slideshow refresh,
+unsaved dashboard edits, expired cached forecasts and malformed saved preferences.
+The Node tests separately cover calendar-worker cancellation; Python tests cover
+serialized malformed MIME, TLS socket cancellation and history-check exit status.
 
 
 For dashboard editing, run `scripts/check_dashboard.cjs` with the same Playwright

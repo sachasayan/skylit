@@ -28,6 +28,7 @@
   const pendingTitle=$('calendar-pending-count').closest('h3');inviters.append(pendingTitle,$('calendar-pending'));const approvedTitle=element('h3');approvedTitle.textContent='Shown on frame';inviters.append(approvedTitle,$('calendar-approved'),gateConfiguration);inviters.open=true;inviters.querySelector('summary').hidden=true;const reviewHeading=element('h3');reviewHeading.textContent='Inviter review';const scope=element('p','small subtle');scope.textContent='Choose whose events appear on this frame. This does not accept invitations in Google Calendar. Only loaded dates are reviewed.';inviters.prepend(reviewHeading,scope);
   const feedback=element('p','settings-feedback');feedback.id='settings-feedback';feedback.setAttribute('role','status');content.prepend(feedback);
   function saved(message='Saved on this frame'){feedback.textContent=message;}
+  app.settingsFeedback=message=>{saved(message);$('saved').textContent=message;};
   function openSettings(id=category,from=null){
     if(paused||window.SkylitPhotos.isOpen())return;
     const opening=!settingsOpen();
@@ -44,6 +45,7 @@
     for(const [key,panel] of panels)panel.hidden=key!==category;
     categorySelect.value=category;for(const [key,button] of categoryButtons){button.setAttribute('aria-current',key===category?'true':'false');button.classList.toggle('active',key===category);}content.scrollTop=0;feedback.textContent='';
     close.setAttribute('aria-label',returnTo==='setup'?'Continue setup':'Close settings');
+    if(category==='dashboard'&&window.SkylitDashboard)app.settingsFeedback(window.SkylitDashboard.isDirty()?'Unsaved dashboard changes':'Saved on this frame');
     if(category==='calendar-review')gateConfiguration.open=false;
     if(category==='device')renderHealth();if(category==='photos')loadDelivery();
     if(opening)settings.focus({preventScroll:true});
@@ -76,7 +78,7 @@
   document.addEventListener('focusin',e=>{if(settingsOpen()&&!settings.contains(e.target))settings.focus({preventScroll:true});});
   app.openSettings=openSettings;app.closeSettings=closeSettings;app.settingsOpen=settingsOpen;
   app.back=()=>{if(paused)restore();else if(settingsOpen())closeSettings();else app.go('overview');};
-  settings.addEventListener('change',e=>{if(e.target!==categorySelect&&e.target.matches('select,input[type=checkbox]')&&!e.target.closest('form,#calendar-inviters'))saved();});
+  settings.addEventListener('change',e=>{if(e.target!==categorySelect&&e.target.matches('select,input[type=checkbox]')&&!e.target.closest('form,#calendar-inviters,#settings-dashboard-panel'))saved();});
   function article(id,title,html){const a=element('article','card setting-block','<h3>'+title+'</h3>'+html);move(id,a);return a;}
   function apply(){const root=document.documentElement;root.dataset.text=prefs.text;for(const [key,value] of Object.entries(window.SkylitAppearance.displayTokens(prefs.text)))root.style.setProperty('--'+key,value);root.dataset.overview=prefs.preset;for(const id of ['home','youtube','household']){const button=document.querySelector('[data-tab="'+id+'"]');if(button)button.hidden=!prefs[id];}if(native&&native.configureQuiet)native.configureQuiet(prefs.quiet);window.dispatchEvent(new Event('skylit-display'));renderHousehold();}
   function setPref(key,value){const next=model.preferences({...prefs,[key]:value});if(write('skylit.frame',next)){prefs=next;apply();saved();}return next;}

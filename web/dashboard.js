@@ -104,7 +104,7 @@
     for(const [field,value] of [['column',item.x+1],['row',item.y+1],['width',item.w],['height',item.h]])$('dashboard-'+field).value=value;
     $('dashboard-width').min=definition.minW;$('dashboard-height').min=definition.minH;
   }
-  function paintPositions(){draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});paintSelection();$('dashboard-save').disabled=!dirty();$('dashboard-discard').disabled=!dirty();$('dashboard-undo').disabled=!history.length;}
+  function paintPositions(){draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});paintSelection();$('dashboard-save').disabled=!dirty();$('dashboard-discard').disabled=!dirty();$('dashboard-undo').disabled=!history.length;if(app.settingsFeedback)app.settingsFeedback(dirty()?'Unsaved dashboard changes':'Saved on this frame');}
   function paintEditor(){
     preview.replaceChildren();tiles.clear();
     draft.modules.forEach(item=>{const definition=model.definition(item.type),tile=node('div','dashboard-editor-tile'),move=node('button','dashboard-move',definition.name),size=node('span','dashboard-editor-size'),resize=node('button','dashboard-resize','⤡');
@@ -146,6 +146,6 @@
   $('dashboard-undo').onclick=()=>{if(!history.length)return;draft=history.pop();selected=draft.modules.find(item=>item.type===selected)?.type||draft.modules[0]?.type;preset.value='custom';paintEditor();message('Layout change undone.');};
   $('dashboard-discard').onclick=()=>{draft=model.copy(saved);history=[];selected=draft.modules[0]?.type;preset.value='custom';paintEditor();message('Unsaved changes discarded.');};
   $('dashboard-save').onclick=()=>{try{localStorage.setItem(key,JSON.stringify(draft));}catch(_){message('Could not save. Your current dashboard is unchanged.');return;}saved=model.copy(draft);history=[];applyLayout();paintPositions();message('Dashboard saved on this frame.');};
-  window.SkylitDashboard={layout:()=>model.copy(saved),draft:()=>model.copy(draft)};
+  window.SkylitDashboard={isDirty:dirty,layout:()=>model.copy(saved),draft:()=>model.copy(draft)};
   paintEditor();applyLayout();renderForecast();
 })();

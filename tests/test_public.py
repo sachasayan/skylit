@@ -2,6 +2,9 @@ import importlib.util
 from pathlib import Path
 import sys
 import unittest
+from unittest import mock
+import io
+from contextlib import redirect_stdout
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import check_public
@@ -28,3 +31,16 @@ class PublicChecksTest(unittest.TestCase):
         self.assertFalse(check_public.FORBIDDEN.search('web/local-config.example.js'))
         self.assertTrue(check_public.FORBIDDEN.search('.local/device.json'))
         self.assertTrue(check_public.FORBIDDEN.search('private.keystore'))
+
+    def test_personal_commit_metadata_fails_history_check_without_printing_address(self):
+        sentinel=b'metadata-sentinel'+b'@gmail.com'
+        def git(*args):
+            if args[0]=='log':return sentinel+b'\n'
+            return b''
+        output=io.StringIO()
+        with mock.patch.object(check_public,'git',side_effect=git),mock.patch.object(sys,'argv',['check_public.py','--history']),redirect_stdout(output):
+            self.assertTrue(check_public.main())
+        self.assertIn('FAIL Git metadata',output.getvalue())
+        self.assertNotIn(sentinel.decode(),output.getvalue())
+        with mock.patch.object(check_public,'git',return_value=b''),mock.patch.object(sys,'argv',['check_public.py','--history']),redirect_stdout(io.StringIO()):
+            self.assertFalse(check_public.main())

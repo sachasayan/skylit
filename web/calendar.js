@@ -20,7 +20,15 @@ const visible=e=>!hiddenSources.includes(e.source);
 const label=(key,options)=>new Intl.DateTimeFormat('en-CA',Object.assign({timeZone:'UTC'},options)).format(new Date(key+'T12:00:00Z'));
 function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
 function range(){const first=month+'-01';const start=addDays(first,-new Date(first+'T12:00:00Z').getUTCDay());return {from:start,to:addDays(start,70),zone:prefs().timezone};}
-function parse(body,bounds){return new Promise((resolve,reject)=>{let worker;const fail=()=>{if(worker)worker.terminate();clearTimeout(timeout);reject(Error('Calendar could not be read.'))};const timeout=setTimeout(fail,6000);try{worker=new Worker('calendar-worker.js');worker.onerror=fail;worker.onmessage=e=>{worker.terminate();clearTimeout(timeout);if(e.data.error)reject(Error(e.data.error));else resolve(e.data.events)};worker.postMessage(Object.assign({body},bounds));}catch(e){fail()}});}
+let renderWorkers=new Set();
+function parse(body,bounds,group){return new Promise((resolve,reject)=>{
+ let worker,timeout,finished=false;
+ const finish=(error,events)=>{if(finished)return;finished=true;if(worker)worker.terminate();clearTimeout(timeout);if(group)group.delete(cancel);if(error)reject(error);else resolve(events);};
+ const cancel=()=>finish(Error('Calendar render superseded.'));
+ if(group)group.add(cancel);
+ timeout=setTimeout(()=>finish(Error('Calendar could not be read.')),6000);
+ try{worker=new Worker('calendar-worker.js');worker.onerror=()=>finish(Error('Calendar could not be read.'));worker.onmessage=e=>finish(e.data.error?Error(e.data.error):null,e.data.events);worker.postMessage(Object.assign({body},bounds));}catch(e){finish(e);}
+});}
 function read(){try{sources=JSON.parse(bridge.calendarList());}catch(e){sources=[];}}
 function settings(){
   const list=$('calendar-sources');list.textContent='';
@@ -84,14 +92,19 @@ function paintOverview(){
  if(!sources.length){const add=node('button','Add a calendar','secondary');add.onclick=()=>window.SkylitApp.openSettings?window.SkylitApp.openSettings('calendars','overview'):setup();host.append(add);}
 }
 async function render(){
+ for(const cancel of renderWorkers)cancel();
+ const workers=renderWorkers=new Set();
  const version=++revision,bounds=range(),snapshot=sources.slice(),upcoming={from:today(),to:addDays(today(),14),zone:prefs().timezone};
  const result=[],overview=[],failures=[];
  for(const s of snapshot){if(!s.body)continue;try{
-  const list=await parse(s.body,bounds);
-  const next=bounds.from<=upcoming.from&&bounds.to>=upcoming.to?list:await parse(s.body,upcoming);
+  if(version!==revision)return;
+  const list=await parse(s.body,bounds,workers);
+  if(version!==revision)return;
+  const next=bounds.from<=upcoming.from&&bounds.to>=upcoming.to?list:await parse(s.body,upcoming,workers);
+  if(version!==revision)return;
   const annotate=e=>Object.assign({},e,{source:s.id,name:s.name,color:s.color});
   result.push(...list.map(annotate));overview.push(...next.filter(e=>e.startDay<upcoming.to).map(annotate));
- }catch(e){failures.push(s.id);}}
+ }catch(e){if(version!==revision)return;failures.push(s.id);}}
  if(version!==revision)return;
  failures.forEach(id=>errors.set(id,'Could not read saved events. Try refreshing.'));
  allEvents=result.sort((a,b)=>a.startDay.localeCompare(b.startDay)||Number(b.allDay)-Number(a.allDay)||a.start-b.start);allOverviewEvents=overview;applyGate();

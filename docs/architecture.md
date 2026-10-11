@@ -69,6 +69,12 @@ AES-GCM key and bound to the account address. It never reaches web assets or the
 remote service WebViews. `PhotoPolicy` centralizes limits; `PhotoStore` keeps only
 deduplicated, resized JPEGs in app-private storage and deletes expired/excess files.
 Successful checks set a last-checked time, and failures retain usable pictures.
+Each check has a 120-second total deadline and a cancellation token that closes
+its tracked TLS sockets using the default trust store and hostname verification.
+IMAP attachment fetches use bounded 256 KiB chunks to avoid excessive round trips.
+Disconnect/erase cancel immediately; stale workers cannot publish photos or mark
+a later check successful. Malformed MIME/base64 parts are isolated within a
+bounded walk, while connection failures still fail the check.
 The Android viewer intercepts only exact local HTTPS photo paths for the local
 dashboard; remote web content gets neither private photos nor the bridge.
 
@@ -170,7 +176,10 @@ days or a zero-day count mode. Count mode reads the most recent 1,000 inbox mess
 without an age cutoff; all modes retain the existing 100-part per-check limit.
 `PhotoStore` gives visible pictures their selected capacity first, retains excluded
 cached copies for Undo only when space remains, and caps all images together at 50.
-Its synchronized exclusion/add/prune operations prevent refresh races. Exclusion
+Network reads, decode/rotation, JPEG encoding and temporary-file writes happen
+outside the cache monitor. Publication, exclusion and pruning share a short lock;
+a generation fence prevents an erased cache from being repopulated by old work.
+Active temporary files survive pruning; abandoned ones are removed at startup. Exclusion
 hashes are available only to the local dashboard; stale callbacks reread current
 native rules before rendering. Legacy hidden choices migrate to native exclusions.
 

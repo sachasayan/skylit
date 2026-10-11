@@ -64,7 +64,7 @@ def main():
                 issues.append(('APK', 'unexpected asset'))
             for name in apk.namelist():
                 issues.extend(('APK:'+name, rule) for rule in findings(apk.read(name)))
-    if metadata_review: print('REVIEW: personal email address exists in commit metadata; resolve before public visibility.')
+    if metadata_review: issues.append(('Git metadata', 'personal email in author/committer metadata'))
     for name, rule in issues: print(f'FAIL {name}: {rule}')
     print(f'Public-data check: {len(issues)} findings; {len(set(filter(None, paths)))} source files; {blob_count} history blobs.')
     return bool(issues)
