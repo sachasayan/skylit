@@ -1,5 +1,35 @@
 # Delivery verification — October 11, 2026
 
+## Version 2.14.0 — Modular dashboard
+
+- Settings → Dashboard stages draggable/resizable modules on a 12 × 12 grid,
+  with a nine-module gallery, minimum sizes, no overlap, exact fields, keyboard
+  alternatives, internal drag scrolling, automatic room-making, Save/Discard/Undo.
+- Four original modules preserve their controllers/actions. Hourly forecast,
+  Note, Shopping list, Countdowns and Timers share existing service/Household data.
+  Removal retains data; empty layouts are supported. Legacy presets/note migrate.
+  Custom layouts stay local and are excluded from display-preference transfer.
+- 60 JavaScript tests, 14 Python tests, 23 rendered dashboard checks and 31 existing
+  rendered regression checks pass. Zero runtime errors or startup retries. Nine
+  viewport sizes with both text profiles, all minimum/full sizes/alternate placements,
+  storage failure, pointer/keyboard, gallery drag/autoscroll and shared-data actions
+  verified. Eighty synthetic captures retained; themes and affected states reviewed.
+- Normal signed 2.14.0, code 24, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95 at 1920×1080
+  physical / 1280×720 CSS. Installed APK equals the built artifact byte for byte.
+- Thirteen frame checks pass: physical Settings navigation, touch move/resize,
+  overlap rejection, gallery/save, all-nine geometry, actual process restart,
+  all minimum-size modules, removal/Undo, affected screen captures, reopened guide
+  with empty credentials/Android Back, and preserved original data. Twenty-two
+  physical screenshots remain private; original layout/preferences, account,
+  photo cache, calendar configuration, retention/exclusions and HOME preserved.
+- Private upgrade/undo record copied to Downloads; temporary inspection and task
+  ADB forward removed. No new service setup or native data migration. Live mail,
+  calendar, home control and video playback were not reverified by these UI tests.
+- Source/history/APK public-data and Gitleaks history/source checks: zero findings.
+  APK SHA-256: `7072af0d2c9ea717cb47bd2d9ced99d9d8e6cd6176f1af4fb2d9672495f6bde4`.
+- [Module editor, responsive sizes and screenshots](reviews/2026-10-11-modular-dashboard/index.html).
+
 ## Version 2.13.0 — Settings navigation and gallery curation
 
 - Settings uses a left-side category rail inside its lightbox on landscape

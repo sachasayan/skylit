@@ -1,0 +1,748 @@
+{
+  "date": "2026-10-11",
+  "version": "2.14.0",
+  "synthetic": true,
+  "checks": [
+    "Settings lightbox preserves context, traps focus and dismisses safely",
+    "Settings categories and feature return routes",
+    "Photo choices live in Settings and persist through refresh, reload and undo",
+    "Gallery trash exclusion survives Check now, missing cache, restart and restore",
+    "Retention selector covers date/count modes and saves across reload",
+    "Three slideshow styles and duplicate-free collage",
+    "Simple month calendar, Settings visibility, search, metadata and event countdown",
+    "Household note, shopping undo, countdown, timer and restart persistence",
+    "Manual privacy pause and safe restore",
+    "Optional navigation and display preference transfer",
+    "Owner-curated YouTube shortcut persistence",
+    "Photo icons and touch controls fit short landscape and narrow viewports",
+    "Full-width empty forecast and direct Overview city setup",
+    "Landscape/narrow geometry 960\u00d7540 standard",
+    "Landscape/narrow geometry 960\u00d7540 large",
+    "Landscape/narrow geometry 1024\u00d7640 standard",
+    "Landscape/narrow geometry 1024\u00d7640 large",
+    "Landscape/narrow geometry 1280\u00d7720 standard",
+    "Landscape/narrow geometry 1280\u00d7720 large",
+    "Landscape/narrow geometry 1280\u00d7800 standard",
+    "Landscape/narrow geometry 1280\u00d7800 large",
+    "Landscape/narrow geometry 1440\u00d7900 standard",
+    "Landscape/narrow geometry 1440\u00d7900 large",
+    "Landscape/narrow geometry 1600\u00d7900 standard",
+    "Landscape/narrow geometry 1600\u00d7900 large",
+    "Landscape/narrow geometry 1920\u00d71080 standard",
+    "Landscape/narrow geometry 1920\u00d71080 large",
+    "Landscape/narrow geometry 1920\u00d71200 standard",
+    "Landscape/narrow geometry 1920\u00d71200 large",
+    "Landscape/narrow geometry 390\u00d7844 standard",
+    "Landscape/narrow geometry 390\u00d7844 large"
+  ],
+  "loadRetries": [],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/overview.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather",
+      "title": "Weather",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "photos",
+      "title": "Photos",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar",
+      "title": "Calendar",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/calendar.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "home",
+      "title": "Home",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/home.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "youtube",
+      "title": "Youtube",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/youtube.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/settings.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Setup",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/setup.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household",
+      "title": "Household",
+      "group": "Main screens",
+      "notes": "1280\u00d7720 CSS; 1920\u00d71080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/household.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-appearance",
+      "title": "Settings \u00b7 appearance",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-appearance.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-dashboard",
+      "title": "Settings \u00b7 dashboard",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-dashboard.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-momo",
+      "title": "Settings \u00b7 momo",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-momo.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-weather",
+      "title": "Settings \u00b7 weather",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-photos",
+      "title": "Settings \u00b7 photos",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-calendars",
+      "title": "Settings \u00b7 calendars",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-calendars.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-household",
+      "title": "Settings \u00b7 household",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-household.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-services",
+      "title": "Settings \u00b7 services",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-services.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-device",
+      "title": "Settings \u00b7 device",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-device.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-calendar-review",
+      "title": "Settings \u00b7 calendar-review",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-calendar-review.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-browser",
+      "title": "Photo browser \u00b7 icon controls",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/photo-browser.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-zoom",
+      "title": "Photo zoom",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/photo-zoom.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-options",
+      "title": "Settings \u00b7 local picture choices",
+      "group": "Photos",
+      "notes": "Owner-entered synthetic caption and received date. Choices are absent from the player.",
+      "file": "screenshots/photo-options.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-fade",
+      "title": "Slideshow \u00b7 fade",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-fade.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-stack",
+      "title": "Slideshow \u00b7 stack",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-stack.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-collage",
+      "title": "Slideshow \u00b7 collage",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-collage.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-month",
+      "title": "Calendar \u00b7 month and agenda",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-month.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-search",
+      "title": "Search loaded calendar dates",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-search.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-details",
+      "title": "Calendar event details",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-details.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household-populated",
+      "title": "Household \u00b7 local note, shopping and countdowns",
+      "group": "Household",
+      "notes": "Synthetic note/list/date. Timer is a visible reminder while Skylit is open.",
+      "file": "screenshots/household-populated.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        862
+      ]
+    },
+    {
+      "id": "overview-note",
+      "title": "Overview \u00b7 optional note excerpt",
+      "group": "Household",
+      "notes": "",
+      "file": "screenshots/overview-note.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "privacy-pause",
+      "title": "Privacy pause",
+      "group": "Privacy",
+      "notes": "Hides photos, event content and notes; dashboard colour mode remains independent.",
+      "file": "screenshots/privacy-pause.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "preferences-transfer",
+      "title": "Non-secret display preferences",
+      "group": "Settings",
+      "notes": "Transfer excludes private setup and household content.",
+      "file": "screenshots/preferences-transfer.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-balanced",
+      "title": "Overview \u00b7 balanced preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-balanced.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-photos",
+      "title": "Overview \u00b7 photos preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-agenda",
+      "title": "Overview \u00b7 agenda preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-agenda.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-linen-light",
+      "title": "linen \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-linen-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-linen-dark",
+      "title": "linen \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-linen-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-sage-light",
+      "title": "sage \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-sage-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-sage-dark",
+      "title": "sage \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-sage-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-stone-light",
+      "title": "stone \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-stone-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-stone-dark",
+      "title": "stone \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-stone-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-ocean-light",
+      "title": "ocean \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-ocean-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-ocean-dark",
+      "title": "ocean \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-ocean-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-plum-light",
+      "title": "plum \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-plum-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-plum-dark",
+      "title": "plum \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-plum-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-contrast-light",
+      "title": "contrast \u00b7 light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-contrast-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-contrast-dark",
+      "title": "contrast \u00b7 dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-contrast-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "captureNote": "209 screenshots generated by the full regression run; the 47 distinct screen, editor, state and palette captures are retained here. Dashboard geometry captures are in the parent report."
+}

@@ -158,7 +158,7 @@ Avoid selectors newer than Chromium 95 (for example `:has`).
 Settings has eight focused destinations with one shared editor per preference. New
 controls belong there or in on-demand photo/event details. Household navigation and
 the Overview note are off by default; healthy service timestamps remain off Overview.
-Three bounded Overview presets replace a freeform widget builder. Preserve Momo,
+The three bounded Overview presets introduced in 2.12 remain as starting layouts in the 2.14 module editor. Preserve Momo,
 the six light/dark pairs and independent offline solar appearance.
 
 Public before/after reports live under `docs/reviews/`. Use `scripts/check_ui.cjs`
@@ -209,3 +209,27 @@ separate button, avoiding nested controls and accidental viewer opening. It mean
 exclude from this frame, with Undo and restore in Settings. Use one retention
 selector with date/count groups; capacity is shown only for date-based choices.
 Keep all further delivery/curation controls in Settings and the player minimal.
+
+
+## Modular dashboard — 2.14.0
+
+Keep configuration in Settings → Dashboard. The normal dashboard contains no drag
+handles or settings toolbar. Start with the familiar four modules; offer Clock &
+date, Weather, Photos, Upcoming events, Hourly forecast, Note, Shopping list,
+Countdowns and Timers in the gallery. One of each keeps the layout and data model
+simple. Reuse existing photo curation, calendar filtering and Household content.
+
+Use a twelve-column/twelve-row grid with integer resize steps, module-specific
+minimums and no overlap. Preserve intentional empty space. Tap-add makes room with
+an explicit status and Undo; gallery dragging only uses available space. Stage
+edits in a named preview, with Save, Discard, Undo and precise size/position fields.
+Retain 44-pixel drag/resize targets; touch gallery scrolling uses the card body,
+while its separate grip starts a drag. Keep the Settings heading and Close fixed.
+
+Render the four originals inside adaptive wrappers. Scale clock/temperature from
+their actual bounds, keep loose photos inside the assigned space, simplify weather
+metrics at small sizes, and scroll event/utility content internally. Forecast,
+Countdowns and Timers need four grid rows to keep useful content visible beneath
+their headings. Keep arm's-length text and the existing warm palettes/Momo.
+Validate minimum/full sizes and different positions as well as complete 16:9/16:10
+layouts, standard/larger text, all six light/dark pairs and a narrow fallback.

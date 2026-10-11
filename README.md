@@ -35,7 +35,8 @@ not a household account. They demonstrate the interface, not a live service sign
 | --- | --- |
 | ![Calendar](docs/screenshots/calendar-linen.jpg) | ![Appearance settings](docs/screenshots/appearance.jpg) |
 
-[Latest Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
+[Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).
+[Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
 [Slideshow controls report](docs/reviews/2026-10-11-controls/index.html).
 [October 11 refinement report with revised screenshots](docs/reviews/2026-10-11-refinement/index.html).
 [Earlier implementation report](docs/reviews/2026-10-11-implementation/index.html).
@@ -44,14 +45,14 @@ not a household account. They demonstrate the interface, not a live service sign
 
 | Feature | How it works |
 | --- | --- |
-| Overview | One-screen clock/date, illustrated current weather, recent photos when available, and three upcoming events |
+| Overview | Configurable, responsive modules: clock/date, weather, photos, upcoming events, hourly forecast, note, shopping list, countdowns and timers |
 | Weather | Live Open-Meteo forecast, city search, hourly and five-day outlook, saved forecast when offline, nine illustrated condition scenes with day/night variants |
 | Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, date/count retention, Fit/Fill and captions, three styles, shuffle/repeat, configurable mail checks and optional exact sender rule |
 | Calendar | Read-only month and selected-date agenda, source visibility in Settings, editable labels/colours, loaded-date search, direct Google iCal feeds, offline cache and on-frame inviter review |
 | Home | Google Home’s website, using its supported controls and your own session |
 | YouTube | Touch-friendly mobile site or standard website, with full-screen video support |
 | Momo | Procedural Canvas 2D character, reactions, accessory gallery, daily outfits, night snoozes and morning yawns |
-| Settings | Lightbox over the current screen, left-side category navigation, six paired palettes, astronomical mode, larger text, Overview presets, optional navigation, quiet hours/privacy pause, service recovery and non-secret display transfer |
+| Settings | Lightbox over the current screen, left-side category navigation, six paired palettes, astronomical mode, larger text, draggable/resizable dashboard editor and module gallery, optional navigation, quiet hours/privacy pause, service recovery and non-secret display transfer |
 | Household · optional | Local pinned note, shopping checklist with undo, countdowns and visible timers; no phone sync or background-alert promise |
 | First-run guide | A three-step on-frame guide for city, photos and calendar; reopen it from Settings at any time |
 
@@ -73,6 +74,24 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory web
 Open **http://127.0.0.1:8765**. A missing `local-config.js` is harmless in a fresh
 checkout. A fresh browser opens the setup guide. Settings save on that browser/device; a desktop preview opens external
 services in new tabs. Native idle switching is available in the Android app.
+
+## Configure the dashboard
+
+Open **Settings → Dashboard**. Drag a module by its name to move it and drag its
+corner to resize. Modules snap to a 12 × 12 grid and cannot overlap. Select a
+module to set its row, column, width and height precisely; keyboard arrows move
+it, and Shift + arrows resize it.
+
+The gallery has nine modules, with one of each per dashboard. Tap a card to add
+it, or drag its grip into empty space in the preview. When a tap needs more room,
+Skylit arranges the modules automatically; **Undo** restores the previous layout.
+**Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
+Removing a module leaves its photos, calendars and Household data intact.
+
+Balanced, Photos first and Agenda first are starting layouts. Layout coordinates
+adapt to 16:9 and 16:10 landscape screens; smaller modules simplify their content
+or scroll internally. Narrow previews stack modules. Custom layouts are stored
+locally and are excluded from display-preference transfer.
 
 ## Make it your household’s dashboard
 

@@ -22,6 +22,8 @@ regression test ensures script/resource fetches pass through unchanged.
   accent/button text and control borders. Regular palettes are visually reviewed.
 - Overview: expired/ongoing/all-day events, exclusive all-day end dates, result limit,
   stable sorting, weather validity/freshness.
+- Dashboard layout: legacy migration, schema stripping, bounds/minimums, collisions,
+  unique modules, empty layouts, automatic packing and randomized edit sequences.
 - Calendar controller: overlapping worker completion, stale errors, month-independent
   upcoming list, removal during an in-flight parse without resurrecting events,
   grouped overview dates, redundant metadata removal and offline warning visibility.
@@ -97,3 +99,14 @@ directory with in-memory preferences and synthetic images. It covers received-da
 windows, count modes, deduplication, excluded-slot capacity, persistence through
 reopening/pruning/reimport, restore/erase and importer/exclusion races. It never
 opens the household cache or mailbox. Omit `--usb` to use paired TLS transport.
+
+
+For dashboard editing, run `scripts/check_dashboard.cjs` with the same Playwright
+and Chrome environment variables used for `scripts/check_ui.cjs`, against the
+isolated synthetic preview. `--capture docs/reviews/2026-10-11-modular-dashboard`
+captures default/editor/gallery, all nine modules, every minimum/full size and
+nine viewport sizes. Checks cover pointer/keyboard movement, resizing/cancellation,
+overlap rejection, Save/Discard/Undo, storage failure, auto-arrangement, gallery
+scroll/drop, actual Household data actions and reload persistence. Physical
+acceptance must use touch on the selected frame and an actual process restart;
+restore the original layout and verify private preference/account/cache hashes.

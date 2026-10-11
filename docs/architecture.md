@@ -173,3 +173,27 @@ cached copies for Undo only when space remains, and caps all images together at 
 Its synchronized exclusion/add/prune operations prevent refresh races. Exclusion
 hashes are available only to the local dashboard; stale callbacks reread current
 native rules before rendering. Legacy hidden choices migrate to native exclusions.
+
+
+In 2.14.0, `dashboard-model.js` validates a versioned layout with nine known module
+types and integer positions/sizes on a 12 × 12 grid. It rejects overlaps, duplicate
+types, invalid sizes and unknown records, and strips fields outside the layout
+schema. An absent layout migrates the previous preset and optional note excerpt.
+An explicitly empty dashboard is valid. `skylit.dashboard` stores only module
+identifiers and coordinates; household data remains in the existing stores.
+
+`dashboard.js` moves the four existing Overview nodes into grid wrappers, retaining
+their IDs, controllers, service state and event actions. Five additional modules
+read existing hourly weather and Household state. Shopping actions use the same
+storage/Undo path as Household. Countdown dates use the configured city zone and
+update at local midnight; timers remain visible reminders without background alarms.
+There are no new requests, permissions or service integrations.
+
+The Dashboard Settings editor has a separate draft and bounded Undo history. Save
+writes the draft before applying it, so a storage failure preserves the visible
+layout. Pointer capture, cancellation, internal autoscroll and keyboard/numeric
+alternatives support placement and resizing. Tap-add can compact modules into a
+three-column layout when necessary; direct drop requires free space. ResizeObserver
+chooses compact styling from actual module dimensions, without container queries.
+CSS grid scales coordinates across landscape sizes; narrow previews stack in visual
+reading order. Existing display-transfer format v1 excludes custom dashboard layouts.
