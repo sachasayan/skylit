@@ -23,6 +23,10 @@
     }
     wrapper.hidden=true;wrappers.set(definition.type,wrapper);grid.append(wrapper);
   }
+  const clockVisual=SkylitClock.create(document);originals.get('clock').prepend(clockVisual.root);
+  let clockSample=null,sampleVisual=null;
+  function paintClock(instant=Date.now()){const prefs=app.calendarPreferences(),data=SkylitClock.read(instant,prefs.timezone,prefs.clock),style=SkylitClock.style(saved.modules.find(item=>item.type==='clock')?.style);wrappers.get('clock').dataset.clockStyle=style;clockVisual.update(style,data);if(clockSample){const choice=SkylitClock.style(draft.modules.find(item=>item.type==='clock')?.style);clockSample.dataset.clockStyle=choice;sampleVisual.update(choice,data);clockSample.querySelector('.clock-sample-time').textContent=data.label;clockSample.querySelector('.clock-sample-date').textContent=data.date;clockSample.setAttribute('aria-label',choice+' clock preview: '+data.label+', '+data.date);}}
+  window.addEventListener('skylit-clock',e=>paintClock(e.detail.instant));
   const photoEmpty=node('button','dashboard-photo-empty');photoEmpty.textContent='Choose photos';photoEmpty.onclick=()=>app.openSettings('photos','overview');wrappers.get('photos').append(photoEmpty);
   const empty=node('div','dashboard-empty');empty.append(node('h2',null,'Your dashboard is empty'));const configure=node('button','secondary','Choose modules');configure.onclick=()=>app.openSettings('dashboard','overview');empty.append(configure);grid.append(empty);
   function position(n,item){n.style.gridColumn=(item.x+1)+' / span '+item.w;n.style.gridRow=(item.y+1)+' / span '+item.h;}
@@ -30,12 +34,13 @@
     for(const [type,n] of wrappers){const item=saved.modules.find(item=>item.type===type);n.hidden=!item;if(item)position(n,item);}
     // Match reading and keyboard order to the visible arrangement.
     saved.modules.slice().sort((a,b)=>a.y-b.y||a.x-b.x).forEach(item=>grid.append(wrappers.get(item.type)));
-    empty.hidden=!!saved.modules.length;sizeModules();renderUtilities();
+    empty.hidden=!!saved.modules.length;paintClock();sizeModules();renderUtilities();
   }
   function sizeModules(){
     for(const [type,n] of wrappers){if(n.hidden)continue;const rect=n.getBoundingClientRect(),w=rect.width,h=rect.height;if(!w||!h)continue;
       n.dataset.density=w<340||h<220?'compact':'regular';n.dataset.short=String(h<280);n.dataset.narrow=String(w<340);
       n.style.setProperty('--module-clock',Math.max(32,Math.min(140,w*.19,h*.48))+'px');
+      if(type==='clock'){const narrow=w<340;n.style.setProperty('--module-dial',Math.max(44,Math.min(420,narrow?w-24:w*.48,h-(narrow?54:32)))+'px');n.style.setProperty('--module-stack',Math.max(24,Math.min(140,(h-40)/2.4,w*.22))+'px');}
       n.style.setProperty('--module-temperature',Math.max(36,Math.min(100,w*.17,h*.28))+'px');
     }
   }
@@ -78,10 +83,14 @@
   window.addEventListener('skylit-display',sizeModules);window.addEventListener('skylit-tab',sizeModules);window.addEventListener('online',renderForecast);window.addEventListener('offline',renderForecast);
   setInterval(()=>{if(app.status().tab==='overview'&&!app.settingsOpen()){if(today()!==renderedDay)renderUtilities();else paintTimers();}},1000);
 
-  panel.innerHTML='<article class="card setting-block dashboard-editor"><h3>Dashboard</h3><p class="small subtle">Drag modules to place them; drag a corner to resize. Changes stay in this preview until you save.</p><div class="dashboard-editor-toolbar"><div id="dashboard-starting-layout"></div><button id="dashboard-arrange" class="secondary">Arrange neatly</button><button id="dashboard-undo" class="quiet">Undo</button></div><div id="dashboard-editor-grid" class="dashboard-editor-grid" role="group" aria-label="Dashboard layout preview"></div><p id="dashboard-editor-status" class="small" role="status"></p><div id="dashboard-selection" class="dashboard-selection"><h4 id="dashboard-selection-title"></h4><p class="tiny subtle">Arrow keys on a module move it. Shift + arrows resize it.</p><div class="dashboard-fields"><div><label for="dashboard-column">Column</label><input id="dashboard-column" type="number" min="1" max="12"></div><div><label for="dashboard-row">Row</label><input id="dashboard-row" type="number" min="1" max="12"></div><div><label for="dashboard-width">Width</label><input id="dashboard-width" type="number" max="12"></div><div><label for="dashboard-height">Height</label><input id="dashboard-height" type="number" max="12"></div></div><button id="dashboard-remove" class="quiet">Remove module</button></div><div class="dashboard-editor-actions"><button id="dashboard-save" class="primary">Save dashboard</button><button id="dashboard-discard" class="quiet">Discard changes</button></div></article><article class="card setting-block"><h3>Module gallery</h3><p class="small subtle">Tap to add, or drag into an empty space above. One of each module. Adding to a full layout arranges modules to make room.</p><div id="dashboard-gallery" class="dashboard-gallery"></div></article>';
+  panel.innerHTML='<article class="card setting-block dashboard-editor"><h3>Dashboard</h3><p class="small subtle">Drag modules to place them; drag a corner to resize. Changes stay in this preview until you save.</p><div class="dashboard-editor-toolbar"><div id="dashboard-starting-layout"></div><button id="dashboard-arrange" class="secondary">Arrange neatly</button><button id="dashboard-undo" class="quiet">Undo</button></div><div id="dashboard-editor-grid" class="dashboard-editor-grid" role="group" aria-label="Dashboard layout preview"></div><p id="dashboard-editor-status" class="small" role="status"></p><div id="dashboard-selection" class="dashboard-selection"><h4 id="dashboard-selection-title"></h4><p class="tiny subtle">Arrow keys on a module move it. Shift + arrows resize it.</p><div class="dashboard-fields"><div><label for="dashboard-column">Column</label><input id="dashboard-column" type="number" min="1" max="12"></div><div><label for="dashboard-row">Row</label><input id="dashboard-row" type="number" min="1" max="12"></div><div><label for="dashboard-width">Width</label><input id="dashboard-width" type="number" max="12"></div><div><label for="dashboard-height">Height</label><input id="dashboard-height" type="number" max="12"></div></div><div id="dashboard-clock-options"><label for="dashboard-clock-style">Clock style</label><select id="dashboard-clock-style"></select><div id="dashboard-clock-preview" class="clock-sample" role="img" aria-label="Clock style preview"></div></div><button id="dashboard-remove" class="quiet">Remove module</button></div><div class="dashboard-editor-actions"><button id="dashboard-save" class="primary">Save dashboard</button><button id="dashboard-discard" class="quiet">Discard changes</button></div></article><article class="card setting-block"><h3>Module gallery</h3><p class="small subtle">Tap to add, or drag into an empty space above. One of each module. Adding to a full layout arranges modules to make room.</p><div id="dashboard-gallery" class="dashboard-gallery"></div></article>';
+  const clockOptions=$('dashboard-clock-options'),stylePicker=$('dashboard-clock-style');
+  SkylitClock.styles.forEach(style=>{const option=node('option',null,style.name);option.value=style.id;stylePicker.append(option);});
+  clockSample=$('dashboard-clock-preview');sampleVisual=SkylitClock.create(document);const sampleTime=node('div','clock-sample-time'),sampleDate=node('p','clock-sample-date');sampleTime.setAttribute('aria-hidden','true');sampleDate.setAttribute('aria-hidden','true');clockSample.append(sampleVisual.root,sampleTime,sampleDate);
+  stylePicker.onchange=()=>{const next=model.change(draft,'clock',{style:stylePicker.value});if(next){remember();draft=next;preset.value='custom';paintPositions();message('Clock style changed. Save to apply it.');}};
   const start=$('dashboard-starting-layout'),presetLabel=document.querySelector('label[for=overview-preset]'),preset=$('overview-preset');
   presetLabel.textContent='Starting layout';start.append(presetLabel,preset);const custom=node('option',null,'Custom');custom.value='custom';custom.disabled=true;preset.prepend(custom);
-  preset.value='custom';preset.onchange=()=>{remember();draft=model.preset(preset.value);selected='clock';paintEditor();message('Starting layout selected. Save to apply it.');};
+  preset.value='custom';preset.onchange=()=>{remember();const style=draft.modules.find(item=>item.type==='clock')?.style||'classic';draft=model.change(model.preset(preset.value),'clock',{style});selected='clock';paintEditor();message('Starting layout selected. Save to apply it.');};
   // The old optional excerpt migrates to a real Note module; configuration now lives here.
   $('household-excerpt').closest('label').remove();
   const preview=$('dashboard-editor-grid'),tiles=new Map();
@@ -91,7 +100,7 @@
   function paintSelection(){
     const item=draft.modules.find(item=>item.type===selected);$('dashboard-selection').hidden=!item;
     tiles.forEach((tile,type)=>{tile.classList.toggle('selected',type===selected);tile.querySelector('.dashboard-move').setAttribute('aria-pressed',String(type===selected));});
-    if(!item)return;const definition=model.definition(selected);$('dashboard-selection-title').textContent=definition.name;
+    clockOptions.hidden=selected!=='clock'||!item;if(!item)return;const definition=model.definition(selected);stylePicker.value=SkylitClock.style(item.style);paintClock();$('dashboard-selection-title').textContent=definition.name;
     for(const [field,value] of [['column',item.x+1],['row',item.y+1],['width',item.w],['height',item.h]])$('dashboard-'+field).value=value;
     $('dashboard-width').min=definition.minW;$('dashboard-height').min=definition.minH;
   }

@@ -86,3 +86,38 @@
 
 #overview .dashboard-module[data-density=compact].dashboard-utility h2{font-size:20px}
 #overview .dashboard-module[data-density=compact] .dashboard-hours .hour{min-height:80px;padding:6px;font-size:12px}
+
+/* Alternative clocks keep the original heading as the accessible current time. */
+.clock-visual{display:none;min-width:0;min-height:0}
+.clock-visual[data-clock-style=analog],.clock-visual[data-clock-style=stacked]{display:block}
+.clock-dial,.clock-stack{display:none}
+[data-clock-style=analog]>.clock-dial{display:block;width:100%;height:100%}
+.clock-face{fill:var(--bg);stroke:var(--line);stroke-width:2}
+.clock-tick{stroke:var(--muted);stroke-width:2.5;stroke-linecap:round}
+.clock-numeral{fill:var(--ink);font:30px Georgia,serif}
+.clock-hour-hand{stroke:var(--ink);stroke-width:7;stroke-linecap:round}
+.clock-minute-hand{stroke:var(--accent);stroke-width:4;stroke-linecap:round}
+.clock-pin{fill:var(--accent)}
+[data-clock-style=stacked]>.clock-stack{display:grid;grid-template-columns:auto auto;gap:6px;align-items:center;font:var(--module-stack,64px)/1.05 ui-monospace,'Courier New',monospace;font-variant-numeric:tabular-nums}
+.clock-stack-hour,.clock-stack-minute{display:block;background:var(--soft);border-radius:9px;padding:6px 10px;text-align:center;min-width:0}
+.clock-stack-hour{grid-column:1;grid-row:1}.clock-stack-minute{grid-column:1;grid-row:2}
+.clock-stack-period{grid-column:2;grid-row:1;font:14px system-ui;color:var(--muted)}
+#overview .dashboard-module[data-clock-style=analog]>.overview-heading,#overview .dashboard-module[data-clock-style=stacked]>.overview-heading{display:grid;grid-template-columns:var(--module-dial) minmax(0,1fr);gap:18px;align-items:center;padding:16px;position:relative}
+#overview .dashboard-module[data-clock-style=stacked]>.overview-heading{grid-template-columns:auto minmax(0,1fr)}
+#overview .dashboard-module[data-clock-style=analog] .clock-visual{width:var(--module-dial);height:var(--module-dial)}
+#overview .dashboard-module[data-clock-style=analog] #clock,#overview .dashboard-module[data-clock-style=stacked] #clock{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+#overview .dashboard-module[data-clock-style=digital] #clock{font-family:ui-monospace,'Courier New',monospace;font-weight:600;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+#overview .dashboard-module[data-narrow=true][data-clock-style=analog]>.overview-heading,#overview .dashboard-module[data-narrow=true][data-clock-style=stacked]>.overview-heading{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px;gap:6px}
+#overview .dashboard-module[data-narrow=true][data-clock-style=analog] #date,#overview .dashboard-module[data-narrow=true][data-clock-style=stacked] #date{font-size:14px;line-height:1.3;text-align:center}
+#overview .dashboard-module[data-narrow=true][data-short=true] .clock-stack{grid-template-columns:repeat(2,minmax(0,1fr));font-size:calc(var(--module-clock) * var(--ui-scale));gap:4px}
+#overview .dashboard-module[data-narrow=true][data-short=true] .clock-stack-minute{grid-column:2;grid-row:1}
+#overview .dashboard-module[data-narrow=true][data-short=true] .clock-stack-period{grid-column:1/-1;grid-row:2;text-align:center;font-size:11px}
+#dashboard-clock-options{margin:18px 0 22px;padding-top:14px;border-top:1px solid var(--line)}
+#dashboard-clock-style{width:100%;max-width:360px}
+.clock-sample{position:relative;display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:20px;margin-top:14px;min-height:180px;max-width:600px;background:var(--bg);border:1px solid var(--line);border-radius:12px;--module-stack:48px}
+.clock-sample-time{font:64px/1.1 Georgia,serif;letter-spacing:-.035em}
+.clock-sample[data-clock-style=digital] .clock-sample-time{font-family:ui-monospace,'Courier New',monospace;font-weight:600;font-size:58px}
+.clock-sample-date{margin:0;color:var(--muted);font-size:16px}
+.clock-sample[data-clock-style=analog] .clock-visual{width:140px;height:140px;flex-shrink:0}
+.clock-sample[data-clock-style=analog] .clock-sample-time,.clock-sample[data-clock-style=stacked] .clock-sample-time{display:none}
+@media(max-width:799px){.clock-sample{padding:14px;gap:12px}.clock-sample-time,.clock-sample[data-clock-style=digital] .clock-sample-time{font-size:40px}.clock-sample .clock-visual{margin:auto}.clock-sample-date{width:100%;text-align:center}}

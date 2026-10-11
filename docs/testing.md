@@ -110,3 +110,13 @@ overlap rejection, Save/Discard/Undo, storage failure, auto-arrangement, gallery
 scroll/drop, actual Household data actions and reload persistence. Physical
 acceptance must use touch on the selected frame and an actual process restart;
 restore the original layout and verify private preference/account/cache hashes.
+
+
+For clock styles, run `scripts/check_clocks.cjs` with the same browser environment
+against the isolated preview; optionally add `--capture docs/reviews/2026-10-11-clock-styles`.
+It checks staged styles, Save/reload, Discard/Undo, preset/packing preservation,
+failed writes, city time/format synchronization and all four styles across nine
+viewports with both text profiles, minimum/full sizes and a dark presentation.
+Unit tests cover midnight/noon, half-hour zones, DST and style schema boundaries.
+On the frame, exercise the picker and Save with touch, restart the app, capture
+small/large styles privately, and restore/verify the original preferences and data.

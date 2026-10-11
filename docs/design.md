@@ -233,3 +233,12 @@ Countdowns and Timers need four grid rows to keep useful content visible beneath
 their headings. Keep arm's-length text and the existing warm palettes/Momo.
 Validate minimum/full sizes and different positions as well as complete 16:9/16:10
 layouts, standard/larger text, all six light/dark pairs and a narrow fallback.
+
+
+Clock styles belong to the selected Clock & date module in Dashboard Settings,
+with a live sample and explicit Save. Classic, Analog, Stacked and Digital retain
+the warm palette and city/date context. Size the analog face and stacked numbers
+from module bounds; small modules place the date below, while wider modules use
+the space beside the clock. Keep decorative hands/numbers out of accessibility
+reading order, and preserve the original time heading. Avoid ticking animation
+and controls on the normal dashboard.

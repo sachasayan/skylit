@@ -1,5 +1,31 @@
 # Delivery verification — October 11, 2026
 
+## Version 2.14.1 — Clock styles
+
+- Clock & date adds Classic, Analog, Stacked and Digital under Settings → Dashboard,
+  with a live staged sample, Save/Discard/Undo and style preservation through
+  presets, arrangement and geometry changes. Unknown styles default to Classic.
+  Original city time, DST, date, 12/24-hour preference and accessible heading retained.
+- 64 JavaScript, 14 Python, 32 clock rendered checks, 23 dashboard checks and 31
+  full-app rendered regression checks pass. All four styles across nine viewports
+  with both text profiles, minimum/full sizes, persistence, rejected writes and
+  format synchronization verified. Zero runtime errors or startup retries.
+- Normal signed 2.14.1, code 25, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95 at 1920×1080
+  physical / 1280×720 CSS. Installed APK matches built artifact byte for byte.
+- Ten frame checks pass: touch Settings/picker/Save, staged sample, Discard/Undo,
+  preset/arrangement preservation, real process restart, every style minimum/full,
+  city/12/24-hour labels/live tick, guide with empty fields/Android Back and data
+  preservation. Original preferences/style, account, photo cache, calendar config,
+  retention/exclusions and HOME restored/verified. Eighteen acceptance screenshots
+  remain private; public report uses 33 isolated synthetic captures.
+- Private upgrade/undo record copied to Downloads. Temporary inspection disabled,
+  task ADB forward removed. No new requests, permissions, native integrations or
+  remote fonts. Existing live service functionality was not reverified.
+- Public-data source/history/APK and Gitleaks history/source scans: zero findings.
+  APK SHA-256: `fac2545b26c551ddaeb211c910579fd387e53ae6ff02e44136609bf07a6f9e99`.
+- [Clock styles and responsive screenshots](reviews/2026-10-11-clock-styles/index.html).
+
 ## Version 2.14.0 — Modular dashboard
 
 - Settings → Dashboard stages draggable/resizable modules on a 12 × 12 grid,

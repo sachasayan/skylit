@@ -180,7 +180,8 @@ types and integer positions/sizes on a 12 × 12 grid. It rejects overlaps, dupli
 types, invalid sizes and unknown records, and strips fields outside the layout
 schema. An absent layout migrates the previous preset and optional note excerpt.
 An explicitly empty dashboard is valid. `skylit.dashboard` stores only module
-identifiers and coordinates; household data remains in the existing stores.
+identifiers, coordinates and an optional allowed clock-style identifier; household
+data remains in the existing stores.
 
 `dashboard.js` moves the four existing Overview nodes into grid wrappers, retaining
 their IDs, controllers, service state and event actions. Five additional modules
@@ -197,3 +198,13 @@ three-column layout when necessary; direct drop requires free space. ResizeObser
 chooses compact styling from actual module dimensions, without container queries.
 CSS grid scales coordinates across landscape sizes; narrow previews stack in visual
 reading order. Existing display-transfer format v1 excludes custom dashboard layouts.
+
+
+In 2.14.1, `clock.js` builds local SVG analog and stacked-number presentations.
+Classic uses the original serif clock; Digital changes its typography. The
+`skylit-clock` event carries the original tick instant, so all presentations use
+the configured city zone, DST and 12/24-hour format together. The original clock
+heading remains the accessible current-time label; decorative alternatives are
+hidden from assistive technology. Clock style is staged with the layout and
+preserved by presets, packing, geometry edits and Undo. Unknown styles fall back
+to Classic. No seconds animation, remote fonts, requests or new permissions.

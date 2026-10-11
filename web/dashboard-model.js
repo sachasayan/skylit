@@ -1,6 +1,8 @@
 'use strict';
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.SkylitDashboardModel=api;})(typeof window!=='undefined'?window:globalThis,function(){
   const columns=12,rows=12;
+  const clockStyles=['classic','analog','stacked','digital'];
+  function setStyle(item,value){if(value==='classic'||!clockStyles.includes(value))delete item.style;else item.style=value;return item;}
   const catalog=[
     {type:'clock',name:'Clock & date',description:'Time and date in your selected city.',minW:3,minH:3},
     {type:'weather',name:'Weather',description:'Current conditions and the familiar landscape.',minW:3,minH:4},
@@ -26,7 +28,7 @@
     const modules=[];
     for(const value of raw.modules.slice(0,40)){
       if(!valid(value)||modules.some(item=>item.type===value.type||overlaps(item,value)))continue;
-      modules.push({type:value.type,x:value.x,y:value.y,w:value.w,h:value.h});
+      const item={type:value.type,x:value.x,y:value.y,w:value.w,h:value.h};if(item.type==='clock')setStyle(item,value.style);modules.push(item);
       if(modules.length===catalog.length)break;
     }
     return modules.length||raw.modules.length===0?{version:1,modules}:fallback();
@@ -34,9 +36,10 @@
   function change(layout,type,patch){
     const next=copy(layout),item=next.modules.find(item=>item.type===type);if(!item)return null;
     for(const k of ['x','y','w','h'])if(patch[k]!==undefined)item[k]=patch[k];
+    if(patch.style!==undefined){if(type!=='clock'||!clockStyles.includes(patch.style))return null;setStyle(item,patch.style);}
     return valid(item)&&!next.modules.some(other=>other!==item&&overlaps(item,other))?next:null;
   }
-  function arrange(layout){return {version:1,modules:layout.modules.map((item,i)=>({type:item.type,x:(i%3)*4,y:Math.floor(i/3)*4,w:4,h:4}))};}
+  function arrange(layout){return {version:1,modules:layout.modules.map((item,i)=>{const next={type:item.type,x:(i%3)*4,y:Math.floor(i/3)*4,w:4,h:4};if(item.type==='clock')setStyle(next,item.style);return next;})};}
   function add(layout,type,position=null){
     if(!definition(type)||layout.modules.some(item=>item.type===type))return {layout:copy(layout),added:false,rearranged:false};
     const next=copy(layout),item={type,x:0,y:0,w:4,h:4};

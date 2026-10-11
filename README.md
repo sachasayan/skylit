@@ -88,6 +88,11 @@ Skylit arranges the modules automatically; **Undo** restores the previous layout
 **Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
 Removing a module leaves its photos, calendars and Household data intact.
 
+Select **Clock & date** in the preview to choose **Classic**, **Analog**,
+**Stacked** or **Digital**. The live sample follows your city and 12/24-hour
+preference; **Save dashboard** applies the style. Resizing, arranging and changing
+a starting layout retain your choice.
+
 Balanced, Photos first and Agenda first are starting layouts. Layout coordinates
 adapt to 16:9 and 16:10 landscape screens; smaller modules simplify their content
 or scroll internally. Narrow previews stack modules. Custom layouts are stored
