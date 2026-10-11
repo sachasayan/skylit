@@ -19,8 +19,10 @@
   preservation. Original preferences/style, account, photo cache, calendar config,
   retention/exclusions and HOME restored/verified. Eighteen acceptance screenshots
   remain private; public report uses 33 isolated synthetic captures.
-- Private upgrade/undo record copied to Downloads. Temporary inspection disabled,
-  task ADB forward removed. No new requests, permissions, native integrations or
+- Private upgrade/undo record copied to Downloads. Normal debug=false launch and
+  task ADB forwards removed. Factory userdebug / ro.debuggable=1 keeps WebView
+  inspection available through authorized ADB even with the app flag off; system
+  defaults preserved. No new requests, permissions, native integrations or
   remote fonts. Existing live service functionality was not reverified.
 - Public-data source/history/APK and Gitleaks history/source scans: zero findings.
   APK SHA-256: `fac2545b26c551ddaeb211c910579fd387e53ae6ff02e44136609bf07a6f9e99`.
