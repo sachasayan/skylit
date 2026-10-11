@@ -28,6 +28,11 @@
   refresh is verified; long-term unattended delivery is not established.
 - Source/history/final APK public-data and Gitleaks source/history scans pass
   with zero findings. Private upgrade/undo record copied to frame Downloads.
+- Push CI passed; initial PR CI correctly rejected personal author metadata on
+  GitHub's generated merge object. CI now checks the actual published head and
+  complete branch/tag history. The metadata rule remains strict; synthetic refs
+  are not pushed into canonical branches. Future main merges use the local noreply
+  identity.
 - Clock visual critique is documented separately; the four designs are unchanged.
   No household screenshot, account identifier or event detail appears in either
   report. Normal APK contains no household configuration or demo fixture.
