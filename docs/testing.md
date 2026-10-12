@@ -129,3 +129,21 @@ viewports with both text profiles, minimum/full sizes and a dark presentation.
 Unit tests cover midnight/noon, half-hour zones, DST and style schema boundaries.
 On the frame, exercise the picker and Save with touch, restart the app, capture
 small/large styles privately, and restore/verify the original preferences and data.
+
+## Slideshow suite
+
+`node --test tests/slideshow-model.test.cjs` exercises bounded queue/history,
+collections, portrait layouts, schedules and capture-date policy. With the isolated
+preview running, `node scripts/check_slideshow.cjs --capture <review-directory>`
+checks playback timing, transitions, gesture inspection, curation, persistence,
+video export/cancellation and responsive Settings. It uses synthetic fixtures only.
+Set `SKYLIT_PLAYWRIGHT` / `SKYLIT_CHROME` as with the existing browser checks.
+
+`python3 scripts/test_slideshow_device.py` builds a **private** test APK with a
+separate package/UID, runs native media/privacy and WebView playback/export checks
+through paired TLS ADB, and removes it plus its owned Downloads files. It never
+opens the household app's data. Requires private build/device config and Playwright.
+The first-run credential fields are checked empty. The runner also checks certificate-pinned phone authentication, bounded mutations,
+uploads, cross-origin refusal and revocation. The address/code are written only to
+ignored local evidence. Never distribute the test APK or private
+evidence. Always restore the normal app and remove task ADB forwards afterwards.

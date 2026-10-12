@@ -1,4 +1,37 @@
-# Delivery verification — October 11, 2026
+# Delivery verification — October 12, 2026
+
+## Version 2.15.0 — Local slideshow suite
+
+- Decoded-image timing, stable shuffle/history/resume, portrait composition, five
+  styles, refined transitions, local framing/crop/rotation, gesture inspection and
+  reduced-motion behavior. Five icon controls; captions remain off the player.
+- Keepers and expanded bounded retention, named collections/batch/search/manual
+  order, arrival review, optional capture dates/memories/seasons/presets, local
+  file import, muted MP4/GIF, optional AAC soundtrack, titles and WebM export.
+- Optional app brightness/schedule and a 15-minute local TLS phone service. One-time
+  pairing, certificate comparison, strict scoped actions and immediate revocation;
+  no account/calendar data or Android debugging access in the phone interface.
+- 78 JavaScript and 15 Python tests pass; 21 dedicated rendered slideshow groups
+  and 32 full-app groups. All styles, transitions, queue/dwell/history, gestures,
+  reload, migration, curation, actual video/export and cancellation covered. Nine
+  viewports and both text profiles in the app checks; no runtime errors/retries.
+- Actual D156 Android 12 / WebView 95, 1920×1080 physical / 1280×720 CSS. Separate
+  synthetic APK/UID tests seven native media/privacy and nine UI/export groups,
+  plus six TLS protocol groups and stopped-server refusal. Existing 61 isolated
+  Android PhotoStore/mail race/cancellation regressions also pass.
+- Normal signed 2.15.0 code 28 installed in place over identity-verified paired TLS
+  Wi-Fi, same signing key, byte-identical installed APK. Existing preferences,
+  photo curation, retention/exclusions and cached JPEG bytes preserved; guide stays
+  closed on upgrade. Reopened guide links and empty credential fields verified.
+  Real read-only mail refresh completed successfully. No new household test mail
+  was sent; long-term unattended playback/delivery is not established.
+- Public source/history/APK and Gitleaks source/history scans pass. No demo fixture
+  in the distributable APK. Test app and its owned Downloads files removed; task
+  phone sessions stopped and ADB forwards removed. Household captures stay private.
+- [Visual feature map, limits and 36 screenshots](reviews/2026-10-12-slideshow-suite/index.html).
+  [Slideshow guide](slideshow.md). Export is bounded to 12 stills / 120 seconds;
+  codecs and LAN certificate/browser requirements are documented there.
+- APK SHA-256: `5bde79c060bbea1f038d8732784d32267fdae8d67535d868ebbdea6f84cca27a`.
 
 ## Version 2.14.2 — P1/P2 review fixes
 

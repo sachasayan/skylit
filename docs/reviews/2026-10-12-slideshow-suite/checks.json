@@ -1,0 +1,289 @@
+{
+  "checks": [
+    "fresh slideshow defaults are calm and existing speed survives migration",
+    "photo refresh preserves displayed scene, current shuffle queue and elapsed viewing time",
+    "slideshow waits for decoded images before starting the full viewing interval",
+    "portrait pairing uses distinct portrait pictures and respects whole-image framing",
+    "all presentation styles, backgrounds and transitions render with minimal controls",
+    "collage changes one region while retaining its other pictures",
+    "previous follows actual viewing history and resume keeps the current picture",
+    "swipe pauses for inspection, double tap zooms, and panning is bounded",
+    "excluded pictures can be inspected without restoring them to the slideshow",
+    "keepers, batch favourites and named collections persist through reload",
+    "crop, rotation, accessibility description and capture date save for the chosen photo",
+    "a draft picture title survives unrelated status refresh",
+    "new-arrival review excludes pending images until an explicit decision",
+    "manual order, saved presets and seasonal options survive reload",
+    "muted video advances actual playback and reduced motion uses its poster",
+    "video export creates a playable local file and cancellation publishes nothing",
+    "slideshow and grouped settings fit 960×540",
+    "slideshow and grouped settings fit 1280×800",
+    "slideshow and grouped settings fit 1440×900",
+    "slideshow and grouped settings fit 1920×1200",
+    "slideshow and grouped settings fit 390×844"
+  ],
+  "screenshots": [
+    {
+      "id": "settings-overview",
+      "title": "Photos settings · clear basics and grouped refinements",
+      "file": "screenshots/settings-overview.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stable-playback",
+      "title": "Refresh leaves playback and timing intact",
+      "file": "screenshots/stable-playback.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "portrait-pair",
+      "title": "Automatic portrait pairing",
+      "file": "screenshots/portrait-pair.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "style-fade",
+      "title": "Presentation · fade",
+      "file": "screenshots/style-fade.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "style-stack",
+      "title": "Presentation · stack",
+      "file": "screenshots/style-stack.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "style-collage",
+      "title": "Presentation · collage",
+      "file": "screenshots/style-collage.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "style-gentle",
+      "title": "Presentation · gentle",
+      "file": "screenshots/style-gentle.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "style-still",
+      "title": "Presentation · still",
+      "file": "screenshots/style-still.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "background-mat",
+      "title": "Photo surround · mat",
+      "file": "screenshots/background-mat.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "background-black",
+      "title": "Photo surround · black",
+      "file": "screenshots/background-black.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "background-blur",
+      "title": "Photo surround · blur",
+      "file": "screenshots/background-blur.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "collage-next",
+      "title": "Collage · one replacement, two stable pictures",
+      "file": "screenshots/collage-next.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "zoom-inspection",
+      "title": "Pause, zoom and bounded pan",
+      "file": "screenshots/zoom-inspection.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "collections",
+      "title": "Keepers and named collections",
+      "file": "screenshots/collections.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "picture-details",
+      "title": "One picture editor · framing, date and accessibility",
+      "file": "screenshots/picture-details.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "arrivals-storage",
+      "title": "Arrival review and separate storage budgets",
+      "file": "screenshots/arrivals-storage.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "presets",
+      "title": "Saved presets, seasons and presentation tools",
+      "file": "screenshots/presets.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "muted-video",
+      "title": "Muted local clip",
+      "file": "screenshots/muted-video.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "export-video",
+      "title": "Local video export",
+      "file": "screenshots/export-video.png",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "canvas-960x540",
+      "title": "Responsive photo canvas",
+      "file": "screenshots/canvas-960x540.png",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "settings-960x540",
+      "title": "Responsive library settings",
+      "file": "screenshots/settings-960x540.png",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "canvas-1280x800",
+      "title": "Responsive photo canvas",
+      "file": "screenshots/canvas-1280x800.png",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "settings-1280x800",
+      "title": "Responsive library settings",
+      "file": "screenshots/settings-1280x800.png",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "canvas-1440x900",
+      "title": "Responsive photo canvas",
+      "file": "screenshots/canvas-1440x900.png",
+      "viewport": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "settings-1440x900",
+      "title": "Responsive library settings",
+      "file": "screenshots/settings-1440x900.png",
+      "viewport": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "canvas-1920x1200",
+      "title": "Responsive photo canvas",
+      "file": "screenshots/canvas-1920x1200.png",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "settings-1920x1200",
+      "title": "Responsive library settings",
+      "file": "screenshots/settings-1920x1200.png",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "canvas-390x844",
+      "title": "Responsive photo canvas",
+      "file": "screenshots/canvas-390x844.png",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "settings-390x844",
+      "title": "Responsive library settings",
+      "file": "screenshots/settings-390x844.png",
+      "viewport": [
+        390,
+        844
+      ]
+    }
+  ],
+  "runtimeErrors": []
+}

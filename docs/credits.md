@@ -41,6 +41,7 @@ and the bundled third-party license notices below when distributing the project.
 - Public photo-preview fixtures: five AI-generated sample pictures under
   `tests/fixtures/demo-photos/`. They appear only in the isolated synthetic preview
   and README screenshots, never in a normal APK or the household photo cache.
+- Additional portrait, clip, GIF and soundtrack test fixtures are original procedural art and generated test tones. They remain confined to synthetic previews and private test APKs.
 - Android SDK and JDK are development dependencies with their own license terms;
   their toolchains are not included in this repository.
 

@@ -35,13 +35,18 @@ public class MainActivity extends Activity {
   private CalendarStore calendars;
   private PhotoStore photos;
   private PhotoMail photoMail;
+  private LocalMedia media;
+  private PhoneManagement phone;
+  private final java.util.concurrent.ExecutorService imports=java.util.concurrent.Executors.newSingleThreadExecutor();
+  private int pickerKind;
+  private volatile long importGeneration;
   private boolean idlePhotos,localPhotosOpen,remotePhotos,foreground,slideshowScheduled,slideshowStarted;
   private boolean swallowIdleTouch,quietOpen;
   private int idleGeneration,localPhotoGeneration;
   private int remoteGeneration=0, dashboardCrashes=0;
   private boolean exitArmed;
   private float exitX,exitY;
-  private final Runnable idleTask=()->{final int generation=idleGeneration;if(dashboard==null)return;dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.settingsOpen&&window.SkylitApp.settingsOpen()?null:!!(window.SkylitWorkspace&&window.SkylitWorkspace.idle())",value->{if(generation!=idleGeneration||!foreground||remote!=null||localPhotosOpen)return;if("null".equals(value)){resetIdle();return;}if("true".equals(value)){quietOpen=true;pauseMomo(true);dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.pause(true)",null);}else if(prefs.getInt("idle",120)>0&&"email".equals(prefs.getString("photo_source","album"))&&photos.list().length()>0)openLocalPhotos(true);else if(prefs.getInt("idle",120)>0&&validAlbum(prefs.getString("album","")))openRemote(prefs.getString("album",""),true,true);else resetIdle();});};
+  private final Runnable idleTask=()->{final int generation=idleGeneration;if(dashboard==null)return;dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.settingsOpen&&window.SkylitApp.settingsOpen()?null:!!(window.SkylitWorkspace&&window.SkylitWorkspace.idle())",value->{if(generation!=idleGeneration||!foreground||remote!=null||localPhotosOpen)return;if("null".equals(value)){resetIdle();return;}if("true".equals(value)){quietOpen=true;pauseMomo(true);dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.pause(true)",null);}else if(prefs.getInt("idle",120)>0&&"email".equals(prefs.getString("photo_source","album"))&&photos.list().length()>0){dashboard.evaluateJavascript("!window.SkylitPlayer||SkylitPlayer.canIdle()",allowed->{if(generation==idleGeneration&&foreground&&remote==null&&!localPhotosOpen){if("true".equals(allowed))openLocalPhotos(true);else resetIdle();}});}else if(prefs.getInt("idle",120)>0&&validAlbum(prefs.getString("album","")))openRemote(prefs.getString("album",""),true,true);else resetIdle();});};
   private final Runnable photoCheckTask=new Runnable(){@Override public void run(){if(photoMail!=null)photoMail.maybeSync();handler.postDelayed(this,60000L);}};
   private final Runnable exitTask=()->{exitArmed=false;openStockApp();};
 
@@ -50,6 +55,13 @@ public class MainActivity extends Activity {
     prefs=getSharedPreferences("skylit",MODE_PRIVATE);
     calendars=new CalendarStore(getSharedPreferences("skylit-calendars",MODE_PRIVATE));
     photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.receive("+photoMail.status().toString()+")",null);});
+    media=new LocalMedia(this,photos);phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
+      public String request(JSONObject action,long version) throws Exception {
+        java.util.concurrent.CompletableFuture<String> result=new java.util.concurrent.CompletableFuture<>();
+        runOnUiThread(()->{if(dashboard==null||!phone.active(version)){result.complete(null);return;}String operation=action==null?"SkylitLibrary.remoteState()":"SkylitLibrary.remoteApply("+action.toString()+")";dashboard.evaluateJavascript("JSON.stringify(window.SkylitLibrary&&Skylit.photoManagementCurrent("+version+")?"+operation+":null)",value->{try{Object decoded=new org.json.JSONTokener(value).nextValue();result.complete(decoded instanceof String?(String)decoded:null);}catch(Exception ignored){result.complete(null);}});});return result.get(5,java.util.concurrent.TimeUnit.SECONDS);
+      }
+      public void imported(){notifyLibrary();}
+    });
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_FULLSCREEN);
     WebView.setWebContentsDebuggingEnabled(getIntent().getBooleanExtra("debug",false));
     root=new FrameLayout(this);root.setBackgroundColor(Color.rgb(238,232,221));setContentView(root);
@@ -69,6 +81,8 @@ public class MainActivity extends Activity {
         Uri u=request.getUrl();if(!"https".equals(u.getScheme())||!"appassets.androidplatform.net".equals(u.getHost()))return null;
         String path=u.getPath();if(path==null||"/".equals(path))path="/index.html";
         if(path.startsWith("/private-photos/")){String id=path.substring("/private-photos/".length());if(!id.matches("[a-f0-9]{64}\\.jpg"))return missing();try{java.util.Map<String,String> headers=new java.util.HashMap<>();headers.put("Cache-Control","no-store");return new WebResourceResponse("image/jpeg",null,200,"OK",headers,photos.open(id.substring(0,64)));}catch(Exception e){return missing();}}
+        if(path.startsWith("/private-clips/")){String id=path.substring("/private-clips/".length());if(!id.matches("[a-f0-9]{64}\\.mp4"))return missing();try{return mediaResponse(photos.clip(id.substring(0,64)),"video/mp4",request.getRequestHeaders().containsKey("Range")?request.getRequestHeaders().get("Range"):request.getRequestHeaders().get("range"));}catch(Exception ignored){return missing();}}
+        if("/private-music/soundtrack.m4a".equals(path)){try{java.util.Map<String,String> headers=new java.util.HashMap<>();headers.put("Cache-Control","no-store");return new WebResourceResponse("audio/mp4",null,200,"OK",headers,media.openMusic());}catch(Exception ignored){return missing();}}
         if(path.contains(".."))return missing();
         String mime=path.endsWith(".txt")?"text/plain":path.endsWith(".js")?"text/javascript":path.endsWith(".css")?"text/css":path.endsWith(".svg")?"image/svg+xml":path.endsWith(".png")?"image/png":"text/html";
         try{return new WebResourceResponse(mime,"UTF-8",getAssets().open(path.substring(1)));}catch(IOException e){return missing();}
@@ -83,6 +97,9 @@ public class MainActivity extends Activity {
     });
     dashboard.setWebChromeClient(new WebChromeClient(){@Override public boolean onConsoleMessage(ConsoleMessage m){if(m.messageLevel()==ConsoleMessage.MessageLevel.ERROR)Log.e(TAG,"Dashboard: "+m.message());return true;}});
     root.addView(dashboard,0,new FrameLayout.LayoutParams(-1,-1));dashboard.loadUrl(LOCAL);
+  }
+  private WebResourceResponse mediaResponse(java.io.File file,String mime,String range) throws Exception {if(!file.isFile())return missing();long length=file.length(),start=0,end=length-1;java.util.Map<String,String> headers=new java.util.HashMap<>();headers.put("Cache-Control","no-store");headers.put("Accept-Ranges","bytes");int status=200;
+    if(range!=null){java.util.regex.Matcher match=java.util.regex.Pattern.compile("bytes=([0-9]+)-([0-9]*)").matcher(range);if(!match.matches())throw new java.io.IOException();start=Long.parseLong(match.group(1));if(!match.group(2).isEmpty())end=Math.min(end,Long.parseLong(match.group(2)));if(start>end||start>=length)throw new java.io.IOException();status=206;headers.put("Content-Range","bytes "+start+"-"+end+"/"+length);}headers.put("Content-Length",String.valueOf(end-start+1));java.io.FileInputStream source=new java.io.FileInputStream(file);source.getChannel().position(start);final long bytes=end-start+1;java.io.InputStream bounded=new java.io.FilterInputStream(source){long remaining=bytes;@Override public int read() throws java.io.IOException {if(remaining<=0)return -1;int value=super.read();if(value>=0)remaining--;return value;}@Override public int read(byte[] b,int off,int count)throws java.io.IOException {if(remaining<=0)return -1;int n=in.read(b,off,(int)Math.min(count,remaining));if(n>0)remaining-=n;return n;}};return new WebResourceResponse(mime,null,status,status==206?"Partial Content":"OK",headers,bounded);
   }
   private WebResourceResponse missing(){return new WebResourceResponse("text/plain","UTF-8",404,"Not Found",null,new ByteArrayInputStream(new byte[0]));}
   private boolean validAlbum(String url){try{Uri u=Uri.parse(url);return "https".equals(u.getScheme())&&("photos.app.goo.gl".equals(u.getHost())||"photos.google.com".equals(u.getHost()));}catch(Exception e){return false;}}
@@ -99,22 +116,22 @@ public class MainActivity extends Activity {
     @JavascriptInterface public boolean calendarAccept(String id,String request,boolean valid){return calendars.accept(id,request,valid);}
 
     @JavascriptInterface public String photoStatus(){return photoMail.status().toString();}
-    @JavascriptInterface public boolean photoConnect(String email,String appPassword){return photoMail.connect(email,appPassword);}
+    @JavascriptInterface public boolean photoConnect(String email,String appPassword){phone.stop();importGeneration++;return photoMail.connect(email,appPassword);}
     @JavascriptInterface public boolean photoConfigure(int days,int maximum){return photoMail.configure(days,maximum);}
     @JavascriptInterface public boolean photoExclude(String id,boolean excluded){return photoMail.exclude(id,excluded);}
     @JavascriptInterface public boolean photoRestoreExcluded(){return photoMail.restoreExcluded();}
     @JavascriptInterface public boolean photoDelivery(String raw){return photoMail.delivery(raw);}
     @JavascriptInterface public String photoDeliverySettings(){return photoMail.deliverySettings();}
-    @JavascriptInterface public boolean photoEraseCache(){return photoMail.eraseCache();}
+    @JavascriptInterface public boolean photoEraseCache(){phone.stop();importGeneration++;media.cancelExport();return photoMail.eraseCache();}
     @JavascriptInterface public void photoRefresh(){photoMail.sync();}
     @JavascriptInterface public void photoOpen(boolean idle){runOnUiThread(()->openLocalPhotos(idle));}
     @JavascriptInterface public void photoBrowse(int index){runOnUiThread(()->openLocalPhotos(false,index,false));}
-    @JavascriptInterface public boolean photoDisconnect(){boolean removed=photoMail.disconnect();if(removed)runOnUiThread(()->{if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);});return removed;}
+    @JavascriptInterface public boolean photoDisconnect(){phone.stop();importGeneration++;media.cancelExport();boolean removed=photoMail.disconnect();if(removed)runOnUiThread(()->{if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);});return removed;}
     @JavascriptInterface public void photoSource(String source){if(!"email".equals(source)&&!"album".equals(source))return;prefs.edit().putString("photo_source",source).apply();runOnUiThread(()->resetIdle());}
     @JavascriptInterface public void localPhotoClosed(){runOnUiThread(()->{localPhotoGeneration++;idlePhotos=false;localPhotosOpen=false;pauseMomo(false);resetIdle();});}
 
     @JavascriptInterface public void configureQuiet(boolean enabled){prefs.edit().putBoolean("quiet",enabled).apply();runOnUiThread(()->resetIdle());}
-    @JavascriptInterface public void privacyPause(){runOnUiThread(()->{quietOpen=true;idleGeneration++;handler.removeCallbacks(idleTask);pauseMomo(true);});}
+    @JavascriptInterface public void privacyPause(){phone.stop();runOnUiThread(()->{quietOpen=true;idleGeneration++;handler.removeCallbacks(idleTask);pauseMomo(true);});}
     @JavascriptInterface public void ambientClosed(){runOnUiThread(()->{quietOpen=false;pauseMomo(false);resetIdle();});}
     @JavascriptInterface public void configure(String album,int seconds){if(!album.isEmpty()&&!validAlbum(album))return;int delay=(seconds==0||seconds==60||seconds==120||seconds==300||seconds==600)?seconds:120;prefs.edit().putString("album",album).putInt("idle",delay).apply();runOnUiThread(()->resetIdle());}
     @JavascriptInterface public void openPhotos(String album,boolean idle){if(validAlbum(album))runOnUiThread(()->openRemote(album,true,idle));}
@@ -132,8 +149,27 @@ public class MainActivity extends Activity {
       for(android.content.pm.ResolveInfo app:apps){String name=app.activityInfo.packageName;if(!app.activityInfo.exported||!packages.add(name))continue;Intent launch=getPackageManager().getLaunchIntentForPackage(name);if(launch!=null){labels.add(app.loadLabel(getPackageManager()).toString());launches.add(launch);}}
       new android.app.AlertDialog.Builder(MainActivity.this).setTitle("Android apps").setItems(labels.toArray(new String[0]),(dialog,which)->{try{startActivity(launches.get(which));}catch(android.content.ActivityNotFoundException|SecurityException e){Toast.makeText(MainActivity.this,"This Android app is unavailable.",Toast.LENGTH_LONG).show();}}).setNegativeButton("Cancel",null).show();
     });}
+    @JavascriptInterface public boolean photoKeepMany(String ids,boolean keep){boolean saved=photos.keeperMany(ids,keep);if(saved){photos.prune(photoMail.days(),photoMail.maximum());notifyLibrary();}return saved;}
+    @JavascriptInterface public boolean photoExcludeMany(String ids,boolean hide){boolean saved=photos.excludeMany(ids,hide);if(saved){photos.prune(photoMail.days(),photoMail.maximum());notifyLibrary();}return saved;}
+    @JavascriptInterface public boolean photoReviewMany(String ids,boolean approve){boolean saved=photos.reviewMany(ids,approve);if(saved){photos.prune(photoMail.days(),photoMail.maximum());notifyLibrary();}return saved;}
+    @JavascriptInterface public boolean photoImportOptions(boolean review,boolean dates){boolean saved=photos.importOptions(review,dates);if(saved)notifyLibrary();return saved;}
+    @JavascriptInterface public void mediaImport(String kind){if(!kind.equals("image")&&!kind.equals("video")&&!kind.equals("music"))return;runOnUiThread(()->openMediaPicker(kind));}
+    @JavascriptInterface public boolean mediaHasMusic(){return media.hasMusic();}
+    @JavascriptInterface public void mediaEraseMusic(){media.eraseMusic();notifyLibrary();}
+    @JavascriptInterface public String mediaExportBegin(){return media.beginExport();}
+    @JavascriptInterface public boolean mediaExportAppend(String id,String chunk){return media.appendExport(id,chunk);}
+    @JavascriptInterface public String mediaExportFinish(String id){try{return media.finishExport(id);}catch(Exception ignored){return "";}}
+    @JavascriptInterface public void mediaExportCancel(){media.cancelExport();}
+    @JavascriptInterface public void slideshowBrightness(float value){if(value!=-1&&(value<.05f||value>1||Float.isNaN(value)))return;runOnUiThread(()->{WindowManager.LayoutParams attributes=getWindow().getAttributes();if(attributes.screenBrightness!=value){attributes.screenBrightness=value;getWindow().setAttributes(attributes);}});}
+    @JavascriptInterface public boolean photoManagementStart(){return phone.start();}
+    @JavascriptInterface public String photoManagementStatus(){return phone.status();}
+    @JavascriptInterface public void photoManagementStop(){phone.stop();}
+    @JavascriptInterface public boolean photoManagementCurrent(long version){return phone.active(version);}
     @JavascriptInterface public void openStock(){runOnUiThread(()->openStockApp());}
   }
+  private void notifyLibrary(){runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&SkylitPhotos.refresh();window.dispatchEvent(new Event('skylit-library-native'))",null);});}
+  private void openMediaPicker(String kind){pickerKind="image".equals(kind)?1:"video".equals(kind)?2:3;Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType(pickerKind==1?"image/*":pickerKind==2?"video/mp4":"audio/*");intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,pickerKind==1);intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);try{startActivityForResult(intent,7310+pickerKind);}catch(android.content.ActivityNotFoundException e){Toast.makeText(this,"This device has no file picker. Phone curation can import JPEG pictures.",Toast.LENGTH_LONG).show();}}
+  @Override protected void onActivityResult(int request,int result,Intent data){super.onActivityResult(request,result,data);if(result!=RESULT_OK||data==null||request<7311||request>7313)return;final int kind=request-7310;final long generation=importGeneration;java.util.List<Uri> uris=new java.util.ArrayList<>();if(data.getClipData()!=null){for(int i=0;i<Math.min(100,data.getClipData().getItemCount());i++)uris.add(data.getClipData().getItemAt(i).getUri());}else if(data.getData()!=null)uris.add(data.getData());imports.execute(()->{int done=0;String message="Nothing imported.";for(Uri uri:uris){if(generation!=importGeneration)break;if(!"content".equals(uri.getScheme())){message="Choose a picture from Android’s file picker.";continue;}try{media.guard(()->generation==importGeneration);message=kind==1?media.image(uri):kind==2?media.clip(uri):"Soundtrack saved on this frame.";if(kind==3)media.soundtrack(uri);done++;photos.prune(photoMail.days(),photoMail.maximum());}catch(Exception ignored){message="Some media could not be imported. Check format, size and capacity.";}}if(generation!=importGeneration)return;final String feedback=done>1?done+" files imported. "+message:message;runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitLibrary&&SkylitLibrary.mediaResult("+JSONObject.quote(feedback)+")",null);});});}
   private void resetIdle(){idleGeneration++;handler.removeCallbacks(idleTask);if(!foreground||remote!=null||localPhotosOpen||quietOpen)return;boolean hasSource="email".equals(prefs.getString("photo_source","album"))?photos.list().length()>0:validAlbum(prefs.getString("album",""));if(!hasSource&&!prefs.getBoolean("quiet",false))return;int seconds=prefs.getInt("idle",120);if(seconds==0&&prefs.getBoolean("quiet",false))seconds=120;if(seconds>0)handler.postDelayed(idleTask,seconds*1000L);}
   private void openLocalPhotos(boolean idle){openLocalPhotos(idle,0,true);}
   private void openLocalPhotos(boolean idle,int index,boolean autoplay){int count=photos.list().length();if(dashboard==null||count==0)return;int safeIndex=Math.max(0,Math.min(count-1,index));handler.removeCallbacks(idleTask);localPhotosOpen=true;idlePhotos=idle;final int generation=++localPhotoGeneration;pauseMomo(true);dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.open("+idle+","+safeIndex+","+autoplay+")",value->{if("false".equals(value)&&generation==localPhotoGeneration){localPhotosOpen=false;idlePhotos=false;pauseMomo(false);resetIdle();}});}
@@ -200,7 +236,7 @@ public class MainActivity extends Activity {
     if(idlePhotos&&remote==null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN){swallowIdleTouch=true;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);}return true;}
     if(idlePhotos&&remote!=null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN)closeRemote();return true;}
     if(e.getActionMasked()==MotionEvent.ACTION_DOWN)resetIdle();
-    if(e.getActionMasked()==MotionEvent.ACTION_POINTER_DOWN&&e.getPointerCount()==2&&remote==null){exitArmed=true;exitX=e.getX();exitY=e.getY();handler.postDelayed(exitTask,1500);}
+    if(e.getActionMasked()==MotionEvent.ACTION_POINTER_DOWN&&e.getPointerCount()==2&&remote==null&&!localPhotosOpen){exitArmed=true;exitX=e.getX();exitY=e.getY();handler.postDelayed(exitTask,1500);}
     if(exitArmed&&(e.getActionMasked()==MotionEvent.ACTION_UP||e.getActionMasked()==MotionEvent.ACTION_POINTER_UP||e.getActionMasked()==MotionEvent.ACTION_CANCEL||Math.hypot(e.getX()-exitX,e.getY()-exitY)>60)){handler.removeCallbacks(exitTask);exitArmed=false;}
     return super.dispatchTouchEvent(e);
   }
@@ -212,5 +248,5 @@ public class MainActivity extends Activity {
   @Override public void onWindowFocusChanged(boolean hasFocus){super.onWindowFocusChanged(hasFocus);if(hasFocus)hideBars();}
   private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
   private void hideBars(){getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);}
-  @Override protected void onDestroy(){calendars.close();photoMail.close();handler.removeCallbacksAndMessages(null);if(remote!=null)remote.destroy();if(dashboard!=null)dashboard.destroy();super.onDestroy();}
+  @Override protected void onDestroy(){importGeneration++;imports.shutdownNow();if(phone!=null)phone.close();if(media!=null)media.cancelExport();calendars.close();photoMail.close();handler.removeCallbacksAndMessages(null);if(remote!=null)remote.destroy();if(dashboard!=null)dashboard.destroy();super.onDestroy();}
 }

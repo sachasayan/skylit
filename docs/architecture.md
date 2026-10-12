@@ -80,7 +80,7 @@ dashboard; remote web content gets neither private photos nor the bridge.
 
 The Photos UI selects either the existing Google Photos website or Skylit's local
 photo library and slideshow. Thumbnail browse opens at a bounded index, and the
-native bridge serves only approved local photo URLs. Manual playback has three
+native bridge serves only approved local photo URLs. Manual playback has five
 presentation styles and theme-bound controls that fade after inactivity; idle
 playback hides controls and returns on first touch. The source, speed and presentation
 live locally; secrets stay
@@ -217,3 +217,41 @@ heading remains the accessible current-time label; decorative alternatives are
 hidden from assistive technology. Clock style is staged with the layout and
 preserved by presets, packing, geometry edits and Undo. Unknown styles fall back
 to Classic. No seconds animation, remote fonts, requests or new permissions.
+
+## Local slideshow suite (2.15)
+
+`slideshow-model.js` owns bounded, normalized settings, library collections, queue
+selection, portrait composition and framing. `slideshow-player.js` owns decoded
+image buffering, real viewing history, paused timers, video, motion and gestures.
+`photo-library.js` owns the Settings editor, batch choices, presets and bounded
+canvas/MediaRecorder export. Settings stay in localStorage; native storage remains
+the authority for persistent exclusions, Keepers, review and media files.
+
+PhotoStore has a 300-item / 256 MiB total bound, including at most 100 Keepers /
+128 MiB and 20 muted clips. Rolling retention defaults remain unchanged; Keepers
+never silently evict a pinned item. JPEG re-encoding discards raw EXIF and GPS. An
+opt-in normalized capture date, local face midpoint and perceptual signature are
+derived without identity recognition or network requests. New arrivals can be
+gated for owner review. A semaphore bounds concurrent image decoding; generation
+fences prevent stale imports from restoring erased data.
+
+PhotoMail keeps a bounded hash-only IMAP UID ledger for immutable messages. It
+skips attachments already cached/excluded, but missing or corrupt cache files can
+be fetched again. Inbox access stays read-only with the existing deadline and TLS
+validation. No filenames, body text or sender data enter the ledger.
+
+LocalMedia accepts owner-selected content URIs and copies media privately. AVC
+MP4 is remuxed without audio/container metadata; bounded GIFs become muted AVC
+clips. AAC soundtrack containers are rebuilt too. Export stages a bounded WebM
+in private cache before publishing a scoped Downloads item; cancellation removes
+staged output. The private test APK is a separate UID and never distributed.
+
+PhoneManagement is an optional **on-frame** TLS listener, off by default. The owner
+starts a 15-minute session bound only to a private wlan IPv4 address. A Keystore
+certificate is pinned by owner comparison; pairing uses a single-use six-digit
+code with a five-minute / ten-attempt limit. Secure HttpOnly SameSite cookies,
+exact Host/Origin checks and bounded JSON/media routes constrain access. Stopping,
+erasing, changing accounts or privacy pause revokes the session and queued writes.
+The remote page has no JavaScript bridge. Its state contains only photo choices,
+collections and slideshow settings; mail secrets and calendars are never exposed.
+No hosted service, LAN discovery daemon or Android debugging access is added.
