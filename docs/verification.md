@@ -1,5 +1,30 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.15.2 — Warm responsive clocks
+
+- Four approved concepts implemented: Landscape, Analog, Flip and Botanical.
+  Original stored IDs preserve existing choices, including Stacked → Flip. Local
+  SVG/CSS plant/landscape art, fine cream dial, olive flip tiles and warm serif time.
+- Visible changed Flip numbers animate only on normal ticks. Initial rendering,
+  unchanged values, time jumps and reduced motion update immediately. Original
+  accessible time/date, configured city, DST and 12/24-hour behavior preserved.
+- 82 JavaScript and 16 Python tests; 65 clock browser groups and 32 full-app groups
+  pass with no runtime errors/retries. Nine viewports, both text profiles,
+  minimum/full and wide/medium/tall/strip shapes. Additional content bounds
+  confirm time stays in its card and above landscape art.
+- D156 Android 12 / WebView 95 at 1920×1080 physical, 1280×720 CSS. Twenty style/shape
+  combinations, actual touch Save/reload and native WebView flip animation pass.
+  Original layout/preferences restored. Five upgrade groups preserve private
+  settings, curation, retention/exclusions and cached JPEG bytes, with guide closed
+  on upgrade and reopened direct links/empty credential inputs checked.
+- Normal signed APK code 30 installed in place over paired TLS Wi-Fi, same signing
+  key and installed byte identity verified. Preservation rechecked after actual
+  process restart. No new permission, network service, font or firmware change.
+- Public source/history/APK checks and Gitleaks pass. Device captures remain private;
+  report uses 49 isolated synthetic app screenshots and four synthetic widget crops.
+- APK SHA-256: `e5ee9a5c3c31c04920c6b55a6219e5fe64a26a20537e04cd5253e53d192f9ee6`.
+- [Visual concept comparisons and size screenshots](reviews/2026-10-12-warm-clocks/index.html).
+
 ## Version 2.15.0 — Local slideshow suite
 
 - Decoded-image timing, stable shuffle/history/resume, portrait composition, five

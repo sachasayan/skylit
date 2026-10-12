@@ -26,3 +26,9 @@ test('clock styles survive normalization, packing and geometry edits; unsupporte
   const raw=layout.preset();raw.modules[0].style='<script>';assert.equal(clock.style(layout.normalize(raw).modules[0].style),'classic');assert.doesNotMatch(JSON.stringify(layout.normalize(raw)),/script/);
   assert.equal(layout.normalize(layout.preset()).modules[0].style,undefined);
 });
+
+test('legacy clock identifiers remain valid after visual replacements',()=>{
+ const old={version:1,modules:[{type:'clock',style:'stacked',x:0,y:0,w:6,h:4}]};
+ const upgraded=layout.normalize(old);assert.equal(upgraded.modules[0].style,'stacked');assert.equal(clock.styles.find(s=>s.id===upgraded.modules[0].style).name,'Flip');
+ assert.equal(clock.style('classic'),'classic');assert.equal(clock.style('digital'),'digital');
+});

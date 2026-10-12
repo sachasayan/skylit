@@ -41,6 +41,7 @@ and the bundled third-party license notices below when distributing the project.
   `web/qrcode.js`, with `web/qrcode-LICENSE.txt`. npm SHA-512 integrity verified;
   bundle SHA-256: `18ae399f81182bc9de916e9c77b195df20cc58d6f2d55a62b085a299f1bf1780`.
   No external QR service receives the invitation.
+- Clock-widget concept reference: AI-generated; the shipped hills, plant and dial are original local SVG/CSS art with live time, not baked-in images.
 - Momo: original procedural Canvas 2D art. The design reference is AI-generated;
   the shipped character uses geometry, not an external image or font asset.
 - Public photo-preview fixtures: five AI-generated sample pictures under

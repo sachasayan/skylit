@@ -258,3 +258,18 @@ erasing, changing accounts or privacy pause revokes the session and queued write
 The remote page has no JavaScript bridge. Its state contains only photo choices,
 collections and slideshow settings; mail secrets and calendars are never exposed.
 No hosted service, LAN discovery daemon or Android debugging access is added.
+
+## Warm clock widgets (2.15.2)
+
+Landscape, Analog, Flip and Botanical replace the four original presentations.
+Existing identifiers remain compatible, including `stacked` for Flip. Local SVG
+art supplies hills, a circular sun and a small plant; palette decisions remain in
+`appearance.js`. Actual bounds select type scale, dial diameter, decoration and a
+side-by-side Flip layout for shallow strips. The original time heading/date and
+city/DST/12/24-hour formatting remain authoritative and accessible.
+
+Flip uses a short Web Animations top-flap transition only on a changed visible
+number during a normal clock tick. Initial render, unchanged ticks, time jumps,
+hidden documents and reduced motion use immediate correct values. Old animations
+are cancelled on subsequent changes; no timer, sound, remote asset or permission
+is added. The Dashboard Settings sample shares the same renderer.

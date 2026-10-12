@@ -40,6 +40,7 @@ not a household account. They demonstrate the interface, not a live service sign
 [Clock visual critique across sizes](docs/reviews/2026-10-11-clock-critique/index.html).
 [Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).
 [Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
+[Warm responsive clock report](docs/reviews/2026-10-12-warm-clocks/index.html).
 [QR phone pairing report](docs/reviews/2026-10-12-phone-pairing/index.html).
 [Slideshow controls report](docs/reviews/2026-10-11-controls/index.html).
 [October 11 refinement report with revised screenshots](docs/reviews/2026-10-11-refinement/index.html).
@@ -92,8 +93,8 @@ Skylit arranges the modules automatically; **Undo** restores the previous layout
 **Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
 Removing a module leaves its photos, calendars and Household data intact.
 
-Select **Clock & date** in the preview to choose **Classic**, **Analog**,
-**Stacked** or **Digital**. The live sample follows your city and 12/24-hour
+Select **Clock & date** in the preview to choose **Landscape**, **Analog**,
+**Flip** or **Botanical**. The live sample follows your city and 12/24-hour
 preference; **Save dashboard** applies the style. Resizing, arranging and changing
 a starting layout retain your choice.
 

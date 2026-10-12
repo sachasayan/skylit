@@ -11,7 +11,7 @@ const palettes={
 };
 const keys=['bg','panel','rail','ink','muted','line','accent','accent-ink','soft'];
 function normalize(theme,mode){const legacy=theme==='cocoa';return {theme:legacy?'linen':palettes[theme]?theme:'linen',mode:['light','dark','auto'].includes(mode)?mode:legacy?'dark':'auto'};}
-function tokens(theme,mode){const p=palettes[theme]||palettes.linen;return Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]]));}
+function tokens(theme,mode){const p=palettes[theme]||palettes.linen,t=Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]]));return {...t,'clock-leaf':theme==='linen'?(mode==='dark'?'#b6bc93':'#70764c'):t.accent,'clock-tile':theme==='linen'?(mode==='dark'?'#454b34':'#73764f'):t.ink,'clock-paper':t.panel};}
 function resolve(mode,city,now=new Date(),systemDark=false){
  if(mode==='light'||mode==='dark')return {mode,reason:'manual'};
  const lat=city&&city.latitude,lon=city&&city.longitude;

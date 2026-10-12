@@ -242,3 +242,17 @@ from module bounds; small modules place the date below, while wider modules use
 the space beside the clock. Keep decorative hands/numbers out of accessibility
 reading order, and preserve the original time heading. Avoid ticking animation
 and controls on the normal dashboard.
+
+## Warm clock concepts — 2.15.2
+
+The approved first four generated concepts guide Landscape, Analog, Flip and
+Botanical. Landscape uses olive serif time above soft terracotta hills; Analog
+uses a fine cream face, quiet numerals and terracotta hands; Flip uses horizontal
+olive cards with a split seam and restrained minute-change motion; Botanical
+uses warm serif time, a translucent organic wash and a small plant. Artwork is
+original local vector geometry inspired by the concept, with live time/date.
+
+Keep decoration subordinate: small modules omit plants; shallow Flip strips put
+the date beside the tiles, narrow/tall Analog places the date beneath the face.
+Landscape reserves an explicit region for hills so they cannot cross time text.
+All four use existing theme pairs and reduced motion. No controls on Overview.

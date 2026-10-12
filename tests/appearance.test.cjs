@@ -40,3 +40,7 @@ test('optional high-contrast palette meets AA text and control border contrast',
   for(const bg of ['bg','panel'])assert.ok(contrast(t.line,t[bg])>=3,theme+' border/'+bg);
  }
 });
+
+test('clock numerals retain high-contrast text separation in both modes',()=>{
+ for(const mode of ['light','dark']){const t=A.tokens('contrast',mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5);assert.ok(contrast(t['clock-leaf'],t.panel)>=4.5);}
+});

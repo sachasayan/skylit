@@ -7,7 +7,7 @@ if(output)fs.mkdirSync(path.join(output,'screenshots'),{recursive:true});
 (async()=>{
  const browser=await chromium.launch({headless:true,...(process.env.SKYLIT_CHROME?{executablePath:process.env.SKYLIT_CHROME}:{})}),context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:1.5}),page=await context.newPage();
  page.on('pageerror',e=>errors.push(e.message));await context.route('**/*',r=>new URL(r.request().url()).hostname==='127.0.0.1'?r.continue():r.abort());
- async function load(){await page.goto('http://127.0.0.1:8767/?photos=email',{waitUntil:'networkidle'});await page.waitForFunction(()=>window.SkylitDashboard&&SkylitApp.status().weatherReady);await page.evaluate(()=>{SkylitApp.go('overview');const m=document.createElement('div');m.textContent='SYNTHETIC PREVIEW · OCT 11, 2026';m.style.cssText='position:fixed;right:12px;bottom:7px;padding:3px 7px;background:var(--panel);color:var(--ink);font:11px system-ui;border-radius:4px;z-index:1000;pointer-events:none';document.body.append(m);});}
+ async function load(){await page.goto('http://127.0.0.1:8767/?photos=email',{waitUntil:'load'});await page.waitForFunction(()=>window.SkylitDashboard&&SkylitApp.status().weatherReady);await page.evaluate(()=>{SkylitApp.go('overview');const m=document.createElement('div');m.textContent='SYNTHETIC PREVIEW · OCT 12, 2026';m.style.cssText='position:fixed;right:12px;bottom:7px;padding:3px 7px;background:var(--panel);color:var(--ink);font:11px system-ui;border-radius:4px;z-index:1000;pointer-events:none';document.body.append(m);});}
  async function check(name,fn){await fn();checks.push(name);console.log('PASS '+name);}
  async function snap(id,title){if(!output)return;await page.screenshot({path:path.join(output,'screenshots',id+'.jpg'),type:'jpeg',quality:86});screens.push({id,title,file:'screenshots/'+id+'.jpg',viewport:await page.evaluate(()=>[innerWidth,innerHeight])});}
  const settings=()=>page.evaluate(()=>SkylitApp.openSettings('dashboard'));
@@ -30,6 +30,19 @@ if(output)fs.mkdirSync(path.join(output,'screenshots'),{recursive:true});
   }
   await page.evaluate(()=>{window.Date=window.ClockDate;SkylitApp.setDisplayPreferences({clock:'12'});});
  });
+ await check('Flip animates only a visible minute change; rollover, unchanged ticks, reduced motion and time jumps stay correct',async()=>{
+  const result=await page.evaluate(()=>{
+   const c=SkylitClock.create(document);document.body.append(c.root);
+   const read=time=>SkylitClock.read('2026-10-10T'+time+'Z','UTC','24');
+   c.update('stacked',read('09:59:45'));const initial=c.root.getAnimations({subtree:true}).length;
+   c.update('stacked',read('09:59:59'));const unchanged=c.root.getAnimations({subtree:true}).length;
+   c.update('stacked',read('10:00:00'));const rollover=c.root.getAnimations({subtree:true}).length,numbers=Array.from(c.root.querySelectorAll('.clock-flip-tile>.clock-flip-number'),n=>n.textContent);
+   c.update('stacked',read('11:10:00'));const jumped=c.root.getAnimations({subtree:true}).length;c.root.remove();return {initial,unchanged,rollover,numbers,jumped};
+  });assert.equal(result.initial,0);assert.equal(result.unchanged,0);assert.equal(result.rollover,2);assert.deepEqual(result.numbers,['10','00']);assert.equal(result.jumped,0);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await page.evaluate(()=>{const c=SkylitClock.create(document);document.body.append(c.root);c.update('stacked',SkylitClock.read('2026-10-10T09:59:45Z','UTC'));c.update('stacked',SkylitClock.read('2026-10-10T10:00:00Z','UTC'));const count=c.root.getAnimations({subtree:true}).length;c.root.remove();return count;}),0);
+  await page.emulateMedia({reducedMotion:'no-preference'});
+ });
  for(const [width,height] of [[960,540],[1024,640],[1280,720],[1280,800],[1440,900],[1600,900],[1920,1080],[1920,1200],[390,844]])for(const profile of ['standard','large'])await check('All clocks · '+width+'×'+height+' · '+profile,async()=>{
   await page.setViewportSize({width,height});
   for(const style of ['classic','analog','stacked','digital']){
@@ -37,11 +50,15 @@ if(output)fs.mkdirSync(path.join(output,'screenshots'),{recursive:true});
    if(profile==='standard'&&[960,1280,1920,390].includes(width)&&[540,720,1200,844].includes(height))await snap(style+'-'+width+'x'+height,style+' · '+width+'×'+height);
   }
  });
- async function geometry(){const g=await page.evaluate(()=>{const n=document.querySelector('.dashboard-module[data-module=clock]'),h=n.querySelector('.overview-heading'),r=n.getBoundingClientRect(),d=n.querySelector('#date').getBoundingClientRect();return {w:innerWidth,h:innerHeight,pageWidth:document.documentElement.scrollWidth,pageHeight:document.documentElement.scrollHeight,width:n.clientWidth,scrollWidth:n.scrollWidth,height:n.clientHeight,scrollHeight:n.scrollHeight,style:n.dataset.clockStyle,bottom:r.bottom,dateBottom:d.bottom,dateRight:d.right,right:r.right};});assert.ok(g.pageWidth<=g.w+1);if(g.w>=800)assert.ok(g.pageHeight<=g.h+1);assert.ok(g.scrollWidth<=g.width+1,JSON.stringify(g));assert.ok(g.scrollHeight<=g.height+1,JSON.stringify(g));assert.ok(g.dateBottom<=g.bottom+1,JSON.stringify(g));assert.ok(g.dateRight<=g.right+1,JSON.stringify(g));}
+ async function geometry(){const g=await page.evaluate(()=>{const n=document.querySelector('.dashboard-module[data-module=clock]'),h=n.querySelector('.overview-heading'),r=n.getBoundingClientRect(),d=n.querySelector('#date').getBoundingClientRect();return {w:innerWidth,h:innerHeight,pageWidth:document.documentElement.scrollWidth,pageHeight:document.documentElement.scrollHeight,width:n.clientWidth,scrollWidth:n.scrollWidth,height:n.clientHeight,scrollHeight:n.scrollHeight,time:n.querySelector('#clock').getBoundingClientRect().toJSON(),art:n.querySelector('.clock-landscape').getBoundingClientRect().toJSON(),top:r.top,left:r.left,style:n.dataset.clockStyle,bottom:r.bottom,dateBottom:d.bottom,dateRight:d.right,right:r.right};});assert.ok(g.pageWidth<=g.w+1);if(g.w>=800)assert.ok(g.pageHeight<=g.h+1);assert.ok(g.scrollWidth<=g.width+1,JSON.stringify(g));assert.ok(g.scrollHeight<=g.height+1,JSON.stringify(g));assert.ok(g.dateBottom<=g.bottom+1,JSON.stringify(g));assert.ok(g.dateRight<=g.right+1,JSON.stringify(g));if(['classic','digital'].includes(g.style)){assert.ok(g.time.top>=g.top-1&&g.time.bottom<=g.bottom+1&&g.time.left>=g.left-1&&g.time.right<=g.right+1,JSON.stringify(g));if(g.style==='classic')assert.ok(g.time.bottom<=g.art.top+1,'Landscape art overlaps time: '+JSON.stringify(g));}}
  await page.setViewportSize({width:1280,height:720});
  for(const style of ['classic','analog','stacked','digital'])for(const size of ['minimum','full'])await check(style+' · '+size+' · large text · late 12-hour time',async()=>{
   await page.evaluate(([style,size])=>{localStorage.setItem('skylit.dashboard',JSON.stringify({version:1,modules:[{type:'clock',style,x:size==='full'?0:8,y:size==='full'?0:7,w:size==='full'?12:3,h:size==='full'?12:3}]}));},[style,size]);await load();await page.evaluate(()=>{window.RealClockDate=Date;window.Date=class extends RealClockDate{constructor(...args){super(...(args.length?args:['2026-10-10T09:59:00Z']));}static now(){return new RealClockDate('2026-10-10T09:59:00Z').getTime();}};SkylitApp.setDisplayPreferences({clock:'12'});});await geometry();await snap(style+'-'+size,style+' · '+size+' size · large text');
  });
+ for(const profile of ['standard','large'])for(const [w,h,label] of [[6,4,'wide'],[6,6,'square'],[3,12,'tall'],[12,3,'strip']])for(const style of ['classic','analog','stacked','digital'])await check(style+' · '+label+' · '+profile,async()=>{
+  await page.evaluate(([style,w,h,profile])=>{localStorage.setItem('skylit.dashboard',JSON.stringify({version:1,modules:[{type:'clock',style,x:0,y:0,w,h}]}));const f=JSON.parse(localStorage.getItem('skylit.frame'));f.text=profile;localStorage.setItem('skylit.frame',JSON.stringify(f));},[style,w,h,profile]);await load();await page.waitForTimeout(40);await geometry();
+  if(profile==='standard')await snap(style+'-'+label,style+' · '+label+' module');
+ });
  await page.evaluate(()=>{const f=JSON.parse(localStorage.getItem('skylit.frame'));f.text='standard';localStorage.setItem('skylit.frame',JSON.stringify(f));localStorage.setItem('skylit.dashboard',JSON.stringify(SkylitDashboardModel.change(SkylitDashboardModel.preset(),'clock',{style:'analog'})));});await load();await page.evaluate(()=>SkylitApp.setDisplayPreferences({theme:'ocean',mode:'dark'}));await snap('analog-dark','Analog · Ocean dark');
- assert.deepEqual(errors,[]);await browser.close();if(output)fs.writeFileSync(path.join(output,'capture-manifest.json'),JSON.stringify({date:'2026-10-11',version:'2.14.1',synthetic:true,checks,runtimeErrors:errors,screenshots:screens},null,2));console.log(JSON.stringify({checks:checks.length,screenshots:screens.length,runtimeErrors:errors.length}));
+ assert.deepEqual(errors,[]);await browser.close();if(output)fs.writeFileSync(path.join(output,'capture-manifest.json'),JSON.stringify({date:'2026-10-12',version:'2.15.2',synthetic:true,checks,runtimeErrors:errors,screenshots:screens},null,2));console.log(JSON.stringify({checks:checks.length,screenshots:screens.length,runtimeErrors:errors.length}));
 })().catch(e=>{console.error(e);process.exitCode=1;setTimeout(()=>process.exit(1),500);});

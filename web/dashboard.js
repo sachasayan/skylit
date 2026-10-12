@@ -39,8 +39,9 @@
   function sizeModules(){
     for(const [type,n] of wrappers){if(n.hidden)continue;const rect=n.getBoundingClientRect(),w=rect.width,h=rect.height;if(!w||!h)continue;
       n.dataset.density=w<340||h<220?'compact':'regular';n.dataset.short=String(h<280);n.dataset.narrow=String(w<340);
-      n.style.setProperty('--module-clock',Math.max(32,Math.min(140,w*.19,h*.48))+'px');
-      if(type==='clock'){const narrow=w<340;n.style.setProperty('--module-dial',Math.max(44,Math.min(420,narrow?w-24:w*.48,h-(narrow?54:32)))+'px');n.style.setProperty('--module-stack',Math.max(24,Math.min(140,(h-40)/2.4,w*.22))+'px');}
+      n.style.setProperty('--module-clock',Math.max(24,Math.min(170,w*.19,h*(type==='clock'&&n.dataset.clockStyle==='classic'?.32:.43)))+'px');
+      n.style.setProperty('--module-landscape',Math.max(22,Math.min(170,h*.3,w*.3))+'px');
+      if(type==='clock'){const narrow=w<340,flat=w>480&&h<190,tiny=h<170;n.style.setProperty('--module-dial',Math.max(44,Math.min(420,narrow?w-48:w*.48,h-(narrow?58:40)))+'px');n.style.setProperty('--module-stack',Math.max(24,Math.min(170,(h-(flat?65:tiny?78:90))/1.72,(w-48)*.25))+'px');n.dataset.flourish=String((w>=360&&h>=180)||(w>=220&&h>=260));n.dataset.tiny=String(tiny);n.dataset.flat=String(flat);}
       n.style.setProperty('--module-temperature',Math.max(36,Math.min(100,w*.17,h*.28))+'px');
     }
   }
