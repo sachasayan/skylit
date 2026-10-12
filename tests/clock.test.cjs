@@ -1,7 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),clock=require('../web/clock.js'),layout=require('../web/dashboard-model.js');
 test('clock hands include minutes/seconds and use the configured city, independent of local timezone',()=>{
   const london=clock.read('2026-10-10T08:15:30Z','Europe/London','12');
-  assert.equal(london.hour,9);assert.equal(london.hourText,'9');assert.equal(london.minuteText,'15');assert.equal(london.hourAngle,277.75);assert.equal(london.minuteAngle,93);
+  assert.equal(london.hour,9);assert.equal(london.hourText,'9');assert.equal(london.minuteText,'15');assert.equal(london.hourAngle,277.75);assert.equal(london.minuteAngle,93);assert.equal(london.secondAngle,180);
   const india=clock.read('2026-10-10T08:15:00Z','Asia/Kolkata','24');assert.equal(india.hourText,'13');assert.equal(india.minuteText,'45');
   const newYork=clock.read('2026-10-10T08:15:00Z','America/New_York','12');assert.equal(newYork.hourText,'4');assert.equal(newYork.minute,15);
 });

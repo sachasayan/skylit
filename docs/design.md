@@ -298,3 +298,24 @@ Analog strips center the actual dial/date group rather than estimating date widt
 Preserve the existing style IDs, full accessible time/date and visible-tick-only
 Flip motion. Final visual acceptance includes all six light/dark pairs and sampled
 actual animation; physical WebView acceptance remains a separate check.
+
+
+## Analog reference reconstruction — 2.15.5
+
+Extract and validate the target's construction before judging implementation. The
+Analog dial is a shallow recess within a softly convex panel, not a raised disc
+or generic rim. Preserve upper interior shade, lower interior light, painted
+marks, slender four numerals, copper bars and a raised olive pivot as distinct
+layers. Compare lengths independently of current hand angles.
+
+The foreground has clustered broad heart leaves and an irregular left/down
+cascade, a rolled terracotta lip, rounded body and separate lower foot, and a
+wood shelf with top/front/underside and contact shading. The local transparent
+illustration preserves that material detail. Allow intentional edge cropping;
+reserve date space beside the cascade. Omit the secondary vignette in constrained
+shapes. The public report records the target-first inventory and exact critic
+instructions; layout and reference fidelity are independent gates.
+
+Analog hands update each second only when the live clock or Settings sample is
+visible. Hidden views do no fast updates. Reduced motion hides the seconds needle
+and retains the normal time/date updates. No services or layout render per second.

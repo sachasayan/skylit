@@ -16,7 +16,7 @@
     const date=new Date(instant),parts=new Intl.DateTimeFormat('en-GB',{timeZone:timezone,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(date),get=key=>Number(parts.find(p=>p.type===key).value);
     const hour=get('hour'),minute=get('minute'),second=get('second'),options={timeZone:timezone,hour:'numeric',minute:'2-digit',hour12:format!=='24'};
     const display=new Intl.DateTimeFormat('en-CA',options).formatToParts(date);
-    return {hour,minute,second,hourText:format==='24'?String(hour).padStart(2,'0'):String(hour%12||12),minuteText:String(minute).padStart(2,'0'),period:(display.find(p=>p.type==='dayPeriod')||{}).value||'',label:new Intl.DateTimeFormat('en-CA',options).format(date),date:new Intl.DateTimeFormat('en-CA',{timeZone:timezone,weekday:'long',month:'short',day:'numeric'}).format(date),hourAngle:(hour%12)*30+minute*.5+second/120,minuteAngle:minute*6+second*.1};
+    return {hour,minute,second,hourText:format==='24'?String(hour).padStart(2,'0'):String(hour%12||12),minuteText:String(minute).padStart(2,'0'),period:(display.find(p=>p.type==='dayPeriod')||{}).value||'',label:new Intl.DateTimeFormat('en-CA',options).format(date),date:new Intl.DateTimeFormat('en-CA',{timeZone:timezone,weekday:'long',month:'short',day:'numeric'}).format(date),hourAngle:(hour%12)*30+minute*.5+second/120,minuteAngle:minute*6+second*.1,secondAngle:second*6};
   }
   let nextId=0;
   function create(document){
@@ -29,8 +29,8 @@
     const leafPaint=gradient('leaf',[['0%','clock-leaf-lit'],['52%','clock-leaf'],['100%','clock-leaf-shade']]);
     const vasePaint=gradient('vase',[['0%','clock-vase-shade'],['24%','clock-vase-lit'],['47%','clock-vase-lit'],['70%','clock-vase'],['100%','clock-vase-shade']]);defs.querySelector('#'+id+'vase').setAttribute('y2','0');
     const potPaint=gradient('pot',[['0%','clock-clay-shade'],['24%','clock-clay-lit'],['58%','clock-clay'],['100%','clock-clay-shade']]);
-    const facePaint=gradient('face',[['0%','panel'],['65%','panel'],['100%','clock-wash']],true);
-    const rimPaint=gradient('rim',[['0%','clock-wash'],['35%','panel'],['100%','line']]);
+    const facePaint=gradient('face',[['0%','panel'],['100%','clock-dial-floor']],true);
+    const rimPaint=gradient('rim',[['0%','clock-dial-shadow'],['48%','clock-dial-floor'],['100%','clock-dial-lit']]);
     const washPaint=gradient('wash',[['0%','panel',0],['40%','clock-wash',.9],['100%','clock-wash',.4]]);
     const hillPaint=gradient('hill',[['0%','clock-hill-lit'],['65%','clock-hill'],['100%','accent']]);
     const frontPaint=gradient('front',[['0%','clock-hill-lit'],['100%','clock-hill']]);
@@ -55,18 +55,25 @@
       host.append(svg('path',{d:`M${x+1} ${y+1}h${width-2}`,class:'clock-shelf-edge'}));
       for(let j=0;j<3;j++)host.append(svg('path',{d:`M${x+3} ${y+2+j*2}Q${x+width*.45} ${y+4+j} ${x+width-2} ${y+1+j*2}`,class:'clock-wood-grain'}));
     }
+    // Interior shadows establish a recess; only the hands/cap project above it.
+    const recess=svg('filter',{id:id+'recess',x:'-10%',y:'-10%',width:'120%',height:'120%','color-interpolation-filters':'sRGB'});
+    recess.append(svg('feGaussianBlur',{in:'SourceAlpha',stdDeviation:1.6,result:'soft-edge'}));
+    for(const [name,dy,token,opacity] of [['shade',2.2,'clock-dial-shadow',.7],['light',-1.5,'clock-dial-lit',.85]]){
+      recess.append(svg('feOffset',{in:'soft-edge',dy,result:name+'-offset'}),svg('feComposite',{in:'SourceAlpha',in2:name+'-offset',operator:'out',result:name+'-edge'}));
+      const flood=svg('feFlood',{'flood-opacity':opacity,result:name+'-color'});flood.style.setProperty('flood-color','var(--'+token+')');recess.append(flood,svg('feComposite',{in:name+'-color',in2:name+'-edge',operator:'in',result:name}));
+    }
+    const merge=svg('feMerge',{});for(const input of ['SourceGraphic','shade','light'])merge.append(svg('feMergeNode',{in:input}));recess.append(merge);defs.append(recess);
+    const copper=gradient('copper',[['0%','clock-copper-lit'],['40%','clock-copper'],['100%','clock-copper-shade']]);
+    const copperServer=defs.querySelector('#'+id+'copper');for(const [k,v] of Object.entries({gradientUnits:'userSpaceOnUse',x1:97,y1:30,x2:103,y2:105}))copperServer.setAttribute(k,v);
+    const pinPaint=gradient('pin',[['0%','clock-leaf-lit'],['55%','clock-leaf'],['100%','clock-leaf-shade']],true);
     const face=svg('svg',{viewBox:'0 0 200 200',class:'clock-dial',focusable:'false'});
-    face.append(svg('circle',{cx:100,cy:100,r:97,fill:rimPaint,class:'clock-rim'}));surface(face,'circle',{cx:100,cy:100,r:94,fill:facePaint,class:'clock-face'},.4);
-    for(let i=0;i<12;i++)face.append(svg('line',{x1:100,y1:12,x2:100,y2:i%3===0?20:18,transform:'rotate('+(i*30)+' 100 100)',class:'clock-tick'}));
+    face.append(svg('circle',{cx:100,cy:100,r:97,fill:rimPaint,class:'clock-rim'}),svg('circle',{cx:100,cy:100,r:96,fill:facePaint,filter:'url(#'+id+'recess)',class:'clock-face'}));
+    for(let i=0;i<12;i++)face.append(svg('line',{x1:100,y1:14,x2:100,y2:22,transform:'rotate('+(i*30)+' 100 100)',class:'clock-tick'}));
     for(const [text,x,y] of [['12',100,40],['3',169,105],['6',100,175],['9',31,105]]){const label=svg('text',{x,y,'text-anchor':'middle',class:'clock-numeral'});label.textContent=text;face.append(label);}
-    const hour=svg('line',{x1:100,y1:100,x2:100,y2:57,class:'clock-hour-hand'}),minute=svg('line',{x1:100,y1:100,x2:100,y2:43,class:'clock-minute-hand'});
-    face.append(hour,minute,svg('circle',{cx:100,cy:100,r:5.5,class:'clock-pin'}),svg('circle',{cx:98.8,cy:98.6,r:2.1,class:'clock-pin-highlight'}));
-    const analogPlant=svg('svg',{viewBox:'0 0 180 210',class:'clock-analog-plant',focusable:'false'});
-    shelf(analogPlant,22,194,158);
-    analogPlant.append(svg('ellipse',{cx:139,cy:193,rx:26,ry:3,class:'clock-contact-shadow'}));
-    surface(analogPlant,'path',{d:'M110 130Q138 123 168 130L161 179C158 196 119 197 116 178Z',fill:potPaint,class:'clock-pot'});
-    analogPlant.append(svg('ellipse',{cx:139,cy:130,rx:29,ry:6.5,fill:potPaint,class:'clock-pot-lip'}),svg('ellipse',{cx:139,cy:129,rx:24,ry:3.3,class:'clock-pot-soil'}),svg('path',{d:'M139 130C146 108 137 74 149 50M139 132C114 114 108 92 98 56M132 133C103 119 86 135 78 151S63 165 59 173M145 91Q144 86 144 82M111 99Q108 90 105 83M88 137Q92 128 102 122',class:'clock-stem'}));
-    for(const spec of [[149,50,-12,.42,2],[144,82,43,.48,3],[133,110,-36,.54,0],[105,83,-40,.50,3],[98,56,34,.40,0],[102,122,-68,.46,1],[78,151,-48,.50,3],[67,159,151,.44,0],[59,173,164,.36,3]])leaf(analogPlant,...spec);
+    function hand(cls,end,width){const g=svg('g',{class:cls});g.append(svg('line',{x1:100,y1:100,x2:100,y2:end,stroke:copper,'stroke-width':width,'stroke-linecap':'round'}),svg('line',{x1:99.1,y1:98,x2:99.1,y2:end+.9,stroke:'var(--clock-copper-lit)','stroke-width':.55,'stroke-linecap':'round',opacity:.65}));return g;}
+    const hour=hand('clock-hour-hand',44,4.2),minute=hand('clock-minute-hand',32,3.1),second=svg('line',{x1:100,y1:100,x2:100,y2:35,class:'clock-second-hand'});
+    face.append(hour,minute,second,svg('circle',{cx:100,cy:100,r:6.1,fill:pinPaint,class:'clock-pin'}));
+    const analogPlant=node('img','clock-analog-plant');analogPlant.src='clock-analog-plant.png';analogPlant.alt='';analogPlant.draggable=false;
     const branch=svg('svg',{viewBox:'0 -25 280 365',class:'clock-botanical-branch',focusable:'false'});
     branch.append(svg('path',{d:'M250 340C228 291 226 251 194 194C174 160 157 132 163 105M177 165Q170 158 150 154M179 168Q186 158 190 146M208 220Q197 215 179 216M208 220Q212 210 210 201M235 290Q215 279 208 275M231 268Q232 258 224 249',class:'clock-stem clock-botanical-stem'}));
     for(const spec of [[163,105,-7,.76,2],[150,154,-57,.87,0],[190,146,32,.87,1],[179,216,-66,.98,1],[210,201,34,.88,0],[208,275,-75,1.02,0],[224,249,24,.82,2]])leaf(branch,...spec);
@@ -103,7 +110,7 @@
     return {root,update(value,data){const chosen=style(value),instant=data.hour*3600+data.minute*60+data.second,delta=last===null?0:(instant-last+86400)%86400,visible=root.isConnected&&root.getClientRects().length>0,reduce=document.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const animate=chosen==='stacked'&&root.dataset.clockStyle===chosen&&visible&&!document.hidden&&!reduce&&delta>0&&delta<=30;
       if(!visible||document.hidden||reduce||delta>30||root.dataset.clockStyle!==chosen){for(const t of [hours,minutes]){t.cancel?.();t.cancel=null;t.animation=null;}}
-      root.dataset.clockStyle=chosen;last=instant;hour.setAttribute('transform','rotate('+data.hourAngle+' 100 100)');minute.setAttribute('transform','rotate('+data.minuteAngle+' 100 100)');setTile(hours,data.hourText.padStart(2,'0'),animate);setTile(minutes,data.minuteText,animate);period.textContent=data.period.replace(/[.\s]/g,'').toUpperCase();period.hidden=!data.period;}};
+      root.dataset.clockStyle=chosen;last=instant;hour.setAttribute('transform','rotate('+data.hourAngle+' 100 100)');minute.setAttribute('transform','rotate('+data.minuteAngle+' 100 100)');second.setAttribute('transform','rotate('+data.secondAngle+' 100 100)');setTile(hours,data.hourText.padStart(2,'0'),animate);setTile(minutes,data.minuteText,animate);period.textContent=data.period.replace(/[.\s]/g,'').toUpperCase();period.hidden=!data.period;}};
   }
   return {styles,style,read,create,composeLandscape};
 });

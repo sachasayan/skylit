@@ -124,17 +124,18 @@
 .clock-frame[data-clock-style=digital][data-composition=strip] .clock-date-separator{position:static;clip:auto;width:auto;height:auto;overflow:visible}
 .clock-frame[data-clock-style=digital][data-composition=strip] .clock-botanical-branch{width:22%;height:150%;right:4%;bottom:-22%}
 .clock-frame[data-clock-style=digital][data-composition=strip] #clock-period,.clock-frame[data-clock-style=digital][data-composition=strip] .clock-sample-period{display:inline;margin-left:.5em;font-size:.25em}
-.clock-frame[data-clock-style=analog] .clock-dial{display:block;position:absolute;left:var(--dial-x);top:var(--dial-y);width:var(--module-dial);height:var(--module-dial);filter:drop-shadow(0 2px 4px #352e2810)}
-.clock-face{stroke:var(--line);stroke-width:.6}.clock-rim{stroke:var(--line);stroke-width:.4}
+.clock-frame[data-clock-style=analog] .clock-dial{display:block;position:absolute;left:var(--dial-x);top:var(--dial-y);width:var(--module-dial);height:var(--module-dial)}
+.clock-face,.clock-rim{stroke:none}
 .clock-tick{stroke:var(--clock-face-ink);stroke-width:1;stroke-linecap:round}
-.clock-numeral{fill:var(--clock-face-ink);font:400 16px 'Skylit Sans',sans-serif}
-.clock-hour-hand{stroke:var(--accent);stroke-width:3.8;stroke-linecap:round;filter:drop-shadow(0 1px .5px #352e2820)}
-.clock-minute-hand{stroke:var(--accent);stroke-width:2.7;stroke-linecap:round;filter:drop-shadow(0 1px .5px #352e2820)}
-.clock-pin{fill:var(--clock-leaf);stroke:var(--clock-face-ink);stroke-width:.4}.clock-pin-highlight{fill:var(--panel);opacity:.2}
+.clock-numeral{fill:var(--clock-face-ink);font:300 16px 'Skylit Sans',sans-serif}
+.clock-hour-hand{filter:drop-shadow(.35px .7px .6px #352e2835)}
+.clock-minute-hand{filter:drop-shadow(.35px .7px .6px #352e2835)}
+.clock-second-hand{stroke:var(--clock-leaf);stroke-width:.9;stroke-linecap:round}
+.clock-pin{stroke:none;filter:drop-shadow(0 .65px .5px #352e2835)}.clock-pin-highlight{fill:var(--panel);opacity:.2}
 .clock-leaf-vein{fill:none;stroke:var(--clock-leaf);stroke-width:.8;opacity:.65}.clock-leaf-detail{fill:none;stroke:var(--clock-leaf);stroke-width:.5;opacity:.25}
 .clock-stem{fill:none;stroke:var(--clock-leaf);stroke-width:1.7;stroke-linecap:round}
 .clock-pot{stroke:var(--clock-wood);stroke-width:.6}.clock-pot-rim{fill:var(--clock-wood);opacity:.7}.clock-vase{stroke:var(--line);stroke-width:.7}.clock-vase-lip{fill:var(--line)}.clock-wood-grain{stroke:var(--clock-wood);stroke-width:.7;opacity:.25}
-.clock-frame[data-clock-style=analog] .clock-analog-plant{display:block;position:absolute;left:calc(var(--dial-x) + var(--module-dial) * .71);top:calc(var(--dial-y) + var(--module-dial) * .56);width:calc(var(--module-dial) * .41);height:calc(var(--module-dial) * .48)}
+.clock-frame[data-clock-style=analog] .clock-analog-plant{display:block;position:absolute;left:calc(var(--dial-x) + var(--module-dial) * .65);top:calc(var(--dial-y) + var(--module-dial) * .66);width:calc(var(--module-dial) * .62);height:calc(var(--module-dial) * .52);object-fit:contain}
 .clock-frame[data-clock-style=analog][data-small=true] .clock-analog-plant,.clock-frame[data-clock-style=analog][data-composition=strip] .clock-analog-plant{display:none}
 #overview .clock-frame[data-clock-style=analog] #clock,#overview .clock-frame[data-clock-style=stacked] #clock{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 .clock-frame[data-clock-style=analog] .clock-sample-time,.clock-frame[data-clock-style=stacked] .clock-sample-time{display:none}
@@ -207,3 +208,10 @@
 .clock-flip-in,.clock-flip-bottom{background-image:linear-gradient(180deg,#00000012,#ffffff05),url('clock-grain.png');box-shadow:inset 0 -2px #00000030}
 #overview .clock-frame[data-clock-style=digital] #clock,.clock-sample[data-clock-style=digital] .clock-sample-time{font-weight:600}
 
+
+.clock-frame[data-clock-style=analog]:before{opacity:.12}
+.clock-frame[data-clock-style=analog]{border-radius:clamp(18px,calc(var(--module-dial) * .12),46px);border-color:transparent;background:linear-gradient(135deg,var(--clock-panel-lit),var(--panel) 40%,var(--clock-dial-floor));box-shadow:inset 2px 3px 3px var(--clock-panel-lit),inset -2px -4px 5px var(--clock-panel-shade),inset 0 0 14px var(--clock-panel-shade)}
+/* The foreground cascade occupies the lower-right: reserve clear space for the date. */
+#overview .clock-frame[data-clock-style=analog][data-small=false][data-side-date=false] #date,.clock-sample[data-clock-style=analog][data-small=false][data-side-date=false] .clock-date{transform:translateX(calc(var(--module-dial) * -.1))}
+
+@media(prefers-reduced-motion:reduce){.clock-second-hand{display:none}}

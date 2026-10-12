@@ -60,6 +60,16 @@
     sizeModules();
   }
   window.addEventListener('skylit-clock',e=>paintClock(e.detail.instant));
+  // Advance only visible Analog hands between the app's coarse status ticks.
+  // Do not rerender the dashboard or poll services for a seconds hand.
+  setInterval(()=>{
+    if(document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const live=saved.modules.find(m=>m.type==='clock')?.style==='analog'&&originals.get('clock').getClientRects().length>0;
+    const sample=clockSample&&draft.modules.find(m=>m.type==='clock')?.style==='analog'&&clockSample.getClientRects().length>0;
+    if(!live&&!sample)return;
+    const prefs=app.calendarPreferences(),data=SkylitClock.read(Date.now(),prefs.timezone,prefs.clock);
+    if(live)clockVisual.update('analog',data);if(sample)sampleVisual.update('analog',data);
+  },1000);
   const photoEmpty=node('button','dashboard-photo-empty');photoEmpty.textContent='Choose photos';photoEmpty.onclick=()=>app.openSettings('photos','overview');wrappers.get('photos').append(photoEmpty);
   const empty=node('div','dashboard-empty');empty.append(node('h2',null,'Your dashboard is empty'));const configure=node('button','secondary','Choose modules');configure.onclick=()=>app.openSettings('dashboard','overview');empty.append(configure);grid.append(empty);
   function position(n,item){n.style.gridColumn=(item.x+1)+' / span '+item.w;n.style.gridRow=(item.y+1)+' / span '+item.h;}

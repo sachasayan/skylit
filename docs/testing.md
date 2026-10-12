@@ -164,3 +164,18 @@ The clock browser suite also checks near-square modules in both text profiles an
 centering of the complete Analog strip dial/date group. Visual concept acceptance
 uses a target-first locked rubric and all seven native shape crops; runtime bounds
 checks do not replace that independent critique.
+
+
+## Analog construction and visible seconds
+
+For reference reconstruction, extract and validate defining light/depth/layer
+relationships before seeing implementation; a stricter adjective-based rubric
+can still accept the wrong construction. Inspect native shapes independently of
+live hand angles. Keep reference fidelity and responsive composition as separate
+gates, then assess all six light/dark pairs separately. Record real remaining
+finish differences and precise acceptance scope.
+
+`check_clocks.cjs` verifies configured city seconds and a visible Analog tick
+independent of the main 15-second status timer, plus reduced-motion suppression.
+Its minimum/wide/medium/tall/strip/full/near-square matrix exercises both text
+profiles. Synthetic captures do not substitute for WebView 95 device acceptance.

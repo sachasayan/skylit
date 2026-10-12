@@ -1,6 +1,37 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.15.5 — Analog reference reconstruction
+
+- A fresh critic extracted and validated the approved Analog reference before
+  seeing the implementation. The inventory describes an inset face within a
+  convex panel, inner light direction, hand proportions, trailing leaf mass,
+  separate pot lip/body/base and layered wood/contact construction. Exact new
+  instructions and both independent reviews are in the report.
+- First inset pass failed reference fidelity. Final pass accepts static Linen
+  fidelity and seven native shape compositions; all twelve medium theme crops
+  pass a separate presentation gate. Minor lighting, face/copper finish and leaf
+  detail differences remain documented. This does not cover every theme/size
+  combination, exact duplication, accessibility or actual device performance.
+- Live SVG inset face/marks/hands, dimensional copper bars and olive cap; local
+  generated transparent botanical vignette. Shelf/cascade wraps below/right of
+  the dial, with a clear date area and intentional secondary-art omission.
+  Only visible Analog hands update each second; reduced motion hides seconds.
+- 83 JavaScript and 16 Python/native-policy tests pass. 76 rendered clock groups
+  and 32 full-app groups pass with zero runtime errors or load retries.
+  The report's images, theme controls and desktop/narrow bounds pass.
+- Normal signed APK 2.15.5/code 33 verifies with v1/v2/v3 signatures. New local
+  artwork is included; household configuration is blank and synthetic fixtures
+  are excluded. Public source/history/APK checks and Gitleaks pass.
+- Paired TLS frame is unavailable. No installation or device changes occurred;
+  physical WebView acceptance remains pending.
+- APK SHA-256: `ee54e15d7008613d953c98880a3eeabbe743eba743bc0c94b1eab055e042cfc0`.
+- [Reference comparison, all seven shapes, themes and exact critic instructions](reviews/2026-10-12-analog-inset/index.html).
+
 ## Version 2.15.4 — Stricter clock concept acceptance
+
+Historical verdict: the owner subsequently rejected Analog fidelity. The prior
+rubric misclassified the face as a shallow rim/disc and missed its inset
+construction. Version 2.15.5 supersedes that interpretation and visual acceptance.
 
 - Fresh independent critic defined a locked rubric from the approved art before
   seeing implementation screenshots. Concept finish and responsive composition
