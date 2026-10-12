@@ -28,25 +28,31 @@
   function sizeClock(host,w,h,chosen,data){
     const ui=Number(getComputedStyle(document.documentElement).getPropertyValue('--ui-scale'))||1,ratio=w/h,strip=ratio>3.7,portrait=ratio<.8,small=w<300||h<170;
     host.dataset.clockStyle=chosen;host.dataset.composition=strip?'strip':portrait?'portrait':ratio>2.15?'wide':'balanced';host.dataset.small=String(small);
-    const pad=Math.max(h<120?8:small?10:12,Math.min(38,Math.min(w,h)*.075)),date=Math.min(32,Math.max(14,Math.min(w*.035,h*.055)*ui)),period=Math.min(31,Math.max(14,Math.min(w*.04,h*.055)*ui)),gap=Math.max(4,Math.min(22,h*.035));
-    const set=(key,value)=>host.style.setProperty('--'+key,value+'px');set('clock-pad',pad);set('clock-date-size',date);set('clock-period-size',period);set('clock-gap',gap);
-    const sideScene=strip||(chosen==='classic'&&ratio>2.15),scene=sideScene?h:portrait?h*.42:Math.min(h*(small?.26:.32),w*.36);set('module-landscape',scene);SkylitClock.composeLandscape(host.querySelector('.clock-landscape'),sideScene?w*.54:portrait?w*1.6:w,scene,sideScene);
+    const pad=Math.max(h<120?8:small?10:12,Math.min(38,Math.min(w,h)*.075));let date=Math.min(32,Math.max(14,Math.min(w*.035,h*.055)*ui)),period=Math.min(31,Math.max(14,Math.min(w*.04,h*.055)*ui)),gap=Math.max(4,Math.min(22,h*.035));
+    const inlinePeriod=strip||(small&&!portrait)||(chosen==='digital'&&ratio>2.15),botanicalTop=portrait?pad+w*.12:!small&&!strip&&ratio<=2.15?Math.max(pad,h*.17):pad;
+    if(chosen==='digital'&&!inlinePeriod){period=Math.max(14,Math.min(64,Math.min(w*.07,h*.10)*ui));gap=Math.max(4,Math.min(28,h*.055));}
+    const set=(key,value)=>host.style.setProperty('--'+key,value+'px');set('clock-pad',pad);set('clock-date-size',date);set('clock-period-size',period);set('clock-gap',gap);set('clock-corner',Math.max(12,Math.min(46,Math.min(w,h)*.09)));
+    const sideScene=strip||(chosen==='classic'&&ratio>2.15),scene=sideScene?h:Math.min(h*(small?.26:.32),w*.36);set('module-landscape',scene);
     // Measure the exact lining/tabular glyphs used by CSS. Canvas's default
     // OpenType numerals have different advances and can under-estimate the time.
     if(!sizeClock.measure){const m=node('span','clock-font-measure');m.setAttribute('aria-hidden','true');m.style.cssText='position:fixed;left:-10000px;top:0;visibility:hidden;white-space:nowrap;font:500 100px "Skylit Serif",Georgia;letter-spacing:-2.5px;font-feature-settings:"lnum" 1,"tnum" 1;pointer-events:none';document.body.append(m);sizeClock.measure=m;}
-    sizeClock.measure.style.fontWeight=chosen==='digital'?'600':'500';sizeClock.measure.textContent=data.hourText+':'+data.minuteText;const glyphWidth=sizeClock.measure.getBoundingClientRect().width/100;
-    const inlinePeriod=strip||(small&&!portrait),dateLines=chosen==='digital'&&!inlinePeriod?2:1,periodHeight=data.period?period*1.2:0;
-    let availableWidth=w-2*pad,availableHeight=h-2*pad-date*1.4*dateLines-gap-(inlinePeriod?0:periodHeight+gap);
-    if(chosen==='classic'){if(sideScene){availableWidth=w*.46-pad*2;}else availableHeight-=scene;}
-    if(chosen==='digital'){availableWidth=w*(small?.76:portrait?.87:.68)-pad;if(strip){availableWidth=w*.54-pad*2;availableHeight=h-pad*2;}else if(portrait)availableHeight=Math.min(availableHeight,h*.36);}
-    set('module-clock',Math.max(24,Math.min(availableWidth/(glyphWidth+(inlinePeriod&&data.period?.45:0)),availableHeight/.92)));
+    sizeClock.measure.style.fontFamily=chosen==='digital'?'"Skylit Display",Georgia':'"Skylit Serif",Georgia';sizeClock.measure.style.fontWeight=chosen==='digital'||chosen==='classic'?'600':'500';sizeClock.measure.textContent=data.hourText+':'+data.minuteText;const glyphWidth=sizeClock.measure.getBoundingClientRect().width/100;
+    const dateLines=chosen==='digital'&&!inlinePeriod?2:1,periodHeight=data.period?period*1.2:0;
+    let availableWidth=w-2*pad,availableHeight=h-pad-(chosen==='digital'?botanicalTop:pad)-date*1.4*dateLines-gap-(inlinePeriod?0:periodHeight+gap);
+    if(chosen==='classic'){if(sideScene){availableWidth=w*.46-pad*2;}else{availableHeight-=scene+(portrait?0:gap*2);availableWidth=Math.min(availableWidth,w*.80);}}
+    if(chosen==='digital'){availableWidth=w*(small?.76:portrait?.87:.80)-pad;if(strip){availableWidth=w*.54-pad*2;availableHeight=h-pad*2;}else if(portrait)availableHeight=Math.min(availableHeight,h*.36);}
+    const clockSize=Math.max(24,Math.min(availableWidth/(glyphWidth+(inlinePeriod&&data.period?.45:0)),availableHeight/.92));set('module-clock',clockSize);
+    const landscape=host.querySelector('.clock-landscape');landscape.dataset.sunRadius=String(Math.min(clockSize*.30,(sideScene?w*.54:w)*.21,scene*.42));SkylitClock.composeLandscape(landscape,sideScene?w*.54:w,scene,sideScene);
+    set('botanical-top',botanicalTop);set('botanical-left',w*.14);set('botanical-art-height',Math.min(w*.52,h*(ratio>1.25?.34:.52)));
     const side=ratio>2.4;host.dataset.sideDate=String(side);
     const dial=Math.max(44,Math.min(side?w*.55:w-pad*2,h-pad*2-(side?0:date*1.5+gap)));set('module-dial',dial);const dateNode=host.querySelector('.clock-date'),dateWidth=side?Math.max(...Array.from(dateNode.querySelectorAll('.clock-weekday,.clock-monthday'),n=>n.getBoundingClientRect().width)):0;set('dial-x',side?Math.max(pad,(w-dial-dateWidth-gap*1.5)/2):(w-dial)/2);set('dial-y',(h-dial-(side?0:date*1.5+gap))/2);
     const plant=small?'sprig':'full';host.dataset.ornament=plant;
-    let tilesWidth=(w-pad*2-(small?0:w*.12))/2.91,tilesHeight=(h-pad*2-date*1.4-periodHeight-(data.period?5:0)-gap)/(data.period?1.65:1.55);
+    let tilesWidth=(w-pad*2)/2.91,tilesHeight=(h-pad*2-date*1.4-periodHeight-(data.period?5:0)-gap)/(data.period?1.65:1.55);
     if(portrait){tilesWidth=(w-pad*2)/1.4;tilesHeight=(h-pad*2-date*1.4-periodHeight-(data.period?5:0)-gap)/(data.period?3.3:3.2);}
     if(strip){tilesWidth=(w*.43-pad)/2.91;tilesHeight=(h-pad*2-periodHeight-(data.period?5:0))/(data.period?1.65:1.55);}
-    set('module-stack',Math.max(24,Math.min(tilesWidth,tilesHeight)));set('flip-plant',Math.min(w*.20,h*.45));set('flip-side',small||strip?0:w*.12);
+    if(!small&&!strip&&!portrait)tilesHeight=Math.min(tilesHeight,h*.44/1.55);
+    set('module-stack',Math.max(24,Math.min(tilesWidth,tilesHeight)));set('flip-plant',Math.min(w*.51,h*.57));set('flip-side',0);
+    if(chosen==='stacked'){set('clock-date-size',Math.max(12,Math.min(20,date*.85)));set('clock-period-size',Math.max(14,Math.min(30,h*.05)));}
   }
   function paintDate(host,data){
     const date=host.querySelector('.clock-date');date.setAttribute('aria-label',data.date);date.replaceChildren(node('span','clock-weekday',data.date.split(', ')[0]),node('span','clock-date-separator',', '),node('span','clock-monthday',data.date.split(', ').slice(1).join(', ')));
@@ -87,7 +93,7 @@
     }
     if(clockSample&&clockData){const r=clockSample.getBoundingClientRect();if(r.width&&r.height)sizeClock(clockSample,r.width,r.height,clockSample.dataset.clockStyle,clockData);}
   }
-  if(document.fonts)document.fonts.ready.then(sizeModules);
+  if(document.fonts){document.fonts.ready.then(sizeModules);document.fonts.addEventListener('loadingdone',sizeModules);}
   const observer=new ResizeObserver(sizeModules);wrappers.forEach(n=>observer.observe(n));
   new MutationObserver(()=>{photoEmpty.hidden=!$('overview-photos').hidden;}).observe($('overview-photos'),{attributes:true,attributeFilter:['hidden']});
   photoEmpty.hidden=!$('overview-photos').hidden;

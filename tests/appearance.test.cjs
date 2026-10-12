@@ -51,3 +51,12 @@ test('Flip numerals meet AA contrast across all six light/dark palettes',()=>{
   const t=A.tokens(theme,mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5,`${theme} ${mode} Flip numerals`);
  }
 });
+
+test('Landscape sun and rear slope retain distinct tones across all palette pairs',()=>{
+ for(const theme of Object.keys(A.palettes))for(const mode of ['light','dark']){
+  const t=A.tokens(theme,mode);
+  // Decorative separation guards, not an accessibility contrast certification.
+  for(const sky of ['clock-sky','clock-sky-lit'])assert.ok(contrast(t['clock-sun'],t[sky])>=1.3,`${theme} ${mode} sun/${sky}`);
+  assert.ok(contrast(t['clock-hill'],t['clock-hill-lit'])>=1.15,`${theme} ${mode} rear slope`);
+ }
+});

@@ -1,5 +1,45 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.15.6 — Landscape, Flip and Botanical reference reconstruction
+
+- Separate target-only inventories, cross-validation and direct pixel comparison
+  identified type, hill topology, plant/vase/shelf construction, branch silhouette,
+  material and hierarchy gaps. A later comparison corrected another inventory
+  error (Landscape's closed-counter 4); the reference remained the authority.
+- Each independent critic accepted fidelity and all seven native Linen module
+  shapes after concrete rejections/corrections. Each style separately passed all
+  twelve medium theme variants. Flip's sampled actual 10:24→10:25 browser animation
+  passed a separate visual ordering/alignment review. Minor differences remain in
+  the report; these are scoped acceptances, not exact duplication or device proof.
+- Landscape has low rolling terrain, correct partial green foreground and hill
+  layering, circular type-scaled sun, refined Cormorant numerals and static pigment
+  variation. Its initially rejected non-Linen sun/sky and dark rear-hill separation
+  now pass all twelve theme presentations. Decorative color guards are not AA
+  accessibility certification.
+- Flip has centered olive plates with fine rim/seam/hinges and a local transparent
+  painted plant, ceramic pear vase and wood shelf. Botanical has bundled licensed
+  Lora, responsive AM hierarchy, five varied painted leaves, continuous pale wash,
+  and explicit space separating foliage and the last numeral. All art is local;
+  time, plates and scene remain live. Existing stored style identifiers persist.
+- Final full-screen inspection caught Settings sample AM clipping. Sample padding
+  now uses its own width, loaded fonts trigger remeasurement, and browser checks
+  explicitly assert Settings AM/PM bounds.
+- Analog's seven current shape PNGs are byte-identical to its accepted 2.15.5
+  captures. Its inset construction, live seconds and artwork are preserved.
+- 84 JavaScript and 16 Python/native-policy tests pass. 76 rendered clock groups
+  pass, including local font/art decoding, city/format behavior, staged settings,
+  large-text fitting, explicit AM/PM visibility and motion/cancellation. 32 full-app groups pass with zero runtime errors/load retries. Report image
+  decoding, 21 shape comparisons, 36 theme selections, sampled-motion replay,
+  links and desktop/narrow bounds pass. Public source/history/APK and Gitleaks
+  source/history checks pass.
+- Normal signed APK 2.15.6/code 34 verifies with v1/v2/v3 signatures. Pinned Lora
+  and notices/production illustrations are included; household config is empty
+  and synthetic fixtures excluded. Signing configuration is unchanged.
+- Paired TLS frame remains unavailable. No installation or device changes occurred;
+  physical WebView 95 appearance/performance and acceptance remain pending.
+- APK SHA-256: `965d37f3f35b924b953684903ddbd8f51c4c583c0f69db439e6827babd244964`.
+- [Reference comparisons, seven shapes, themes, motion and critic record](reviews/2026-10-12-clock-reference-reconstruction/index.html).
+
 ## Version 2.15.5 — Analog reference reconstruction
 
 - A fresh critic extracted and validated the approved Analog reference before

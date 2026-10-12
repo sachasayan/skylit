@@ -40,6 +40,7 @@ not a household account. They demonstrate the interface, not a live service sign
 [Clock visual critique across sizes](docs/reviews/2026-10-11-clock-critique/index.html).
 [Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).
 [Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
+[Reference reconstruction of Landscape, Flip and Botanical](docs/reviews/2026-10-12-clock-reference-reconstruction/index.html).
 [Warm responsive clock report](docs/reviews/2026-10-12-warm-clocks/index.html).
 [Clock concept refinement and independent review](docs/reviews/2026-10-12-clock-dream-loop/index.html).
 [Stricter clock critique and responsive comparisons](docs/reviews/2026-10-12-clock-strict-review/index.html).

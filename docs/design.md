@@ -319,3 +319,30 @@ instructions; layout and reference fidelity are independent gates.
 Analog hands update each second only when the live clock or Settings sample is
 visible. Hidden views do no fast updates. Reduced motion hides the seconds needle
 and retains the normal time/date updates. No services or layout render per second.
+
+## Landscape, Flip and Botanical reference reconstruction — 2.15.6
+
+Use independently validated feature inventories and direct reference comparison.
+Peer validation is fallible: re-examination corrected Landscape's closed-counter
+4. Construction, silhouette, type character and figure–ground matter more than
+generic texture. Allow intentional responsive composition; judge fidelity and
+responsive completeness as separate gates.
+
+Landscape keeps the terracotta-left sweep in front of the pale right hill, partial
+olive foreground, circular type-scaled sun and low rolling terrain. Wide scenes
+start smoothly at the bottom; tall terrain retains restrained amplitude. Pigment
+variation is static, not animated. Dedicated sun/sky/rear-hill palette roles keep
+all six light/dark pairs distinct.
+
+Flip uses quiet olive faces, fine pale rim/shallow edge, dark/light midline and
+short olive hinges. Its painted sprig, pear vase and wood shelf retain physical
+contact and separate planes. Botanical uses locally bundled Lora, independently
+scaled AM and five varied curved leaves, with a quiet inset oblique wash. Reserve
+space below/right of live numerals when retaining ornament. Constrained shapes
+may omit it; wide Botanical uses inline AM. Fit using the actual local typeface
+and lining/tabular glyphs, including the final date/period sizes and top padding.
+
+Analog's accepted artwork and inset construction remain unchanged. Production
+illustrations are local PNGs with genuine alpha; time, Flip plates/animation and
+Landscape scene remain live HTML/CSS/SVG. See the visual report for native crops,
+independent rejections/acceptance, exact prompts and documented residual differences.

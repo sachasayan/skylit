@@ -1,0 +1,3208 @@
+{
+  "date": "2026-10-12",
+  "version": "2.15.6",
+  "synthetic": true,
+  "checks": [
+    "Settings lightbox preserves context, traps focus and dismisses safely",
+    "Settings categories and feature return routes",
+    "Android recovery shortcuts stay visible and dispatch only explicit actions",
+    "Photo choices live in Settings and persist through refresh, reload and undo",
+    "Gallery trash exclusion survives Check now, missing cache, restart and restore",
+    "Retention selector covers date/count modes and saves across reload",
+    "Five slideshow styles and duplicate-free collage",
+    "Simple month calendar, Settings visibility, search, metadata and event countdown",
+    "Household note, shopping undo, countdown, timer and restart persistence",
+    "Manual privacy pause and safe restore",
+    "Optional navigation and display preference transfer",
+    "Owner-curated YouTube shortcut persistence",
+    "Photo icons and touch controls fit short landscape and narrow viewports",
+    "Full-width empty forecast and direct Overview city setup",
+    "Landscape/narrow geometry 960×540 standard",
+    "Landscape/narrow geometry 960×540 large",
+    "Landscape/narrow geometry 1024×640 standard",
+    "Landscape/narrow geometry 1024×640 large",
+    "Landscape/narrow geometry 1280×720 standard",
+    "Landscape/narrow geometry 1280×720 large",
+    "Landscape/narrow geometry 1280×800 standard",
+    "Landscape/narrow geometry 1280×800 large",
+    "Landscape/narrow geometry 1440×900 standard",
+    "Landscape/narrow geometry 1440×900 large",
+    "Landscape/narrow geometry 1600×900 standard",
+    "Landscape/narrow geometry 1600×900 large",
+    "Landscape/narrow geometry 1920×1080 standard",
+    "Landscape/narrow geometry 1920×1080 large",
+    "Landscape/narrow geometry 1920×1200 standard",
+    "Landscape/narrow geometry 1920×1200 large",
+    "Landscape/narrow geometry 390×844 standard",
+    "Landscape/narrow geometry 390×844 large"
+  ],
+  "loadRetries": [],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/overview.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather",
+      "title": "Weather",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "photos",
+      "title": "Photos",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar",
+      "title": "Calendar",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/calendar.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "home",
+      "title": "Home",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/home.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "youtube",
+      "title": "Youtube",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/youtube.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/settings.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Setup",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/setup.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household",
+      "title": "Household",
+      "group": "Main screens",
+      "notes": "1280×720 CSS; 1920×1080 image. Household is optional and off in the default rail.",
+      "file": "screenshots/household.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-appearance",
+      "title": "Settings · appearance",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-appearance.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-dashboard",
+      "title": "Settings · dashboard",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-dashboard.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-momo",
+      "title": "Settings · momo",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-momo.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-weather",
+      "title": "Settings · weather",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-photos",
+      "title": "Settings · photos",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-calendars",
+      "title": "Settings · calendars",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-calendars.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-household",
+      "title": "Settings · household",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-household.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-services",
+      "title": "Settings · services",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-services.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-device",
+      "title": "Settings · device",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-device.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-calendar-review",
+      "title": "Settings · calendar-review",
+      "group": "Settings",
+      "notes": "One shared editor per preference. Private fields remain empty.",
+      "file": "screenshots/settings-calendar-review.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-browser",
+      "title": "Photo browser · icon controls",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/photo-browser.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-zoom",
+      "title": "Photo zoom",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/photo-zoom.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-options",
+      "title": "Settings · local picture choices",
+      "group": "Photos",
+      "notes": "Owner-entered synthetic caption and received date. Choices are absent from the player.",
+      "file": "screenshots/photo-options.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-fade",
+      "title": "Slideshow · fade",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-fade.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-stack",
+      "title": "Slideshow · stack",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-stack.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-collage",
+      "title": "Slideshow · collage",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-collage.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-gentle",
+      "title": "Slideshow · gentle",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-gentle.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-still",
+      "title": "Slideshow · still",
+      "group": "Photos",
+      "notes": "",
+      "file": "screenshots/slideshow-still.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-month",
+      "title": "Calendar · month and agenda",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-month.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-search",
+      "title": "Search loaded calendar dates",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-search.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-details",
+      "title": "Calendar event details",
+      "group": "Calendar",
+      "notes": "",
+      "file": "screenshots/calendar-details.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household-populated",
+      "title": "Household · local note, shopping and countdowns",
+      "group": "Household",
+      "notes": "Synthetic note/list/date. Timer is a visible reminder while Skylit is open.",
+      "file": "screenshots/household-populated.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        862
+      ]
+    },
+    {
+      "id": "overview-note",
+      "title": "Overview · optional note excerpt",
+      "group": "Household",
+      "notes": "",
+      "file": "screenshots/overview-note.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "privacy-pause",
+      "title": "Privacy pause",
+      "group": "Privacy",
+      "notes": "Hides photos, event content and notes; dashboard colour mode remains independent.",
+      "file": "screenshots/privacy-pause.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "preferences-transfer",
+      "title": "Non-secret display preferences",
+      "group": "Settings",
+      "notes": "Transfer excludes private setup and household content.",
+      "file": "screenshots/preferences-transfer.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-balanced",
+      "title": "Overview · balanced preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-balanced.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-photos",
+      "title": "Overview · photos preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-agenda",
+      "title": "Overview · agenda preset",
+      "group": "Layouts",
+      "notes": "",
+      "file": "screenshots/overview-agenda.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-linen-light",
+      "title": "linen · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-linen-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-linen-dark",
+      "title": "linen · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-linen-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-sage-light",
+      "title": "sage · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-sage-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-sage-dark",
+      "title": "sage · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-sage-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-stone-light",
+      "title": "stone · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-stone-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-stone-dark",
+      "title": "stone · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-stone-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-ocean-light",
+      "title": "ocean · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-ocean-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-ocean-dark",
+      "title": "ocean · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-ocean-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-plum-light",
+      "title": "plum · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-plum-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-plum-dark",
+      "title": "plum · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-plum-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-contrast-light",
+      "title": "contrast · light",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-contrast-light.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "theme-contrast-dark",
+      "title": "contrast · dark",
+      "group": "Appearance",
+      "notes": "",
+      "file": "screenshots/theme-contrast-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "youtube-shortcuts",
+      "title": "YouTube · owner-curated shortcuts",
+      "group": "Services",
+      "notes": "",
+      "file": "screenshots/youtube-shortcuts.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo-leaf",
+      "title": "Momo · leaf",
+      "group": "Momo",
+      "notes": "",
+      "file": "screenshots/momo-leaf.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo-earmuffs",
+      "title": "Momo · earmuffs",
+      "group": "Momo",
+      "notes": "",
+      "file": "screenshots/momo-earmuffs.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-inviters",
+      "title": "Inviter decisions before setup",
+      "group": "Calendar",
+      "notes": "All addresses and events are invented example.invalid fixtures.",
+      "file": "screenshots/calendar-inviters.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-album",
+      "title": "Photos · shared album",
+      "group": "Photos",
+      "notes": "Google-owned player; Skylit styles and offline cache apply to emailed pictures.",
+      "file": "screenshots/photos-album.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "setup-fresh",
+      "title": "First-run guide",
+      "group": "Setup",
+      "notes": "Disposable fixture has no city, calendars or mail connection.",
+      "file": "screenshots/setup-fresh.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-connect",
+      "title": "Photo connection form",
+      "group": "Setup",
+      "notes": "Empty credential fields; no household identifiers.",
+      "file": "screenshots/photo-connect.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "overview-empty",
+      "title": "overview · not set up",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/overview-empty.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-empty",
+      "title": "weather · not set up",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/weather-empty.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-empty",
+      "title": "calendar · not set up",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/calendar-empty.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-empty",
+      "title": "photos · not set up",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/photos-empty.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-error",
+      "title": "Saved photos after mail failure",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/photos-error.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-no-pictures",
+      "title": "Configured inbox · no picture received",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/photos-no-pictures.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "setup-unverified",
+      "title": "Setup · configured is not verified",
+      "group": "Setup",
+      "notes": "",
+      "file": "screenshots/setup-unverified.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-offline",
+      "title": "weather · saved data",
+      "group": "Recovery",
+      "notes": "Simulated offline forecast failure. Local worker assets remain accessible, as bundled native assets are.",
+      "file": "screenshots/weather-offline.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-offline",
+      "title": "overview · saved data",
+      "group": "Recovery",
+      "notes": "Simulated offline forecast failure. Local worker assets remain accessible, as bundled native assets are.",
+      "file": "screenshots/overview-offline.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-offline",
+      "title": "calendar · saved data",
+      "group": "Recovery",
+      "notes": "Simulated offline forecast failure. Local worker assets remain accessible, as bundled native assets are.",
+      "file": "screenshots/calendar-offline.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "status-offline",
+      "title": "Service status · offline recovery",
+      "group": "Recovery",
+      "notes": "",
+      "file": "screenshots/status-offline.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-overview",
+      "title": "overview · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-overview.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-calendar",
+      "title": "calendar · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-calendar.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-weather",
+      "title": "weather · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-weather.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        1137
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-photos",
+      "title": "photos · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-photos.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        2300
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-settings",
+      "title": "settings · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-settings.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        2300
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-household",
+      "title": "household · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-household.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        561
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-home",
+      "title": "home · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-home.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-youtube",
+      "title": "youtube · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-youtube.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-standard-setup",
+      "title": "setup · 960×540 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-standard-setup.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        1010
+      ]
+    },
+    {
+      "id": "responsive-960x540-large-overview",
+      "title": "overview · 960×540 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-large-overview.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-large-calendar",
+      "title": "calendar · 960×540 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-large-calendar.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "responsive-960x540-large-settings",
+      "title": "settings · 960×540 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-960x540-large-settings.jpg",
+      "viewport": [
+        960,
+        540
+      ],
+      "scroll": [
+        960,
+        2309
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-overview",
+      "title": "overview · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-overview.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-calendar",
+      "title": "calendar · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-calendar.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-weather",
+      "title": "weather · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-weather.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        704
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-photos",
+      "title": "photos · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-photos.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        2351
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-settings",
+      "title": "settings · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-settings.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        2351
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-household",
+      "title": "household · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-household.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-home",
+      "title": "home · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-home.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-youtube",
+      "title": "youtube · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-youtube.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-standard-setup",
+      "title": "setup · 1024×640 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-standard-setup.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        656
+      ]
+    },
+    {
+      "id": "responsive-1024x640-large-overview",
+      "title": "overview · 1024×640 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-large-overview.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-large-calendar",
+      "title": "calendar · 1024×640 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-large-calendar.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "responsive-1024x640-large-settings",
+      "title": "settings · 1024×640 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1024x640-large-settings.jpg",
+      "viewport": [
+        1024,
+        640
+      ],
+      "scroll": [
+        1024,
+        2360
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-overview",
+      "title": "overview · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-overview.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-calendar",
+      "title": "calendar · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-calendar.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-weather",
+      "title": "weather · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-photos",
+      "title": "photos · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        1551
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-settings",
+      "title": "settings · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-settings.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        1551
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-household",
+      "title": "household · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-household.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-home",
+      "title": "home · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-home.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-youtube",
+      "title": "youtube · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-youtube.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-standard-setup",
+      "title": "setup · 1280×720 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-standard-setup.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-large-overview",
+      "title": "overview · 1280×720 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-large-overview.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-large-calendar",
+      "title": "calendar · 1280×720 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-large-calendar.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "responsive-1280x720-large-settings",
+      "title": "settings · 1280×720 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x720-large-settings.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        1560
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-overview",
+      "title": "overview · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-overview.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-calendar",
+      "title": "calendar · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-calendar.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-weather",
+      "title": "weather · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-weather.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-photos",
+      "title": "photos · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-photos.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        1551
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-settings",
+      "title": "settings · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-settings.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        1551
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-household",
+      "title": "household · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-household.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-home",
+      "title": "home · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-home.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-youtube",
+      "title": "youtube · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-youtube.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-standard-setup",
+      "title": "setup · 1280×800 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-standard-setup.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-large-overview",
+      "title": "overview · 1280×800 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-large-overview.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-large-calendar",
+      "title": "calendar · 1280×800 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-large-calendar.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "responsive-1280x800-large-settings",
+      "title": "settings · 1280×800 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1280x800-large-settings.jpg",
+      "viewport": [
+        1280,
+        800
+      ],
+      "scroll": [
+        1280,
+        1560
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-overview",
+      "title": "overview · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-overview.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-calendar",
+      "title": "calendar · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-calendar.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-weather",
+      "title": "weather · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-weather.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        907
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-photos",
+      "title": "photos · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-photos.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        1763
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-settings",
+      "title": "settings · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-settings.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        1763
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-household",
+      "title": "household · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-household.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-home",
+      "title": "home · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-home.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-youtube",
+      "title": "youtube · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-youtube.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-standard-setup",
+      "title": "setup · 1440×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-standard-setup.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-large-overview",
+      "title": "overview · 1440×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-large-overview.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-large-calendar",
+      "title": "calendar · 1440×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-large-calendar.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1440x900-large-settings",
+      "title": "settings · 1440×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1440x900-large-settings.jpg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scroll": [
+        1440,
+        1771
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-overview",
+      "title": "overview · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-overview.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-calendar",
+      "title": "calendar · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-calendar.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-weather",
+      "title": "weather · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-weather.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        1036
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-photos",
+      "title": "photos · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-photos.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        1584
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-settings",
+      "title": "settings · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-settings.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        1584
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-household",
+      "title": "household · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-household.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-home",
+      "title": "home · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-home.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-youtube",
+      "title": "youtube · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-youtube.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-standard-setup",
+      "title": "setup · 1600×900 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-standard-setup.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-large-overview",
+      "title": "overview · 1600×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-large-overview.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-large-calendar",
+      "title": "calendar · 1600×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-large-calendar.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "responsive-1600x900-large-settings",
+      "title": "settings · 1600×900 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1600x900-large-settings.jpg",
+      "viewport": [
+        1600,
+        900
+      ],
+      "scroll": [
+        1600,
+        1590
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-overview",
+      "title": "overview · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-overview.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-calendar",
+      "title": "calendar · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-calendar.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-weather",
+      "title": "weather · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-weather.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-photos",
+      "title": "photos · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-photos.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1263
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-settings",
+      "title": "settings · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-settings.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1263
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-household",
+      "title": "household · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-household.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-home",
+      "title": "home · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-home.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-youtube",
+      "title": "youtube · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-youtube.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-standard-setup",
+      "title": "setup · 1920×1080 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-standard-setup.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-large-overview",
+      "title": "overview · 1920×1080 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-large-overview.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-large-calendar",
+      "title": "calendar · 1920×1080 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-large-calendar.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "responsive-1920x1080-large-settings",
+      "title": "settings · 1920×1080 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1080-large-settings.jpg",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scroll": [
+        1920,
+        1269
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-overview",
+      "title": "overview · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-overview.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-calendar",
+      "title": "calendar · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-calendar.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-weather",
+      "title": "weather · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-weather.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-photos",
+      "title": "photos · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-photos.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1263
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-settings",
+      "title": "settings · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-settings.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1263
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-household",
+      "title": "household · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-household.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-home",
+      "title": "home · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-home.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-youtube",
+      "title": "youtube · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-youtube.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-standard-setup",
+      "title": "setup · 1920×1200 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-standard-setup.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-large-overview",
+      "title": "overview · 1920×1200 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-large-overview.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-large-calendar",
+      "title": "calendar · 1920×1200 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-large-calendar.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "responsive-1920x1200-large-settings",
+      "title": "settings · 1920×1200 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-1920x1200-large-settings.jpg",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "scroll": [
+        1920,
+        1269
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-overview",
+      "title": "overview · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-overview.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        1340
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-calendar",
+      "title": "calendar · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-calendar.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        5849
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-weather",
+      "title": "weather · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-weather.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        1494
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-photos",
+      "title": "photos · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-photos.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        4015
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-settings",
+      "title": "settings · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-settings.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        4015
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-household",
+      "title": "household · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-household.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        919
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-home",
+      "title": "home · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-home.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-youtube",
+      "title": "youtube · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-youtube.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "responsive-390x844-standard-setup",
+      "title": "setup · 390×844 · standard",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-standard-setup.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        1384
+      ]
+    },
+    {
+      "id": "responsive-390x844-large-overview",
+      "title": "overview · 390×844 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-large-overview.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        1340
+      ]
+    },
+    {
+      "id": "responsive-390x844-large-calendar",
+      "title": "calendar · 390×844 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-large-calendar.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        5875
+      ]
+    },
+    {
+      "id": "responsive-390x844-large-settings",
+      "title": "settings · 390×844 · large",
+      "group": "Responsive",
+      "notes": "Stress fixture: six calendars, long event titles and fifty thumbnails (five sample images repeated to test volume).",
+      "file": "screenshots/responsive-390x844-large-settings.jpg",
+      "viewport": [
+        390,
+        844
+      ],
+      "scroll": [
+        390,
+        4050
+      ]
+    },
+    {
+      "id": "overview-clear-day",
+      "title": "overview · clear · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-clear-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-clear-day",
+      "title": "weather · clear · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-clear-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-clear-night",
+      "title": "overview · clear · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-clear-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-clear-night",
+      "title": "weather · clear · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-clear-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-partly-cloudy-day",
+      "title": "overview · partly-cloudy · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-partly-cloudy-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-partly-cloudy-day",
+      "title": "weather · partly-cloudy · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-partly-cloudy-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-partly-cloudy-night",
+      "title": "overview · partly-cloudy · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-partly-cloudy-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-partly-cloudy-night",
+      "title": "weather · partly-cloudy · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-partly-cloudy-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-cloudy-day",
+      "title": "overview · cloudy · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-cloudy-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-cloudy-day",
+      "title": "weather · cloudy · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-cloudy-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-cloudy-night",
+      "title": "overview · cloudy · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-cloudy-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-cloudy-night",
+      "title": "weather · cloudy · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-cloudy-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-fog-day",
+      "title": "overview · fog · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-fog-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-fog-day",
+      "title": "weather · fog · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-fog-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-fog-night",
+      "title": "overview · fog · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-fog-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-fog-night",
+      "title": "weather · fog · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-fog-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-rain-day",
+      "title": "overview · rain · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-rain-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-rain-day",
+      "title": "weather · rain · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-rain-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-rain-night",
+      "title": "overview · rain · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-rain-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-rain-night",
+      "title": "weather · rain · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-rain-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-snow-day",
+      "title": "overview · snow · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-snow-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-snow-day",
+      "title": "weather · snow · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-snow-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-snow-night",
+      "title": "overview · snow · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-snow-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-snow-night",
+      "title": "weather · snow · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-snow-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-showers-day",
+      "title": "overview · showers · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-showers-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-showers-day",
+      "title": "weather · showers · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-showers-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-showers-night",
+      "title": "overview · showers · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-showers-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-showers-night",
+      "title": "weather · showers · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-showers-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-snow-showers-day",
+      "title": "overview · snow-showers · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-snow-showers-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-snow-showers-day",
+      "title": "weather · snow-showers · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-snow-showers-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-snow-showers-night",
+      "title": "overview · snow-showers · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-snow-showers-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-snow-showers-night",
+      "title": "weather · snow-showers · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-snow-showers-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-storm-day",
+      "title": "overview · storm · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-storm-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-storm-day",
+      "title": "weather · storm · day",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-storm-day.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    },
+    {
+      "id": "overview-storm-night",
+      "title": "overview · storm · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/overview-storm-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-storm-night",
+      "title": "weather · storm · night",
+      "group": "Weather scenes",
+      "notes": "",
+      "file": "screenshots/weather-storm-night.jpg",
+      "viewport": [
+        1280,
+        720
+      ],
+      "scroll": [
+        1280,
+        736
+      ]
+    }
+  ]
+}

@@ -6,10 +6,11 @@
   function composeLandscape(scene,w,h,side=false){
     // Redraw at the region's aspect ratio: hills may adapt, but the sun stays round.
     scene.setAttribute('viewBox','0 0 '+w+' '+h);
-    const sun=scene.querySelector('.clock-sun-disc');sun.setAttribute('cx',w*.69);sun.setAttribute('cy',h*.43);sun.setAttribute('r',h*.30);
-    scene.querySelector('.clock-hill-back').setAttribute('d',side?`M0 ${h}C${w*.12} ${h} ${w*.19} ${h*.67} ${w*.40} ${h*.63}S${w*.80} ${h*.50} ${w} ${h*.42}V${h}H0Z`:`M0 ${h*.20}C${w*.19} ${h*.17} ${w*.36} ${h*.82} ${w*.60} ${h*.62}S${w*.88} ${h*.32} ${w} ${h*.38}V${h}H0Z`);
-    scene.querySelector('.clock-hill-front').setAttribute('d',side?`M0 ${h}C${w*.21} ${h} ${w*.31} ${h*.89} ${w*.57} ${h*.87}S${w*.84} ${h*.85} ${w} ${h*.91}V${h}H0Z`:`M0 ${h*.66}C${w*.26} ${h*.55} ${w*.50} ${h*.76} ${w*.72} ${h*.88}S${w*.94} ${h*.97} ${w} ${h*.88}V${h}H0Z`);
-    scene.querySelector('.clock-hill-leaf').setAttribute('d',side?`M0 ${h}C${w*.15} ${h} ${w*.28} ${h*.85} ${w*.52} ${h*.86}S${w*.81} ${h*.95} ${w} ${h*.94}V${h}H0Z`:`M0 ${h*.61}C${w*.22} ${h*.54} ${w*.46} ${h*.90} ${w*.71} ${h*.88}S${w*.91} ${h*.86} ${w} ${h*.93}V${h}H0Z`);
+    const sun=scene.querySelector('.clock-sun-disc'),radius=Number(scene.dataset.sunRadius)||Math.min(w*.105,h*.32);
+    sun.setAttribute('cx',side?w*.62:w*.68);sun.setAttribute('cy',side?h*.70:h*.40);sun.setAttribute('r',radius);
+    scene.querySelector('.clock-hill-back').setAttribute('d',side?`M0 ${h}C${w*.20} ${h*.83} ${w*.67} ${h*.52} ${w} ${h*.59}V${h}H0Z`:`M0 ${h}C${w*.48} ${h*.83} ${w*.79} ${h*.18} ${w} ${h*.25}V${h}H0Z`);
+    scene.querySelector('.clock-hill-front').setAttribute('d',side?`M0 ${h}C${w*.17} ${h*.84} ${w*.48} ${h*.66} ${w} ${h*.85}V${h}H0Z`:`M0 ${h*.04}C${w*.23} ${-h*.15} ${w*.30} ${h*.47} ${w*.59} ${h*.57}S${w*.88} ${h*.74} ${w} ${h*.82}V${h}H0Z`);
+    scene.querySelector('.clock-hill-leaf').setAttribute('d',side?`M0 ${h}C${w*.18} ${h*.88} ${w*.35} ${h*.91} ${w*.68} ${h}H0Z`:`M0 ${h*.45}C${w*.24} ${h*.29} ${w*.51} ${h*.73} ${w*.72} ${h}H0Z`);
     for(const n of scene.querySelectorAll('[data-surface-copy]')){const source=scene.querySelector('.'+n.dataset.surfaceCopy);for(const key of ['d','cx','cy','r'])if(source.hasAttribute(key))n.setAttribute(key,source.getAttribute(key));}
   }
   function read(instant,timezone,format='12'){
@@ -26,35 +27,19 @@
     // Each instance owns its paint servers; the Settings sample and live clock coexist.
     const id='clock-art-'+(++nextId)+'-',defs=svg('defs',{}),paints=svg('svg',{width:0,height:0,class:'clock-paints'});paints.append(defs);root.append(paints);
     function gradient(name,stops,radial=false){const g=svg(radial?'radialGradient':'linearGradient',{id:id+name,...(radial?{cx:'.45',cy:'.35',r:'.7'}:{x1:'0',y1:'0',x2:'1',y2:'1'})});for(const [offset,token,opacity] of stops){const stop=svg('stop',{offset,'stop-opacity':opacity??1});stop.style.setProperty('stop-color','var(--'+token+')');g.append(stop);}defs.append(g);return 'url(#'+id+name+')';}
-    const leafPaint=gradient('leaf',[['0%','clock-leaf-lit'],['52%','clock-leaf'],['100%','clock-leaf-shade']]);
-    const vasePaint=gradient('vase',[['0%','clock-vase-shade'],['24%','clock-vase-lit'],['47%','clock-vase-lit'],['70%','clock-vase'],['100%','clock-vase-shade']]);defs.querySelector('#'+id+'vase').setAttribute('y2','0');
-    const potPaint=gradient('pot',[['0%','clock-clay-shade'],['24%','clock-clay-lit'],['58%','clock-clay'],['100%','clock-clay-shade']]);
     const facePaint=gradient('face',[['0%','panel'],['100%','clock-dial-floor']],true);
     const rimPaint=gradient('rim',[['0%','clock-dial-shadow'],['48%','clock-dial-floor'],['100%','clock-dial-lit']]);
     const washPaint=gradient('wash',[['0%','panel',0],['40%','clock-wash',.9],['100%','clock-wash',.4]]);
-    const hillPaint=gradient('hill',[['0%','clock-hill-lit'],['65%','clock-hill'],['100%','accent']]);
-    const frontPaint=gradient('front',[['0%','clock-hill-lit'],['100%','clock-hill']]);
+    const hillPaint=gradient('hill',[['0%','clock-hill-lit'],['100%','clock-hill-lit']]);
+    const frontPaint=gradient('front',[['0%','clock-hill'],['100%','clock-hill']]);
     const sunPaint=gradient('sun',[['0%','clock-sun',.9],['70%','clock-sun'],['100%','clock-hill-lit',.86]],true);
-    const woodPaint=gradient('wood',[['0%','clock-wood-lit'],['55%','clock-wood'],['100%','clock-wood-shade']]);
+    const leafPaint=gradient('leaf',[['0%','clock-landscape-leaf'],['100%','clock-landscape-leaf']]);
+    // Static multiscale pigment variation, clipped to each SVG surface.
+    const pigment=svg('filter',{id:id+'pigment',x:'0%',y:'0%',width:'100%',height:'100%','color-interpolation-filters':'sRGB'});
+    pigment.append(svg('feTurbulence',{type:'fractalNoise',baseFrequency:'.025',numOctaves:3,seed:13,result:'noise'}),svg('feColorMatrix',{in:'noise',type:'saturate',values:0,result:'gray'}));
+    const transfer=svg('feComponentTransfer',{in:'gray',result:'faint'});transfer.append(svg('feFuncA',{type:'linear',slope:.18}));pigment.append(transfer,svg('feComposite',{in:'faint',in2:'SourceAlpha',operator:'in',result:'clipped'}),svg('feBlend',{in:'SourceGraphic',in2:'clipped',mode:'soft-light'}));defs.append(pigment);
     const texture=svg('pattern',{id:id+'grain',width:128,height:128,patternUnits:'userSpaceOnUse'});texture.append(svg('image',{href:'clock-grain.png',width:128,height:128}));defs.append(texture);
-    function surface(host,tag,attributes,opacity=.65){const n=svg(tag,attributes),grain=svg(tag,{...attributes,fill:'url(#'+id+'grain)',class:'clock-surface-grain',opacity});if(attributes.class)grain.dataset.surfaceCopy=attributes.class;host.append(n,grain);return n;}
-    function leaf(host,x,y,angle,scale,variant=0){
-      const shapes=[
-        ['M0 0C-17 -9 -25 -32 -16 -53C-11 -66 1 -73 7 -87C15 -71 24 -55 24 -38C24 -20 13 -8 0 0Z','M0 0C0 -25 10 -57 7 -84'],
-        ['M0 0C-15 -6 -23 -23 -19 -43C-15 -64 7 -74 18 -90C18 -69 31 -49 22 -29C17 -15 9 -5 0 0Z','M0 0C4 -28 19 -55 18 -87'],
-        ['M0 0C-10 -12 -13 -39 -4 -62C0 -74 9 -82 13 -95C17 -77 23 -58 18 -37C14 -17 6 -6 0 0Z','M0 0C3 -28 14 -59 13 -92'],
-        ['M0 0C-8 -7 -23 -2 -27 -22C-32 -45 -13 -60 1 -79C7 -58 29 -54 30 -33C31 -13 14 -2 0 0Z','M0 0C-2 -25 5 -54 1 -76']
-      ],shape=shapes[variant%shapes.length],g=svg('g',{transform:'translate('+x+' '+y+') rotate('+angle+') scale('+scale+')'});
-      surface(g,'path',{d:shape[0],fill:leafPaint,class:'clock-leaf'},.4);
-      g.append(svg('path',{d:shape[1],class:'clock-leaf-vein'}));
-      for(const [y,side] of [[-22,-1],[-36,1],[-49,-1]])g.append(svg('path',{d:'M2 '+y+'q'+(side*8)+' -2 '+(side*13)+' -12',class:'clock-leaf-detail'}));host.append(g);
-    }
-    function shelf(host,x,y,width){
-      surface(host,'path',{d:`M${x} ${y}l8 -5h${width-8}v5Z`,fill:'var(--clock-wood-lit)',class:'clock-shelf-top'});
-      surface(host,'rect',{x,y,width,height:8,rx:1.3,fill:woodPaint,class:'clock-shelf'});
-      host.append(svg('path',{d:`M${x+1} ${y+1}h${width-2}`,class:'clock-shelf-edge'}));
-      for(let j=0;j<3;j++)host.append(svg('path',{d:`M${x+3} ${y+2+j*2}Q${x+width*.45} ${y+4+j} ${x+width-2} ${y+1+j*2}`,class:'clock-wood-grain'}));
-    }
+    function surface(host,tag,attributes,opacity=.65){const n=svg(tag,{...attributes,...(attributes.class?.startsWith('clock-hill')||attributes.class==='clock-sun-disc'?{filter:'url(#'+id+'pigment)'}:{})}),grain=svg(tag,{...attributes,fill:'url(#'+id+'grain)',class:'clock-surface-grain',opacity});if(attributes.class)grain.dataset.surfaceCopy=attributes.class;host.append(n,grain);return n;}
     // Interior shadows establish a recess; only the hands/cap project above it.
     const recess=svg('filter',{id:id+'recess',x:'-10%',y:'-10%',width:'120%',height:'120%','color-interpolation-filters':'sRGB'});
     recess.append(svg('feGaussianBlur',{in:'SourceAlpha',stdDeviation:1.6,result:'soft-edge'}));
@@ -74,18 +59,12 @@
     const hour=hand('clock-hour-hand',44,4.2),minute=hand('clock-minute-hand',32,3.1),second=svg('line',{x1:100,y1:100,x2:100,y2:35,class:'clock-second-hand'});
     face.append(hour,minute,second,svg('circle',{cx:100,cy:100,r:6.1,fill:pinPaint,class:'clock-pin'}));
     const analogPlant=node('img','clock-analog-plant');analogPlant.src='clock-analog-plant.png';analogPlant.alt='';analogPlant.draggable=false;
-    const branch=svg('svg',{viewBox:'0 -25 280 365',class:'clock-botanical-branch',focusable:'false'});
-    branch.append(svg('path',{d:'M250 340C228 291 226 251 194 194C174 160 157 132 163 105M177 165Q170 158 150 154M179 168Q186 158 190 146M208 220Q197 215 179 216M208 220Q212 210 210 201M235 290Q215 279 208 275M231 268Q232 258 224 249',class:'clock-stem clock-botanical-stem'}));
-    for(const spec of [[163,105,-7,.76,2],[150,154,-57,.87,0],[190,146,32,.87,1],[179,216,-66,.98,1],[210,201,34,.88,0],[208,275,-75,1.02,0],[224,249,24,.82,2]])leaf(branch,...spec);
-    const flipPlant=svg('svg',{viewBox:'0 0 180 215',class:'clock-flip-plant',focusable:'false'});
-    shelf(flipPlant,0,201,180);flipPlant.append(svg('ellipse',{cx:137,cy:199,rx:21,ry:3,class:'clock-contact-shadow'}));
-    surface(flipPlant,'path',{d:'M131 139C133 149 128 156 119 166C101 188 111 199 136 200C160 199 171 187 154 167C145 157 141 150 143 139Z',fill:vasePaint,class:'clock-vase'});
-    flipPlant.append(svg('ellipse',{cx:137,cy:139,rx:6,ry:2,class:'clock-vase-lip'}),svg('path',{d:'M137 139C127 112 137 78 135 44M132 118Q121 108 105 103M131 93Q145 92 151 87M130 76Q119 74 111 64M112 104Q99 98 87 91',class:'clock-stem clock-flip-stem'}));
-    for(const spec of [[135,44,-8,.38,2],[132,75,32,.49,0],[133,105,-33,.48,1],[134,126,38,.46,2],[105,103,-63,.52,0],[87,91,-58,.4,1],[111,64,-14,.35,2],[151,87,28,.4,0]])leaf(flipPlant,...spec);
+    const branch=node('img','clock-botanical-branch');branch.src='clock-botanical-branch.png';branch.alt='';branch.draggable=false;
+    const flipPlant=node('img','clock-flip-plant');flipPlant.src='clock-flip-plant.png';flipPlant.alt='';flipPlant.draggable=false;
     const landscape=svg('svg',{viewBox:'0 0 600 260',preserveAspectRatio:'xMidYMid slice',class:'clock-landscape',focusable:'false'});
-    surface(landscape,'circle',{cx:416,cy:109,r:61,fill:sunPaint,class:'clock-sun-disc'},.4);surface(landscape,'path',{d:'M0 57C111 55 217 179 357 146S507 92 600 97V260H0Z',fill:hillPaint,class:'clock-hill-back'});surface(landscape,'path',{d:'M0 177C138 156 268 179 407 224S542 246 600 220V260H0Z',fill:frontPaint,class:'clock-hill-front'});surface(landscape,'path',{d:'M0 164C130 149 198 174 600 260V260H0Z',fill:leafPaint,class:'clock-hill-leaf'});
-    const botanical=svg('svg',{viewBox:'0 0 600 450',preserveAspectRatio:'xMidYMid slice',class:'clock-botanical',focusable:'false'});
-    botanical.append(svg('path',{d:'M25 369C-29 253 76 94 237 44S533 31 555 167C563 238 430 287 364 354S74 485 25 369Z',fill:washPaint,class:'clock-wash'}));
+    surface(landscape,'circle',{cx:416,cy:109,r:61,fill:sunPaint,class:'clock-sun-disc'},.12);surface(landscape,'path',{d:'M0 57C111 55 217 179 357 146S507 92 600 97V260H0Z',fill:hillPaint,class:'clock-hill-back'},.16);surface(landscape,'path',{d:'M0 177C138 156 268 179 407 224S542 246 600 220V260H0Z',fill:frontPaint,class:'clock-hill-front'},.18);surface(landscape,'path',{d:'M0 164C130 149 198 174 600 260V260H0Z',fill:leafPaint,class:'clock-hill-leaf'},.16);
+    const botanical=svg('svg',{viewBox:'0 0 600 450',preserveAspectRatio:'none',class:'clock-botanical',focusable:'false'});
+    botanical.append(svg('path',{d:'M28 350C3 264 109 161 252 75S511 5 546 79C578 143 489 201 408 252S164 445 80 411C48 399 35 376 28 350Z',fill:washPaint,class:'clock-wash'}),svg('path',{d:'M433 450C473 357 523 312 600 322V450Z',fill:washPaint,class:'clock-wash-base'}));
     const stack=node('div','clock-stack'),period=node('small','clock-stack-period');
     function tile(cls){const n=node('span',cls+' clock-flip-tile'),text=node('span','clock-flip-number');n.append(text,node('i','clock-flip-seam'));return {n,text,animation:null,cancel:null,old:''};}
     const hours=tile('clock-stack-hour'),minutes=tile('clock-stack-minute');stack.append(hours.n,minutes.n,period);

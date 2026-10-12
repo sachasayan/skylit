@@ -215,3 +215,45 @@
 #overview .clock-frame[data-clock-style=analog][data-small=false][data-side-date=false] #date,.clock-sample[data-clock-style=analog][data-small=false][data-side-date=false] .clock-date{transform:translateX(calc(var(--module-dial) * -.1))}
 
 @media(prefers-reduced-motion:reduce){.clock-second-hand{display:none}}
+
+/* Reference construction: broad material light, live type, and isolated painted foliage. */
+@font-face{font-family:'Skylit Display';src:url('clock-display.ttf') format('truetype');font-weight:400 700;font-display:swap}
+.clock-frame:not([data-clock-style=analog]){border-radius:var(--clock-corner,28px);border-color:transparent;background:radial-gradient(ellipse at 25% 12%,var(--clock-panel-lit),transparent 70%),linear-gradient(145deg,var(--panel) 40%,var(--clock-dial-floor));box-shadow:inset 1px 2px 2px var(--clock-panel-lit),inset -1px -2px 3px var(--clock-panel-shade)}
+.clock-frame:not([data-clock-style=analog]):before{opacity:.12}
+.clock-frame[data-clock-style=classic]{background:radial-gradient(ellipse at 35% 14%,var(--clock-sky-lit),transparent 80%),var(--clock-sky)!important}
+#overview .clock-frame[data-clock-style=classic] #clock,.clock-sample[data-clock-style=classic] .clock-sample-time{font-family:'Skylit Serif',Georgia,serif;font-weight:600}
+.clock-frame[data-clock-style=classic][data-composition=portrait] .clock-landscape{width:100%;left:0}
+#overview .clock-frame[data-clock-style=digital] #clock,.clock-sample[data-clock-style=digital] .clock-sample-time{font-family:'Skylit Display',Georgia,serif;font-weight:600;color:var(--clock-botanical-ink)}
+.clock-frame[data-clock-style=digital]{padding-left:14%!important}
+.clock-frame[data-clock-style=digital] .clock-botanical{opacity:.65}
+.clock-frame[data-clock-style=digital] .clock-botanical-branch{width:49%;height:var(--botanical-art-height);right:0;bottom:0;object-fit:contain;object-position:right bottom}
+.clock-frame[data-clock-style=digital][data-composition=portrait] .clock-botanical-branch{width:90%;height:39%;right:0;bottom:0}
+.clock-frame[data-clock-style=digital][data-small=true]:not([data-composition=portrait]),.clock-frame[data-clock-style=digital][data-composition=strip]{padding-left:var(--clock-pad)!important}
+.clock-frame[data-clock-style=stacked]:not([data-small=true]):not([data-composition=strip]){padding-right:var(--clock-pad)!important}
+#overview .clock-frame[data-clock-style=stacked] #date,.clock-sample[data-clock-style=stacked] .clock-date{order:-1;color:var(--clock-leaf);letter-spacing:.14em}
+.clock-frame[data-clock-style=stacked] .clock-flip-plant{width:var(--flip-plant);height:auto;right:-3%;bottom:0;object-fit:contain}
+.clock-flip-tile{background:radial-gradient(ellipse at 25% 18%,#ffffff12,transparent 75%),var(--clock-tile);box-shadow:inset 0 1px 1px #ffffff80,inset 1px 0 1px #ffffff35,inset -1px 0 1px #00000028,inset 0 -2px 1px #ffffff90,0 2px 1px #352e2830,0 4px 7px #352e2820}
+.clock-flip-tile:before{opacity:.12}
+.clock-flip-seam{height:1px;background:#00000085;box-shadow:0 1px #ffffff70}
+.clock-flip-seam:before,.clock-flip-seam:after{top:-.095em;width:.05em;height:.19em;background:linear-gradient(90deg,var(--clock-leaf-shade),var(--clock-leaf-lit) 45%,var(--clock-tile) 70%);box-shadow:0 0 0 1px #00000050,inset 1px 1px #ffffff35}
+.clock-stack-period{margin-top:calc(var(--clock-gap) * 1.2)}
+.clock-flip-out,.clock-flip-in,.clock-flip-bottom{background-image:radial-gradient(ellipse at 25% 18%,#ffffff12,transparent 75%);box-shadow:inset 0 1px #ffffff60}
+.clock-flip-in,.clock-flip-bottom{background-image:linear-gradient(170deg,#00000008,transparent);box-shadow:inset 0 -1px #ffffff70}
+
+.clock-frame[data-clock-style=digital]:not([data-small=true]):not([data-composition=strip]):not([data-composition=wide]){justify-content:flex-start!important;padding-top:var(--botanical-top)!important}
+
+#overview .clock-frame #clock-period{font:400 var(--clock-period-size,16px)/1.2 'Skylit Sans',sans-serif;letter-spacing:.12em;color:var(--clock-leaf)}
+#overview .clock-frame[data-small=true]:not([data-composition=portrait]) #clock-period,#overview .clock-frame[data-composition=strip] #clock-period{display:inline;margin:0 0 0 .4em;font-size:.24em}
+.clock-frame[data-clock-style=classic][data-composition=balanced]{padding-top:calc(var(--clock-pad) + var(--clock-gap) * 2)!important}
+
+#overview .clock-frame[data-clock-style=classic] #clock,.clock-sample[data-clock-style=classic] .clock-sample-time{color:var(--clock-landscape-ink)}
+
+.clock-frame[data-clock-style=digital][data-composition=portrait] .clock-botanical{height:100%}
+.clock-frame[data-clock-style=digital][data-composition=wide]{padding-top:var(--clock-pad)!important}
+.clock-frame[data-clock-style=digital][data-composition=wide] .clock-weekday,.clock-frame[data-clock-style=digital][data-composition=wide] .clock-monthday{display:inline}
+.clock-frame[data-clock-style=digital][data-composition=wide] .clock-date-separator{position:static;clip:auto;width:auto;height:auto;overflow:visible}
+#overview .clock-frame[data-clock-style=digital][data-composition=wide] #clock-period,.clock-frame[data-clock-style=digital][data-composition=wide] .clock-sample-period{display:inline;font-size:.24em;margin:0 0 0 .4em}
+
+.clock-frame[data-clock-style=digital][data-composition=portrait]{padding-top:var(--botanical-top)!important}
+.clock-sample[data-clock-style=digital]:not([data-small=true]):not([data-composition=strip]){padding-left:var(--botanical-left)!important}
+.clock-sample[data-clock-style=digital][data-composition=wide] .clock-botanical-branch{height:calc(var(--botanical-art-height) * .78)}
