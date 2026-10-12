@@ -65,7 +65,7 @@
     if(!migratedExclusions&&native&&native.photoExclude){for(const [id,entry] of Object.entries(curated))if(/^[a-f0-9]{64}$/.test(id)&&entry.hidden&&!next.excluded.includes(id))native.photoExclude(id,true);next=model.normalize(native.photoStatus());migratedExclusions=true;}
     state=next;epoch=state.epoch||epoch;curated=frame.curation(curated,state.photos);
     if(native&&native.photoExclude){const excluded=new Set(state.excluded);for(const photo of state.photos){const id=frame.photoId(photo);if(excluded.has(id)||curated[id])curated[id]=Object.assign({},choice(photo),{hidden:excluded.has(id)});}}
-    saveChoices();render();if(opened){buildPlaylist(playing||idle);if(!playlist.length)close();else {index=Math.max(0,playlist.findIndex(p=>frame.photoId(p)===frame.photoId(previous)));show();}}window.dispatchEvent(new Event('skylit-service-status'));}
+    saveChoices();render();if(opened){buildPlaylist(playing||idle);if(!playlist.length)close();else {index=Math.max(0,playlist.findIndex(p=>frame.photoId(p)===frame.photoId(previous)));show();schedule();}}window.dispatchEvent(new Event('skylit-service-status'));}
   function refresh(){if(!native||!native.photoStatus)return;try{receive(native.photoStatus());}catch(e){$('photo-mail-status').textContent='Could not read the photo status from this frame.';}}
   function renderOverviewPhotos(){
     const items=source==='email'?frame.overviewPictures(state.photos,curated,preferences()):[];

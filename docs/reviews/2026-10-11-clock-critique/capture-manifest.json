@@ -1,0 +1,2897 @@
+{
+  "synthetic": true,
+  "version": "2.14.1",
+  "instant": "2026-09-30T22:59:00Z",
+  "note": "Unmodified app; London clock at 11:59 p.m., Wednesday Sep 30; clips have real CSS proportions. Grid samples cover compact, wide, tall and full compositions.",
+  "errors": [],
+  "records": [
+    {
+      "id": "viewport-960x540-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-classic-standard.png",
+      "context": "screenshots/viewport-960x540-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-960x540-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-analog-standard.png",
+      "context": "screenshots/viewport-960x540-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-960x540-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-stacked-standard.png",
+      "context": "screenshots/viewport-960x540-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-960x540-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-digital-standard.png",
+      "context": "screenshots/viewport-960x540-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-960x540-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-960x540-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-960x540-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-960x540-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        960,
+        540
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 379,
+        "height": 161
+      },
+      "file": "screenshots/viewport-960x540-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1024x640-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-classic-standard.png",
+      "context": "screenshots/viewport-1024x640-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1024x640-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-analog-standard.png",
+      "context": "screenshots/viewport-1024x640-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1024x640-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-stacked-standard.png",
+      "context": "screenshots/viewport-1024x640-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1024x640-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-digital-standard.png",
+      "context": "screenshots/viewport-1024x640-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1024x640-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1024x640-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1024x640-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1024x640-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1024,
+        640
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 389,
+        "height": 193
+      },
+      "file": "screenshots/viewport-1024x640-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x720-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-classic-standard.png",
+      "context": "screenshots/viewport-1280x720-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x720-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-analog-standard.png",
+      "context": "screenshots/viewport-1280x720-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x720-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-stacked-standard.png",
+      "context": "screenshots/viewport-1280x720-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x720-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-digital-standard.png",
+      "context": "screenshots/viewport-1280x720-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x720-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x720-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x720-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x720-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/viewport-1280x720-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x800-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-classic-standard.png",
+      "context": "screenshots/viewport-1280x800-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x800-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-analog-standard.png",
+      "context": "screenshots/viewport-1280x800-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x800-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-stacked-standard.png",
+      "context": "screenshots/viewport-1280x800-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x800-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-digital-standard.png",
+      "context": "screenshots/viewport-1280x800-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1280x800-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x800-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x800-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1280x800-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        800
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 221
+      },
+      "file": "screenshots/viewport-1280x800-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1440x900-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-classic-standard.png",
+      "context": "screenshots/viewport-1440x900-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1440x900-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-analog-standard.png",
+      "context": "screenshots/viewport-1440x900-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1440x900-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-stacked-standard.png",
+      "context": "screenshots/viewport-1440x900-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1440x900-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-digital-standard.png",
+      "context": "screenshots/viewport-1440x900-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1440x900-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1440x900-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1440x900-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1440x900-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1440,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 568,
+        "height": 252
+      },
+      "file": "screenshots/viewport-1440x900-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1600x900-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-classic-standard.png",
+      "context": "screenshots/viewport-1600x900-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1600x900-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-analog-standard.png",
+      "context": "screenshots/viewport-1600x900-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1600x900-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-stacked-standard.png",
+      "context": "screenshots/viewport-1600x900-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1600x900-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-digital-standard.png",
+      "context": "screenshots/viewport-1600x900-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1600x900-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1600x900-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1600x900-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1600x900-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1600,
+        900
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 641,
+        "height": 251
+      },
+      "file": "screenshots/viewport-1600x900-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1080-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-classic-standard.png",
+      "context": "screenshots/viewport-1920x1080-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1080-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-analog-standard.png",
+      "context": "screenshots/viewport-1920x1080-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1080-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-stacked-standard.png",
+      "context": "screenshots/viewport-1920x1080-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1080-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-digital-standard.png",
+      "context": "screenshots/viewport-1920x1080-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1080-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1080-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1080-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1080-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 307
+      },
+      "file": "screenshots/viewport-1920x1080-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1200-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-classic-standard.png",
+      "context": "screenshots/viewport-1920x1200-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1200-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-analog-standard.png",
+      "context": "screenshots/viewport-1920x1200-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1200-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-stacked-standard.png",
+      "context": "screenshots/viewport-1920x1200-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1200-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-digital-standard.png",
+      "context": "screenshots/viewport-1920x1200-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-1920x1200-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1200-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1200-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-1920x1200-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1920,
+        1200
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 796,
+        "height": 347
+      },
+      "file": "screenshots/viewport-1920x1200-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-390x844-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-classic-standard.png",
+      "context": "screenshots/viewport-390x844-classic-standard-context.jpg"
+    },
+    {
+      "id": "viewport-390x844-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-analog-standard.png",
+      "context": "screenshots/viewport-390x844-analog-standard-context.jpg"
+    },
+    {
+      "id": "viewport-390x844-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-stacked-standard.png",
+      "context": "screenshots/viewport-390x844-stacked-standard-context.jpg"
+    },
+    {
+      "id": "viewport-390x844-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-digital-standard.png",
+      "context": "screenshots/viewport-390x844-digital-standard-context.jpg"
+    },
+    {
+      "id": "viewport-390x844-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-390x844-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-390x844-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "viewport-390x844-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        390,
+        844
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 362,
+        "height": 200
+      },
+      "file": "screenshots/viewport-390x844-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x3-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        3
+      ],
+      "rect": {
+        "width": 239,
+        "height": 142
+      },
+      "file": "screenshots/geometry-3x3-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x4-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        4
+      ],
+      "rect": {
+        "width": 239,
+        "height": 194
+      },
+      "file": "screenshots/geometry-3x4-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x4-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        4
+      ],
+      "rect": {
+        "width": 324,
+        "height": 194
+      },
+      "file": "screenshots/geometry-4x4-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-4x8-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        4,
+        8
+      ],
+      "rect": {
+        "width": 324,
+        "height": 405
+      },
+      "file": "screenshots/geometry-4x8-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x4-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        4
+      ],
+      "rect": {
+        "width": 495,
+        "height": 194
+      },
+      "file": "screenshots/geometry-6x4-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-6x6-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        6,
+        6
+      ],
+      "rect": {
+        "width": 495,
+        "height": 300
+      },
+      "file": "screenshots/geometry-6x6-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-8x4-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        8,
+        4
+      ],
+      "rect": {
+        "width": 665,
+        "height": 194
+      },
+      "file": "screenshots/geometry-8x4-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x3-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        3
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 142
+      },
+      "file": "screenshots/geometry-12x3-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-3x12-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        3,
+        12
+      ],
+      "rect": {
+        "width": 239,
+        "height": 616
+      },
+      "file": "screenshots/geometry-3x12-digital-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-classic-standard",
+      "style": "classic",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-classic-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-analog-standard",
+      "style": "analog",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-analog-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-stacked-standard",
+      "style": "stacked",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-stacked-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-digital-standard",
+      "style": "digital",
+      "profile": "standard",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-digital-standard.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-classic-large",
+      "style": "classic",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-classic-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-analog-large",
+      "style": "analog",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-analog-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-stacked-large",
+      "style": "stacked",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-stacked-large.png",
+      "context": null
+    },
+    {
+      "id": "geometry-12x12-digital-large",
+      "style": "digital",
+      "profile": "large",
+      "viewport": [
+        1280,
+        720
+      ],
+      "geometry": [
+        12,
+        12
+      ],
+      "rect": {
+        "width": 1006,
+        "height": 616
+      },
+      "file": "screenshots/geometry-12x12-digital-large.png",
+      "context": null
+    }
+  ]
+}

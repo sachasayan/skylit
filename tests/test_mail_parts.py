@@ -42,12 +42,30 @@ public class MailPartsTest {
     });
     yes(scanned==1&&delivered[0]==1);
     yes(MailParts.collect(decoded,123L,0,(input,received)->{throw new AssertionError();})==0);
+    String mixed="Content-Type: multipart/mixed; boundary=sample\\r\\n\\r\\n--sample\\r\\nContent-Type: image/jpeg\\r\\nContent-Transfer-Encoding: base64\\r\\n\\r\\nA\\r\\n--sample\\r\\nContent-Type: image/jpeg\\r\\nContent-Transfer-Encoding: base64\\r\\n\\r\\nBQYH\\r\\n--sample--\\r\\n";
+    MimeMessage brokenPicture=new MimeMessage(session,new ByteArrayInputStream(mixed.getBytes("US-ASCII")));
+    int[] good={0},rejected={0};
+    yes(MailParts.collect(brokenPicture,123L,10,(input,received)->{yes(Arrays.equals(input.readAllBytes(),new byte[]{5,6,7}));good[0]++;},()->rejected[0]++)==2);
+    yes(good[0]==1&&rejected[0]==1);
+    String bad="Content-Type: multipart/mixed; boundary=missing\\r\\n\\r\\ninvalid MIME";
+    MimeMessage malformed=new MimeMessage(session,new ByteArrayInputStream(bad.getBytes("US-ASCII")));
+    yes(MailParts.collect(malformed,123L,10,(input,received)->{throw new AssertionError();},()->rejected[0]++)==0);
+    // A later, valid message still imports; malformed mail is isolated per message.
+    yes(MailParts.collect(decoded,123L,10,(input,received)->{good[0]++;})==1&&good[0]==2);
+    MimeBodyPart networkFailure=new MimeBodyPart(){public InputStream getInputStream()throws IOException{throw new IOException("connection lost");}};
+    networkFailure.setHeader("Content-Type","image/jpeg");
+    try{MailParts.collect(networkFailure,123L,10,(input,received)->{});throw new AssertionError();}catch(IOException expected){}
+    MailCheck check=new MailCheck(60000);java.net.Socket socket=check.socketFactory().createSocket();yes(!socket.isClosed());check.stop(false,false);yes(socket.isClosed()&&!check.active());
+    try{check.guard(new ByteArrayInputStream(original)).read();throw new AssertionError();}catch(InterruptedIOException expected){}
+    try{check.socketFactory().createSocket();throw new AssertionError();}catch(InterruptedIOException expected){}
+    yes(!new MailCheck(0).active());
+
   }
 }'''
         with tempfile.TemporaryDirectory() as directory:
             harness=Path(directory)/'MailPartsTest.java'
             harness.write_text(source)
             classpath=os.pathsep.join(map(str,jars))
-            subprocess.run([javac,'-classpath',classpath,'-d',directory,str(ROOT/'android/src/com/wesbos/homehq/MailParts.java'),str(ROOT/'android/src/com/wesbos/homehq/PhotoPolicy.java'),str(harness)],check=True,capture_output=True,text=True)
+            subprocess.run([javac,'-classpath',classpath,'-d',directory,str(ROOT/'android/src/com/wesbos/homehq/MailParts.java'),str(ROOT/'android/src/com/wesbos/homehq/PhotoPolicy.java'),str(ROOT/'android/src/com/wesbos/homehq/MailCheck.java'),str(harness)],check=True,capture_output=True,text=True)
             result=subprocess.run([java,'-cp',directory+os.pathsep+classpath,'com.wesbos.homehq.MailPartsTest'],capture_output=True,text=True)
             self.assertEqual(result.returncode,0,result.stderr)

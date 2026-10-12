@@ -29,6 +29,11 @@ archive private; do not push its refs into the public repository.
    prepare a reviewed history cleanup before public visibility. A deletion commit alone
    does not remove the original content.
 
+CI checks the actual PR head or pushed commit with complete branch/tag history.
+GitHub-generated PR merge objects use account metadata and are not the published
+branch history. Do not push those synthetic refs. Merge locally with the verified
+GitHub noreply identity and run the history check before pushing main.
+
 ## APK checks
 
 ```sh

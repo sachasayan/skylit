@@ -1,5 +1,103 @@
 # Delivery verification — October 11, 2026
 
+## Version 2.14.2 — P1/P2 review fixes
+
+- All nine findings addressed: cache work outside the monitor; cancellable mail
+  checks/erase/disconnect with a 120-second total deadline and late-write fences;
+  malformed MIME/base64 isolation; slideshow refresh rescheduling; obsolete
+  calendar-worker cancellation; timestamp-based saved forecast labels; malformed
+  settings recovery; failing privacy exit status for personal commit metadata;
+  truthful staged-dashboard feedback. TLS trust/hostname checks remain intact.
+- 68 JavaScript tests, 15 Python tests, 61 isolated Android checks, four focused
+  rendered regressions, 31 full-app checks and 23 dashboard checks pass. No runtime
+  errors or startup retries in the final browser runs. Broader coverage includes
+  nine viewports and both text profiles; seven new synthetic screenshots reviewed.
+- The native harness runs actual PhotoMail/PhotoStore/Bitmap code with synthetic
+  pictures and temporary preferences, including blocked stream reads, erase,
+  disconnect and rejection of late cache publication. It does not access the
+  household account or cache.
+- Normal signed 2.14.2, code 26, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95, at
+  1920×1080 physical / 1280×720 CSS. Settings preserved; guide stayed closed.
+  Affected screens and draft/discard behavior checked privately. Reopened setup
+  guide, all three direct links and empty credential fields passed; original
+  onboarding flags were restored after the test.
+- Initial live read-only mail checks reached the total deadline during attachment
+  download and kept the saved cache. Bounded 256 KiB IMAP fetch chunks reduce round
+  trips; a subsequent check completed successfully in 24–31 seconds. A complete
+  refresh is verified; long-term unattended delivery is not established.
+- Source/history/final APK public-data and Gitleaks source/history scans pass
+  with zero findings. Private upgrade/undo record copied to frame Downloads.
+- Push CI passed; initial PR CI correctly rejected personal author metadata on
+  GitHub's generated merge object. CI now checks the actual published head and
+  complete branch/tag history. The metadata rule remains strict; synthetic refs
+  are not pushed into canonical branches. Future main merges use the local noreply
+  identity.
+- Clock visual critique is documented separately; the four designs are unchanged.
+  No household screenshot, account identifier or event detail appears in either
+  report. Normal APK contains no household configuration or demo fixture.
+- APK SHA-256: `83244eca30d9db49f14e705ef2dde1668363f54079f5471dd30b215ba3056182`.
+- [Review fixes, evidence and screenshots](reviews/2026-10-11-review-fixes/index.html).
+  [Clock critique and every captured size](reviews/2026-10-11-clock-critique/index.html).
+
+## Version 2.14.1 — Clock styles
+
+- Clock & date adds Classic, Analog, Stacked and Digital under Settings → Dashboard,
+  with a live staged sample, Save/Discard/Undo and style preservation through
+  presets, arrangement and geometry changes. Unknown styles default to Classic.
+  Original city time, DST, date, 12/24-hour preference and accessible heading retained.
+- 64 JavaScript, 14 Python, 32 clock rendered checks, 23 dashboard checks and 31
+  full-app rendered regression checks pass. All four styles across nine viewports
+  with both text profiles, minimum/full sizes, persistence, rejected writes and
+  format synchronization verified. Zero runtime errors or startup retries.
+- Normal signed 2.14.1, code 25, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95 at 1920×1080
+  physical / 1280×720 CSS. Installed APK matches built artifact byte for byte.
+- Ten frame checks pass: touch Settings/picker/Save, staged sample, Discard/Undo,
+  preset/arrangement preservation, real process restart, every style minimum/full,
+  city/12/24-hour labels/live tick, guide with empty fields/Android Back and data
+  preservation. Original preferences/style, account, photo cache, calendar config,
+  retention/exclusions and HOME restored/verified. Eighteen acceptance screenshots
+  remain private; public report uses 33 isolated synthetic captures.
+- Private upgrade/undo record copied to Downloads. Normal debug=false launch and
+  task ADB forwards removed. Factory userdebug / ro.debuggable=1 keeps WebView
+  inspection available through authorized ADB even with the app flag off; system
+  defaults preserved. No new requests, permissions, native integrations or
+  remote fonts. Existing live service functionality was not reverified.
+- Public-data source/history/APK and Gitleaks history/source scans: zero findings.
+  APK SHA-256: `fac2545b26c551ddaeb211c910579fd387e53ae6ff02e44136609bf07a6f9e99`.
+- [Clock styles and responsive screenshots](reviews/2026-10-11-clock-styles/index.html).
+
+## Version 2.14.0 — Modular dashboard
+
+- Settings → Dashboard stages draggable/resizable modules on a 12 × 12 grid,
+  with a nine-module gallery, minimum sizes, no overlap, exact fields, keyboard
+  alternatives, internal drag scrolling, automatic room-making, Save/Discard/Undo.
+- Four original modules preserve their controllers/actions. Hourly forecast,
+  Note, Shopping list, Countdowns and Timers share existing service/Household data.
+  Removal retains data; empty layouts are supported. Legacy presets/note migrate.
+  Custom layouts stay local and are excluded from display-preference transfer.
+- 60 JavaScript tests, 14 Python tests, 23 rendered dashboard checks and 31 existing
+  rendered regression checks pass. Zero runtime errors or startup retries. Nine
+  viewport sizes with both text profiles, all minimum/full sizes/alternate placements,
+  storage failure, pointer/keyboard, gallery drag/autoscroll and shared-data actions
+  verified. Eighty synthetic captures retained; themes and affected states reviewed.
+- Normal signed 2.14.0, code 24, valid v1/v2/v3 signatures, installed in place with
+  the same key on identity-verified USB D156 / Android 12 / WebView 95 at 1920×1080
+  physical / 1280×720 CSS. Installed APK equals the built artifact byte for byte.
+- Thirteen frame checks pass: physical Settings navigation, touch move/resize,
+  overlap rejection, gallery/save, all-nine geometry, actual process restart,
+  all minimum-size modules, removal/Undo, affected screen captures, reopened guide
+  with empty credentials/Android Back, and preserved original data. Twenty-two
+  physical screenshots remain private; original layout/preferences, account,
+  photo cache, calendar configuration, retention/exclusions and HOME preserved.
+- Private upgrade/undo record copied to Downloads; temporary inspection and task
+  ADB forward removed. No new service setup or native data migration. Live mail,
+  calendar, home control and video playback were not reverified by these UI tests.
+- Source/history/APK public-data and Gitleaks history/source checks: zero findings.
+  APK SHA-256: `7072af0d2c9ea717cb47bd2d9ced99d9d8e6cd6176f1af4fb2d9672495f6bde4`.
+- [Module editor, responsive sizes and screenshots](reviews/2026-10-11-modular-dashboard/index.html).
+
 ## Version 2.13.0 — Settings navigation and gallery curation
 
 - Settings uses a left-side category rail inside its lightbox on landscape
@@ -587,3 +685,19 @@ full calendar feature compatibility and event editing are not yet certified.
 - Installed in place over explicitly selected USB on the Android 12 D156 frame.
   Calendar and Overview retain their settings; connected calendar data survives
   the upgrade. Public screenshots use synthetic fixtures only.
+
+
+## Version 2.14.3 — manual Android recovery
+
+Added visible Wi-Fi, Developer options and Android app-picker shortcuts at the
+top of Settings → Device & status. The D156 firmware lacks a system navigation
+bar and standard app drawer; the native picker lists Android Settings first and
+other launchable apps. No new permission, boot helper or persistent network
+policy change is introduced. Signed upgrade on Android 12 retained preferences
+and kept setup closed. All three routes and Back return verified on the frame.
+68 Node tests, 15 Python tests, 32 browser checks and three final viewport checks
+passed. See [report and synthetic screenshots](reviews/2026-10-11-wireless-shortcuts/index.html).
+The reboot test did not establish automatic wireless recovery; manual Wi-Fi
+reconnection and Wireless debugging approval restored paired TLS. Final USB-unplugged acceptance passed: verified USB absence and exact paired
+TLS identity, installed the same signed APK and started Skylit over Wi-Fi. The
+updated private recovery record was copied and SHA-256 verified over TLS.

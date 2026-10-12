@@ -22,6 +22,8 @@ regression test ensures script/resource fetches pass through unchanged.
   accent/button text and control borders. Regular palettes are visually reviewed.
 - Overview: expired/ongoing/all-day events, exclusive all-day end dates, result limit,
   stable sorting, weather validity/freshness.
+- Dashboard layout: legacy migration, schema stripping, bounds/minimums, collisions,
+  unique modules, empty layouts, automatic packing and randomized edit sequences.
 - Calendar controller: overlapping worker completion, stale errors, month-independent
   upcoming list, removal during an in-flight parse without resurrecting events,
   grouped overview dates, redundant metadata removal and offline warning visibility.
@@ -96,4 +98,34 @@ and runs actual PhotoStore/Bitmap/JSON code in an isolated shell-owned temporary
 directory with in-memory preferences and synthetic images. It covers received-date
 windows, count modes, deduplication, excluded-slot capacity, persistence through
 reopening/pruning/reimport, restore/erase and importer/exclusion races. It never
-opens the household cache or mailbox. Omit `--usb` to use paired TLS transport.
+opens the household cache or mailbox. It also stalls a synthetic import while
+checking responsive cache reads, erase/disconnect cancellation and rejection of
+late publication. Omit `--usb` to use paired TLS transport.
+
+For review regressions, run `node scripts/check_review_fixes.cjs` against the
+synthetic preview with the same Playwright/Chrome environment variables.
+`--capture docs/reviews/2026-10-11-review-fixes` captures slideshow refresh,
+unsaved dashboard edits, expired cached forecasts and malformed saved preferences.
+The Node tests separately cover calendar-worker cancellation; Python tests cover
+serialized malformed MIME, TLS socket cancellation and history-check exit status.
+
+
+For dashboard editing, run `scripts/check_dashboard.cjs` with the same Playwright
+and Chrome environment variables used for `scripts/check_ui.cjs`, against the
+isolated synthetic preview. `--capture docs/reviews/2026-10-11-modular-dashboard`
+captures default/editor/gallery, all nine modules, every minimum/full size and
+nine viewport sizes. Checks cover pointer/keyboard movement, resizing/cancellation,
+overlap rejection, Save/Discard/Undo, storage failure, auto-arrangement, gallery
+scroll/drop, actual Household data actions and reload persistence. Physical
+acceptance must use touch on the selected frame and an actual process restart;
+restore the original layout and verify private preference/account/cache hashes.
+
+
+For clock styles, run `scripts/check_clocks.cjs` with the same browser environment
+against the isolated preview; optionally add `--capture docs/reviews/2026-10-11-clock-styles`.
+It checks staged styles, Save/reload, Discard/Undo, preset/packing preservation,
+failed writes, city time/format synchronization and all four styles across nine
+viewports with both text profiles, minimum/full sizes and a dark presentation.
+Unit tests cover midnight/noon, half-hour zones, DST and style schema boundaries.
+On the frame, exercise the picker and Save with touch, restart the app, capture
+small/large styles privately, and restore/verify the original preferences and data.

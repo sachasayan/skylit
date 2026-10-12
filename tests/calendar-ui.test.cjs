@@ -7,14 +7,14 @@ class Element{
  set textContent(v){this._text=v;this.children=[]}get textContent(){return this._text+this.children.map(c=>c.textContent||'').join('')}
  append(...c){this.children.push(...c)}setAttribute(k,v){this.attrs[k]=v}scrollIntoView(){}
 }
-function setup({multiple=false,organizer='',savedView=null}={}){
+function setup({multiple=false,organizer='',savedView=null,sourceCount=1}={}){
  const now=Date.parse('2026-10-10T08:00Z'),elements=new Map(),pending=[],listeners={};
  const network={onLine:true},storage=new Map();if(savedView)storage.set('skylit.calendarView',JSON.stringify(savedView));
  const $=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id)};
- let sources=[{id:'demo',name:'Example',color:'#833e2c',body:'synthetic',fetchedAt:now}];
+ let sources=Array.from({length:sourceCount},(_,i)=>({id:i?'demo'+i:'demo',name:'Example',color:'#833e2c',body:'synthetic',fetchedAt:now}));
  const window={SkylitApp:{calendarPreferences:()=>({timezone:'UTC',clock:'24'}),go(){}},Skylit:{calendarList:()=>JSON.stringify(sources),calendarRefresh(){},calendarRemove(id){sources=sources.filter(s=>s.id!==id);return true}},addEventListener(name,fn){listeners[name]=fn}};
  class FixedDate extends Date{constructor(...a){super(...(a.length?a:[now]))}static now(){return now}}
- class Worker{postMessage(bounds){this.bounds=bounds;pending.push(this)}terminate(){}}
+ class Worker{postMessage(bounds){this.bounds=bounds;pending.push(this)}terminate(){this.terminated=true;}}
  vm.runInNewContext(fs.readFileSync('web/calendar.js','utf8'),{window,document:{getElementById:$,createElement:tag=>new Element(tag),createTextNode:t=>({textContent:t})},Date:FixedDate,Intl,Worker,SkylitOverview:Overview,SkylitCalendarPolicy:CalendarPolicy,navigator:network,localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},setTimeout,clearTimeout,setInterval(){}});
  const event={title:'Upcoming example',organizer,allDay:false,startDay:'2026-10-10',endDay:'2026-10-10',start:now+3600000,end:now+7200000};
  const eventList=multiple?[event,{...event,title:'Later today',start:now+10800000,end:now+14400000},{...event,title:'Next day',startDay:'2026-10-11',endDay:'2026-10-11',start:now+86400000,end:now+90000000}]:[event];
@@ -36,7 +36,7 @@ test('removing a calendar while parsing immediately clears overview and cannot r
  const h=setup();h.complete(h.pending.shift());await h.flush();h.$('calendar-next').onclick();const old=h.pending.shift();
  const remove=h.$('calendar-sources').children[0].children[1].children[1];remove.onclick();remove.onclick();await h.flush();
  assert.match(h.$('overview-events').textContent,/Add a calendar/);
- h.complete(old);await h.flush();h.complete(h.pending.shift());await h.flush();
+ h.complete(old);await h.flush();assert.equal(old.terminated,true);assert.equal(h.pending.length,0);
  assert.match(h.$('overview-events').textContent,/Add a calendar/);assert.equal(h.$('calendar-content').hidden,true);
 });
 
@@ -89,4 +89,14 @@ test('loaded-date search filters only Calendar, preserving the today-anchored Ov
  assert.match(h.$('overview-events').textContent,/Upcoming example/);
  h.$('calendar-search').value='';h.$('calendar-search').oninput();
  assert.match(h.$('calendar-agenda').textContent,/Upcoming example/);
+});
+
+test('superseded multi-feed renders terminate work and never start another obsolete worker',async()=>{
+ const h=setup({sourceCount:3});const obsolete=h.pending.shift();
+ h.$('calendar-next').onclick();const next=h.pending.shift();assert.equal(obsolete.terminated,true);
+ h.$('calendar-prev').onclick();const latest=h.pending.shift();assert.equal(next.terminated,true);
+ h.complete(obsolete);h.complete(next);await h.flush();assert.equal(h.pending.length,0);
+ h.complete(latest);await h.flush();assert.equal(h.pending.length,1);
+ h.complete(h.pending.shift());await h.flush();assert.equal(h.pending.length,1);
+ h.complete(h.pending.shift());await h.flush();assert.match(h.$('overview-events').textContent,/Upcoming example/);assert.equal(h.pending.length,0);
 });

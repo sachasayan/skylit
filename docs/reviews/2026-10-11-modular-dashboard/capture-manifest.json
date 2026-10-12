@@ -1,0 +1,330 @@
+{
+  "date": "2026-10-11",
+  "version": "2.14.0",
+  "synthetic": true,
+  "checks": [
+    "Pointer resize, keyboard movement, collision rejection and explicit Save",
+    "Reload persistence, discard, undo and all nine gallery modules",
+    "Gallery drag, automatic scroll, empty dashboard and storage-failure preservation",
+    "Resize cancellation and invalid numeric inputs preserve the draft",
+    "Nine-module geometry 960×540 standard",
+    "Nine-module geometry 960×540 large",
+    "Nine-module geometry 1024×640 standard",
+    "Nine-module geometry 1024×640 large",
+    "Nine-module geometry 1280×720 standard",
+    "Nine-module geometry 1280×720 large",
+    "Nine-module geometry 1280×800 standard",
+    "Nine-module geometry 1280×800 large",
+    "Nine-module geometry 1440×900 standard",
+    "Nine-module geometry 1440×900 large",
+    "Nine-module geometry 1600×900 standard",
+    "Nine-module geometry 1600×900 large",
+    "Nine-module geometry 1920×1080 standard",
+    "Nine-module geometry 1920×1080 large",
+    "Nine-module geometry 1920×1200 standard",
+    "Nine-module geometry 1920×1200 large",
+    "Nine-module geometry 390×844 standard",
+    "Nine-module geometry 390×844 large",
+    "Every module at its minimum and full size, in varied positions"
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "default",
+      "title": "Default modules · 1280×720",
+      "file": "screenshots/default.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "editor",
+      "title": "Settings · dashboard editor",
+      "file": "screenshots/editor.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "gallery",
+      "title": "Settings · module gallery",
+      "file": "screenshots/gallery.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "editor-dark",
+      "title": "Settings · dashboard editor · Ocean dark",
+      "file": "screenshots/editor-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "nine-modules",
+      "title": "Nine modules · shared local data",
+      "file": "screenshots/nine-modules.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "modules-960x540-standard",
+      "title": "Nine modules · 960×540 · standard",
+      "file": "screenshots/modules-960x540-standard.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "modules-960x540-large",
+      "title": "Nine modules · 960×540 · large",
+      "file": "screenshots/modules-960x540-large.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "modules-1024x640-standard",
+      "title": "Nine modules · 1024×640 · standard",
+      "file": "screenshots/modules-1024x640-standard.jpg",
+      "viewport": [
+        1024,
+        640
+      ]
+    },
+    {
+      "id": "modules-1280x720-standard",
+      "title": "Nine modules · 1280×720 · standard",
+      "file": "screenshots/modules-1280x720-standard.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "modules-1280x800-standard",
+      "title": "Nine modules · 1280×800 · standard",
+      "file": "screenshots/modules-1280x800-standard.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "modules-1440x900-standard",
+      "title": "Nine modules · 1440×900 · standard",
+      "file": "screenshots/modules-1440x900-standard.jpg",
+      "viewport": [
+        1440,
+        900
+      ]
+    },
+    {
+      "id": "modules-1600x900-standard",
+      "title": "Nine modules · 1600×900 · standard",
+      "file": "screenshots/modules-1600x900-standard.jpg",
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "modules-1920x1080-standard",
+      "title": "Nine modules · 1920×1080 · standard",
+      "file": "screenshots/modules-1920x1080-standard.jpg",
+      "viewport": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "id": "modules-1920x1200-standard",
+      "title": "Nine modules · 1920×1200 · standard",
+      "file": "screenshots/modules-1920x1200-standard.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "modules-390x844-standard",
+      "title": "Nine modules · 390×844 · standard",
+      "file": "screenshots/modules-390x844-standard.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "clock-small",
+      "title": "Clock & date · minimum size",
+      "file": "screenshots/clock-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-large",
+      "title": "Clock & date · full dashboard",
+      "file": "screenshots/clock-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-small",
+      "title": "Weather · minimum size",
+      "file": "screenshots/weather-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-large",
+      "title": "Weather · full dashboard",
+      "file": "screenshots/weather-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-small",
+      "title": "Photos · minimum size",
+      "file": "screenshots/photos-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-large",
+      "title": "Photos · full dashboard",
+      "file": "screenshots/photos-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "plans-small",
+      "title": "Upcoming events · minimum size",
+      "file": "screenshots/plans-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "plans-large",
+      "title": "Upcoming events · full dashboard",
+      "file": "screenshots/plans-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "forecast-small",
+      "title": "Hourly forecast · minimum size",
+      "file": "screenshots/forecast-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "forecast-large",
+      "title": "Hourly forecast · full dashboard",
+      "file": "screenshots/forecast-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "note-small",
+      "title": "Note · minimum size",
+      "file": "screenshots/note-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "note-large",
+      "title": "Note · full dashboard",
+      "file": "screenshots/note-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "shopping-small",
+      "title": "Shopping list · minimum size",
+      "file": "screenshots/shopping-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "shopping-large",
+      "title": "Shopping list · full dashboard",
+      "file": "screenshots/shopping-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "countdowns-small",
+      "title": "Countdowns · minimum size",
+      "file": "screenshots/countdowns-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "countdowns-large",
+      "title": "Countdowns · full dashboard",
+      "file": "screenshots/countdowns-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "timers-small",
+      "title": "Timers · minimum size",
+      "file": "screenshots/timers-small.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "timers-large",
+      "title": "Timers · full dashboard",
+      "file": "screenshots/timers-large.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

@@ -41,7 +41,10 @@ frame is lost or retired.
 
 The Android app checks the inbox read-only when opened and on the selected
 15-minute, hourly or daily schedule (daily remains the upgrade/default value).
-Only one check runs at a time. Automatic failures back off from five minutes to
+Only one check runs at a time, with a 120-second total deadline. Invalid MIME/image
+parts are skipped so other pictures can still import. A failed or timed-out check
+keeps pictures already saved and does not claim a successful last-checked time.
+Automatic failures back off from five minutes to
 one hour; the last good cache is retained. **Check now** starts an immediate check. It scans recent inbox
 messages, accepts image parts with sane dimensions and size, resizes them to at most
 2400 pixels on the long edge, removes EXIF metadata by re-encoding, and keeps a
@@ -55,7 +58,9 @@ disconnects. When offline, the last saved pictures remain playable.
 
 The app password is encrypted using Android Keystore with the address bound as
 authenticated data. Backups are disabled. **Disconnect email and erase saved
-pictures** removes the saved credential and local photo cache; revoke the app
+pictures** cancels any running check and removes the saved credential and local
+photo cache. **Erase saved pictures** also cancels a running check; later work from
+that check cannot restore erased pictures. Revoke the app
 password in Google as well to terminate its account authorization. Upgrading with
 the same signing key retains settings; uninstalling removes the private cache.
 

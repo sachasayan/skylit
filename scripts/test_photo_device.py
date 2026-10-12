@@ -8,9 +8,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--usb',action='store_true');args=parser.parse_args()
     config=json.loads((ROOT/'.local/build.json').read_text());build=ROOT/'.local/photo-test';build.mkdir(exist_ok=True);classes=build/'classes';classes.mkdir(exist_ok=True)
     java=Path(config['java']);env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
-    sources=[ROOT/'android/src/com/wesbos/homehq'/name for name in ['PhotoStore.java','PhotoPolicy.java']]+[ROOT/'tests/android/PhotoStoreTest.java']
-    subprocess.run([str(java/'bin/javac'),'-source','8','-target','8','-classpath',config['android_jar'],'-d',str(classes),*map(str,sources)],env=env,check=True,capture_output=True)
-    subprocess.run([str(Path(config['build_tools'])/'d8'),'--min-api','23','--lib',config['android_jar'],'--output',str(build),*map(str,classes.rglob('*.class'))],env=env,check=True,capture_output=True)
+    sources=[ROOT/'android/src/com/wesbos/homehq'/name for name in ['PhotoStore.java','PhotoPolicy.java','PhotoMail.java','MailCheck.java','MailParts.java','MailImportPolicy.java','MailSecret.java']]+[ROOT/'tests/android/PhotoStoreTest.java']
+    subprocess.run([str(java/'bin/javac'),'-source','8','-target','8','-classpath',os.pathsep.join([config['android_jar'],str(ROOT/'vendor/mail/android-mail-1.6.7.jar'),str(ROOT/'vendor/mail/android-activation-1.6.7.jar')]),'-d',str(classes),*map(str,sources)],env=env,check=True,capture_output=True)
+    subprocess.run([str(Path(config['build_tools'])/'d8'),'--min-api','23','--lib',config['android_jar'],'--output',str(build),*map(str,classes.rglob('*.class')),str(ROOT/'vendor/mail/android-mail-1.6.7.jar'),str(ROOT/'vendor/mail/android-activation-1.6.7.jar')],env=env,check=True,capture_output=True)
     if args.usb:
         device=json.loads((ROOT/'.local/device.json').read_text());adb=device['adb'];transport=None
         for line in subprocess.check_output([adb,'devices','-l'],text=True).splitlines():

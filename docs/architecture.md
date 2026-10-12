@@ -69,6 +69,12 @@ AES-GCM key and bound to the account address. It never reaches web assets or the
 remote service WebViews. `PhotoPolicy` centralizes limits; `PhotoStore` keeps only
 deduplicated, resized JPEGs in app-private storage and deletes expired/excess files.
 Successful checks set a last-checked time, and failures retain usable pictures.
+Each check has a 120-second total deadline and a cancellation token that closes
+its tracked TLS sockets using the default trust store and hostname verification.
+IMAP attachment fetches use bounded 256 KiB chunks to avoid excessive round trips.
+Disconnect/erase cancel immediately; stale workers cannot publish photos or mark
+a later check successful. Malformed MIME/base64 parts are isolated within a
+bounded walk, while connection failures still fail the check.
 The Android viewer intercepts only exact local HTTPS photo paths for the local
 dashboard; remote web content gets neither private photos nor the bridge.
 
@@ -170,6 +176,44 @@ days or a zero-day count mode. Count mode reads the most recent 1,000 inbox mess
 without an age cutoff; all modes retain the existing 100-part per-check limit.
 `PhotoStore` gives visible pictures their selected capacity first, retains excluded
 cached copies for Undo only when space remains, and caps all images together at 50.
-Its synchronized exclusion/add/prune operations prevent refresh races. Exclusion
+Network reads, decode/rotation, JPEG encoding and temporary-file writes happen
+outside the cache monitor. Publication, exclusion and pruning share a short lock;
+a generation fence prevents an erased cache from being repopulated by old work.
+Active temporary files survive pruning; abandoned ones are removed at startup. Exclusion
 hashes are available only to the local dashboard; stale callbacks reread current
 native rules before rendering. Legacy hidden choices migrate to native exclusions.
+
+
+In 2.14.0, `dashboard-model.js` validates a versioned layout with nine known module
+types and integer positions/sizes on a 12 × 12 grid. It rejects overlaps, duplicate
+types, invalid sizes and unknown records, and strips fields outside the layout
+schema. An absent layout migrates the previous preset and optional note excerpt.
+An explicitly empty dashboard is valid. `skylit.dashboard` stores only module
+identifiers, coordinates and an optional allowed clock-style identifier; household
+data remains in the existing stores.
+
+`dashboard.js` moves the four existing Overview nodes into grid wrappers, retaining
+their IDs, controllers, service state and event actions. Five additional modules
+read existing hourly weather and Household state. Shopping actions use the same
+storage/Undo path as Household. Countdown dates use the configured city zone and
+update at local midnight; timers remain visible reminders without background alarms.
+There are no new requests, permissions or service integrations.
+
+The Dashboard Settings editor has a separate draft and bounded Undo history. Save
+writes the draft before applying it, so a storage failure preserves the visible
+layout. Pointer capture, cancellation, internal autoscroll and keyboard/numeric
+alternatives support placement and resizing. Tap-add can compact modules into a
+three-column layout when necessary; direct drop requires free space. ResizeObserver
+chooses compact styling from actual module dimensions, without container queries.
+CSS grid scales coordinates across landscape sizes; narrow previews stack in visual
+reading order. Existing display-transfer format v1 excludes custom dashboard layouts.
+
+
+In 2.14.1, `clock.js` builds local SVG analog and stacked-number presentations.
+Classic uses the original serif clock; Digital changes its typography. The
+`skylit-clock` event carries the original tick instant, so all presentations use
+the configured city zone, DST and 12/24-hour format together. The original clock
+heading remains the accessible current-time label; decorative alternatives are
+hidden from assistive technology. Clock style is staged with the layout and
+preserved by presets, packing, geometry edits and Undo. Unknown styles fall back
+to Classic. No seconds animation, remote fonts, requests or new permissions.

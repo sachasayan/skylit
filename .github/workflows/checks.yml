@@ -8,6 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
+          # Inspect the published commit, not GitHub's generated PR merge metadata.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
       - run: node --test tests/*.test.cjs
       - run: python3 -m unittest discover -s tests

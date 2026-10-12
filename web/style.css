@@ -224,3 +224,5 @@ main{margin:0 auto}
 @keyframes photo-hint-away{to{opacity:0}}
 @media(max-width:600px){#photo-player .photo-player-bar{bottom:10px;gap:4px}#photo-player .photo-player-controls{gap:4px}#photo-player .photo-player-controls button{min-width:42px;min-height:44px;padding:6px;font-size:13px}#photo-player .photo-player-label strong{font-size:18px}#photo-player .photo-collage{gap:6px}}
 @media(prefers-reduced-motion:reduce){#photo-player .photo-slide,#photo-player .photo-player-bar,.overview-photo-stack img,.photo-tile img{transition:none}.photo-collage.is-entering img,#photo-player.idle #photo-idle-hint{animation:none}}
+
+.android-controls{display:flex;flex-wrap:wrap;gap:8px}
