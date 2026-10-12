@@ -44,3 +44,10 @@ test('optional high-contrast palette meets AA text and control border contrast',
 test('clock numerals retain high-contrast text separation in both modes',()=>{
  for(const mode of ['light','dark']){const t=A.tokens('contrast',mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5);assert.ok(contrast(t['clock-leaf'],t.panel)>=4.5);}
 });
+
+// All palettes need legible live Flip numerals, not only the optional contrast theme.
+test('Flip numerals meet AA contrast across all six light/dark palettes',()=>{
+ for(const theme of Object.keys(A.palettes))for(const mode of ['light','dark']){
+  const t=A.tokens(theme,mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5,`${theme} ${mode} Flip numerals`);
+ }
+});

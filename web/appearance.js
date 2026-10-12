@@ -11,7 +11,7 @@ const palettes={
 };
 const keys=['bg','panel','rail','ink','muted','line','accent','accent-ink','soft'];
 function normalize(theme,mode){const legacy=theme==='cocoa';return {theme:legacy?'linen':palettes[theme]?theme:'linen',mode:['light','dark','auto'].includes(mode)?mode:legacy?'dark':'auto'};}
-function tokens(theme,mode){const p=palettes[theme]||palettes.linen,t=Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]]));return {...t,'clock-leaf':theme==='linen'?(mode==='dark'?'#b6bc93':'#70764c'):t.accent,'clock-tile':theme==='linen'?(mode==='dark'?'#454b34':'#73764f'):t.ink,'clock-paper':t.panel};}
+function tokens(theme,mode){const p=palettes[theme]||palettes.linen,t=Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]]));return {...t,'clock-leaf':theme==='linen'?(mode==='dark'?'#b6bc93':'#60643c'):t.accent,'clock-tile':theme==='linen'?(mode==='dark'?'#454b34':'#6d704a'):t.ink,'clock-paper':theme==='linen'&&mode==='dark'?t.ink:t.panel,'clock-wood':theme==='linen'?(mode==='dark'?'#927052':'#bc946b'):t.muted,'clock-face-ink':theme==='linen'?(mode==='dark'?t.ink:'#805e34'):t.ink,'clock-wash':theme==='linen'?(mode==='dark'?'#554437':'#ede1ca'):t.soft,'clock-hill':theme==='linen'?(mode==='dark'?'#98694f':'#cd936d'):t.accent,'clock-sun':theme==='linen'?(mode==='dark'?'#b68252':'#e8bc80'):t.soft};}
 function resolve(mode,city,now=new Date(),systemDark=false){
  if(mode==='light'||mode==='dark')return {mode,reason:'manual'};
  const lat=city&&city.latitude,lon=city&&city.longitude;

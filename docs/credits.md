@@ -42,6 +42,7 @@ and the bundled third-party license notices below when distributing the project.
   bundle SHA-256: `18ae399f81182bc9de916e9c77b195df20cc58d6f2d55a62b085a299f1bf1780`.
   No external QR service receives the invitation.
 - Clock-widget concept reference: AI-generated; the shipped hills, plant and dial are original local SVG/CSS art with live time, not baked-in images.
+- Clock typography: locally bundled, unmodified [Cormorant Garamond](https://github.com/google/fonts/tree/main/ofl/cormorantgaramond) by Christian Thalmann and [Jost](https://github.com/google/fonts/tree/main/ofl/jost) by Owen Earl, both under the SIL Open Font License 1.1. Their notices are bundled as `clock-serif-OFL.txt` and `clock-sans-OFL.txt`. SHA-256: Cormorant Garamond `b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0`; Jost `6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076`. No external font requests.
 - Momo: original procedural Canvas 2D art. The design reference is AI-generated;
   the shipped character uses geometry, not an external image or font asset.
 - Public photo-preview fixtures: five AI-generated sample pictures under

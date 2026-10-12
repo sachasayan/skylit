@@ -41,6 +41,7 @@ not a household account. They demonstrate the interface, not a live service sign
 [Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).
 [Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
 [Warm responsive clock report](docs/reviews/2026-10-12-warm-clocks/index.html).
+[Clock concept refinement and independent review](docs/reviews/2026-10-12-clock-dream-loop/index.html).
 [QR phone pairing report](docs/reviews/2026-10-12-phone-pairing/index.html).
 [Slideshow controls report](docs/reviews/2026-10-11-controls/index.html).
 [October 11 refinement report with revised screenshots](docs/reviews/2026-10-11-refinement/index.html).

@@ -256,3 +256,23 @@ Keep decoration subordinate: small modules omit plants; shallow Flip strips put
 the date beside the tiles, narrow/tall Analog places the date beneath the face.
 Landscape reserves an explicit region for hills so they cannot cross time text.
 All four use existing theme pairs and reduced motion. No controls on Overview.
+
+## Clock concept refinement — 2.15.3
+
+Compare actual widget captures to the approved sheet before accepting a visual
+change. Cormorant Garamond supplies warm lining serif numerals; Jost supplies fine
+cardinal labels and Flip numerals. Both ship locally with their OFL notices.
+Paint servers belong to each instance so the live widget and Settings sample can
+coexist. Keep the clock's full accessible time and date even when the minimum
+module visually shortens the date.
+
+Every shape has a composition: Landscape puts hills beside wide time and below
+balanced time, with a circular sun redrawn for the art region. Analog keeps its
+cream dial, slender hands and tiny trailing plant. Flip uses horizontal tiles or
+a vertical pair in tall modules, with a small ceramic vase clear of time/date.
+Botanical uses a bare, curved branch and a quiet wash rather than another pot.
+Minimum modules omit secondary art; strips center compact compositions.
+
+Flip motion has outgoing upper and incoming lower halves, shading and a gentle
+settle. Animate only normal visible changed ticks. Cancel both halves on a style
+change, hidden update or reduced motion; initial render and time jumps stay still.

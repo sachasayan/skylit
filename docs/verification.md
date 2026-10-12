@@ -1,5 +1,30 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.15.3 — Clock concept refinement
+
+- Independent build/capture/critique loop against the approved four concepts.
+  Initial review rejected sun clipping, Flip ornament/date collisions, strip
+  composition and Botanical scale. The next review found one clipped top leaf;
+  the final six-shape review accepts all four. Additional review accepts all
+  48 light/dark theme crops and sampled actual Flip animation frames.
+- Locally bundled Cormorant Garamond and Jost, pinned hashes and OFL notices.
+  Distinct local illustrations, circular landscape sun, fine Analog face/hands,
+  horizontal/vertical Flip tiles and subordinate Botanical branch/wash.
+  Stored style IDs, city/DST/12–24 hour time and accessible full date retained.
+- Two-phase changed-number Flip motion with cancellation/cleanup on style,
+  hidden or reduced-motion updates. Dark Linen numeral contrast fixed; all six
+  light/dark pairs have >=4.5:1 base tile/numeral regression coverage.
+- 83 JavaScript and 16 Python tests pass. 67 rendered clock groups, 32 full-app
+  groups and 48 theme captures pass with no runtime errors; full-app checks have
+  no load retries. Report images decode at desktop/narrow widths; palette
+  switcher and recorded actual animation playback pass.
+- Normal signed APK 2.15.3/code 31 is built and passes public source/history/APK
+  checks and Gitleaks. Household configuration is empty; synthetic fixtures are
+  excluded. Frame wireless ADB was unavailable during this task, so this update
+  is ready for installation and has not been physically verified.
+- APK SHA-256: `499eb1d7ef0b06bff98ea1912659f3e1937c6f4e7faf2f85a1bec2a128faf0f2`.
+- [Visual report, all sizes and independent reviews](reviews/2026-10-12-clock-dream-loop/index.html).
+
 ## Version 2.15.2 — Warm responsive clocks
 
 - Four approved concepts implemented: Landscape, Analog, Flip and Botanical.
