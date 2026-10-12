@@ -36,6 +36,11 @@ and the bundled third-party license notices below when distributing the project.
   BSD-2-Clause. The unmodified classic browser bundle and license are included as
   `web/suncalc.js` and `web/suncalc-LICENSE.txt`. npm SHA-512 integrity was verified;
   this pinned version uses radians, unlike newer API revisions.
+- Local QR generation: [qrcode-generator 1.4.4](https://github.com/kazuhikoarase/qrcode-generator),
+  MIT, copyright Kazuhiko Arase. The unmodified npm distribution is bundled as
+  `web/qrcode.js`, with `web/qrcode-LICENSE.txt`. npm SHA-512 integrity verified;
+  bundle SHA-256: `18ae399f81182bc9de916e9c77b195df20cc58d6f2d55a62b085a299f1bf1780`.
+  No external QR service receives the invitation.
 - Momo: original procedural Canvas 2D art. The design reference is AI-generated;
   the shipped character uses geometry, not an external image or font asset.
 - Public photo-preview fixtures: five AI-generated sample pictures under

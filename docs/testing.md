@@ -147,3 +147,15 @@ The first-run credential fields are checked empty. The runner also checks certif
 uploads, cross-origin refusal and revocation. The address/code are written only to
 ignored local evidence. Never distribute the test APK or private
 evidence. Always restore the normal app and remove task ADB forwards afterwards.
+
+## QR phone pairing
+
+`node scripts/check_phone_pairing.cjs <capture-folder>` uses the synthetic preview
+and the same browser environment variables as the slideshow suite. It checks
+scan/pending/approve/reject/stop across four sizes, keyboard focus and the phone
+page’s URL-fragment removal. `test_phone_pairing.py` exercises the actual Java
+approval state machine, timeout, single-use and session-restart boundaries.
+`test_slideshow_device.py` also runs `check_phone_pairing_device.cjs` against its
+separate synthetic UID: photos blocked before approval, matching numbers, actual
+on-frame touch, decoded phone thumbnails, and Stop revocation. Owner phone camera
+and local-certificate acceptance still require device-specific verification.

@@ -23,6 +23,7 @@ def main():
         for mode in ('probe','native','ui','phone-start'):
             subprocess.run(['node',str(ROOT/'scripts/check_slideshow_device.cjs'),mode],check=True)
         subprocess.run(['node',str(ROOT/'scripts/check_photo_phone.cjs')],check=True)
+        subprocess.run(['node',str(ROOT/'scripts/check_phone_pairing_device.cjs')],check=True)
         subprocess.run(['node',str(ROOT/'scripts/check_slideshow_device.cjs'),'phone-stop'],check=True)
         subprocess.run(['node',str(ROOT/'scripts/check_photo_phone.cjs'),'--revoked'],check=True)
     finally:

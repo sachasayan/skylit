@@ -734,3 +734,27 @@ The reboot test did not establish automatic wireless recovery; manual Wi-Fi
 reconnection and Wireless debugging approval restored paired TLS. Final USB-unplugged acceptance passed: verified USB absence and exact paired
 TLS identity, installed the same signed APK and started Skylit over Wi-Fi. The
 updated private recovery record was copied and SHA-256 verified over TLS.
+
+## Version 2.15.1 — QR and matching-number phone pairing
+
+Replaced typed local address/PIN pairing with an offline QR invitation and a random
+number comparison approved on the frame. Pending browser cookies grant no photo
+access. Rejection, invitation/request/session expiry, single-use, stale approval
+and restart boundaries are covered by the actual Java state-machine tests.
+80 Node and 16 Python tests, six QR browser groups across four sizes, and the
+32-group full app suite pass. All QR screenshots visually reviewed; shorter screens
+scroll the QR fully into view when starting and keep pending approval visible.
+
+Isolated actual Android 12 / WebView 95 acceptance: seven native media groups,
+nine player groups, eight TLS protocol groups and five QR/touch groups. Pending
+phones cannot read pictures or apply actions; actual frame touch grants access.
+Stop refuses connections. The normal signed blank-config upgrade installed over
+paired TLS on D156 with the same key; pulled APK is byte-identical. Five private
+upgrade groups verify original settings, mailbox, retention, exclusions, curation,
+cached JPEG bytes and guide behavior. Weather cache and elapsed slideshow resume
+progress may update normally during acceptance. Installed production QR decoded
+independently to its exact invitation. Source/history/APK privacy checks and
+Gitleaks pass. Test UID/media removed; service off and task forwards removed.
+Physical phone camera scanning and owner-browser certificate acceptance remain
+unverified. See [visual report](reviews/2026-10-12-phone-pairing/index.html).
+APK SHA-256: `c72d748b6523782c4fe7220edae67ef5c716c2aefb0dc35a151e2f2349c03fa3`.

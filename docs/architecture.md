@@ -248,8 +248,11 @@ staged output. The private test APK is a separate UID and never distributed.
 
 PhoneManagement is an optional **on-frame** TLS listener, off by default. The owner
 starts a 15-minute session bound only to a private wlan IPv4 address. A Keystore
-certificate is pinned by owner comparison; pairing uses a single-use six-digit
-code with a five-minute / ten-attempt limit. Secure HttpOnly SameSite cookies,
+certificate is pinned by owner comparison. A five-minute single-use QR invitation
+creates a pending Secure cookie with no photo access. PhonePairing generates a
+random comparison number, and the local bridge alone can approve its exact request
+ID. Pending requests expire within two minutes; rejection refreshes the invitation
+and revokes the pending cookie. Ten invalid invitations close the service. Secure HttpOnly SameSite cookies,
 exact Host/Origin checks and bounded JSON/media routes constrain access. Stopping,
 erasing, changing accounts or privacy pause revokes the session and queued writes.
 The remote page has no JavaScript bridge. Its state contains only photo choices,

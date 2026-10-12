@@ -25,7 +25,7 @@ for artifact in mail_jars:
 env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
 def run(*args):subprocess.run([str(a) for a in args],cwd=root,env=env,check=True)
 run(bt/'aapt2','compile','--dir',app/'res','-o',build/'res.zip')
-run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','28','--version-name','2.15.0')
+run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','29','--version-name','2.15.1')
 sources=list((app/'src').rglob('*.java'))+list((build/'gen').rglob('*.java'))
 run(java/'bin/javac','-source','8','-target','8','-classpath',os.pathsep.join(map(str,(jar,*mail_jars))),'-d',build/'classes',*sources)
 run(bt/'d8','--min-api','23','--lib',jar,'--output',build/'dex',*list((build/'classes').rglob('*.class')),*mail_jars)

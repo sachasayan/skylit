@@ -163,6 +163,7 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void slideshowBrightness(float value){if(value!=-1&&(value<.05f||value>1||Float.isNaN(value)))return;runOnUiThread(()->{WindowManager.LayoutParams attributes=getWindow().getAttributes();if(attributes.screenBrightness!=value){attributes.screenBrightness=value;getWindow().setAttributes(attributes);}});}
     @JavascriptInterface public boolean photoManagementStart(){return phone.start();}
     @JavascriptInterface public String photoManagementStatus(){return phone.status();}
+    @JavascriptInterface public boolean photoManagementDecide(String request,boolean allow){return phone.decide(request,allow);}
     @JavascriptInterface public void photoManagementStop(){phone.stop();}
     @JavascriptInterface public boolean photoManagementCurrent(long version){return phone.active(version);}
     @JavascriptInterface public void openStock(){runOnUiThread(()->openStockApp());}

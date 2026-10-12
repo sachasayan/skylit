@@ -36,3 +36,5 @@
 
 .slide-cell video{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%) rotate(var(--picture-rotation,0deg))}#photo-player[data-background=black] .slide-cell video{background:#111}
 #library-edit .crop-preview{position:sticky;top:0;z-index:2;height:clamp(110px,22vh,190px);box-shadow:0 3px 12px #0001}
+
+.phone-pair-qr{display:block;width:258px;max-width:100%;height:auto;background:#fff;image-rendering:pixelated;margin:12px 0}.phone-pair-number{font-size:clamp(32px,5vw,48px);font-variant-numeric:tabular-nums;letter-spacing:.12em;margin:8px 0}.phone-pair-confirm{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px}.phone-pair-certificate summary{cursor:pointer;min-height:44px;display:flex;align-items:center}.phone-pair-certificate p{font-family:monospace;font-size:12px}.library-phone-status h4{margin:12px 0 6px}

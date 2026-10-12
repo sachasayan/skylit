@@ -90,10 +90,19 @@ restores system brightness. Quiet hours remain independent. This does not promis
 system sleep, wake-from-power-off or background playback.
 
 **Phone curation · local Wi-Fi** starts an encrypted 15-minute session. It is off
-by default and never starts automatically. Open the displayed local address on a
-phone on the same Wi-Fi. Inspect its certificate and compare the SHA-256 fingerprint
-with the frame before accepting the local certificate warning. Enter the one-time
-six-digit code within five minutes. Ten unsuccessful attempts close the session.
+by default and never starts automatically. Scan the locally generated QR code with a phone on the same Wi-Fi within five
+minutes. Inspect its certificate and compare the SHA-256 fingerprint with the frame
+before accepting the local certificate warning. The phone and frame show the same
+random six-digit number. Compare them, then tap **Numbers match · Allow** on the
+frame. No number is typed and no photo access is granted before this approval.
+A pending request expires after two minutes (or the invitation deadline, if sooner).
+Rejecting it revokes that browser and creates a fresh QR invitation while the
+five-minute invitation window remains open. A consumed QR cannot pair another
+browser. Stale approvals, expired requests and restarted sessions fail closed.
+Ten invalid invitation attempts close the service. The QR invitation is created
+offline, contains no household account information, and is cleared from the
+phone’s address bar immediately after opening. Do not share it or screenshot a
+real session for publication. The comparison number is not an access credential.
 
 The phone can curate stored pictures, edit their details, create collections,
 change the basic slideshow settings and upload a JPEG or muted H.264 MP4. It has
