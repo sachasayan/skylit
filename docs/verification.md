@@ -698,5 +698,6 @@ and kept setup closed. All three routes and Back return verified on the frame.
 68 Node tests, 15 Python tests, 32 browser checks and three final viewport checks
 passed. See [report and synthetic screenshots](reviews/2026-10-11-wireless-shortcuts/index.html).
 The reboot test did not establish automatic wireless recovery; manual Wi-Fi
-reconnection and Wireless debugging approval restored paired TLS. The final
-USB-unplugged check is recorded separately when completed.
+reconnection and Wireless debugging approval restored paired TLS. Final USB-unplugged acceptance passed: verified USB absence and exact paired
+TLS identity, installed the same signed APK and started Skylit over Wi-Fi. The
+updated private recovery record was copied and SHA-256 verified over TLS.
