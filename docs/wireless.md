@@ -23,7 +23,7 @@ Pairing itself does not require USB; USB helps identify and prepare the right fr
    Save the value of `ro.serialno` for the helper. Do not select an arbitrary device
    when more than one is connected.
 2. Put the computer and frame on the same local Wi-Fi. Open **Skylit → Settings →
-   Wireless connection settings**, or **Android Settings → Developer options**.
+   Device & status → Wireless connection settings**, or **Android Settings → Developer options**.
    If Skylit is not installed yet, an agent can try opening the standard page via
    the selected USB transport:
 
@@ -99,11 +99,19 @@ internet access was unavailable during that test. **Automatic cable-free
 reconnection after reboot is not established.** No cable is needed to recover it
 on the screen:
 
-1. Open Skylit Settings → Wi-Fi settings and toggle Wi-Fi off and on if internet is unavailable.
-2. Open Settings → Wireless connection settings, scroll to Wireless debugging, and turn it on.
+1. Open **Skylit → Settings → Device & status**. The **Android & wireless updates** card is at the top. Tap **Wi-Fi settings** and toggle Wi-Fi off and on if internet is unavailable.
+2. Return to Skylit and tap **Wireless connection settings**, scroll to **Wireless debugging**, and turn it on. Approve the intended network if Android asks.
 3. Run the helper again. Pairing should remain; if Android expires it, pair again from that screen.
 
-The settings shortcuts do not silently change network or debugging state.
+**Android apps** opens an on-frame picker with **Android Settings** first, followed
+by other installed apps. Use it to reach Android’s settings or switch apps without
+USB. The tested firmware has no system navigation bar or standard app drawer;
+Skylit’s picker does not depend on them. Android Home returns to Skylit when it is
+configured as the home screen. Back returns from Android Settings.
+
+The settings shortcuts do not silently change network or debugging state. No
+boot helper or privileged settings permission is added. Normal authorization
+expiry remains enabled.
 
 For a repeatable connectivity check, use the configured, authorized USB transport
 or paired TLS wireless transport:

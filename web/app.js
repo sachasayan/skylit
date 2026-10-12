@@ -58,6 +58,7 @@ $('units').onchange=()=>{config.units=$('units').value;save();loadWeather()};$('
 $('idle-delay').onchange=()=>{config.idle=Number($('idle-delay').value);save();updateSettings();toast('Photo timeout saved.')};
 $('wifi-settings').onclick=()=>{if(native&&native.openWifiSettings)native.openWifiSettings();else toast('Wi-Fi settings are available on the frame.')};
 $('wireless-settings').onclick=()=>{if(native&&native.openDeveloperSettings)native.openDeveloperSettings();else toast('Wireless debugging settings are available on the frame.')};
+$('android-controls').onclick=()=>{if(native&&native.openAndroidApps)native.openAndroidApps();else toast('Android apps are available on the frame.')};
 $('stock').onclick=()=>{if(native)native.openStock();else toast('This control is available on the frame.')};
 async function fetchJSON(url){const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),18000);try{const r=await fetch(url,{signal:ctrl.signal});if(!r.ok)throw new Error('Service unavailable');return await r.json()}finally{clearTimeout(timeout)}}
 let citySearchId=0;

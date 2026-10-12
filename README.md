@@ -35,6 +35,7 @@ not a household account. They demonstrate the interface, not a live service sign
 | --- | --- |
 | ![Calendar](docs/screenshots/calendar-linen.jpg) | ![Appearance settings](docs/screenshots/appearance.jpg) |
 
+[Android recovery shortcuts and screenshots](docs/reviews/2026-10-11-wireless-shortcuts/index.html).
 [P1/P2 review fixes and screenshots](docs/reviews/2026-10-11-review-fixes/index.html).
 [Clock visual critique across sizes](docs/reviews/2026-10-11-clock-critique/index.html).
 [Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).

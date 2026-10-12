@@ -124,6 +124,14 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void openCalendar(String url){if(validCalendar(url))runOnUiThread(()->openRemote(url,false,false));}
     @JavascriptInterface public void openWifiSettings(){runOnUiThread(()->{try{startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));}catch(android.content.ActivityNotFoundException e){Toast.makeText(MainActivity.this,"Wi-Fi settings are unavailable on this device.",Toast.LENGTH_LONG).show();}});}
     @JavascriptInterface public void openDeveloperSettings(){runOnUiThread(()->{try{startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));}catch(android.content.ActivityNotFoundException e){Toast.makeText(MainActivity.this,"Developer settings are unavailable on this device.",Toast.LENGTH_LONG).show();}});}
+    @JavascriptInterface public void openAndroidApps(){runOnUiThread(()->{
+      java.util.List<android.content.pm.ResolveInfo> apps=getPackageManager().queryIntentActivities(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER),0);
+      java.util.Collections.sort(apps,(a,b)->a.loadLabel(getPackageManager()).toString().compareToIgnoreCase(b.loadLabel(getPackageManager()).toString()));
+      java.util.List<String> labels=new java.util.ArrayList<>();java.util.List<Intent> launches=new java.util.ArrayList<>();java.util.Set<String> packages=new java.util.HashSet<>();
+      labels.add("Android Settings");launches.add(new Intent(android.provider.Settings.ACTION_SETTINGS));packages.add("com.android.settings");packages.add(getPackageName());
+      for(android.content.pm.ResolveInfo app:apps){String name=app.activityInfo.packageName;if(!app.activityInfo.exported||!packages.add(name))continue;Intent launch=getPackageManager().getLaunchIntentForPackage(name);if(launch!=null){labels.add(app.loadLabel(getPackageManager()).toString());launches.add(launch);}}
+      new android.app.AlertDialog.Builder(MainActivity.this).setTitle("Android apps").setItems(labels.toArray(new String[0]),(dialog,which)->{try{startActivity(launches.get(which));}catch(android.content.ActivityNotFoundException|SecurityException e){Toast.makeText(MainActivity.this,"This Android app is unavailable.",Toast.LENGTH_LONG).show();}}).setNegativeButton("Cancel",null).show();
+    });}
     @JavascriptInterface public void openStock(){runOnUiThread(()->openStockApp());}
   }
   private void resetIdle(){idleGeneration++;handler.removeCallbacks(idleTask);if(!foreground||remote!=null||localPhotosOpen||quietOpen)return;boolean hasSource="email".equals(prefs.getString("photo_source","album"))?photos.list().length()>0:validAlbum(prefs.getString("album",""));if(!hasSource&&!prefs.getBoolean("quiet",false))return;int seconds=prefs.getInt("idle",120);if(seconds==0&&prefs.getBoolean("quiet",false))seconds=120;if(seconds>0)handler.postDelayed(idleTask,seconds*1000L);}

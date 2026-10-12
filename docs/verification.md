@@ -685,3 +685,18 @@ full calendar feature compatibility and event editing are not yet certified.
 - Installed in place over explicitly selected USB on the Android 12 D156 frame.
   Calendar and Overview retain their settings; connected calendar data survives
   the upgrade. Public screenshots use synthetic fixtures only.
+
+
+## Version 2.14.3 — manual Android recovery
+
+Added visible Wi-Fi, Developer options and Android app-picker shortcuts at the
+top of Settings → Device & status. The D156 firmware lacks a system navigation
+bar and standard app drawer; the native picker lists Android Settings first and
+other launchable apps. No new permission, boot helper or persistent network
+policy change is introduced. Signed upgrade on Android 12 retained preferences
+and kept setup closed. All three routes and Back return verified on the frame.
+68 Node tests, 15 Python tests, 32 browser checks and three final viewport checks
+passed. See [report and synthetic screenshots](reviews/2026-10-11-wireless-shortcuts/index.html).
+The reboot test did not establish automatic wireless recovery; manual Wi-Fi
+reconnection and Wireless debugging approval restored paired TLS. The final
+USB-unplugged check is recorded separately when completed.
