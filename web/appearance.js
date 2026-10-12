@@ -11,7 +11,12 @@ const palettes={
 };
 const keys=['bg','panel','rail','ink','muted','line','accent','accent-ink','soft'];
 function normalize(theme,mode){const legacy=theme==='cocoa';return {theme:legacy?'linen':palettes[theme]?theme:'linen',mode:['light','dark','auto'].includes(mode)?mode:legacy?'dark':'auto'};}
-function tokens(theme,mode){const p=palettes[theme]||palettes.linen,t=Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]]));return {...t,'clock-leaf':theme==='linen'?(mode==='dark'?'#b6bc93':'#60643c'):t.accent,'clock-tile':theme==='linen'?(mode==='dark'?'#454b34':'#6d704a'):t.ink,'clock-paper':theme==='linen'&&mode==='dark'?t.ink:t.panel,'clock-wood':theme==='linen'?(mode==='dark'?'#927052':'#bc946b'):t.muted,'clock-face-ink':theme==='linen'?(mode==='dark'?t.ink:'#805e34'):t.ink,'clock-wash':theme==='linen'?(mode==='dark'?'#554437':'#ede1ca'):t.soft,'clock-hill':theme==='linen'?(mode==='dark'?'#98694f':'#cd936d'):t.accent,'clock-sun':theme==='linen'?(mode==='dark'?'#b68252':'#e8bc80'):t.soft};}
+function mix(a,b,amount){return '#'+[1,3,5].map(i=>Math.round(parseInt(a.slice(i,i+2),16)*(1-amount)+parseInt(b.slice(i,i+2),16)*amount).toString(16).padStart(2,'0')).join('');}
+function tokens(theme,mode){
+ const p=palettes[theme]||palettes.linen,t=Object.fromEntries(keys.map((key,i)=>[key,p[mode==='dark'?'dark':'light'][i]])),dark=mode==='dark',light=dark?t.ink:t.panel;
+ const leaf=theme==='linen'?(dark?'#b6bc93':'#60643c'):t.accent,wood=theme==='linen'?(dark?'#927052':'#bc946b'):t.muted,clay=theme==='linen'?(dark?'#ab7955':'#b77850'):mix(t.accent,t.soft,.25),vase=theme==='linen'?(dark?'#8b7863':'#e6d2b8'):t.soft;
+ return {...t,'clock-leaf':leaf,'clock-leaf-lit':mix(leaf,light,.34),'clock-leaf-shade':mix(leaf,t.rail,.18),'clock-tile':theme==='linen'?(dark?'#454b34':'#6d704a'):t.ink,'clock-paper':theme==='linen'&&dark?t.ink:t.panel,'clock-wood':wood,'clock-wood-lit':mix(wood,light,.28),'clock-wood-shade':mix(wood,t.rail,.22),'clock-clay':clay,'clock-clay-lit':mix(clay,light,.36),'clock-clay-shade':mix(clay,t.rail,.24),'clock-vase':vase,'clock-vase-lit':mix(vase,light,.65),'clock-vase-shade':mix(vase,t.muted,.42),'clock-face-ink':theme==='linen'?(dark?t.ink:'#805e34'):t.ink,'clock-wash':theme==='linen'?(dark?'#554437':'#ede1ca'):t.soft,'clock-hill':theme==='linen'?(dark?'#98694f':'#cd936d'):t.accent,'clock-hill-lit':theme==='linen'?(dark?'#b78c6a':'#d7a77f'):mix(t.accent,light,.24),'clock-sun':theme==='linen'?(dark?'#b68252':'#e8bc80'):t.soft};
+}
 function resolve(mode,city,now=new Date(),systemDark=false){
  if(mode==='light'||mode==='dark')return {mode,reason:'manual'};
  const lat=city&&city.latitude,lon=city&&city.longitude;

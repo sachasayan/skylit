@@ -1,5 +1,31 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.15.4 — Stricter clock concept acceptance
+
+- Fresh independent critic defined a locked rubric from the approved art before
+  seeing implementation screenshots. Concept finish and responsive composition
+  are separate gates. Baseline and first refinement were rejected; the second
+  refinement passes all 28 Linen crops (four styles × seven module shapes).
+- Fine curved foliage and clean stem attachments, modeled ceramic/terracotta
+  vessels, shallow wooden shelves, static local paper grain and soft terrain
+  light. Split Landscape scenes enter through natural low contours; Analog
+  strips center the real dial/date group. Botanical glyph fitting uses its
+  fuller display weight. Stored style IDs and time/accessibility remain intact.
+- The same locked critic accepts all 48 medium theme crops and 19 representative
+  actual Flip animation samples, including hinge crossover and settlement. This
+  does not claim every shape×palette combination or live Android performance.
+- 83 JavaScript and 16 Python tests pass; 75 rendered clock groups and 32 full-app
+  groups pass with zero runtime errors and no full-app load retries. Near-square
+  bounds and Analog strip centering now have browser regression coverage.
+- Normal signed APK 2.15.4/code 32 verifies with v1/v2/v3 signatures. Household
+  configuration is empty, local grain is included, and synthetic fixtures are
+  excluded. Paired TLS wireless frame was unavailable: no installation or
+  physical acceptance is claimed for this update.
+- Public source/history/APK checks and Gitleaks pass. The visual report's images,
+  palette switching, motion video and desktop/narrow layout were checked.
+- APK SHA-256: `22cf98fdf4644a98c68550b3472a5a1f448f5067c8d3b8ce104d5c573630f7e9`.
+- [Concept comparisons, seven sizes and exact critic reviews](reviews/2026-10-12-clock-strict-review/index.html).
+
 ## Version 2.15.3 — Clock concept refinement
 
 - Independent build/capture/critique loop against the approved four concepts.

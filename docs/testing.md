@@ -159,3 +159,8 @@ approval state machine, timeout, single-use and session-restart boundaries.
 separate synthetic UID: photos blocked before approval, matching numbers, actual
 on-frame touch, decoded phone thumbnails, and Stop revocation. Owner phone camera
 and local-certificate acceptance still require device-specific verification.
+
+The clock browser suite also checks near-square modules in both text profiles and
+centering of the complete Analog strip dial/date group. Visual concept acceptance
+uses a target-first locked rubric and all seven native shape crops; runtime bounds
+checks do not replace that independent critique.

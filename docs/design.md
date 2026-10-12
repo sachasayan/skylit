@@ -276,3 +276,25 @@ Minimum modules omit secondary art; strips center compact compositions.
 Flip motion has outgoing upper and incoming lower halves, shading and a gentle
 settle. Animate only normal visible changed ticks. Cancel both halves on a style
 change, hidden update or reduced motion; initial render and time jumps stay still.
+
+
+## Stricter clock acceptance — 2.15.4
+
+Lock the visual rubric from the approved concepts before showing implementation
+captures to a fresh critic. Concept finish and intentional responsive composition
+are separate gates; passing geometry alone is insufficient. The reference fixes
+visual language, not positions: move dates, stack Flip panels, redraw hills and
+omit secondary art where that gives a finished composition. Inspect native crops
+in minimum, wide, medium, tall, shallow-strip, full and near-square shapes.
+
+Use fine curved foliage with clean stem attachments and varied contours, modeled
+terracotta/ceramic vessels and shallow wooden shelves. Landscape has subtle local
+paper grain, coherent light and a low natural entrance in split scenes. Flip
+faces retain matte grain, upper/lower shading, a recessed seam and small hinges.
+Keep the texture static and local, without a shader or new network request.
+Botanical uses a fuller serif weight, with glyph fitting measured at that weight.
+Analog strips center the actual dial/date group rather than estimating date width.
+
+Preserve the existing style IDs, full accessible time/date and visible-tick-only
+Flip motion. Final visual acceptance includes all six light/dark pairs and sampled
+actual animation; physical WebView acceptance remains a separate check.
