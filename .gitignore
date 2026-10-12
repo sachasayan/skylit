@@ -1,4 +1,5 @@
 .local/
+.dream-loop/
 build/
 dist/
 web/local-config.js

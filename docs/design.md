@@ -242,3 +242,107 @@ from module bounds; small modules place the date below, while wider modules use
 the space beside the clock. Keep decorative hands/numbers out of accessibility
 reading order, and preserve the original time heading. Avoid ticking animation
 and controls on the normal dashboard.
+
+## Warm clock concepts — 2.15.2
+
+The approved first four generated concepts guide Landscape, Analog, Flip and
+Botanical. Landscape uses olive serif time above soft terracotta hills; Analog
+uses a fine cream face, quiet numerals and terracotta hands; Flip uses horizontal
+olive cards with a split seam and restrained minute-change motion; Botanical
+uses warm serif time, a translucent organic wash and a small plant. Artwork is
+original local vector geometry inspired by the concept, with live time/date.
+
+Keep decoration subordinate: small modules omit plants; shallow Flip strips put
+the date beside the tiles, narrow/tall Analog places the date beneath the face.
+Landscape reserves an explicit region for hills so they cannot cross time text.
+All four use existing theme pairs and reduced motion. No controls on Overview.
+
+## Clock concept refinement — 2.15.3
+
+Compare actual widget captures to the approved sheet before accepting a visual
+change. Cormorant Garamond supplies warm lining serif numerals; Jost supplies fine
+cardinal labels and Flip numerals. Both ship locally with their OFL notices.
+Paint servers belong to each instance so the live widget and Settings sample can
+coexist. Keep the clock's full accessible time and date even when the minimum
+module visually shortens the date.
+
+Every shape has a composition: Landscape puts hills beside wide time and below
+balanced time, with a circular sun redrawn for the art region. Analog keeps its
+cream dial, slender hands and tiny trailing plant. Flip uses horizontal tiles or
+a vertical pair in tall modules, with a small ceramic vase clear of time/date.
+Botanical uses a bare, curved branch and a quiet wash rather than another pot.
+Minimum modules omit secondary art; strips center compact compositions.
+
+Flip motion has outgoing upper and incoming lower halves, shading and a gentle
+settle. Animate only normal visible changed ticks. Cancel both halves on a style
+change, hidden update or reduced motion; initial render and time jumps stay still.
+
+
+## Stricter clock acceptance — 2.15.4
+
+Lock the visual rubric from the approved concepts before showing implementation
+captures to a fresh critic. Concept finish and intentional responsive composition
+are separate gates; passing geometry alone is insufficient. The reference fixes
+visual language, not positions: move dates, stack Flip panels, redraw hills and
+omit secondary art where that gives a finished composition. Inspect native crops
+in minimum, wide, medium, tall, shallow-strip, full and near-square shapes.
+
+Use fine curved foliage with clean stem attachments and varied contours, modeled
+terracotta/ceramic vessels and shallow wooden shelves. Landscape has subtle local
+paper grain, coherent light and a low natural entrance in split scenes. Flip
+faces retain matte grain, upper/lower shading, a recessed seam and small hinges.
+Keep the texture static and local, without a shader or new network request.
+Botanical uses a fuller serif weight, with glyph fitting measured at that weight.
+Analog strips center the actual dial/date group rather than estimating date width.
+
+Preserve the existing style IDs, full accessible time/date and visible-tick-only
+Flip motion. Final visual acceptance includes all six light/dark pairs and sampled
+actual animation; physical WebView acceptance remains a separate check.
+
+
+## Analog reference reconstruction — 2.15.5
+
+Extract and validate the target's construction before judging implementation. The
+Analog dial is a shallow recess within a softly convex panel, not a raised disc
+or generic rim. Preserve upper interior shade, lower interior light, painted
+marks, slender four numerals, copper bars and a raised olive pivot as distinct
+layers. Compare lengths independently of current hand angles.
+
+The foreground has clustered broad heart leaves and an irregular left/down
+cascade, a rolled terracotta lip, rounded body and separate lower foot, and a
+wood shelf with top/front/underside and contact shading. The local transparent
+illustration preserves that material detail. Allow intentional edge cropping;
+reserve date space beside the cascade. Omit the secondary vignette in constrained
+shapes. The public report records the target-first inventory and exact critic
+instructions; layout and reference fidelity are independent gates.
+
+Analog hands update each second only when the live clock or Settings sample is
+visible. Hidden views do no fast updates. Reduced motion hides the seconds needle
+and retains the normal time/date updates. No services or layout render per second.
+
+## Landscape, Flip and Botanical reference reconstruction — 2.15.6
+
+Use independently validated feature inventories and direct reference comparison.
+Peer validation is fallible: re-examination corrected Landscape's closed-counter
+4. Construction, silhouette, type character and figure–ground matter more than
+generic texture. Allow intentional responsive composition; judge fidelity and
+responsive completeness as separate gates.
+
+Landscape keeps the terracotta-left sweep in front of the pale right hill, partial
+olive foreground, circular type-scaled sun and low rolling terrain. Wide scenes
+start smoothly at the bottom; tall terrain retains restrained amplitude. Pigment
+variation is static, not animated. Dedicated sun/sky/rear-hill palette roles keep
+all six light/dark pairs distinct.
+
+Flip uses quiet olive faces, fine pale rim/shallow edge, dark/light midline and
+short olive hinges. Its painted sprig, pear vase and wood shelf retain physical
+contact and separate planes. Botanical uses locally bundled Lora, independently
+scaled AM and five varied curved leaves, with a quiet inset oblique wash. Reserve
+space below/right of live numerals when retaining ornament. Constrained shapes
+may omit it; wide Botanical uses inline AM. Fit using the actual local typeface
+and lining/tabular glyphs, including the final date/period sizes and top padding.
+
+Analog's accepted artwork and inset construction remain unchanged. Production
+illustrations are local PNGs with genuine alpha; time, Flip plates/animation and
+Landscape scene remain live HTML/CSS/SVG. See the visual report for native crops,
+independent rejections/acceptance, exact prompts and documented residual differences.

@@ -11,6 +11,8 @@ mail_jars=(root/'vendor/mail/android-mail-1.6.7.jar',root/'vendor/mail/android-a
 mail_hashes=('12c4240aa3a4ccda37c49b4e6b880a797a21e03a4f8c7421a1b51e0db552b79c','285713b2b549f382f26a57919ecddc4c83d9755737969fb7c006c905322bb253')
 for artifact,expected in zip(mail_jars,mail_hashes):
     if hashlib.sha256(artifact.read_bytes()).hexdigest()!=expected: raise SystemExit(f'Vendored mail artifact failed verification: {artifact.name}')
+for name,expected in (('clock-display.ttf','822a6621ccbe8d97d20ac88c1c41f5615c9c2c202eaa75f272cd452aac6475a7'),('clock-serif.ttf','b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0'),('clock-sans.ttf','6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076')):
+    if hashlib.sha256((root/'web'/name).read_bytes()).hexdigest()!=expected: raise SystemExit(f'Vendored font failed verification: {name}')
 config=json.loads((root/'.local/build.json').read_text())
 java=Path(config['java']); bt=Path(config['build_tools']); jar=Path(config['android_jar']); key=Path(config['signing_key'])
 build=root/'build'; output=root/'dist'; app=root/'android'
@@ -25,7 +27,7 @@ for artifact in mail_jars:
 env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
 def run(*args):subprocess.run([str(a) for a in args],cwd=root,env=env,check=True)
 run(bt/'aapt2','compile','--dir',app/'res','-o',build/'res.zip')
-run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','27','--version-name','2.14.3')
+run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','34','--version-name','2.15.6')
 sources=list((app/'src').rglob('*.java'))+list((build/'gen').rglob('*.java'))
 run(java/'bin/javac','-source','8','-target','8','-classpath',os.pathsep.join(map(str,(jar,*mail_jars))),'-d',build/'classes',*sources)
 run(bt/'d8','--min-api','23','--lib',jar,'--output',build/'dex',*list((build/'classes').rglob('*.class')),*mail_jars)

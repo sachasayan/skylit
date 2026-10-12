@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const playback=require('../web/photo-playback.js');
 
 test('unknown slideshow settings fall back to a soft fade',()=>{
-  assert.deepEqual(playback.styles,['fade','stack','collage']);
+  assert.deepEqual(playback.styles,['fade','stack','collage','gentle','still']);
   assert.equal(playback.style('stack'),'stack');
   assert.equal(playback.style('collage'),'collage');
   assert.equal(playback.style('anything-else'),'fade');

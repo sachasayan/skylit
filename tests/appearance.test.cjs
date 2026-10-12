@@ -40,3 +40,23 @@ test('optional high-contrast palette meets AA text and control border contrast',
   for(const bg of ['bg','panel'])assert.ok(contrast(t.line,t[bg])>=3,theme+' border/'+bg);
  }
 });
+
+test('clock numerals retain high-contrast text separation in both modes',()=>{
+ for(const mode of ['light','dark']){const t=A.tokens('contrast',mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5);assert.ok(contrast(t['clock-leaf'],t.panel)>=4.5);}
+});
+
+// All palettes need legible live Flip numerals, not only the optional contrast theme.
+test('Flip numerals meet AA contrast across all six light/dark palettes',()=>{
+ for(const theme of Object.keys(A.palettes))for(const mode of ['light','dark']){
+  const t=A.tokens(theme,mode);assert.ok(contrast(t['clock-paper'],t['clock-tile'])>=4.5,`${theme} ${mode} Flip numerals`);
+ }
+});
+
+test('Landscape sun and rear slope retain distinct tones across all palette pairs',()=>{
+ for(const theme of Object.keys(A.palettes))for(const mode of ['light','dark']){
+  const t=A.tokens(theme,mode);
+  // Decorative separation guards, not an accessibility contrast certification.
+  for(const sky of ['clock-sky','clock-sky-lit'])assert.ok(contrast(t['clock-sun'],t[sky])>=1.3,`${theme} ${mode} sun/${sky}`);
+  assert.ok(contrast(t['clock-hill'],t['clock-hill-lit'])>=1.15,`${theme} ${mode} rear slope`);
+ }
+});

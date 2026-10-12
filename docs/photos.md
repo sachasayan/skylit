@@ -21,11 +21,11 @@ shared-album route remains the default and requires no extra account setup.
 5. Send a JPEG, PNG, WebP or HEIC image to the account. Tap **Check now** and confirm
    the picture appears in the Photo library and advances in the full-screen slideshow.
    Tap a thumbnail to browse, use Next/Previous, and tap Zoom to inspect it. Choose
-   **Soft fade**, **Falling prints**, or **Photo collage** in Photo settings. Set
+   **Soft fade**, **Falling prints**, **Photo collage**, **Gentle pan & zoom**, or **Still gallery** in Photo settings. Set
    **Show photos after** to the desired idle time. The first touch exits idle mode.
 
 Slideshow controls use the current palette and fade after four seconds without
-interaction. Touch, pointer movement or a key brings them back. The three styles
+interaction. Touch, pointer movement or a key brings them back. The five styles
 apply to emailed pictures; a Google Photos shared album uses Google's own player.
 
 Google says personal Gmail accounts have IMAP access enabled. Its ordinary account
@@ -48,10 +48,10 @@ Automatic failures back off from five minutes to
 one hour; the last good cache is retained. **Check now** starts an immediate check. It scans recent inbox
 messages, accepts image parts with sane dimensions and size, resizes them to at most
 2400 pixels on the long edge, removes EXIF metadata by re-encoding, and keeps a
-private cache of up to 50 unique pictures. Gallery retention can use the last
-7, 30, 90 or 180 days (by email received date), with a separate 5–50-picture
-capacity, or the last 10, 20, 30, 40 or 50 non-excluded photos regardless of age.
-The default remains 30 pictures from 30 days; existing preferences are retained. Email bodies and sender data are
+private rolling library of up to 200 unique pictures plus up to 100 Keepers, sharing a 256 MiB total budget. Gallery retention can use the last
+7, 30, 90 or 180 days (by email received date), with a separate 5–200-picture
+capacity, or the last 10, 20, 30, 40, 50, 100 or 200 non-excluded photos regardless of age.
+Keepers have a separate 100-item / 128 MiB budget and survive rolling retention. The default remains 30 pictures from 30 days; existing preferences are retained. Email bodies and sender data are
 not saved. Other mail folders and cloud photo albums are not scanned. A picture
 deleted from email may remain until its retention window expires or the user
 disconnects. When offline, the last saved pictures remain playable.
@@ -70,10 +70,9 @@ the same signing key retains settings; uninstalling removes the private cache.
 Its left-side navigation stays available while the editor scrolls. Presentation
 contains style, speed, shuffle, repeat, favourites-only playback and an Overview
 favourite preference. These apply to cached emailed pictures; a shared album uses
-Google's player. Open **Settings → Photos → Local picture choices**, select a
+Google's player. Open **Settings → Photos → Framing & photo details**, select a
 picture, and favourite/exclude it, choose **Fit** (the default, whole image) or **Fill**,
-or add a local caption. Received dates appear there; Skylit does not infer capture
-dates or identify people. The photo viewer has only Previous, Play/Pause, Zoom/Fit,
+or add a local caption. Received dates appear there; Capture-date retention is opt-in for new imports, or entered manually. Skylit does not invent dates or identify people. The photo viewer has only Previous, Play/Pause, Zoom/Fit,
 Next and Close, each shown as an icon with an accessible name.
 
 Each gallery thumbnail has a trash icon. It **excludes** that picture from this
@@ -83,11 +82,11 @@ SHA-256 ID, so Check now, restart, cache expiry, pruning and a later import of t
 same file do not restore an unwanted photo. Different file bytes have a different
 ID; this is not a visual-similarity or person-recognition filter.
 
-Use **Photo settings → Local picture choices** to show excluded pictures still
+Use **Photo settings → Framing & photo details** to show excluded pictures still
 cached, restore one, or restore all exclusions. If its cached copy has expired,
 restoring permits the next Check now to import it again. Excluded pictures do not
 consume the selected gallery count. A cached excluded copy can remain for Undo
-when space permits, but all cached images together stay bounded to 50. Hash-only
+when space permits, but all cached items together stay bounded to 300 and 256 MiB. Hash-only
 exclusions remain when their image is removed, with a limit of 4,096 exclusions.
 At the limit, new exclusions are refused rather than silently forgetting old ones.
 Changing the Gmail account, disconnecting or explicitly erasing the cache also
@@ -97,7 +96,7 @@ kept for currently cached IDs and are pruned when those pictures expire.
 **Gallery retention** lives under **Photo settings → Storage**. Date choices use
 received time rather than capture dates. Count choices keep the newest eligible,
 non-excluded unique files without an age cutoff. Each check still scans at most
-1,000 inbox messages and 100 image parts, so a very large inbox may yield fewer
+1,000 inbox messages and 300 image parts, so a very large inbox may yield fewer
 than the requested number. The optional sender rule applies before import. Lowering
 retention/capacity removes old cached files immediately; expanding it does not
 restore them until Check now imports eligible files again. Favourites-only playback
@@ -122,7 +121,7 @@ This is a one-way picture importer, not a general email client. It does not send
 mail, manage labels or import Google Photos albums. An optional exact-address
 sender rule is available; it does not establish cryptographic sender identity.
 Checks require network access and may take time in a large inbox. The implementation
-limits a pass to 1,000 recent messages, 100 image parts, 12 MiB per source image
+limits a pass to 1,000 recent messages, 300 image parts, 12 MiB per source image
 and 4 MiB per saved JPEG. It reports a generic network or sign-in error without
 logging message contents or credentials. Google can change its IMAP/app-password
 support. The downloaded Android mail libraries are pinned and credited in
@@ -132,3 +131,11 @@ Before calling household email delivery verified, test sign-in, a real sent
 picture, browser/zoom and slideshow advance, offline playback, idle entry and return
 on the physical frame. Age pruning needs a separate aged-message test. A
 desktop preview only checks layout and browser logic. See [verification](verification.md).
+
+## Local slideshow and media tools (2.15)
+
+See [the slideshow guide](slideshow.md) for collections, Keepers, arrival review,
+portrait pairing, motion, local file import, soundtrack, presentation export,
+brightness scheduling and temporary encrypted phone management. Those features
+apply to **Pictures on this frame**. Google shared albums retain their separate
+Google player. Choosing local pictures does not require connecting an inbox.

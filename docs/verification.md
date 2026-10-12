@@ -1,4 +1,184 @@
-# Delivery verification — October 11, 2026
+# Delivery verification — October 12, 2026
+
+## Version 2.15.6 — Landscape, Flip and Botanical reference reconstruction
+
+- Separate target-only inventories, cross-validation and direct pixel comparison
+  identified type, hill topology, plant/vase/shelf construction, branch silhouette,
+  material and hierarchy gaps. A later comparison corrected another inventory
+  error (Landscape's closed-counter 4); the reference remained the authority.
+- Each independent critic accepted fidelity and all seven native Linen module
+  shapes after concrete rejections/corrections. Each style separately passed all
+  twelve medium theme variants. Flip's sampled actual 10:24→10:25 browser animation
+  passed a separate visual ordering/alignment review. Minor differences remain in
+  the report; these are scoped acceptances, not exact duplication or device proof.
+- Landscape has low rolling terrain, correct partial green foreground and hill
+  layering, circular type-scaled sun, refined Cormorant numerals and static pigment
+  variation. Its initially rejected non-Linen sun/sky and dark rear-hill separation
+  now pass all twelve theme presentations. Decorative color guards are not AA
+  accessibility certification.
+- Flip has centered olive plates with fine rim/seam/hinges and a local transparent
+  painted plant, ceramic pear vase and wood shelf. Botanical has bundled licensed
+  Lora, responsive AM hierarchy, five varied painted leaves, continuous pale wash,
+  and explicit space separating foliage and the last numeral. All art is local;
+  time, plates and scene remain live. Existing stored style identifiers persist.
+- Final full-screen inspection caught Settings sample AM clipping. Sample padding
+  now uses its own width, loaded fonts trigger remeasurement, and browser checks
+  explicitly assert Settings AM/PM bounds.
+- Analog's seven current shape PNGs are byte-identical to its accepted 2.15.5
+  captures. Its inset construction, live seconds and artwork are preserved.
+- 84 JavaScript and 16 Python/native-policy tests pass. 76 rendered clock groups
+  pass, including local font/art decoding, city/format behavior, staged settings,
+  large-text fitting, explicit AM/PM visibility and motion/cancellation. 32 full-app groups pass with zero runtime errors/load retries. Report image
+  decoding, 21 shape comparisons, 36 theme selections, sampled-motion replay,
+  links and desktop/narrow bounds pass. Public source/history/APK and Gitleaks
+  source/history checks pass.
+- Normal signed APK 2.15.6/code 34 verifies with v1/v2/v3 signatures. Pinned Lora
+  and notices/production illustrations are included; household config is empty
+  and synthetic fixtures excluded. Signing configuration is unchanged.
+- Paired TLS frame remains unavailable. No installation or device changes occurred;
+  physical WebView 95 appearance/performance and acceptance remain pending.
+- APK SHA-256: `965d37f3f35b924b953684903ddbd8f51c4c583c0f69db439e6827babd244964`.
+- [Reference comparisons, seven shapes, themes, motion and critic record](reviews/2026-10-12-clock-reference-reconstruction/index.html).
+
+## Version 2.15.5 — Analog reference reconstruction
+
+- A fresh critic extracted and validated the approved Analog reference before
+  seeing the implementation. The inventory describes an inset face within a
+  convex panel, inner light direction, hand proportions, trailing leaf mass,
+  separate pot lip/body/base and layered wood/contact construction. Exact new
+  instructions and both independent reviews are in the report.
+- First inset pass failed reference fidelity. Final pass accepts static Linen
+  fidelity and seven native shape compositions; all twelve medium theme crops
+  pass a separate presentation gate. Minor lighting, face/copper finish and leaf
+  detail differences remain documented. This does not cover every theme/size
+  combination, exact duplication, accessibility or actual device performance.
+- Live SVG inset face/marks/hands, dimensional copper bars and olive cap; local
+  generated transparent botanical vignette. Shelf/cascade wraps below/right of
+  the dial, with a clear date area and intentional secondary-art omission.
+  Only visible Analog hands update each second; reduced motion hides seconds.
+- 83 JavaScript and 16 Python/native-policy tests pass. 76 rendered clock groups
+  and 32 full-app groups pass with zero runtime errors or load retries.
+  The report's images, theme controls and desktop/narrow bounds pass.
+- Normal signed APK 2.15.5/code 33 verifies with v1/v2/v3 signatures. New local
+  artwork is included; household configuration is blank and synthetic fixtures
+  are excluded. Public source/history/APK checks and Gitleaks pass.
+- Paired TLS frame is unavailable. No installation or device changes occurred;
+  physical WebView acceptance remains pending.
+- APK SHA-256: `ee54e15d7008613d953c98880a3eeabbe743eba743bc0c94b1eab055e042cfc0`.
+- [Reference comparison, all seven shapes, themes and exact critic instructions](reviews/2026-10-12-analog-inset/index.html).
+
+## Version 2.15.4 — Stricter clock concept acceptance
+
+Historical verdict: the owner subsequently rejected Analog fidelity. The prior
+rubric misclassified the face as a shallow rim/disc and missed its inset
+construction. Version 2.15.5 supersedes that interpretation and visual acceptance.
+
+- Fresh independent critic defined a locked rubric from the approved art before
+  seeing implementation screenshots. Concept finish and responsive composition
+  are separate gates. Baseline and first refinement were rejected; the second
+  refinement passes all 28 Linen crops (four styles × seven module shapes).
+- Fine curved foliage and clean stem attachments, modeled ceramic/terracotta
+  vessels, shallow wooden shelves, static local paper grain and soft terrain
+  light. Split Landscape scenes enter through natural low contours; Analog
+  strips center the real dial/date group. Botanical glyph fitting uses its
+  fuller display weight. Stored style IDs and time/accessibility remain intact.
+- The same locked critic accepts all 48 medium theme crops and 19 representative
+  actual Flip animation samples, including hinge crossover and settlement. This
+  does not claim every shape×palette combination or live Android performance.
+- 83 JavaScript and 16 Python tests pass; 75 rendered clock groups and 32 full-app
+  groups pass with zero runtime errors and no full-app load retries. Near-square
+  bounds and Analog strip centering now have browser regression coverage.
+- Normal signed APK 2.15.4/code 32 verifies with v1/v2/v3 signatures. Household
+  configuration is empty, local grain is included, and synthetic fixtures are
+  excluded. Paired TLS wireless frame was unavailable: no installation or
+  physical acceptance is claimed for this update.
+- Public source/history/APK checks and Gitleaks pass. The visual report's images,
+  palette switching, motion video and desktop/narrow layout were checked.
+- APK SHA-256: `22cf98fdf4644a98c68550b3472a5a1f448f5067c8d3b8ce104d5c573630f7e9`.
+- [Concept comparisons, seven sizes and exact critic reviews](reviews/2026-10-12-clock-strict-review/index.html).
+
+## Version 2.15.3 — Clock concept refinement
+
+- Independent build/capture/critique loop against the approved four concepts.
+  Initial review rejected sun clipping, Flip ornament/date collisions, strip
+  composition and Botanical scale. The next review found one clipped top leaf;
+  the final six-shape review accepts all four. Additional review accepts all
+  48 light/dark theme crops and sampled actual Flip animation frames.
+- Locally bundled Cormorant Garamond and Jost, pinned hashes and OFL notices.
+  Distinct local illustrations, circular landscape sun, fine Analog face/hands,
+  horizontal/vertical Flip tiles and subordinate Botanical branch/wash.
+  Stored style IDs, city/DST/12–24 hour time and accessible full date retained.
+- Two-phase changed-number Flip motion with cancellation/cleanup on style,
+  hidden or reduced-motion updates. Dark Linen numeral contrast fixed; all six
+  light/dark pairs have >=4.5:1 base tile/numeral regression coverage.
+- 83 JavaScript and 16 Python tests pass. 67 rendered clock groups, 32 full-app
+  groups and 48 theme captures pass with no runtime errors; full-app checks have
+  no load retries. Report images decode at desktop/narrow widths; palette
+  switcher and recorded actual animation playback pass.
+- Normal signed APK 2.15.3/code 31 is built and passes public source/history/APK
+  checks and Gitleaks. Household configuration is empty; synthetic fixtures are
+  excluded. Frame wireless ADB was unavailable during this task, so this update
+  is ready for installation and has not been physically verified.
+- APK SHA-256: `499eb1d7ef0b06bff98ea1912659f3e1937c6f4e7faf2f85a1bec2a128faf0f2`.
+- [Visual report, all sizes and independent reviews](reviews/2026-10-12-clock-dream-loop/index.html).
+
+## Version 2.15.2 — Warm responsive clocks
+
+- Four approved concepts implemented: Landscape, Analog, Flip and Botanical.
+  Original stored IDs preserve existing choices, including Stacked → Flip. Local
+  SVG/CSS plant/landscape art, fine cream dial, olive flip tiles and warm serif time.
+- Visible changed Flip numbers animate only on normal ticks. Initial rendering,
+  unchanged values, time jumps and reduced motion update immediately. Original
+  accessible time/date, configured city, DST and 12/24-hour behavior preserved.
+- 82 JavaScript and 16 Python tests; 65 clock browser groups and 32 full-app groups
+  pass with no runtime errors/retries. Nine viewports, both text profiles,
+  minimum/full and wide/medium/tall/strip shapes. Additional content bounds
+  confirm time stays in its card and above landscape art.
+- D156 Android 12 / WebView 95 at 1920×1080 physical, 1280×720 CSS. Twenty style/shape
+  combinations, actual touch Save/reload and native WebView flip animation pass.
+  Original layout/preferences restored. Five upgrade groups preserve private
+  settings, curation, retention/exclusions and cached JPEG bytes, with guide closed
+  on upgrade and reopened direct links/empty credential inputs checked.
+- Normal signed APK code 30 installed in place over paired TLS Wi-Fi, same signing
+  key and installed byte identity verified. Preservation rechecked after actual
+  process restart. No new permission, network service, font or firmware change.
+- Public source/history/APK checks and Gitleaks pass. Device captures remain private;
+  report uses 49 isolated synthetic app screenshots and four synthetic widget crops.
+- APK SHA-256: `e5ee9a5c3c31c04920c6b55a6219e5fe64a26a20537e04cd5253e53d192f9ee6`.
+- [Visual concept comparisons and size screenshots](reviews/2026-10-12-warm-clocks/index.html).
+
+## Version 2.15.0 — Local slideshow suite
+
+- Decoded-image timing, stable shuffle/history/resume, portrait composition, five
+  styles, refined transitions, local framing/crop/rotation, gesture inspection and
+  reduced-motion behavior. Five icon controls; captions remain off the player.
+- Keepers and expanded bounded retention, named collections/batch/search/manual
+  order, arrival review, optional capture dates/memories/seasons/presets, local
+  file import, muted MP4/GIF, optional AAC soundtrack, titles and WebM export.
+- Optional app brightness/schedule and a 15-minute local TLS phone service. One-time
+  pairing, certificate comparison, strict scoped actions and immediate revocation;
+  no account/calendar data or Android debugging access in the phone interface.
+- 78 JavaScript and 15 Python tests pass; 21 dedicated rendered slideshow groups
+  and 32 full-app groups. All styles, transitions, queue/dwell/history, gestures,
+  reload, migration, curation, actual video/export and cancellation covered. Nine
+  viewports and both text profiles in the app checks; no runtime errors/retries.
+- Actual D156 Android 12 / WebView 95, 1920×1080 physical / 1280×720 CSS. Separate
+  synthetic APK/UID tests seven native media/privacy and nine UI/export groups,
+  plus six TLS protocol groups and stopped-server refusal. Existing 61 isolated
+  Android PhotoStore/mail race/cancellation regressions also pass.
+- Normal signed 2.15.0 code 28 installed in place over identity-verified paired TLS
+  Wi-Fi, same signing key, byte-identical installed APK. Existing preferences,
+  photo curation, retention/exclusions and cached JPEG bytes preserved; guide stays
+  closed on upgrade. Reopened guide links and empty credential fields verified.
+  Real read-only mail refresh completed successfully. No new household test mail
+  was sent; long-term unattended playback/delivery is not established.
+- Public source/history/APK and Gitleaks source/history scans pass. No demo fixture
+  in the distributable APK. Test app and its owned Downloads files removed; task
+  phone sessions stopped and ADB forwards removed. Household captures stay private.
+- [Visual feature map, limits and 36 screenshots](reviews/2026-10-12-slideshow-suite/index.html).
+  [Slideshow guide](slideshow.md). Export is bounded to 12 stills / 120 seconds;
+  codecs and LAN certificate/browser requirements are documented there.
+- APK SHA-256: `5bde79c060bbea1f038d8732784d32267fdae8d67535d868ebbdea6f84cca27a`.
 
 ## Version 2.14.2 — P1/P2 review fixes
 
@@ -701,3 +881,27 @@ The reboot test did not establish automatic wireless recovery; manual Wi-Fi
 reconnection and Wireless debugging approval restored paired TLS. Final USB-unplugged acceptance passed: verified USB absence and exact paired
 TLS identity, installed the same signed APK and started Skylit over Wi-Fi. The
 updated private recovery record was copied and SHA-256 verified over TLS.
+
+## Version 2.15.1 — QR and matching-number phone pairing
+
+Replaced typed local address/PIN pairing with an offline QR invitation and a random
+number comparison approved on the frame. Pending browser cookies grant no photo
+access. Rejection, invitation/request/session expiry, single-use, stale approval
+and restart boundaries are covered by the actual Java state-machine tests.
+80 Node and 16 Python tests, six QR browser groups across four sizes, and the
+32-group full app suite pass. All QR screenshots visually reviewed; shorter screens
+scroll the QR fully into view when starting and keep pending approval visible.
+
+Isolated actual Android 12 / WebView 95 acceptance: seven native media groups,
+nine player groups, eight TLS protocol groups and five QR/touch groups. Pending
+phones cannot read pictures or apply actions; actual frame touch grants access.
+Stop refuses connections. The normal signed blank-config upgrade installed over
+paired TLS on D156 with the same key; pulled APK is byte-identical. Five private
+upgrade groups verify original settings, mailbox, retention, exclusions, curation,
+cached JPEG bytes and guide behavior. Weather cache and elapsed slideshow resume
+progress may update normally during acceptance. Installed production QR decoded
+independently to its exact invitation. Source/history/APK privacy checks and
+Gitleaks pass. Test UID/media removed; service off and task forwards removed.
+Physical phone camera scanning and owner-browser certificate acceptance remain
+unverified. See [visual report](reviews/2026-10-12-phone-pairing/index.html).
+APK SHA-256: `c72d748b6523782c4fe7220edae67ef5c716c2aefb0dc35a151e2f2349c03fa3`.

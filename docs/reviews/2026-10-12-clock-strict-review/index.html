@@ -1,0 +1,341 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Skylit · Strict clock review</title><style>*{box-sizing:border-box}body{margin:0;background:#eee8dd;color:#352e28;font:17px/1.55 system-ui,sans-serif}header,main{max-width:1320px;margin:auto;padding:36px 28px}header{padding-bottom:20px}h1,h2,h3{font-family:Georgia,serif;font-weight:400;line-height:1.2}h1{font-size:46px;margin:12px 0}h2{font-size:32px}h3{font-size:25px}p{max-width:850px}nav{display:flex;flex-wrap:wrap;gap:22px;padding:18px 28px;background:#faf7f0;border-block:1px solid #d8cfbf}a{color:#8a4934}nav a{text-decoration:none}section{scroll-margin:20px}article,.card{padding:24px;background:#faf7f0;border:1px solid #d8cfbf;border-radius:20px;margin:24px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.compare{grid-template-columns:repeat(3,minmax(0,1fr))}.themes{grid-template-columns:repeat(4,minmax(0,1fr))}figure{margin:0;min-width:0}img{display:block;max-width:100%;height:auto;border-radius:12px}figure>a{display:block}figcaption{font-size:14px;color:#74695e;margin:10px 0} .concept{position:relative;width:100%;aspect-ratio:1;overflow:hidden;border-radius:12px}.concept img{position:absolute;width:300%;max-width:none;height:200%;left:var(--x);top:var(--y);border-radius:0}.sizes img{width:100%;max-height:420px;object-fit:contain;object-position:center top}details{margin:20px 0}summary{cursor:pointer;min-height:44px;padding:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.55 ui-monospace,monospace;background:#eee8dd;padding:18px;border-radius:12px}label{display:inline-flex;align-items:center;gap:12px;margin:10px 18px 10px 0}select{min-height:44px;font:inherit;background:#fffaf0;border:1px solid #d8cfbf;padding:8px;border-radius:8px}video{max-width:100%;border-radius:12px;width:600px}.status{display:inline-block;padding:8px 14px;background:#dce2cb;border-radius:10px;color:#3f492b}.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#74695e}.review-links{display:flex;flex-wrap:wrap;gap:16px}code{overflow-wrap:anywhere;font-size:13px}table{width:100%;border-collapse:collapse;font-size:15px}td,th{overflow-wrap:anywhere;text-align:left;padding:12px;border-bottom:1px solid #d8cfbf}@media(max-width:750px){header,main{padding:24px 16px}h1{font-size:34px}.grid,.compare,.themes{grid-template-columns:1fr}article,.card{padding:16px}nav{padding:16px;gap:14px}.sizes img{max-height:650px}}</style><header><div class="eyebrow">October 12, 2026 · Skylit 2.15.4 · Synthetic preview</div><h1>Warm clocks, held to a higher bar</h1><p>A fresh critic locked the standard from the approved art before seeing the implementations. Two gates apply independently: concept finish and intentional composition at each size.</p><span class="status">Independent critic: accepted</span><p>The reference sets the visual language. It does not dictate the same layout in every proportion.</p></header><nav><a href="#compare">Concept comparisons</a><a href="#sizes">All seven shapes</a><a href="#themes">Palettes</a><a href="#motion">Motion</a><a href="#reviews">Critic and iterations</a><a href="#verification">Verification</a></nav><main><section id="compare"><h2>Concept → previous version → refined widget</h2><p>The app renders use a fixed synthetic 10:24 time. The approved contact sheet supplies the art direction; the other images are actual app renders.</p><article><h3>Landscape</h3><p>Soft paper grain, softly lit hills and sun. Wide and shallow scenes enter through a low rolling contour rather than a vertical fade.</p><div class="grid compare"><figure><div class="concept" style="--x:-100%;--y:0%"><img src="../2026-10-12-warm-clocks/approved-concepts.png" alt="Approved Landscape concept"></div><figcaption>Approved concept</figcaption></figure><figure><a href="baseline/classic-medium.png"><img src="baseline/classic-medium.png" alt="Previous Landscape widget"></a><figcaption>Previous · 2.15.3</figcaption></figure><figure><a href="current/classic-medium.png"><img src="current/classic-medium.png" alt="Refined Landscape widget"></a><figcaption>Refined · 2.15.4 · 6×6 module</figcaption></figure></div></article><article><h3>Analog</h3><p>A fine cream dial with light trailing foliage, modeled terracotta and a shallow wooden shelf. The shallow strip centers dial and date together.</p><div class="grid compare"><figure><div class="concept" style="--x:0%;--y:0%"><img src="../2026-10-12-warm-clocks/approved-concepts.png" alt="Approved Analog concept"></div><figcaption>Approved concept</figcaption></figure><figure><a href="baseline/analog-medium.png"><img src="baseline/analog-medium.png" alt="Previous Analog widget"></a><figcaption>Previous · 2.15.3</figcaption></figure><figure><a href="current/analog-medium.png"><img src="current/analog-medium.png" alt="Refined Analog widget"></a><figcaption>Refined · 2.15.4 · 6×6 module</figcaption></figure></div></article><article><h3>Flip</h3><p>Matte olive panels have upper/lower lighting, recessed seams and small hinges. A fine sprig and shaded ceramic vase support the clock; narrow layouts stack the panels.</p><div class="grid compare"><figure><div class="concept" style="--x:-200%;--y:0%"><img src="../2026-10-12-warm-clocks/approved-concepts.png" alt="Approved Flip concept"></div><figcaption>Approved concept</figcaption></figure><figure><a href="baseline/stacked-medium.png"><img src="baseline/stacked-medium.png" alt="Previous Flip widget"></a><figcaption>Previous · 2.15.3</figcaption></figure><figure><a href="current/stacked-medium.png"><img src="current/stacked-medium.png" alt="Refined Flip widget"></a><figcaption>Refined · 2.15.4 · 6×6 module</figcaption></figure></div></article><article><h3>Botanical</h3><p>Fuller terracotta serif time with an airy, curving branch and soft organic wash. Fine stems attach directly to varied leaves; constrained shapes omit the branch.</p><div class="grid compare"><figure><div class="concept" style="--x:0%;--y:-100%"><img src="../2026-10-12-warm-clocks/approved-concepts.png" alt="Approved Botanical concept"></div><figcaption>Approved concept</figcaption></figure><figure><a href="baseline/digital-medium.png"><img src="baseline/digital-medium.png" alt="Previous Botanical widget"></a><figcaption>Previous · 2.15.3</figcaption></figure><figure><a href="current/digital-medium.png"><img src="current/digital-medium.png" alt="Refined Botanical widget"></a><figcaption>Refined · 2.15.4 · 6×6 module</figcaption></figure></div></article></section><section id="sizes"><h2>Seven intentionally composed shapes</h2><p>Module bounds use a twelve-column, twelve-row dashboard. Tap an image to inspect its original CSS-pixel crop; the thumbnails are scaled for comparison.</p><article><h3>Landscape</h3><div class="grid sizes"><figure><a href="current/classic-minimum.png"><img loading="lazy" src="current/classic-minimum.png" alt="Landscape, minimum"></a><figcaption>minimum</figcaption></figure><figure><a href="current/classic-wide.png"><img loading="lazy" src="current/classic-wide.png" alt="Landscape, wide"></a><figcaption>wide</figcaption></figure><figure><a href="current/classic-medium.png"><img loading="lazy" src="current/classic-medium.png" alt="Landscape, medium"></a><figcaption>medium</figcaption></figure><figure><a href="current/classic-tall.png"><img loading="lazy" src="current/classic-tall.png" alt="Landscape, tall"></a><figcaption>tall</figcaption></figure><figure><a href="current/classic-strip.png"><img loading="lazy" src="current/classic-strip.png" alt="Landscape, strip"></a><figcaption>strip</figcaption></figure><figure><a href="current/classic-full.png"><img loading="lazy" src="current/classic-full.png" alt="Landscape, full"></a><figcaption>full</figcaption></figure><figure><a href="current/classic-near-square.png"><img loading="lazy" src="current/classic-near-square.png" alt="Landscape, near-square"></a><figcaption>near-square</figcaption></figure></div></article><article><h3>Analog</h3><div class="grid sizes"><figure><a href="current/analog-minimum.png"><img loading="lazy" src="current/analog-minimum.png" alt="Analog, minimum"></a><figcaption>minimum</figcaption></figure><figure><a href="current/analog-wide.png"><img loading="lazy" src="current/analog-wide.png" alt="Analog, wide"></a><figcaption>wide</figcaption></figure><figure><a href="current/analog-medium.png"><img loading="lazy" src="current/analog-medium.png" alt="Analog, medium"></a><figcaption>medium</figcaption></figure><figure><a href="current/analog-tall.png"><img loading="lazy" src="current/analog-tall.png" alt="Analog, tall"></a><figcaption>tall</figcaption></figure><figure><a href="current/analog-strip.png"><img loading="lazy" src="current/analog-strip.png" alt="Analog, strip"></a><figcaption>strip</figcaption></figure><figure><a href="current/analog-full.png"><img loading="lazy" src="current/analog-full.png" alt="Analog, full"></a><figcaption>full</figcaption></figure><figure><a href="current/analog-near-square.png"><img loading="lazy" src="current/analog-near-square.png" alt="Analog, near-square"></a><figcaption>near-square</figcaption></figure></div></article><article><h3>Flip</h3><div class="grid sizes"><figure><a href="current/stacked-minimum.png"><img loading="lazy" src="current/stacked-minimum.png" alt="Flip, minimum"></a><figcaption>minimum</figcaption></figure><figure><a href="current/stacked-wide.png"><img loading="lazy" src="current/stacked-wide.png" alt="Flip, wide"></a><figcaption>wide</figcaption></figure><figure><a href="current/stacked-medium.png"><img loading="lazy" src="current/stacked-medium.png" alt="Flip, medium"></a><figcaption>medium</figcaption></figure><figure><a href="current/stacked-tall.png"><img loading="lazy" src="current/stacked-tall.png" alt="Flip, tall"></a><figcaption>tall</figcaption></figure><figure><a href="current/stacked-strip.png"><img loading="lazy" src="current/stacked-strip.png" alt="Flip, strip"></a><figcaption>strip</figcaption></figure><figure><a href="current/stacked-full.png"><img loading="lazy" src="current/stacked-full.png" alt="Flip, full"></a><figcaption>full</figcaption></figure><figure><a href="current/stacked-near-square.png"><img loading="lazy" src="current/stacked-near-square.png" alt="Flip, near-square"></a><figcaption>near-square</figcaption></figure></div></article><article><h3>Botanical</h3><div class="grid sizes"><figure><a href="current/digital-minimum.png"><img loading="lazy" src="current/digital-minimum.png" alt="Botanical, minimum"></a><figcaption>minimum</figcaption></figure><figure><a href="current/digital-wide.png"><img loading="lazy" src="current/digital-wide.png" alt="Botanical, wide"></a><figcaption>wide</figcaption></figure><figure><a href="current/digital-medium.png"><img loading="lazy" src="current/digital-medium.png" alt="Botanical, medium"></a><figcaption>medium</figcaption></figure><figure><a href="current/digital-tall.png"><img loading="lazy" src="current/digital-tall.png" alt="Botanical, tall"></a><figcaption>tall</figcaption></figure><figure><a href="current/digital-strip.png"><img loading="lazy" src="current/digital-strip.png" alt="Botanical, strip"></a><figcaption>strip</figcaption></figure><figure><a href="current/digital-full.png"><img loading="lazy" src="current/digital-full.png" alt="Botanical, full"></a><figcaption>full</figcaption></figure><figure><a href="current/digital-near-square.png"><img loading="lazy" src="current/digital-near-square.png" alt="Botanical, near-square"></a><figcaption>near-square</figcaption></figure></div></article></section><section id="themes" class="card"><h2>All six light/dark pairs</h2><p>The visual language adapts to the selected palette. All 48 native crops were supplied to the critic, including High contrast.</p><label>Palette <select id="palette"><option value="linen">Linen</option><option value="sage">Sage</option><option value="stone">Stone</option><option value="ocean">Ocean</option><option value="plum">Plum</option><option value="contrast">High contrast</option></select></label><label>Mode <select id="mode"><option>light</option><option>dark</option></select></label><div class="grid themes"><figure><a id="link-classic" href="themes/classic-linen-light.png"><img id="theme-classic" src="themes/classic-linen-light.png" alt="Landscape in selected palette"></a><figcaption>Landscape</figcaption></figure><figure><a id="link-analog" href="themes/analog-linen-light.png"><img id="theme-analog" src="themes/analog-linen-light.png" alt="Analog in selected palette"></a><figcaption>Analog</figcaption></figure><figure><a id="link-stacked" href="themes/stacked-linen-light.png"><img id="theme-stacked" src="themes/stacked-linen-light.png" alt="Flip in selected palette"></a><figcaption>Flip</figcaption></figure><figure><a id="link-digital" href="themes/digital-linen-light.png"><img id="theme-digital" src="themes/digital-linen-light.png" alt="Botanical in selected palette"></a><figcaption>Botanical</figcaption></figure></div></section><section id="motion" class="card"><h2>A real minute change</h2><p>This recording samples the app’s actual Flip animation from 10:24 to 10:25. Only the changing number flips. Reduced motion, hidden clocks and time jumps update immediately.</p><video controls muted playsinline preload="metadata" poster="motion/flip-before.png" src="flip-motion.mp4"></video><details><summary>Inspect sampled animation frames</summary><div class="grid"><figure><img src="motion/frame-010.png" alt="Outgoing upper face"><figcaption>Outgoing upper face</figcaption></figure><figure><img src="motion/frame-016.png" alt="Incoming lower face"><figcaption>Incoming lower face</figcaption></figure><figure><img src="motion/frame-025.png" alt="Soft settle"><figcaption>Soft settle</figcaption></figure></div></details></section><section id="reviews" class="card"><h2>The stricter critic loop</h2><p>The fresh critic was given the approved art alone to define a locked rubric. Implementation images came afterwards. Earlier acceptance, source code, test results and descriptions of the fixes were withheld.</p><ol><li>Baseline rejected: illustration/material finish and Analog strip balance.</li><li>First refinement rejected: coarse leaf silhouettes, branch stubs, flat vase and the split scene’s vertical fade.</li><li>Further refinement: the same locked gates were applied to every native crop again, followed by palette and motion review.</li></ol><details><summary>Locked acceptance rubric</summary><p><a href="reviews/rubric.md">Original review text</a></p><pre># Locked clock concept review rubric
+
+Established from `approved.png` alone, before viewing implementation captures. Only Analog (top-left), Landscape (top-middle), Flip (top-right), and Botanical (bottom-left) are in scope. Ring and Window are excluded. This rubric remains fixed for the first implementation review.
+
+## Acceptance rule
+
+Every selected concept must pass two independent gates in every supplied shape:
+
+1. **Concept quality and aesthetic finish:** the implementation convincingly carries the reference&#x27;s defining visual language, with finished typography, materials, lighting, art, curves, hierarchy, ornament, and warmth.
+2. **Responsive composition and readability:** the particular shape has a deliberate, balanced composition and readable clock information. It must feel designed rather than compressed or merely made to fit.
+
+Passing one gate cannot compensate for failing the other. Functional correctness (accurate time, valid labels, absence of clipping) is evaluated separately from fidelity and finish. There is no credit for improvement over an earlier implementation.
+
+The square reference supplies visual language, not a mandatory layout. Dates may move, panels may stack, hills may be redrawn, and ornaments may shrink or be omitted when the resulting composition preserves the concept and its quality. Calm negative space is a positive feature when it supports hierarchy and balance; it is not a defect merely because the reference uses that space differently.
+
+## Shared visual language
+
+- **Warmth:** luminous ivory and cream surfaces, olive foliage and dark olive type, restrained copper/terracotta accents. The palette feels sunlit and domestic, with controlled tonal contrast rather than harsh black/white or saturated accent color.
+- **Surface and lighting:** a soft, tangible paper/ceramic-like ground, subtly modulated rather than a sterile flat fill. Rounded containers have credible gentle edge light and shallow soft shadows. Depth remains restrained and coherent; bevels, texture, gradients, and shadows should reinforce an implied material instead of appearing as unrelated effects.
+- **Curves:** generous clean corner radii, smooth hills and organic background shapes, delicate tapering foliage. Curves must be controlled and graceful, without mechanical kinks, blunt joins, or arbitrary bulges.
+- **Hierarchy:** time or the analog face commands the composition. Date and AM/PM are distinctly secondary, with spacious tracking and sufficient contrast. Decorative art supports the clock without competing for its reading area.
+- **Numeral scale:** display numerals are confident and substantial. Reducing type to a timid label, or filling a shape so aggressively that it loses breathing room, both undermine the reference. Numerals need balanced proportions, controlled spacing, and a type family that supplies the selected concept&#x27;s character.
+- **Ornament proportion:** the plants, shelves, and landscape layers are thoughtfully cropped and proportioned. They retain enough quality to merit their visual prominence. Decorative size should follow the composition, not a requirement to reproduce a fixed bounding box.
+
+## Analog defining qualities
+
+- A large, luminous circular dial integrated with the warm surface. Its shallow rim and gentle shading imply a real disc with soft depth; it should not read as a plain outline pasted onto a rectangle.
+- Slender, warm brown cardinal numerals and restrained hour marks, with generous spacing around the face. Their scale makes the dial effortlessly readable without making the numerals heavy.
+- Copper hour/minute hands with softly rounded ends and believable slight thickness, a small olive pivot, and a fine olive seconds hand. Proportions and hand contrast produce a composed, recognizable clock.
+- The plant at the lower-right is a delicate trailing vine with varied leaves, fine stems, subtle leaf shaping/veins, and a believable warm terracotta pot. The wooden shelf has material and shallow depth. If retained, it must feel illustrated with care, rather than a stock icon or coarse repeating leaf glyph.
+- Decoration may be smaller or omitted in constrained shapes, provided the remaining dial and material treatment still give the concept its warm tactile character.
+
+Consequential gaps include a lifeless flat dial, heavy or generic marks, poorly proportioned hands, an oversized pivot, or conspicuous crude plant/pot/shelf art.
+
+## Landscape defining qualities
+
+- Large, elegant serif display time in dark olive. The reference&#x27;s fine/thick stroke contrast and broad, poised numeral shapes are central to its character; generic small sans-serif digits would lose the concept.
+- A small, widely tracked uppercase date above, with a separate restrained AM/PM below. The clock occupies the quiet sky with ample breathing room.
+- A warm cream/peach sky, a softly glowing ochre sun, and smoothly layered rolling hills in terracotta and olive. The layers have gentle texture and tonal variation, giving them a paper/painted character instead of generic flat clip art.
+- The landscape is low and calm, with measured asymmetry and believable overlaps. Hill silhouettes and sun placement must create an intentional scene rather than a decorative stripe or arbitrary overlapping ovals.
+- Hills may be redrawn for each aspect ratio and the date/period may move. Retain confident typography, warm depth, and a composed relationship between sky and land.
+
+Consequential gaps include timid numerals, weak serif character, stiff or arbitrary hill curves, a harsh flat sun, conspicuously generic art, or loss of the quiet sky/time hierarchy.
+
+## Flip defining qualities
+
+- Two substantial dark olive flip panels with warm ivory, large clean sans-serif numerals. The numeral weight, scale, centering, and open shapes carry the immediate readability of the concept.
+- Rounded panel corners, restrained upper/lower tonal differentiation, a precise midline seam, and small edge hinges express a plausible physical mechanism. Shallow highlights, shadows, and surface variation give the panels weight and thickness.
+- The seam is subordinate to the digits; hinges are small convincing details, not large visual interruptions. Panel spacing is narrow and deliberate, and the pair reads as one clock.
+- AM/PM is secondary, widely tracked, and visually attached to the panel group.
+- The lower-right olive sprig in a softly modeled pale ceramic vase and warm wood shelf adds quiet domestic detail. Its leaves are varied and tapered, the stems fine, and the vase has a credible neck/base and softly shaded volume. If retained, it must be more than a coarse icon.
+- Stacking panels is allowed when it yields a purposeful compact composition. The resulting group still needs balanced numeral scale, coherent material depth, and a clear reading order.
+
+Consequential gaps include flat featureless panels, flimsy panel proportions, shallow or generic digits, oversized mechanical details, miscentered halves, or coarse vase/sprig art.
+
+## Botanical defining qualities
+
+- Very large warm terracotta serif display numerals with confident weight and rounded, elegant contours. This is a strong typographic composition, not a small clock with a plant added.
+- Small widely tracked olive weekday/date text, and a secondary AM/PM. Alignment and spacing create a calm editorial hierarchy.
+- Soft, translucent organic cream/beige shapes add subtle depth to the ground. Their asymmetry and curvature feel natural and composed, not like random overlapping circles or a conspicuous unrelated badge.
+- A delicate olive branch rises from the lower-right. It uses thin curving stems, varied pointed leaves, graceful angle changes, and subtle leaf veins/tonal modeling. The branch is airy and botanically expressive, rather than thick, blunt, symmetrical, or mechanically repeated.
+- Foliage acts as a substantial but subordinate counterweight to the time. It may be reduced, simplified carefully, or omitted in a constrained shape, but the warm typographic and organic-surface identity must remain convincing.
+
+Consequential gaps include timid or characterless time type, overly dark/heavy foliage, coarse leaf geometry, visually dominant background blobs, or a generic unmodulated background that loses the reference&#x27;s softness.
+
+## Responsive gate
+
+For every supplied aspect ratio, inspect:
+
+- Time is readable first, with useful display scale, sufficient contrast, and balanced spacing. Analog hand/dial readability and Flip digit order remain clear.
+- Date and AM/PM retain a distinct secondary relationship and comfortable distances; they neither float accidentally nor collide with numerals/art.
+- The clock group is intentionally positioned within the shape. Visual weight, margins, and negative space form a stable whole, including when decoration is absent.
+- Ornament and illustration are proportioned and cropped with purpose. No near-tangencies, accidental edge cuts, cramped leaves, trapped labels, or residual fragments from an unsuitable square layout.
+- Materials and art survive the new scale. Tiny details may be removed, but remaining shapes, seams, curves, and textures must still be clean and expressive.
+- Wide, square, and narrow variants may use different arrangements. A responsive layout succeeds through its own compositional quality, not resemblance to the reference&#x27;s coordinates.
+
+## Review discipline
+
+Judge consequential visible gaps, not gratuitous differences. Give each blocker a concrete correction linked to this rubric. Flat vector rendering is not automatically sufficient, and aesthetic defects are not automatically waived as subjective preferences. Conversely, do not reject a successful intentional adaptation solely because it differs from the square reference. Report both gates independently, with the affected concept and shape identified. Screenshot evidence supports visual conclusions only; it does not establish runtime correctness.
+</pre></details><details><summary>Blind baseline verdict</summary><p><a href="reviews/baseline-review.md">Original review text</a></p><pre># Blind baseline review — Linen light
+
+Reviewed the four size sheets and all 28 individual native crops in `baseline/`, using the locked `rubric.md`. No implementation source, repository reports, history, or earlier critic verdicts were inspected. The seven supplied shapes are minimum 3×3, wide 6×4, medium 6×6, tall 3×12, strip 12×3, full 12×12, and near-square 6×10.
+
+**Verdict: the baseline does not yet pass the approved concept-quality gate.** The layouts generally read clearly and several adaptations are sensible, but the large native crops expose consequential material and illustration gaps. A lack of clipping is not an aesthetic pass.
+
+## Per-style two-gate verdict
+
+| Style | Gate 1: concept quality / finish | Gate 2: responsive composition / readability |
+| --- | --- | --- |
+| Landscape (`classic`) | **FAIL** across all seven shapes: the scene is predominantly smooth, flat cutouts and has insufficient painted/paper character and light. | **PASS** across all seven. Time is confident and date/period are legible. The split wide/strip layouts and tall landscape redraw are valid adaptations. |
+| Analog (`analog`) | **FAIL overall.** Wide, medium, full, and near-square fail because the conspicuous plant/pot/shelf illustration falls short. Minimum, tall, and strip pass as restrained dial-only adaptations; the dial has adequate shallow depth, clear warm marks, and coherent hands. | **FAIL overall because strip is visibly off balance.** Minimum, wide, medium, tall, full, and near-square pass. Strip&#x27;s complete dial/date group is displaced substantially left of the card&#x27;s center without a counterweight. |
+| Flip (`stacked`) | **FAIL** across all seven shapes: the panels suggest the mechanism but lack sufficient material distinction and depth. Wide, medium, full, and near-square additionally fail on ornament quality. | **PASS** across all seven. Stacking in tall works, compact strip grouping is coherent, and secondary labels have a clear relationship to the pair. |
+| Botanical (`digital`) | **FAIL overall.** Wide, medium, tall, full, and near-square fail on botanical delicacy. Minimum and strip pass as intentionally reduced warm typographic compositions without foliage. | **PASS** across all seven. Left alignment, strip&#x27;s horizontal information group, and tall&#x27;s separated branch are valid adaptations. |
+
+These are shape-specific visual verdicts, not evidence of runtime correctness. The good composition verdicts do not waive the finish failures.
+
+## Prioritized visible corrections
+
+### P1 — Redraw the foliage, pots, and shelves at the quality their prominence demands
+
+**Analog: wide, medium, full, near-square.** The leaves are swollen oval forms with blunt/polygonal contours and repeated directions. At full size they look like chunky folded cutouts, rather than the reference&#x27;s lighter trailing vine. The pot&#x27;s narrow, hard sloping silhouette and nearly rectangular shelf reinforce the generic ornament impression. Near-square makes this particularly conspicuous because the branch is large and pushed against the right edge.
+
+Use smoother pointed leaf contours with more varied size, angle, curvature, and overlap; slender flowing stems; restrained vein and leaf-face shading. Make a believable fuller terracotta vessel with a clear lip, curved wall/base, warm volume, and contact shadow. Give the shelf a shallow wooden top/front and controlled edge light. The solution need not become photorealistic, but the visible shapes and modeling must feel carefully illustrated. Keep the plant&#x27;s current supporting role and allow a deliberate edge crop; no need to copy the reference&#x27;s coordinates.
+
+**Botanical: wide, medium, tall, full, near-square.** The large sprig has only a few broad, densely packed blades. The stiff central line, abrupt leaf junctions, large faceted faces, and nearly repeated paired arrangements make it heavy and mechanical. Full and near-square are the clearest evidence; tall shows the same problem despite the appropriate bottom placement.
+
+Redraw this as an airy branch with flowing thin stems, more natural direction changes, clean tapering tips, modest curvature, and varied broad/narrow leaves. Reduce the visual density around the lower cluster. Add fine tonal/vein variation without thick outlines or conspicuous folds. Preserve the warm serif clock&#x27;s dominance. Do not add foliage back to minimum or strip merely to prove fidelity; their omission is appropriate.
+
+**Flip: wide, medium, full, near-square.** Its sprig repeats the same heavy leaf construction, while the vessel reads as a small flat teardrop and the shelf as a bar. Full reveals the absence of convincing vase volume most clearly.
+
+Use a lighter, finer branching sprig and a pale ceramic vessel with a coherent neck, shoulder, base, soft directional shading, and contact shadow. Give the shelf the same restrained material finish as Analog. Keep the ornament subordinate and its generous breathing room.
+
+### P1 — Give Flip panels tangible material and a more convincing joint
+
+**All Flip shapes; inspect full and near-square first.** The panels currently read mainly as softly shaded olive rounded rectangles with a thin horizontal line. There is some gradient and external shadow, but their upper/lower faces are insufficiently distinguished. The seam does not suggest a recessed joint, and the pale edge hinges feel applied rather than seated in a mechanism. This is a finish failure even where foliage is absent, including tall and strip.
+
+Introduce restrained upper/lower tonal and light differences, a very small recessed seam shadow/highlight, a credible rounded panel edge/thickness, and integrated hinge recesses. A subtle nonrepeating matte surface variation would help. Keep all of this gentle: the reference is warm and tactile, not shiny plastic. Preserve the strong ivory digits and their current clear reading order. Tune the seam so it remains secondary to the digits.
+
+### P1 — Give Landscape an illustrated surface and coherent light
+
+**All Landscape shapes; full and near-square show the gap most clearly.** The olive and terracotta bands are large unmodulated fields, while the sun is a crisp simple disc. The silhouette system is readable, but the scene does not yet have the reference&#x27;s softly textured painted/paper character. Wide and strip make the art island&#x27;s upright left edge and stiff first hill especially visible; tall magnifies the sun into a conspicuously plain shape.
+
+Add low-contrast, fine paper/paint variation and broad gentle tonal/light modulation to the hills and warm sky. Give the sun a softer luminous character, avoiding a harsh rim. Refine the wide/strip left hill entrance so the curve meets the split composition gracefully instead of looking like an abruptly cut standalone block. Retain smooth layered overlaps and calm horizons. The existing serif time, hierarchy, aspect-ratio-specific landscape allocation, and intentional negative space should remain.
+
+### P2 — Rebalance Analog strip as one information group
+
+**Analog strip only.** In the 1007×142 crop, the dial is around x300–418 and the date around x426–494. Their combined group centers around x397, while the card center is x503. The much larger empty area on the right lacks a compositional reason; the result looks parked left rather than deliberately placed.
+
+Center the combined dial/date group as a unit, with its existing readable date relationship, or establish another clear balanced alignment. This is not a request to fill the entire strip: the small round dial naturally follows the available height, and calm side space is appropriate when balanced.
+
+### P3 — Strengthen Botanical&#x27;s type distinction when refining finish
+
+**Most visible in full and near-square.** The present serif is elegant and the scale is confident, but it is noticeably finer and more Times-like than the reference&#x27;s fuller warm terracotta display. It also closely shares Landscape&#x27;s numeral language. A modestly stronger display weight and a slightly warmer copper hue would better establish Botanical&#x27;s own identity. This is a refinement, not an independent blocker in the foliage-free minimum and strip crops.
+
+## Successful choices to retain
+
+- Large serif time in Landscape and Botanical is readable and visually confident. There is no general timid-type blocker in those concepts.
+- Landscape&#x27;s dates and AM/PM remain secondary; the tall variant&#x27;s quiet sky is purposeful. Do not consume that space merely to imitate the square reference.
+- Analog&#x27;s tall dial-only layout is a valid calm composition. The dial and date remain legible; missing decoration there is acceptable.
+- Flip&#x27;s tall stack is an intentional response to its narrow shape. The digits remain easy to read and the labels are well attached.
+- Botanical&#x27;s asymmetric background shape and left alignment are valid adaptations. The organic background does not need to match the reference&#x27;s exact blobs.
+- No clipping, unreadable time, or label collision was observed in the supplied native crops. This does not establish refresh, animation, or time correctness.
+
+## Next acceptance check
+
+After the P1 corrections and Analog-strip rebalance, review the same seven shapes at native scale with full and near-square first for finish, then minimum/tall/strip for whether the refined art and materials survive resizing. Linen light must pass the locked gates before theme and motion checks can support final acceptance.
+</pre></details><details><summary>Round 1 Review</summary><p><a href="reviews/round-1-review.md">Original review text</a></p><pre># Round 1 — independent image verdict
+
+**REVISE.** Reviewed `approved.png` again, the four round-1 size sheets, and all 28 round-1 native crops. Applied the unchanged locked rubric. No source code, repository reports, history, or earlier verdicts were read for this review. There is no improvement credit in these judgments.
+
+The time hierarchy and responsive arrangements pass. Remaining blockers concern illustration finish and one landscape rendering treatment. They are consequential because the ornaments and scene are prominent parts of the selected concepts, not because the layouts differ from the square reference.
+
+## Exact per-style/per-shape verdicts
+
+G1 = concept-quality visual language and finish. G2 = intentional responsive composition and readability.
+
+| Concept | Shape | G1 | G2 | Remaining blocker |
+| --- | --- | --- | --- | --- |
+| Landscape | minimum | PASS | PASS | None |
+| Landscape | wide | FAIL | PASS | L1: blurred vertical entrance to the landscape |
+| Landscape | medium | PASS | PASS | None |
+| Landscape | tall | PASS | PASS | None |
+| Landscape | strip | FAIL | PASS | L1: blurred vertical entrance to the landscape |
+| Landscape | full | PASS | PASS | None |
+| Landscape | near-square | PASS | PASS | None |
+| Analog | minimum | PASS | PASS | None |
+| Analog | wide | FAIL | PASS | A1: blunt, faceted vine leaves |
+| Analog | medium | FAIL | PASS | A1: blunt, faceted vine leaves |
+| Analog | tall | PASS | PASS | None |
+| Analog | strip | PASS | PASS | None |
+| Analog | full | FAIL | PASS | A1: blunt, faceted vine leaves |
+| Analog | near-square | FAIL | PASS | A1: blunt, faceted vine leaves |
+| Flip | minimum | PASS | PASS | None |
+| Flip | wide | FAIL | PASS | F1: angular sprig and flat vessel |
+| Flip | medium | FAIL | PASS | F1: angular sprig and flat vessel |
+| Flip | tall | PASS | PASS | None |
+| Flip | strip | PASS | PASS | None |
+| Flip | full | FAIL | PASS | F1: angular sprig and flat vessel |
+| Flip | near-square | FAIL | PASS | F1: angular sprig and flat vessel |
+| Botanical | minimum | PASS | PASS | None |
+| Botanical | wide | FAIL | PASS | B1: mechanical branch and heavy triangular leaf clusters |
+| Botanical | medium | FAIL | PASS | B1: mechanical branch and heavy triangular leaf clusters |
+| Botanical | tall | FAIL | PASS | B1: mechanical branch and heavy triangular leaf clusters |
+| Botanical | strip | PASS | PASS | None |
+| Botanical | full | FAIL | PASS | B1: mechanical branch and heavy triangular leaf clusters |
+| Botanical | near-square | FAIL | PASS | B1: mechanical branch and heavy triangular leaf clusters |
+
+## Actionable remaining blockers
+
+### P1 / A1 — Analog vine lacks convincing botanical contours
+
+**Affected: wide, medium, full, near-square.** Full and near-square provide the clearest native evidence. Several large leaves have nearly straight upper edges, blunt squared-off tips, abrupt planar corners, and rigid filled silhouettes. The larger upper-left and upper-right leaves are especially conspicuous. Fine stems and vein detail do not overcome these coarse primary contours. The result reads as a schematic leaf cutout rather than the reference&#x27;s delicate trailing plant.
+
+Redraw the leaf silhouettes themselves. Use varied, smooth heart/teardrop forms appropriate to a vine, with a definite natural tip, controlled concavity at the stem, and softly curved edges. Vary leaf turn, overlap, and shape rather than attaching repeated broad plaques. Apply quiet light/shadow across the leaf faces to suggest a slight curve, avoiding a single hard fold. Keep the pot, shelf, trailing direction, and current ornament allocation; this is an illustration correction, not a layout rebuild. Check full and near-square before judging the small crops.
+
+### P1 / B1 — Botanical branch is too mechanical and heavy
+
+**Affected: wide, medium, tall, full, near-square.** In full, the stem remains largely straight while the lower leaves form broad pointed wedges with abrupt corners and dense overlaps. Bare side lines protrude conspicuously beyond several leaf bases. Tall and near-square show the same stiff cluster even at smaller scale. Surface grain and fine veins supply detail, but the plant&#x27;s silhouette still lacks the reference&#x27;s airy curves and graceful varied foliage.
+
+Draw a slightly curving central stem and naturally curved secondary stems. Attach leaves cleanly without exposed linear stubs. Give each leaf a more organically convex outline, curved tip, and distinct angle/length/width; open the lower cluster so it does not read as stacked triangular wedges. Use gentle leaf-face modeling rather than relying on the grain/veins for all depth. Preserve the large warm serif time and asymmetrical background; minimum and strip may continue omitting foliage.
+
+### P1 / F1 — Flip ornament remains a paper silhouette rather than a modeled sprig and ceramic vase
+
+**Affected: wide, medium, full, near-square.** Full is the strongest evidence. The sprig has hard pointed polygonal edges and abrupt leaf joins. The pale vessel&#x27;s broad pear shape has almost no directional light or side/base definition; its visible surface reads as textured cream paper. The shelf has sufficient restrained thickness for its small role, but it cannot make the vase look volumetric.
+
+Smooth and vary the sprig&#x27;s leaf contours and curvature, retain fine branching, and give the foliage restrained leaf-face shading. Model the vase with a quiet lit side, shaded turning side, believable curved shoulder/neck/base, and a small contact shadow on the shelf. Avoid dark outlines or glossy plastic effects. The vessel should retain its pale ceramic character and modest size. No need to enlarge the decoration or move it closer to the numerals.
+
+The panels themselves are not an independent blocker in this round&#x27;s images: their restrained bevel, soft shadow, fine matte surface, visible seam, and integrated edge hardware establish plausible physical objects at native scale. Digits remain confident and legible, including the tall stack and compact strip.
+
+### P2 / L1 — Landscape side transition looks like an artificial blurred curtain
+
+**Affected: wide and strip only.** At the left edge of the artwork, a conspicuous vertical column blurs/fades both terracotta and olive layers into the clock&#x27;s background. Wide shows this at roughly the middle of the card; strip repeats it before its long scene. It reads as a soft mask applied to a separately cropped illustration, not as a natural feature of the warm painted landscape. The scene and type allocation can remain split, but this visible treatment is insufficiently finished.
+
+Replace the vertical mask with clean intentional geometry. For example, begin the foreground near the bottom at the left of the scene and let a smooth low crest rise to the right, using the same crisp-but-softly-lit painted edge treatment as the other hills. Alternatively, carry a low landscape sweep across the base with a quiet land entrance below the time. Preserve the balanced text/art allocation and the strong numerals. A more intense blur is not the correction.
+
+The other five Landscape crops pass: the smooth layered curves, fine surface variation, warm sun, restrained olive/terracotta modeling, and clear serif hierarchy form a convincing warm illustrated scene. The deliberately large cropped sun and calm sky in tall are acceptable adaptations.
+
+## Responsive gate findings
+
+All 28 crops pass G2. Time is readable first; date and AM/PM remain secondary without collisions. Dial-only Analog tall, stacked Flip tall, horizontally grouped strips, and Botanical&#x27;s separated bottom branch are valid intentional adaptations. The complete Analog strip dial/date group is centered as one unit. Near-square crops retain controlled hierarchy and useful negative space. No ornament must be restored to a constrained shape merely to resemble the reference.
+
+No visible clipping or label collision was observed. These image judgments do not establish runtime refresh, correct timekeeping, or animation behavior.
+
+## Required next check
+
+Recheck the affected native crops against the approved reference, emphasizing leaf silhouettes and vessel light before tiny texture details. Then inspect all seven shapes again to ensure the refined ornaments retain clean curves and legibility at small scale. Theme and motion checks should follow once these Linen light blockers pass.
+</pre></details><details><summary>Round 2 Review</summary><p><a href="reviews/round-2-review.md">Original review text</a></p><pre># Round 2 — independent Linen light verdict
+
+**ACCEPT for the supplied Linen light static captures.** All 28 crops pass both locked gates. No consequential visible blocker remains in this evidence.
+
+Reviewed `approved.png`, reread the unchanged `rubric.md`, inspected all four round-2 size sheets, and inspected all 28 individual round-2 crops at native scale. No application source, fix descriptions, repository reports, or prior verdict files were read for this review. Judgments below are against the approved concept language and current images, without improvement credit.
+
+## Exact shape verdicts
+
+G1 = concept-quality visual language and aesthetic finish. G2 = intentional responsive composition and readability.
+
+| Concept | Shape | G1 | G2 |
+| --- | --- | --- | --- |
+| Landscape | minimum | PASS | PASS |
+| Landscape | wide | PASS | PASS |
+| Landscape | medium | PASS | PASS |
+| Landscape | tall | PASS | PASS |
+| Landscape | strip | PASS | PASS |
+| Landscape | full | PASS | PASS |
+| Landscape | near-square | PASS | PASS |
+| Analog | minimum | PASS | PASS |
+| Analog | wide | PASS | PASS |
+| Analog | medium | PASS | PASS |
+| Analog | tall | PASS | PASS |
+| Analog | strip | PASS | PASS |
+| Analog | full | PASS | PASS |
+| Analog | near-square | PASS | PASS |
+| Flip | minimum | PASS | PASS |
+| Flip | wide | PASS | PASS |
+| Flip | medium | PASS | PASS |
+| Flip | tall | PASS | PASS |
+| Flip | strip | PASS | PASS |
+| Flip | full | PASS | PASS |
+| Flip | near-square | PASS | PASS |
+| Botanical | minimum | PASS | PASS |
+| Botanical | wide | PASS | PASS |
+| Botanical | medium | PASS | PASS |
+| Botanical | tall | PASS | PASS |
+| Botanical | strip | PASS | PASS |
+| Botanical | full | PASS | PASS |
+| Botanical | near-square | PASS | PASS |
+
+## Basis for G1 acceptance
+
+**Landscape:** poised, substantial olive serif time and restrained tracked labels sit in a warm paper-like sky. Ochre sun, olive foreground, and softly modeled terracotta hills form a coherent illustrated scene. The wide and strip scenes enter through clean rising curves at the base and preserve their deliberate split allocation. Tall&#x27;s cropped large sun and quiet sky remain convincing. These are valid redraws rather than copies of the square target.
+
+**Analog:** the luminous cream dial has a shallow rim, soft depth, warm brown restrained marks, copper hands, and an olive pivot. In the decorated variants, the vine has naturally tipped and curved leaves, varied turns, fine stems, and quiet tonal/vein detail; the trailing cluster reads as a plant. The warm terracotta pot and shallow wooden shelf establish the domestic material language without overwhelming the face. Dial-only minimum, tall, and strip remain coherent restrained adaptations.
+
+**Flip:** large ivory sans-serif numerals carry the pair of matte olive panels. Rounded edges, subtle thickness and shadows, precise seams, fine surface variation, and restrained hardware establish a physical mechanism. The sprig uses tapering varied leaves and delicate branches. The pale vessel has a defined neck and shoulder, lit center/turning sides, and credible curved volume on the shelf. Its illustration is sufficiently finished at its current supporting size. Tall&#x27;s stacked panels retain the same character.
+
+**Botanical:** commanding warm terracotta serif time, smaller olive labels, and softly translucent organic background establish the editorial hierarchy. The branch has a curving stem, clean natural attachments, airy spacing, varied leaf widths/angles, smooth pointed curves, and subtle veins/tonal modeling. Full and near-square retain convincing botanical character without dense wedge-like clusters. The branch may be clipped at the edge in tall as a deliberate lower-right crop; it does not create an accidental fragment or conflict with text. Minimum and strip preserve the typographic identity while appropriately omitting foliage.
+
+## Basis for G2 acceptance
+
+- All shapes put the clock information first at a useful readable scale; labels remain distinct and secondary.
+- The complete Analog strip dial/date group is balanced as one unit. The other narrow strips have coherent horizontal information groups.
+- Flip tall stacking and dial-only Analog tall feel intentional rather than compressed.
+- Landscape&#x27;s side scenes and Botanical&#x27;s asymmetric ground/branch retain stable visual weight. Their open space supports a calm hierarchy.
+- Ornament size, cropping, and omission follow the available shape. No layout is rejected or excused solely by resemblance to the square reference.
+- No visible time clipping, label collision, trapped label, or consequential near-tangency was observed in the native crops.
+
+## Scope of acceptance
+
+This is acceptance of static Linen light visual language and responsive composition in the seven supplied shapes, not a claim of runtime correctness or final theme/motion acceptance. The other palettes/modes and sampled motion remain to be reviewed under the same locked gates.
+</pre></details><details><summary>Palette and motion verdict</summary><p><a href="reviews/theme-motion-review.md">Original review text</a></p><pre># Round 2 — theme and sampled motion review
+
+**ACCEPT for the supplied visual evidence.** All 48 theme crops pass both locked gates. The representative Flip animation samples pass visual finish and composition. No consequential visible blocker remains.
+
+This review follows static Linen acceptance in `round-2-review.md`. Inspected `round-2/theme-sheet.png` and every individual theme crop at native scale: four concepts × six palettes × two modes. Inspected the motion before-state and 19 representative frames from the 42-frame series, including dense sampling around the hinge crossover. No source code, fix descriptions, repository reports, or prior critic verdicts informed these judgments.
+
+## Exact theme verdict matrix
+
+Each cell reports **G1 / G2**, where G1 is concept-quality language/finish and G2 is intentional composition/readability. The supplied theme crops use the same medium shape; this matrix does not claim every shape×theme combination was captured.
+
+| Palette | Mode | Landscape | Analog | Flip | Botanical |
+| --- | --- | --- | --- | --- | --- |
+| Linen | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Linen | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Sage | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Sage | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Ocean | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Ocean | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Stone | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Stone | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Plum | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Plum | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Contrast | light | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+| Contrast | dark | PASS / PASS | PASS / PASS | PASS / PASS | PASS / PASS |
+
+## Theme findings
+
+- Typography, display scale, label hierarchy, composition, and illustration geometry remain coherent in every palette/mode crop. No label or time loses usable visual contrast.
+- The palette adaptations retain muted domestic surfaces and controlled lighting. Linen carries the literal ivory/olive/copper warmth; the other established palettes retain the same calm material and illustration language through their own hues. This is acceptance of the rendered palette adaptations, not an exemption for arbitrary color substitutions.
+- Analog&#x27;s dial remains readable in dark modes; the darker shallow rim is understated but still defines the disc. Hands and cardinal marks remain visible. Plant and pot retain enough tonal modeling to read as illustrated objects.
+- Flip maintains large clear digits, restrained seams, hardware, and panel depth. The pale-panel/dark-digit reversal in several dark modes is coherent and preserves the physical mechanism. The vase&#x27;s volume remains visible in both polarities.
+- Botanical&#x27;s organic ground remains subordinate to the time in dark modes, and its foliage retains clean contours and separation. No branch becomes a dense illegible mass.
+- Landscape retains distinct smooth layers and paper-like surface variation. Its dark-mode sun/disc is intentionally subdued but still discernible; it is decorative, and clock readability remains strong. Terrain light/dark reversals produce a coherent stylized scene without a clipping or hierarchy issue.
+- Contrast variants preserve defined curves and materials while providing clear information hierarchy. No halo, unreadable seam, or harsh outline creates a consequential finish problem.
+
+## Sampled Flip motion verdict
+
+**G1 PASS / G2 PASS** for the supplied sampled transition from 10:24 to 10:25.
+
+Reviewed `flip-before.png` and frames **000, 004, 008, 010, 011, 012, 013, 014, 015, 016, 017, 018, 020, 022, 024, 028, 032, 036, 041**.
+
+- Before and settled states have the same complete, clear panel geometry and typography.
+- The moving minute flap rotates around the existing midline hinge with plausible perspective and restrained depth; its text follows the flap rather than floating independently.
+- The middle samples show the expected temporary mix of the old lower numeral and incoming upper numeral as the flap crosses the seam. That transient is consistent with a mechanical flip and is not a static layout/readability defect.
+- The hour panel, card, secondary labels, sprig, vase, and shelf stay fixed throughout the sampled sequence. There is no visible card resizing or displacement of surrounding content.
+- The minute digit settles cleanly to 25 without persistent duplicate glyphs, residual flaps, collisions with the adjacent panel, or leftover ornament/label artifacts.
+- Small perspective protrusions near the seam remain contained within the clock&#x27;s free space and do not compromise composition.
+
+## Acceptance scope
+
+The combined image review accepts the seven Linen shapes, all 48 medium theme crops, and the sampled Flip transition under the unchanged locked visual gates. Sampled still frames cannot establish live frame rate, subjective smoothness at playback speed, long-running refresh accuracy, Android performance, every rollover case, or reduced-motion behavior. Those require the separate runtime checks; this limitation does not introduce a new visual blocker.
+</pre></details></section><section id="verification" class="card"><h2>Verification and limits</h2><table><tr><th>Check</th><th>Result</th></tr><tr><td>JavaScript / Python</td><td>83 / 16 tests pass</td></tr><tr><td>Rendered clocks</td><td>75 groups · 53 app screenshots · zero runtime errors</td></tr><tr><td>Full app</td><td>32 groups · zero errors or load retries</td></tr><tr><td>Visual evidence</td><td>28 native shape crops · 48 palette crops · actual sampled Flip animation</td></tr><tr><td>Physical frame</td><td>Paired TLS frame unavailable. This update has not been installed or physically verified.</td></tr><tr><td>APK</td><td>2.15.4 / code 32 · signed and verified · empty household configuration</td></tr><tr><td>Publication</td><td>Source/history/APK privacy checks and Gitleaks pass; synthetic fixture excluded</td></tr></table><p class="small">APK SHA-256: <code>22cf98fdf4644a98c68550b3472a5a1f448f5067c8d3b8ce104d5c573630f7e9</code></p><details><summary>All rendered app screenshots</summary><div class="grid"><figure><a href="screenshots/settings-classic.jpg"><img loading="lazy" src="screenshots/settings-classic.jpg" alt="Settings · classic clock preview"></a><figcaption>Settings · classic clock preview</figcaption></figure><figure><a href="screenshots/dashboard-classic.jpg"><img loading="lazy" src="screenshots/dashboard-classic.jpg" alt="Overview · classic clock"></a><figcaption>Overview · classic clock</figcaption></figure><figure><a href="screenshots/settings-analog.jpg"><img loading="lazy" src="screenshots/settings-analog.jpg" alt="Settings · analog clock preview"></a><figcaption>Settings · analog clock preview</figcaption></figure><figure><a href="screenshots/dashboard-analog.jpg"><img loading="lazy" src="screenshots/dashboard-analog.jpg" alt="Overview · analog clock"></a><figcaption>Overview · analog clock</figcaption></figure><figure><a href="screenshots/settings-stacked.jpg"><img loading="lazy" src="screenshots/settings-stacked.jpg" alt="Settings · stacked clock preview"></a><figcaption>Settings · stacked clock preview</figcaption></figure><figure><a href="screenshots/dashboard-stacked.jpg"><img loading="lazy" src="screenshots/dashboard-stacked.jpg" alt="Overview · stacked clock"></a><figcaption>Overview · stacked clock</figcaption></figure><figure><a href="screenshots/settings-digital.jpg"><img loading="lazy" src="screenshots/settings-digital.jpg" alt="Settings · digital clock preview"></a><figcaption>Settings · digital clock preview</figcaption></figure><figure><a href="screenshots/dashboard-digital.jpg"><img loading="lazy" src="screenshots/dashboard-digital.jpg" alt="Overview · digital clock"></a><figcaption>Overview · digital clock</figcaption></figure><figure><a href="screenshots/classic-960x540.jpg"><img loading="lazy" src="screenshots/classic-960x540.jpg" alt="classic · 960×540"></a><figcaption>classic · 960×540</figcaption></figure><figure><a href="screenshots/analog-960x540.jpg"><img loading="lazy" src="screenshots/analog-960x540.jpg" alt="analog · 960×540"></a><figcaption>analog · 960×540</figcaption></figure><figure><a href="screenshots/stacked-960x540.jpg"><img loading="lazy" src="screenshots/stacked-960x540.jpg" alt="stacked · 960×540"></a><figcaption>stacked · 960×540</figcaption></figure><figure><a href="screenshots/digital-960x540.jpg"><img loading="lazy" src="screenshots/digital-960x540.jpg" alt="digital · 960×540"></a><figcaption>digital · 960×540</figcaption></figure><figure><a href="screenshots/classic-1280x720.jpg"><img loading="lazy" src="screenshots/classic-1280x720.jpg" alt="classic · 1280×720"></a><figcaption>classic · 1280×720</figcaption></figure><figure><a href="screenshots/analog-1280x720.jpg"><img loading="lazy" src="screenshots/analog-1280x720.jpg" alt="analog · 1280×720"></a><figcaption>analog · 1280×720</figcaption></figure><figure><a href="screenshots/stacked-1280x720.jpg"><img loading="lazy" src="screenshots/stacked-1280x720.jpg" alt="stacked · 1280×720"></a><figcaption>stacked · 1280×720</figcaption></figure><figure><a href="screenshots/digital-1280x720.jpg"><img loading="lazy" src="screenshots/digital-1280x720.jpg" alt="digital · 1280×720"></a><figcaption>digital · 1280×720</figcaption></figure><figure><a href="screenshots/classic-1920x1200.jpg"><img loading="lazy" src="screenshots/classic-1920x1200.jpg" alt="classic · 1920×1200"></a><figcaption>classic · 1920×1200</figcaption></figure><figure><a href="screenshots/analog-1920x1200.jpg"><img loading="lazy" src="screenshots/analog-1920x1200.jpg" alt="analog · 1920×1200"></a><figcaption>analog · 1920×1200</figcaption></figure><figure><a href="screenshots/stacked-1920x1200.jpg"><img loading="lazy" src="screenshots/stacked-1920x1200.jpg" alt="stacked · 1920×1200"></a><figcaption>stacked · 1920×1200</figcaption></figure><figure><a href="screenshots/digital-1920x1200.jpg"><img loading="lazy" src="screenshots/digital-1920x1200.jpg" alt="digital · 1920×1200"></a><figcaption>digital · 1920×1200</figcaption></figure><figure><a href="screenshots/classic-390x844.jpg"><img loading="lazy" src="screenshots/classic-390x844.jpg" alt="classic · 390×844"></a><figcaption>classic · 390×844</figcaption></figure><figure><a href="screenshots/analog-390x844.jpg"><img loading="lazy" src="screenshots/analog-390x844.jpg" alt="analog · 390×844"></a><figcaption>analog · 390×844</figcaption></figure><figure><a href="screenshots/stacked-390x844.jpg"><img loading="lazy" src="screenshots/stacked-390x844.jpg" alt="stacked · 390×844"></a><figcaption>stacked · 390×844</figcaption></figure><figure><a href="screenshots/digital-390x844.jpg"><img loading="lazy" src="screenshots/digital-390x844.jpg" alt="digital · 390×844"></a><figcaption>digital · 390×844</figcaption></figure><figure><a href="screenshots/classic-minimum.jpg"><img loading="lazy" src="screenshots/classic-minimum.jpg" alt="classic · minimum size · large text"></a><figcaption>classic · minimum size · large text</figcaption></figure><figure><a href="screenshots/classic-full.jpg"><img loading="lazy" src="screenshots/classic-full.jpg" alt="classic · full size · large text"></a><figcaption>classic · full size · large text</figcaption></figure><figure><a href="screenshots/analog-minimum.jpg"><img loading="lazy" src="screenshots/analog-minimum.jpg" alt="analog · minimum size · large text"></a><figcaption>analog · minimum size · large text</figcaption></figure><figure><a href="screenshots/analog-full.jpg"><img loading="lazy" src="screenshots/analog-full.jpg" alt="analog · full size · large text"></a><figcaption>analog · full size · large text</figcaption></figure><figure><a href="screenshots/stacked-minimum.jpg"><img loading="lazy" src="screenshots/stacked-minimum.jpg" alt="stacked · minimum size · large text"></a><figcaption>stacked · minimum size · large text</figcaption></figure><figure><a href="screenshots/stacked-full.jpg"><img loading="lazy" src="screenshots/stacked-full.jpg" alt="stacked · full size · large text"></a><figcaption>stacked · full size · large text</figcaption></figure><figure><a href="screenshots/digital-minimum.jpg"><img loading="lazy" src="screenshots/digital-minimum.jpg" alt="digital · minimum size · large text"></a><figcaption>digital · minimum size · large text</figcaption></figure><figure><a href="screenshots/digital-full.jpg"><img loading="lazy" src="screenshots/digital-full.jpg" alt="digital · full size · large text"></a><figcaption>digital · full size · large text</figcaption></figure><figure><a href="screenshots/classic-wide.jpg"><img loading="lazy" src="screenshots/classic-wide.jpg" alt="classic · wide module"></a><figcaption>classic · wide module</figcaption></figure><figure><a href="screenshots/analog-wide.jpg"><img loading="lazy" src="screenshots/analog-wide.jpg" alt="analog · wide module"></a><figcaption>analog · wide module</figcaption></figure><figure><a href="screenshots/stacked-wide.jpg"><img loading="lazy" src="screenshots/stacked-wide.jpg" alt="stacked · wide module"></a><figcaption>stacked · wide module</figcaption></figure><figure><a href="screenshots/digital-wide.jpg"><img loading="lazy" src="screenshots/digital-wide.jpg" alt="digital · wide module"></a><figcaption>digital · wide module</figcaption></figure><figure><a href="screenshots/classic-square.jpg"><img loading="lazy" src="screenshots/classic-square.jpg" alt="classic · square module"></a><figcaption>classic · square module</figcaption></figure><figure><a href="screenshots/analog-square.jpg"><img loading="lazy" src="screenshots/analog-square.jpg" alt="analog · square module"></a><figcaption>analog · square module</figcaption></figure><figure><a href="screenshots/stacked-square.jpg"><img loading="lazy" src="screenshots/stacked-square.jpg" alt="stacked · square module"></a><figcaption>stacked · square module</figcaption></figure><figure><a href="screenshots/digital-square.jpg"><img loading="lazy" src="screenshots/digital-square.jpg" alt="digital · square module"></a><figcaption>digital · square module</figcaption></figure><figure><a href="screenshots/classic-tall.jpg"><img loading="lazy" src="screenshots/classic-tall.jpg" alt="classic · tall module"></a><figcaption>classic · tall module</figcaption></figure><figure><a href="screenshots/analog-tall.jpg"><img loading="lazy" src="screenshots/analog-tall.jpg" alt="analog · tall module"></a><figcaption>analog · tall module</figcaption></figure><figure><a href="screenshots/stacked-tall.jpg"><img loading="lazy" src="screenshots/stacked-tall.jpg" alt="stacked · tall module"></a><figcaption>stacked · tall module</figcaption></figure><figure><a href="screenshots/digital-tall.jpg"><img loading="lazy" src="screenshots/digital-tall.jpg" alt="digital · tall module"></a><figcaption>digital · tall module</figcaption></figure><figure><a href="screenshots/classic-strip.jpg"><img loading="lazy" src="screenshots/classic-strip.jpg" alt="classic · strip module"></a><figcaption>classic · strip module</figcaption></figure><figure><a href="screenshots/analog-strip.jpg"><img loading="lazy" src="screenshots/analog-strip.jpg" alt="analog · strip module"></a><figcaption>analog · strip module</figcaption></figure><figure><a href="screenshots/stacked-strip.jpg"><img loading="lazy" src="screenshots/stacked-strip.jpg" alt="stacked · strip module"></a><figcaption>stacked · strip module</figcaption></figure><figure><a href="screenshots/digital-strip.jpg"><img loading="lazy" src="screenshots/digital-strip.jpg" alt="digital · strip module"></a><figcaption>digital · strip module</figcaption></figure><figure><a href="screenshots/classic-near-square.jpg"><img loading="lazy" src="screenshots/classic-near-square.jpg" alt="classic · near-square module"></a><figcaption>classic · near-square module</figcaption></figure><figure><a href="screenshots/analog-near-square.jpg"><img loading="lazy" src="screenshots/analog-near-square.jpg" alt="analog · near-square module"></a><figcaption>analog · near-square module</figcaption></figure><figure><a href="screenshots/stacked-near-square.jpg"><img loading="lazy" src="screenshots/stacked-near-square.jpg" alt="stacked · near-square module"></a><figcaption>stacked · near-square module</figcaption></figure><figure><a href="screenshots/digital-near-square.jpg"><img loading="lazy" src="screenshots/digital-near-square.jpg" alt="digital · near-square module"></a><figcaption>digital · near-square module</figcaption></figure><figure><a href="screenshots/analog-dark.jpg"><img loading="lazy" src="screenshots/analog-dark.jpg" alt="Analog · Ocean dark"></a><figcaption>Analog · Ocean dark</figcaption></figure></div></details><p>All public screenshots come from the isolated synthetic preview. Browser results do not establish WebView 95 performance or physical frame acceptance.</p></section></main><script>function update(){const t=document.getElementById("palette").value,m=document.getElementById("mode").value;for(const s of ["classic","analog","stacked","digital"]){const src="themes/"+s+"-"+t+"-"+m+".png";document.getElementById("theme-"+s).src=src;document.getElementById("link-"+s).href=src;}}document.getElementById("palette").onchange=update;document.getElementById("mode").onchange=update;</script></html>

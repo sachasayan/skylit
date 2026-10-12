@@ -1,0 +1,518 @@
+{
+  "date": "2026-10-12",
+  "version": "2.15.3",
+  "synthetic": true,
+  "checks": [
+    "classic preview, staged changes, Save and reload",
+    "analog preview, staged changes, Save and reload",
+    "stacked preview, staged changes, Save and reload",
+    "digital preview, staged changes, Save and reload",
+    "Discard, Undo, presets, packing and rejected writes preserve the selected style",
+    "City time, midnight/noon, 12/24-hour format, accessible time and tick synchronization",
+    "Flip animates only a visible minute change; rollover, unchanged ticks, reduced motion and time jumps stay correct",
+    "Clock fonts load locally, Botanical leaves fit their drawing bounds, and simultaneous previews own unique gradients",
+    "Flip settles both halves and cancels motion on style changes, hiding and reduced motion",
+    "All clocks · 960×540 · standard",
+    "All clocks · 960×540 · large",
+    "All clocks · 1024×640 · standard",
+    "All clocks · 1024×640 · large",
+    "All clocks · 1280×720 · standard",
+    "All clocks · 1280×720 · large",
+    "All clocks · 1280×800 · standard",
+    "All clocks · 1280×800 · large",
+    "All clocks · 1440×900 · standard",
+    "All clocks · 1440×900 · large",
+    "All clocks · 1600×900 · standard",
+    "All clocks · 1600×900 · large",
+    "All clocks · 1920×1080 · standard",
+    "All clocks · 1920×1080 · large",
+    "All clocks · 1920×1200 · standard",
+    "All clocks · 1920×1200 · large",
+    "All clocks · 390×844 · standard",
+    "All clocks · 390×844 · large",
+    "classic · minimum · large text · late 12-hour time",
+    "classic · full · large text · late 12-hour time",
+    "analog · minimum · large text · late 12-hour time",
+    "analog · full · large text · late 12-hour time",
+    "stacked · minimum · large text · late 12-hour time",
+    "stacked · full · large text · late 12-hour time",
+    "digital · minimum · large text · late 12-hour time",
+    "digital · full · large text · late 12-hour time",
+    "classic · wide · standard",
+    "analog · wide · standard",
+    "stacked · wide · standard",
+    "digital · wide · standard",
+    "classic · square · standard",
+    "analog · square · standard",
+    "stacked · square · standard",
+    "digital · square · standard",
+    "classic · tall · standard",
+    "analog · tall · standard",
+    "stacked · tall · standard",
+    "digital · tall · standard",
+    "classic · strip · standard",
+    "analog · strip · standard",
+    "stacked · strip · standard",
+    "digital · strip · standard",
+    "classic · wide · large",
+    "analog · wide · large",
+    "stacked · wide · large",
+    "digital · wide · large",
+    "classic · square · large",
+    "analog · square · large",
+    "stacked · square · large",
+    "digital · square · large",
+    "classic · tall · large",
+    "analog · tall · large",
+    "stacked · tall · large",
+    "digital · tall · large",
+    "classic · strip · large",
+    "analog · strip · large",
+    "stacked · strip · large",
+    "digital · strip · large"
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "settings-classic",
+      "title": "Settings · classic clock preview",
+      "file": "screenshots/settings-classic.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-classic",
+      "title": "Overview · classic clock",
+      "file": "screenshots/dashboard-classic.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-analog",
+      "title": "Settings · analog clock preview",
+      "file": "screenshots/settings-analog.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-analog",
+      "title": "Overview · analog clock",
+      "file": "screenshots/dashboard-analog.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-stacked",
+      "title": "Settings · stacked clock preview",
+      "file": "screenshots/settings-stacked.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-stacked",
+      "title": "Overview · stacked clock",
+      "file": "screenshots/dashboard-stacked.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "settings-digital",
+      "title": "Settings · digital clock preview",
+      "file": "screenshots/settings-digital.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-digital",
+      "title": "Overview · digital clock",
+      "file": "screenshots/dashboard-digital.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-960x540",
+      "title": "classic · 960×540",
+      "file": "screenshots/classic-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "analog-960x540",
+      "title": "analog · 960×540",
+      "file": "screenshots/analog-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "stacked-960x540",
+      "title": "stacked · 960×540",
+      "file": "screenshots/stacked-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "digital-960x540",
+      "title": "digital · 960×540",
+      "file": "screenshots/digital-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "classic-1280x720",
+      "title": "classic · 1280×720",
+      "file": "screenshots/classic-1280x720.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-1280x720",
+      "title": "analog · 1280×720",
+      "file": "screenshots/analog-1280x720.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-1280x720",
+      "title": "stacked · 1280×720",
+      "file": "screenshots/stacked-1280x720.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-1280x720",
+      "title": "digital · 1280×720",
+      "file": "screenshots/digital-1280x720.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-1920x1200",
+      "title": "classic · 1920×1200",
+      "file": "screenshots/classic-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "analog-1920x1200",
+      "title": "analog · 1920×1200",
+      "file": "screenshots/analog-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "stacked-1920x1200",
+      "title": "stacked · 1920×1200",
+      "file": "screenshots/stacked-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "digital-1920x1200",
+      "title": "digital · 1920×1200",
+      "file": "screenshots/digital-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "classic-390x844",
+      "title": "classic · 390×844",
+      "file": "screenshots/classic-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "analog-390x844",
+      "title": "analog · 390×844",
+      "file": "screenshots/analog-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "stacked-390x844",
+      "title": "stacked · 390×844",
+      "file": "screenshots/stacked-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "digital-390x844",
+      "title": "digital · 390×844",
+      "file": "screenshots/digital-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "classic-minimum",
+      "title": "classic · minimum size · large text",
+      "file": "screenshots/classic-minimum.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-full",
+      "title": "classic · full size · large text",
+      "file": "screenshots/classic-full.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-minimum",
+      "title": "analog · minimum size · large text",
+      "file": "screenshots/analog-minimum.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-full",
+      "title": "analog · full size · large text",
+      "file": "screenshots/analog-full.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-minimum",
+      "title": "stacked · minimum size · large text",
+      "file": "screenshots/stacked-minimum.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-full",
+      "title": "stacked · full size · large text",
+      "file": "screenshots/stacked-full.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-minimum",
+      "title": "digital · minimum size · large text",
+      "file": "screenshots/digital-minimum.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-full",
+      "title": "digital · full size · large text",
+      "file": "screenshots/digital-full.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-wide",
+      "title": "classic · wide module",
+      "file": "screenshots/classic-wide.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-wide",
+      "title": "analog · wide module",
+      "file": "screenshots/analog-wide.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-wide",
+      "title": "stacked · wide module",
+      "file": "screenshots/stacked-wide.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-wide",
+      "title": "digital · wide module",
+      "file": "screenshots/digital-wide.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-square",
+      "title": "classic · square module",
+      "file": "screenshots/classic-square.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-square",
+      "title": "analog · square module",
+      "file": "screenshots/analog-square.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-square",
+      "title": "stacked · square module",
+      "file": "screenshots/stacked-square.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-square",
+      "title": "digital · square module",
+      "file": "screenshots/digital-square.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-tall",
+      "title": "classic · tall module",
+      "file": "screenshots/classic-tall.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-tall",
+      "title": "analog · tall module",
+      "file": "screenshots/analog-tall.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-tall",
+      "title": "stacked · tall module",
+      "file": "screenshots/stacked-tall.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-tall",
+      "title": "digital · tall module",
+      "file": "screenshots/digital-tall.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "classic-strip",
+      "title": "classic · strip module",
+      "file": "screenshots/classic-strip.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-strip",
+      "title": "analog · strip module",
+      "file": "screenshots/analog-strip.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "stacked-strip",
+      "title": "stacked · strip module",
+      "file": "screenshots/stacked-strip.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "digital-strip",
+      "title": "digital · strip module",
+      "file": "screenshots/digital-strip.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "analog-dark",
+      "title": "Analog · Ocean dark",
+      "file": "screenshots/analog-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

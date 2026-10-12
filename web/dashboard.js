@@ -25,8 +25,57 @@
   }
   const clockVisual=SkylitClock.create(document);originals.get('clock').prepend(clockVisual.root);
   let clockSample=null,sampleVisual=null;
-  function paintClock(instant=Date.now()){const prefs=app.calendarPreferences(),data=SkylitClock.read(instant,prefs.timezone,prefs.clock),style=SkylitClock.style(saved.modules.find(item=>item.type==='clock')?.style);wrappers.get('clock').dataset.clockStyle=style;clockVisual.update(style,data);if(clockSample){const choice=SkylitClock.style(draft.modules.find(item=>item.type==='clock')?.style);clockSample.dataset.clockStyle=choice;sampleVisual.update(choice,data);clockSample.querySelector('.clock-sample-time').textContent=data.label;clockSample.querySelector('.clock-sample-date').textContent=data.date;clockSample.setAttribute('aria-label',choice+' clock preview: '+data.label+', '+data.date);}}
+  function sizeClock(host,w,h,chosen,data){
+    const ui=Number(getComputedStyle(document.documentElement).getPropertyValue('--ui-scale'))||1,ratio=w/h,strip=ratio>3.7,portrait=ratio<.8,small=w<300||h<170;
+    host.dataset.clockStyle=chosen;host.dataset.composition=strip?'strip':portrait?'portrait':ratio>2.15?'wide':'balanced';host.dataset.small=String(small);
+    const pad=Math.max(h<120?8:small?10:12,Math.min(38,Math.min(w,h)*.075));let date=Math.min(32,Math.max(14,Math.min(w*.035,h*.055)*ui)),period=Math.min(31,Math.max(14,Math.min(w*.04,h*.055)*ui)),gap=Math.max(4,Math.min(22,h*.035));
+    const inlinePeriod=strip||(small&&!portrait)||(chosen==='digital'&&ratio>2.15),botanicalTop=portrait?pad+w*.12:!small&&!strip&&ratio<=2.15?Math.max(pad,h*.17):pad;
+    if(chosen==='digital'&&!inlinePeriod){period=Math.max(14,Math.min(64,Math.min(w*.07,h*.10)*ui));gap=Math.max(4,Math.min(28,h*.055));}
+    const set=(key,value)=>host.style.setProperty('--'+key,value+'px');set('clock-pad',pad);set('clock-date-size',date);set('clock-period-size',period);set('clock-gap',gap);set('clock-corner',Math.max(12,Math.min(46,Math.min(w,h)*.09)));
+    const sideScene=strip||(chosen==='classic'&&ratio>2.15),scene=sideScene?h:Math.min(h*(small?.26:.32),w*.36);set('module-landscape',scene);
+    // Measure the exact lining/tabular glyphs used by CSS. Canvas's default
+    // OpenType numerals have different advances and can under-estimate the time.
+    if(!sizeClock.measure){const m=node('span','clock-font-measure');m.setAttribute('aria-hidden','true');m.style.cssText='position:fixed;left:-10000px;top:0;visibility:hidden;white-space:nowrap;font:500 100px "Skylit Serif",Georgia;letter-spacing:-2.5px;font-feature-settings:"lnum" 1,"tnum" 1;pointer-events:none';document.body.append(m);sizeClock.measure=m;}
+    sizeClock.measure.style.fontFamily=chosen==='digital'?'"Skylit Display",Georgia':'"Skylit Serif",Georgia';sizeClock.measure.style.fontWeight=chosen==='digital'||chosen==='classic'?'600':'500';sizeClock.measure.textContent=data.hourText+':'+data.minuteText;const glyphWidth=sizeClock.measure.getBoundingClientRect().width/100;
+    const dateLines=chosen==='digital'&&!inlinePeriod?2:1,periodHeight=data.period?period*1.2:0;
+    let availableWidth=w-2*pad,availableHeight=h-pad-(chosen==='digital'?botanicalTop:pad)-date*1.4*dateLines-gap-(inlinePeriod?0:periodHeight+gap);
+    if(chosen==='classic'){if(sideScene){availableWidth=w*.46-pad*2;}else{availableHeight-=scene+(portrait?0:gap*2);availableWidth=Math.min(availableWidth,w*.80);}}
+    if(chosen==='digital'){availableWidth=w*(small?.76:portrait?.87:.80)-pad;if(strip){availableWidth=w*.54-pad*2;availableHeight=h-pad*2;}else if(portrait)availableHeight=Math.min(availableHeight,h*.36);}
+    const clockSize=Math.max(24,Math.min(availableWidth/(glyphWidth+(inlinePeriod&&data.period?.45:0)),availableHeight/.92));set('module-clock',clockSize);
+    const landscape=host.querySelector('.clock-landscape');landscape.dataset.sunRadius=String(Math.min(clockSize*.30,(sideScene?w*.54:w)*.21,scene*.42));SkylitClock.composeLandscape(landscape,sideScene?w*.54:w,scene,sideScene);
+    set('botanical-top',botanicalTop);set('botanical-left',w*.14);set('botanical-art-height',Math.min(w*.52,h*(ratio>1.25?.34:.52)));
+    const side=ratio>2.4;host.dataset.sideDate=String(side);
+    const dial=Math.max(44,Math.min(side?w*.55:w-pad*2,h-pad*2-(side?0:date*1.5+gap)));set('module-dial',dial);const dateNode=host.querySelector('.clock-date'),dateWidth=side?Math.max(...Array.from(dateNode.querySelectorAll('.clock-weekday,.clock-monthday'),n=>n.getBoundingClientRect().width)):0;set('dial-x',side?Math.max(pad,(w-dial-dateWidth-gap*1.5)/2):(w-dial)/2);set('dial-y',(h-dial-(side?0:date*1.5+gap))/2);
+    const plant=small?'sprig':'full';host.dataset.ornament=plant;
+    let tilesWidth=(w-pad*2)/2.91,tilesHeight=(h-pad*2-date*1.4-periodHeight-(data.period?5:0)-gap)/(data.period?1.65:1.55);
+    if(portrait){tilesWidth=(w-pad*2)/1.4;tilesHeight=(h-pad*2-date*1.4-periodHeight-(data.period?5:0)-gap)/(data.period?3.3:3.2);}
+    if(strip){tilesWidth=(w*.43-pad)/2.91;tilesHeight=(h-pad*2-periodHeight-(data.period?5:0))/(data.period?1.65:1.55);}
+    if(!small&&!strip&&!portrait)tilesHeight=Math.min(tilesHeight,h*.44/1.55);
+    set('module-stack',Math.max(24,Math.min(tilesWidth,tilesHeight)));set('flip-plant',Math.min(w*.51,h*.57));set('flip-side',0);
+    if(chosen==='stacked'){set('clock-date-size',Math.max(12,Math.min(20,date*.85)));set('clock-period-size',Math.max(14,Math.min(30,h*.05)));}
+  }
+  function paintDate(host,data){
+    const date=host.querySelector('.clock-date');date.setAttribute('aria-label',data.date);date.replaceChildren(node('span','clock-weekday',data.date.split(', ')[0]),node('span','clock-date-separator',', '),node('span','clock-monthday',data.date.split(', ').slice(1).join(', ')));
+  }
+  originals.get('clock').classList.add('clock-frame');$('clock').classList.add('clock-time');$('date').classList.add('clock-date');
+  let clockData=null;
+  function paintClock(instant=Date.now()){
+    const prefs=app.calendarPreferences(),data=SkylitClock.read(instant,prefs.timezone,prefs.clock),style=SkylitClock.style(saved.modules.find(item=>item.type==='clock')?.style);clockData=data;
+    wrappers.get('clock').dataset.clockStyle=style;clockVisual.update(style,data);paintDate(originals.get('clock'),data);$('clock-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();
+    if(clockSample){const choice=SkylitClock.style(draft.modules.find(item=>item.type==='clock')?.style);clockSample.dataset.clockStyle=choice;sampleVisual.update(choice,data);clockSample.querySelector('.clock-sample-digits').textContent=data.hourText+':'+data.minuteText;clockSample.querySelector('.clock-sample-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();paintDate(clockSample,data);clockSample.setAttribute('aria-label',choice+' clock preview: '+data.label+', '+data.date);}
+    sizeModules();
+  }
   window.addEventListener('skylit-clock',e=>paintClock(e.detail.instant));
+  // Advance only visible Analog hands between the app's coarse status ticks.
+  // Do not rerender the dashboard or poll services for a seconds hand.
+  setInterval(()=>{
+    if(document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const live=saved.modules.find(m=>m.type==='clock')?.style==='analog'&&originals.get('clock').getClientRects().length>0;
+    const sample=clockSample&&draft.modules.find(m=>m.type==='clock')?.style==='analog'&&clockSample.getClientRects().length>0;
+    if(!live&&!sample)return;
+    const prefs=app.calendarPreferences(),data=SkylitClock.read(Date.now(),prefs.timezone,prefs.clock);
+    if(live)clockVisual.update('analog',data);if(sample)sampleVisual.update('analog',data);
+  },1000);
   const photoEmpty=node('button','dashboard-photo-empty');photoEmpty.textContent='Choose photos';photoEmpty.onclick=()=>app.openSettings('photos','overview');wrappers.get('photos').append(photoEmpty);
   const empty=node('div','dashboard-empty');empty.append(node('h2',null,'Your dashboard is empty'));const configure=node('button','secondary','Choose modules');configure.onclick=()=>app.openSettings('dashboard','overview');empty.append(configure);grid.append(empty);
   function position(n,item){n.style.gridColumn=(item.x+1)+' / span '+item.w;n.style.gridRow=(item.y+1)+' / span '+item.h;}
@@ -39,11 +88,12 @@
   function sizeModules(){
     for(const [type,n] of wrappers){if(n.hidden)continue;const rect=n.getBoundingClientRect(),w=rect.width,h=rect.height;if(!w||!h)continue;
       n.dataset.density=w<340||h<220?'compact':'regular';n.dataset.short=String(h<280);n.dataset.narrow=String(w<340);
-      n.style.setProperty('--module-clock',Math.max(32,Math.min(140,w*.19,h*.48))+'px');
-      if(type==='clock'){const narrow=w<340;n.style.setProperty('--module-dial',Math.max(44,Math.min(420,narrow?w-24:w*.48,h-(narrow?54:32)))+'px');n.style.setProperty('--module-stack',Math.max(24,Math.min(140,(h-40)/2.4,w*.22))+'px');}
+      if(type==='clock'&&clockData)sizeClock(originals.get('clock'),w,h,n.dataset.clockStyle,clockData);
       n.style.setProperty('--module-temperature',Math.max(36,Math.min(100,w*.17,h*.28))+'px');
     }
+    if(clockSample&&clockData){const r=clockSample.getBoundingClientRect();if(r.width&&r.height)sizeClock(clockSample,r.width,r.height,clockSample.dataset.clockStyle,clockData);}
   }
+  if(document.fonts){document.fonts.ready.then(sizeModules);document.fonts.addEventListener('loadingdone',sizeModules);}
   const observer=new ResizeObserver(sizeModules);wrappers.forEach(n=>observer.observe(n));
   new MutationObserver(()=>{photoEmpty.hidden=!$('overview-photos').hidden;}).observe($('overview-photos'),{attributes:true,attributeFilter:['hidden']});
   photoEmpty.hidden=!$('overview-photos').hidden;
@@ -86,7 +136,7 @@
   panel.innerHTML='<article class="card setting-block dashboard-editor"><h3>Dashboard</h3><p class="small subtle">Drag modules to place them; drag a corner to resize. Changes stay in this preview until you save.</p><div class="dashboard-editor-toolbar"><div id="dashboard-starting-layout"></div><button id="dashboard-arrange" class="secondary">Arrange neatly</button><button id="dashboard-undo" class="quiet">Undo</button></div><div id="dashboard-editor-grid" class="dashboard-editor-grid" role="group" aria-label="Dashboard layout preview"></div><p id="dashboard-editor-status" class="small" role="status"></p><div id="dashboard-selection" class="dashboard-selection"><h4 id="dashboard-selection-title"></h4><p class="tiny subtle">Arrow keys on a module move it. Shift + arrows resize it.</p><div class="dashboard-fields"><div><label for="dashboard-column">Column</label><input id="dashboard-column" type="number" min="1" max="12"></div><div><label for="dashboard-row">Row</label><input id="dashboard-row" type="number" min="1" max="12"></div><div><label for="dashboard-width">Width</label><input id="dashboard-width" type="number" max="12"></div><div><label for="dashboard-height">Height</label><input id="dashboard-height" type="number" max="12"></div></div><div id="dashboard-clock-options"><label for="dashboard-clock-style">Clock style</label><select id="dashboard-clock-style"></select><div id="dashboard-clock-preview" class="clock-sample" role="img" aria-label="Clock style preview"></div></div><button id="dashboard-remove" class="quiet">Remove module</button></div><div class="dashboard-editor-actions"><button id="dashboard-save" class="primary">Save dashboard</button><button id="dashboard-discard" class="quiet">Discard changes</button></div></article><article class="card setting-block"><h3>Module gallery</h3><p class="small subtle">Tap to add, or drag into an empty space above. One of each module. Adding to a full layout arranges modules to make room.</p><div id="dashboard-gallery" class="dashboard-gallery"></div></article>';
   const clockOptions=$('dashboard-clock-options'),stylePicker=$('dashboard-clock-style');
   SkylitClock.styles.forEach(style=>{const option=node('option',null,style.name);option.value=style.id;stylePicker.append(option);});
-  clockSample=$('dashboard-clock-preview');sampleVisual=SkylitClock.create(document);const sampleTime=node('div','clock-sample-time'),sampleDate=node('p','clock-sample-date');sampleTime.setAttribute('aria-hidden','true');sampleDate.setAttribute('aria-hidden','true');clockSample.append(sampleVisual.root,sampleTime,sampleDate);
+  clockSample=$('dashboard-clock-preview');sampleVisual=SkylitClock.create(document);clockSample.classList.add('clock-frame');const sampleTime=node('div','clock-sample-time clock-time'),sampleDate=node('p','clock-sample-date clock-date');sampleTime.append(node('span','clock-sample-digits'),node('span','clock-sample-period'));observer.observe(clockSample);sampleTime.setAttribute('aria-hidden','true');sampleDate.setAttribute('aria-hidden','true');clockSample.append(sampleVisual.root,sampleTime,sampleDate);
   stylePicker.onchange=()=>{const next=model.change(draft,'clock',{style:stylePicker.value});if(next){remember();draft=next;preset.value='custom';paintPositions();message('Clock style changed. Save to apply it.');}};
   const start=$('dashboard-starting-layout'),presetLabel=document.querySelector('label[for=overview-preset]'),preset=$('overview-preset');
   presetLabel.textContent='Starting layout';start.append(presetLabel,preset);const custom=node('option',null,'Custom');custom.value='custom';custom.disabled=true;preset.prepend(custom);

@@ -129,3 +129,53 @@ viewports with both text profiles, minimum/full sizes and a dark presentation.
 Unit tests cover midnight/noon, half-hour zones, DST and style schema boundaries.
 On the frame, exercise the picker and Save with touch, restart the app, capture
 small/large styles privately, and restore/verify the original preferences and data.
+
+## Slideshow suite
+
+`node --test tests/slideshow-model.test.cjs` exercises bounded queue/history,
+collections, portrait layouts, schedules and capture-date policy. With the isolated
+preview running, `node scripts/check_slideshow.cjs --capture <review-directory>`
+checks playback timing, transitions, gesture inspection, curation, persistence,
+video export/cancellation and responsive Settings. It uses synthetic fixtures only.
+Set `SKYLIT_PLAYWRIGHT` / `SKYLIT_CHROME` as with the existing browser checks.
+
+`python3 scripts/test_slideshow_device.py` builds a **private** test APK with a
+separate package/UID, runs native media/privacy and WebView playback/export checks
+through paired TLS ADB, and removes it plus its owned Downloads files. It never
+opens the household app's data. Requires private build/device config and Playwright.
+The first-run credential fields are checked empty. The runner also checks certificate-pinned phone authentication, bounded mutations,
+uploads, cross-origin refusal and revocation. The address/code are written only to
+ignored local evidence. Never distribute the test APK or private
+evidence. Always restore the normal app and remove task ADB forwards afterwards.
+
+## QR phone pairing
+
+`node scripts/check_phone_pairing.cjs <capture-folder>` uses the synthetic preview
+and the same browser environment variables as the slideshow suite. It checks
+scan/pending/approve/reject/stop across four sizes, keyboard focus and the phone
+page’s URL-fragment removal. `test_phone_pairing.py` exercises the actual Java
+approval state machine, timeout, single-use and session-restart boundaries.
+`test_slideshow_device.py` also runs `check_phone_pairing_device.cjs` against its
+separate synthetic UID: photos blocked before approval, matching numbers, actual
+on-frame touch, decoded phone thumbnails, and Stop revocation. Owner phone camera
+and local-certificate acceptance still require device-specific verification.
+
+The clock browser suite also checks near-square modules in both text profiles and
+centering of the complete Analog strip dial/date group. Visual concept acceptance
+uses a target-first locked rubric and all seven native shape crops; runtime bounds
+checks do not replace that independent critique.
+
+
+## Analog construction and visible seconds
+
+For reference reconstruction, extract and validate defining light/depth/layer
+relationships before seeing implementation; a stricter adjective-based rubric
+can still accept the wrong construction. Inspect native shapes independently of
+live hand angles. Keep reference fidelity and responsive composition as separate
+gates, then assess all six light/dark pairs separately. Record real remaining
+finish differences and precise acceptance scope.
+
+`check_clocks.cjs` verifies configured city seconds and a visible Analog tick
+independent of the main 15-second status timer, plus reduced-motion suppression.
+Its minimum/wide/medium/tall/strip/full/near-square matrix exercises both text
+profiles. Synthetic captures do not substitute for WebView 95 device acceptance.

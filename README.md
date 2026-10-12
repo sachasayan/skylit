@@ -40,6 +40,11 @@ not a household account. They demonstrate the interface, not a live service sign
 [Clock visual critique across sizes](docs/reviews/2026-10-11-clock-critique/index.html).
 [Modular dashboard report and screenshots](docs/reviews/2026-10-11-modular-dashboard/index.html).
 [Settings navigation, gallery curation and APK](docs/reviews/2026-10-11-gallery-curation/index.html).
+[Reference reconstruction of Landscape, Flip and Botanical](docs/reviews/2026-10-12-clock-reference-reconstruction/index.html).
+[Warm responsive clock report](docs/reviews/2026-10-12-warm-clocks/index.html).
+[Clock concept refinement and independent review](docs/reviews/2026-10-12-clock-dream-loop/index.html).
+[Stricter clock critique and responsive comparisons](docs/reviews/2026-10-12-clock-strict-review/index.html).
+[QR phone pairing report](docs/reviews/2026-10-12-phone-pairing/index.html).
 [Slideshow controls report](docs/reviews/2026-10-11-controls/index.html).
 [October 11 refinement report with revised screenshots](docs/reviews/2026-10-11-refinement/index.html).
 [Earlier implementation report](docs/reviews/2026-10-11-implementation/index.html).
@@ -50,7 +55,7 @@ not a household account. They demonstrate the interface, not a live service sign
 | --- | --- |
 | Overview | Configurable, responsive modules: clock/date, weather, photos, upcoming events, hourly forecast, note, shopping list, countdowns and timers |
 | Weather | Live Open-Meteo forecast, city search, hourly and five-day outlook, saved forecast when offline, nine illustrated condition scenes with day/night variants |
-| Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, date/count retention, Fit/Fill and captions, three styles, shuffle/repeat, configurable mail checks and optional exact sender rule |
+| Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, date/count retention, responsive framing, five styles, stable shuffle/history, Keepers/collections, review, local pictures/muted clips, optional soundtrack/video export and temporary encrypted phone curation |
 | Calendar | Read-only month and selected-date agenda, source visibility in Settings, editable labels/colours, loaded-date search, direct Google iCal feeds, offline cache and on-frame inviter review |
 | Home | Google Home’s website, using its supported controls and your own session |
 | YouTube | Touch-friendly mobile site or standard website, with full-screen video support |
@@ -60,7 +65,7 @@ not a household account. They demonstrate the interface, not a live service sign
 | First-run guide | A three-step on-frame guide for city, photos and calendar; reopen it from Settings at any time |
 
 The dashboard is plain HTML, CSS and JavaScript. No npm install, hosted backend,
-Google API key, Play Store or Google Play services is required. The Android viewer
+Google API key, Play Store or Google Play services is required. Optional phone curation runs a temporary encrypted service on the frame itself. The Android viewer
 bundles the dashboard for offline startup; online services still need internet.
 A Mac does not need to remain connected. Google decides whether its sign-in and
 websites support a particular WebView; a shortcut is not proof of an authenticated
@@ -91,8 +96,8 @@ Skylit arranges the modules automatically; **Undo** restores the previous layout
 **Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
 Removing a module leaves its photos, calendars and Household data intact.
 
-Select **Clock & date** in the preview to choose **Classic**, **Analog**,
-**Stacked** or **Digital**. The live sample follows your city and 12/24-hour
+Select **Clock & date** in the preview to choose **Landscape**, **Analog**,
+**Flip** or **Botanical**. The live sample follows your city and 12/24-hour
 preference; **Save dashboard** applies the style. Resizing, arranging and changing
 a starting layout retain your choice.
 
@@ -278,3 +283,7 @@ walk the owner through the on-frame guide. Keep private links and app passwords 
 the frame, test real refresh/playback, and record device changes and undo steps in
 the private setup record. Never copy a household screenshot or test email into Git.
 
+
+The [slideshow suite report](docs/reviews/2026-10-12-slideshow-suite/index.html) maps
+the playback, curation and media tools with 36 synthetic screenshots. See the
+[slideshow guide](docs/slideshow.md) for setup and exact limits.
