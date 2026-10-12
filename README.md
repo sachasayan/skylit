@@ -85,14 +85,16 @@ services in new tabs. Native idle switching is available in the Android app.
 
 ## Configure the dashboard
 
-Open **Settings → Dashboard**. Drag a module by its name to move it and drag its
-corner to resize. Modules snap to a 12 × 12 grid and cannot overlap. Select a
+Open **Settings → Dashboard**. Drag the actual widget in the live canvas to move it and drag its
+corner to resize. The palette, canvas and inspector share a single draft. Modules snap to a 12 × 12 grid and cannot overlap. Select a
 module to set its row, column, width and height precisely; keyboard arrows move
 it, and Shift + arrows resize it.
 
 The gallery has nine modules, with one of each per dashboard. Tap a card to add
 it, or drag its grip into empty space in the preview. When a tap needs more room,
 Skylit arranges the modules automatically; **Undo** restores the previous layout.
+**Redo** restores an undone change. **Preview screen** checks 16:9/16:10 sizes
+without changing the layout; **Expand canvas** hides tools temporarily.
 **Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
 Removing a module leaves its photos, calendars and Household data intact.
 
@@ -105,6 +107,20 @@ Balanced, Photos first and Agenda first are starting layouts. Layout coordinates
 adapt to 16:9 and 16:10 landscape screens; smaller modules simplify their content
 or scroll internally. Narrow previews stack modules. Custom layouts are stored
 locally and are excluded from display-preference transfer.
+
+## App updates
+
+On Android, **Settings → Updates** checks published GitHub releases and downloads
+verified APKs. An **Update** action appears in the sidebar when a release is
+available. Automatic checks are enabled by default; automatic downloads and
+installation require your opt-in. Choose an installation window in the city's
+timezone. Android may ask you to allow Skylit to install packages, or confirm an
+installation. The browser preview cannot install APKs.
+
+One initial install of version 2.16.0 or later is needed to bootstrap the updater.
+Future release APKs keep the package, signing key and increasing version code.
+See [update behavior and acceptance](docs/updates.md) and the
+[visual report](docs/reviews/2026-10-12-updates-live-editor/index.html).
 
 ## Make it your household’s dashboard
 

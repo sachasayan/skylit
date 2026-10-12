@@ -27,7 +27,7 @@ for artifact in mail_jars:
 env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
 def run(*args):subprocess.run([str(a) for a in args],cwd=root,env=env,check=True)
 run(bt/'aapt2','compile','--dir',app/'res','-o',build/'res.zip')
-run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','34','--version-name','2.15.6')
+run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','35','--version-name','2.16.0')
 sources=list((app/'src').rglob('*.java'))+list((build/'gen').rglob('*.java'))
 run(java/'bin/javac','-source','8','-target','8','-classpath',os.pathsep.join(map(str,(jar,*mail_jars))),'-d',build/'classes',*sources)
 run(bt/'d8','--min-api','23','--lib',jar,'--output',build/'dex',*list((build/'classes').rglob('*.class')),*mail_jars)
@@ -38,3 +38,7 @@ env['SKYLIT_KEY_PASS']=os.environ.get('SKYLIT_KEY_PASS') or config.get('key_pass
 run(bt/'apksigner','sign','--ks',key,'--ks-pass','env:SKYLIT_KEY_PASS','--key-pass','env:SKYLIT_KEY_PASS','--out',output/('skylit-personal.apk' if args.personal else 'skylit.apk'),build/'aligned.apk')
 run(bt/'apksigner','verify','--verbose',output/('skylit-personal.apk' if args.personal else 'skylit.apk'))
 print('Built:',output/('skylit-personal.apk' if args.personal else 'skylit.apk'))
+
+if not args.personal:
+    apk=output/'skylit.apk'
+    (output/'update.json').write_text(json.dumps({'package':'com.wesbos.homehq','versionCode':35,'versionName':'2.16.0','minSdk':23,'asset':'skylit-2.16.0.apk','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()),'sha256':hashlib.sha256(apk.read_bytes()).hexdigest()},indent=2)+'\n')

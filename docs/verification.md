@@ -1,5 +1,29 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.16.0 — Signed updates and live dashboard workbench
+
+- Native GitHub release checks, bounded private downloads, package/version/hash and
+  installed-signer validation, explicit installer callbacks, app-specific permission
+  route and optional idle installation window. Automatic download/install are opt-in.
+  Automatic ambient displays remain eligible; manual browsing/services defer updates.
+- Dashboard palette, real script-free live canvas, continuous resize/move, inspector,
+  undo/redo, 16:9/16:10 preview sizes and Expand canvas. Saved state changes only on
+  Save; cancellation, collisions and failed storage writes preserve it.
+- 87 Node tests and 18 Python/production Java policy tests pass. Rendered acceptance:
+  32 full-app groups, 23 dashboard groups, 76 clock groups and 12 focused updater/editor
+  groups, no runtime errors. 19 synthetic screenshots in the
+  [visual report](reviews/2026-10-12-updates-live-editor/index.html).
+- Normal APK 2.16.0/code 35 builds with one verified signer and the existing key.
+  Source/history/APK public checks report zero findings; Gitleaks source export and
+  all-ref history scans report no leaks.
+- The paired wireless frame was unreachable. No device install or settings changes
+  were performed. Native release download/verification, permission/confirmation,
+  unattended self-install, return to HOME, private-data and guide preservation still
+  require hardware acceptance. Updater screenshots are native status fixtures.
+- No binary GitHub release has been published for this version. Install the bootstrap
+  APK once; future signed releases must include matching update.json. The release
+  helper defaults to a draft and requires clean/pushed main and a matching build.
+
 ## Version 2.15.6 — Landscape, Flip and Botanical reference reconstruction
 
 - Separate target-only inventories, cross-validation and direct pixel comparison

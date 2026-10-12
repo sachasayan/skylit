@@ -346,3 +346,17 @@ Analog's accepted artwork and inset construction remain unchanged. Production
 illustrations are local PNGs with genuine alpha; time, Flip plates/animation and
 Landscape scene remain live HTML/CSS/SVG. See the visual report for native crops,
 independent rejections/acceptance, exact prompts and documented residual differences.
+
+## Live layout workbench and updates
+
+Settings → Dashboard shows the actual widget composition in a scaled landscape
+canvas. Keep the three tools distinct: palette to add, canvas to place/resize,
+inspector for precise bounds/style. Only the selected widget shows its border and
+corner grip. Draft edits do not alter the dashboard until Save; Undo, Redo and
+Discard are explicit. Preview screen and Expand canvas affect the editor only.
+Constrained widths use compact tools; narrow Settings remains scrollable. Save
+must never obscure the bottom of the preview.
+
+The Update sidebar action appears only for an available/ready/confirmation state.
+All automatic update controls, release notes and detailed status stay in Settings.
+Public updater screenshots use clearly identified native status fixtures.

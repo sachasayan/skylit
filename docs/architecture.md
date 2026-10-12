@@ -273,3 +273,28 @@ number during a normal clock tick. Initial render, unchanged ticks, time jumps,
 hidden documents and reduced motion use immediate correct values. Old animations
 are cancelled on subsequent changes; no timer, sound, remote asset or permission
 is added. The Dashboard Settings sample shares the same renderer.
+
+## Native signed updater
+
+`AppUpdates` owns one worker, the fixed public GitHub release source, private APK
+cache, preferences and PackageInstaller sessions. `UpdatePolicy` holds pure trust,
+version and schedule boundaries. `UpdateJob` performs periodic connected checks;
+`UpdateReceiver` handles explicit session-matched installer callbacks. Updates are
+never supplied to a remote WebView. `update-model.js` normalizes native status;
+`updates.js` paints a conditional sidebar action and Settings controls. It does
+not fetch release binaries in JavaScript. See [updates](updates.md).
+
+## Live dashboard workbench
+
+`dashboard.js` retains the 12×12 collision model and saved/draft split, now with
+undo/redo and palette/canvas/inspector tools. `dashboard-preview.js` creates a
+script-free same-origin sandboxed document using the production CSS and cloned
+current widget data. Native bridges/services are never invoked by its document;
+no second weather/calendar/photo controller runs. A dedicated clock renderer uses
+the same parent tick and responsive sizing. The preview updates with draft bounds
+and theme changes; Save alone updates the production layout. The overlay owns
+pointer/keyboard gestures and keeps 44px resize targets independent of the scaled
+preview. Selectable logical landscape sizes use the actual full viewport CSS, rail/header
+geometry and grid gap; the canvas crops to the widget area. Rendered checks compare
+those metrics against the real dashboard at each selected size. Palette and inspector scroll independently; short/narrow Settings can
+scroll without covering the canvas with the Save row.

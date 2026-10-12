@@ -5,7 +5,7 @@
   const node=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
   const legacy=()=>{try{return SkylitFrameModel.preferences(JSON.parse(localStorage.getItem('skylit.frame')||'{}'));}catch(_){return {};}};
   let raw;try{raw=JSON.parse(localStorage.getItem(key));}catch(_){}
-  let saved=model.normalize(raw,legacy()),draft=model.copy(saved),selected=draft.modules[0]?.type,history=[],drag=null,ignoreClick=false,scrollFrame=0;
+  let saved=model.normalize(raw,legacy()),draft=model.copy(saved),selected=draft.modules[0]?.type,history=[],redo=[],drag=null,ignoreClick=false,scrollFrame=0;
   const wrappers=new Map(),originals=new Map([
     ['clock',document.querySelector('.overview-heading')],['weather',document.querySelector('.overview-weather')],
     ['photos',$('overview-photos')],['plans',document.querySelector('.overview-plans')]
@@ -24,7 +24,7 @@
     wrapper.hidden=true;wrappers.set(definition.type,wrapper);grid.append(wrapper);
   }
   const clockVisual=SkylitClock.create(document);originals.get('clock').prepend(clockVisual.root);
-  let clockSample=null,sampleVisual=null;
+  let clockSample=null,sampleVisual=null,livePreview=null;
   function sizeClock(host,w,h,chosen,data){
     const ui=Number(getComputedStyle(document.documentElement).getPropertyValue('--ui-scale'))||1,ratio=w/h,strip=ratio>3.7,portrait=ratio<.8,small=w<300||h<170;
     host.dataset.clockStyle=chosen;host.dataset.composition=strip?'strip':portrait?'portrait':ratio>2.15?'wide':'balanced';host.dataset.small=String(small);
@@ -63,7 +63,7 @@
     const prefs=app.calendarPreferences(),data=SkylitClock.read(instant,prefs.timezone,prefs.clock),style=SkylitClock.style(saved.modules.find(item=>item.type==='clock')?.style);clockData=data;
     wrappers.get('clock').dataset.clockStyle=style;clockVisual.update(style,data);paintDate(originals.get('clock'),data);$('clock-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();
     if(clockSample){const choice=SkylitClock.style(draft.modules.find(item=>item.type==='clock')?.style);clockSample.dataset.clockStyle=choice;sampleVisual.update(choice,data);clockSample.querySelector('.clock-sample-digits').textContent=data.hourText+':'+data.minuteText;clockSample.querySelector('.clock-sample-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();paintDate(clockSample,data);clockSample.setAttribute('aria-label',choice+' clock preview: '+data.label+', '+data.date);}
-    sizeModules();
+    sizeModules();const paletteClock=panel.querySelector('[data-preview-type=clock]');if(paletteClock)paletteClock.textContent=data.hourText+':'+data.minuteText;if(livePreview&&app.settingsOpen())livePreview.render(draft,wrappers,data);
   }
   window.addEventListener('skylit-clock',e=>paintClock(e.detail.instant));
   // Advance only visible Analog hands between the app's coarse status ticks.
@@ -144,8 +144,25 @@
   // The old optional excerpt migrates to a real Note module; configuration now lives here.
   $('household-excerpt').closest('label').remove();
   const preview=$('dashboard-editor-grid'),tiles=new Map();
+  const editor=panel.querySelector('.dashboard-editor');editor.classList.add('dashboard-workbench');
+  editor.querySelector('h3').textContent='Your dashboard';editor.querySelector('p').textContent='Drag, resize, then Save. The preview follows your real widgets.';
+  const redoButton=node('button','quiet','Redo');redoButton.id='dashboard-redo';redoButton.type='button';$('dashboard-undo').after(redoButton);
+  const viewControl=node('div','dashboard-screen-control'),viewLabel=node('label',null,'Preview screen'),viewSelect=node('select');viewSelect.id='dashboard-preview-screen';viewLabel.htmlFor=viewSelect.id;
+  for(const [value,label] of [['1280,720','1280 × 720 · 16:9'],['1280,800','1280 × 800 · 16:10'],['1920,1080','1920 × 1080 · 16:9'],['1920,1200','1920 × 1200 · 16:10']]){const o=node('option',null,label);o.value=value;viewSelect.append(o);}viewControl.append(viewLabel,viewSelect);editor.querySelector('.dashboard-editor-toolbar').append(viewControl);
+  const work=node('div','dashboard-workspace'),palette=panel.querySelector('.setting-block:last-child'),center=node('div','dashboard-canvas-column'),canvas=node('div','dashboard-canvas'),inspector=$('dashboard-selection');
+  palette.classList.add('dashboard-palette');palette.querySelector('h3').textContent='Widgets';palette.querySelector('p').textContent='Drag onto the canvas, or tap to add.';
+  const ghost=node('div','dashboard-drop-ghost');ghost.hidden=true;canvas.append(preview,ghost);center.append(canvas,$('dashboard-editor-status'));work.append(palette,center,inspector);editor.querySelector('.dashboard-editor-toolbar').after(work);editor.append(editor.querySelector('.dashboard-editor-actions'));
+  const sample=clockSample;const detail=node('details','dashboard-clock-detail');detail.append(node('summary',null,'Clock detail'),sample);clockOptions.append(detail);
+  livePreview=SkylitDashboardPreview.create(canvas,{position,paintDate,sizeClock});
+  function fitPreview(){const [width,height]=viewSelect.value.split(',').map(Number),content=document.querySelector('.settings-content'),r=content.getBoundingClientRect(),top=canvas.getBoundingClientRect().top,available=Math.max(120,r.bottom-top-content.scrollTop-editor.querySelector('.dashboard-editor-actions').getBoundingClientRect().height-80);canvas.dataset.maxHeight=available;work.style.setProperty('--workbench-height',available+'px');livePreview.fit(width,height);}
+  const expand=node('button','quiet','Expand canvas');expand.type='button';expand.id='dashboard-expand';expand.setAttribute('aria-pressed','false');viewControl.after(expand);expand.onclick=()=>{const expanded=document.getElementById('settings').classList.toggle('dashboard-focused');expand.textContent=expanded?'Show tools':'Expand canvas';expand.setAttribute('aria-pressed',String(expanded));fitPreview();};
+  new ResizeObserver(()=>{if(app.settingsOpen())fitPreview();}).observe(document.querySelector('.settings-content'));
+  viewSelect.onchange=()=>{fitPreview();message('Preview size changed. Your layout is unchanged.');};
+  new MutationObserver(()=>{if(livePreview&&clockData&&app.settingsOpen())livePreview.queueRefresh(draft,wrappers,clockData);}).observe(grid,{subtree:true,childList:true,characterData:true});
+  window.addEventListener('skylit-settings',()=>{if(app.settingsOpen()){paintPositions();fitPreview();}});
+
   function message(text){$('dashboard-editor-status').textContent=text;}
-  function remember(){history.push(model.copy(draft));if(history.length>30)history.shift();}
+  function remember(){redo=[];history.push(model.copy(draft));if(history.length>30)history.shift();}
   function dirty(){return JSON.stringify(draft)!==JSON.stringify(saved);}
   function paintSelection(){
     const item=draft.modules.find(item=>item.type===selected);$('dashboard-selection').hidden=!item;
@@ -154,7 +171,7 @@
     for(const [field,value] of [['column',item.x+1],['row',item.y+1],['width',item.w],['height',item.h]])$('dashboard-'+field).value=value;
     $('dashboard-width').min=definition.minW;$('dashboard-height').min=definition.minH;
   }
-  function paintPositions(){draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});paintSelection();$('dashboard-save').disabled=!dirty();$('dashboard-discard').disabled=!dirty();$('dashboard-undo').disabled=!history.length;if(app.settingsFeedback)app.settingsFeedback(dirty()?'Unsaved dashboard changes':'Saved on this frame');}
+  function paintPositions(){draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});paintSelection();if(livePreview&&clockData){livePreview.render(draft,wrappers,clockData);fitPreview();}$('dashboard-redo').disabled=!redo.length;$('dashboard-save').disabled=!dirty();$('dashboard-discard').disabled=!dirty();$('dashboard-undo').disabled=!history.length;if(app.settingsFeedback)app.settingsFeedback(dirty()?'Unsaved dashboard changes':'Saved on this frame');}
   function paintEditor(){
     preview.replaceChildren();tiles.clear();
     draft.modules.forEach(item=>{const definition=model.definition(item.type),tile=node('div','dashboard-editor-tile'),move=node('button','dashboard-move',definition.name),size=node('span','dashboard-editor-size'),resize=node('button','dashboard-resize','⤡');
@@ -163,28 +180,29 @@
       move.onkeydown=e=>keyboard(e,item.type,false);resize.onkeydown=e=>keyboard(e,item.type,true);
       tile.append(move,size,resize);tiles.set(item.type,tile);preview.append(tile);
     });
+    const photoPreview=panel.querySelector('[data-preview-type=photos]'),photos=Array.from($('overview-photos').querySelectorAll('img')).slice(0,3);if(photoPreview&&photos.length)photoPreview.replaceChildren(...photos.map(image=>{const copy=image.cloneNode(true);copy.alt='';return copy;}));
     for(const button of $('dashboard-gallery').querySelectorAll('.dashboard-gallery-item')){const included=draft.modules.some(item=>item.type===button.dataset.type);button.disabled=included;button.querySelector('small').textContent=included?'Added':'Add module';button.parentElement.querySelector('.dashboard-gallery-drag').disabled=included;}
     paintPositions();
   }
   function keyboard(e,type,resizing){const steps={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(!steps[e.key])return;e.preventDefault();selected=type;const item=draft.modules.find(item=>item.type===type),[dx,dy]=steps[e.key],resize=resizing||e.shiftKey;const next=model.change(draft,type,resize?{w:item.w+dx,h:item.h+dy}:{x:item.x+dx,y:item.y+dy});if(next){remember();draft=next;preset.value='custom';paintPositions();message('Unsaved layout changes.');}else message('That position or size would overlap a module or leave the dashboard.');}
   function begin(e,type,mode){if(e.button!==0||drag)return;e.preventDefault();selected=type;paintSelection();const item=draft.modules.find(item=>item.type===type);drag={type,mode,startX:e.clientX,startY:e.clientY,start:model.copy(draft),item:{...item},last:model.copy(draft),previewTop:preview.getBoundingClientRect().top};e.currentTarget.setPointerCapture(e.pointerId);trackScroll(e);}
-  function trackScroll(e){drag.clientX=e.clientX;drag.clientY=e.clientY;const scroll=document.querySelector('.settings-content');function step(){if(!drag)return;if(!app.settingsOpen()){finish({clientX:drag.clientX,clientY:drag.clientY},true);return;}const rect=scroll.getBoundingClientRect();if(drag.clientY<rect.top+45)scroll.scrollTop-=10;else if(drag.clientY>rect.bottom-45)scroll.scrollTop+=10;scrollFrame=requestAnimationFrame(step);}scrollFrame=requestAnimationFrame(step);}
+  function trackScroll(e){drag.clientX=e.clientX;drag.clientY=e.clientY;const scroll=document.querySelector('.settings-content'),palette=panel.querySelector('.dashboard-palette');function step(){if(!drag)return;if(!app.settingsOpen()){finish({clientX:drag.clientX,clientY:drag.clientY},true);return;}const paletteRect=palette.getBoundingClientRect();if(drag.mode==='gallery'&&drag.clientX>=paletteRect.left&&drag.clientX<=paletteRect.right){if(drag.clientY<paletteRect.top+45)palette.scrollTop-=10;else if(drag.clientY>paletteRect.bottom-45)palette.scrollTop+=10;}const rect=scroll.getBoundingClientRect();if(drag.clientY<rect.top+45)scroll.scrollTop-=10;else if(drag.clientY>rect.bottom-45)scroll.scrollTop+=10;scrollFrame=requestAnimationFrame(step);}scrollFrame=requestAnimationFrame(step);}
   function cellDelta(e){const rect=preview.getBoundingClientRect();return [Math.round((e.clientX-drag.startX)/rect.width*model.columns),Math.round((e.clientY-drag.startY+drag.previewTop-rect.top)/rect.height*model.rows)];}
   document.addEventListener('pointermove',e=>{if(!drag)return;drag.clientX=e.clientX;drag.clientY=e.clientY;
-    if(drag.mode==='gallery'){const rect=preview.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)return;const x=Math.min(8,Math.max(0,Math.floor((e.clientX-rect.left)/rect.width*12))),y=Math.min(8,Math.max(0,Math.floor((e.clientY-rect.top)/rect.height*12)));drag.position={x,y};preview.classList.add('drop-active');return;}
+    if(drag.mode==='gallery'){const rect=preview.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)return;const x=Math.min(8,Math.max(0,Math.floor((e.clientX-rect.left)/rect.width*12))),y=Math.min(8,Math.max(0,Math.floor((e.clientY-rect.top)/rect.height*12)));drag.position={x,y};const result=model.add(draft,drag.type,drag.position);preview.classList.toggle('invalid-drop',!result.added);preview.classList.add('drop-active');ghost.hidden=false;position(ghost,{x,y,w:4,h:4});return;}
     const [dx,dy]=cellDelta(e),item=drag.item,patch=drag.mode==='resize'?{w:item.w+dx,h:item.h+dy}:{x:item.x+dx,y:item.y+dy};const next=model.change(drag.start,drag.type,patch);
-    if(next){draft=next;drag.last=next;paintPositions();}
+    preview.classList.toggle('invalid-drop',!next);if(next){draft=next;drag.last=next;paintPositions();}else message('That position overlaps another widget or leaves the canvas.');
   });
-  function finish(e,cancelled=false){if(!drag)return;const operation=drag;drag=null;cancelAnimationFrame(scrollFrame);preview.classList.remove('drop-active');
+  function finish(e,cancelled=false){if(!drag)return;const operation=drag;drag=null;ghost.hidden=true;cancelAnimationFrame(scrollFrame);preview.classList.remove('drop-active','invalid-drop');
     if(operation.mode==='gallery'){ignoreClick=Math.hypot(e.clientX-operation.startX,e.clientY-operation.startY)>8;
       const rect=preview.getBoundingClientRect(),inside=e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom;
       if(!cancelled&&inside&&operation.position){const result=model.add(draft,operation.type,operation.position);if(result.added){remember();draft=result.layout;selected=operation.type;paintEditor();message('Module added. Save to apply it.');}else message('No room here. Resize or move a module, or tap Add to arrange automatically.');}setTimeout(()=>ignoreClick=false,0);return;
     }
     if(cancelled){draft=operation.start;paintPositions();return;}
-    if(JSON.stringify(operation.start)!==JSON.stringify(draft)){history.push(operation.start);if(history.length>30)history.shift();preset.value='custom';paintPositions();message('Unsaved layout changes.');}
+    if(JSON.stringify(operation.start)!==JSON.stringify(draft)){redo=[];history.push(operation.start);if(history.length>30)history.shift();preset.value='custom';paintPositions();message('Unsaved layout changes.');}
   }
   document.addEventListener('pointerup',e=>finish(e));document.addEventListener('pointercancel',e=>finish(e,true));
-  for(const definition of model.catalog){const card=node('div','dashboard-gallery-card'),button=node('button','dashboard-gallery-item');button.type='button';button.dataset.type=definition.type;button.append(node('strong',null,definition.name),node('span','small subtle',definition.description),node('small',null,'Add module'));button.setAttribute('aria-label','Add '+definition.name);
+  for(const definition of model.catalog){const card=node('div','dashboard-gallery-card'),button=node('button','dashboard-gallery-item');button.type='button';button.dataset.type=definition.type;const thumbnail=node('span','dashboard-palette-preview');thumbnail.dataset.previewType=definition.type;thumbnail.setAttribute('aria-hidden','true');thumbnail.textContent=definition.type==='clock'?(clockData?clockData.hourText+':'+clockData.minuteText:'—'):definition.type==='weather'?$('overview-temperature').textContent:definition.type==='photos'?'▧  ▧  ▧':definition.type==='plans'?'Today · Upcoming':definition.type==='forecast'?'☀  ☁  ☀':definition.type==='shopping'?'○  Shopping list':definition.type==='note'?'A little note':definition.type==='countdowns'?'Days to go':'Timer';button.append(thumbnail,node('strong',null,definition.name),node('span','small subtle',definition.description),node('small',null,'Add module'));button.setAttribute('aria-label','Add '+definition.name);
     button.onclick=()=>{if(ignoreClick)return;const result=model.add(draft,definition.type);if(!result.added)return;remember();draft=result.layout;selected=definition.type;preset.value='custom';paintEditor();message(result.rearranged?'Module added. Modules were arranged to make room; Undo restores the earlier layout.':'Module added. Save to apply it.');};
     const handle=node('button','dashboard-gallery-drag','⠿');handle.type='button';handle.setAttribute('aria-label','Drag '+definition.name+' to dashboard');
     function startGallery(e){if(e.button!==0||drag)return;e.preventDefault();drag={type:definition.type,mode:'gallery',startX:e.clientX,startY:e.clientY};e.currentTarget.setPointerCapture(e.pointerId);trackScroll(e);}
@@ -193,9 +211,10 @@
   for(const [field,property,offset] of [['column','x',1],['row','y',1],['width','w',0],['height','h',0]])$('dashboard-'+field).onchange=()=>{const next=model.change(draft,selected,{[property]:Number($('dashboard-'+field).value)-offset});if(next){remember();draft=next;preset.value='custom';paintPositions();message('Unsaved layout changes.');}else{paintSelection();message('That size or position does not fit. Modules cannot overlap.');}};
   $('dashboard-remove').onclick=()=>{remember();draft=model.remove(draft,selected);selected=draft.modules[0]?.type;preset.value='custom';paintEditor();message('Module removed from this layout. Its data stays saved.');};
   $('dashboard-arrange').onclick=()=>{remember();draft=model.arrange(draft);preset.value='custom';paintEditor();message('Modules arranged. Save to apply it.');};
-  $('dashboard-undo').onclick=()=>{if(!history.length)return;draft=history.pop();selected=draft.modules.find(item=>item.type===selected)?.type||draft.modules[0]?.type;preset.value='custom';paintEditor();message('Layout change undone.');};
-  $('dashboard-discard').onclick=()=>{draft=model.copy(saved);history=[];selected=draft.modules[0]?.type;preset.value='custom';paintEditor();message('Unsaved changes discarded.');};
-  $('dashboard-save').onclick=()=>{try{localStorage.setItem(key,JSON.stringify(draft));}catch(_){message('Could not save. Your current dashboard is unchanged.');return;}saved=model.copy(draft);history=[];applyLayout();paintPositions();message('Dashboard saved on this frame.');};
+  $('dashboard-redo').onclick=()=>{if(!redo.length)return;history.push(model.copy(draft));draft=redo.pop();selected=draft.modules.find(m=>m.type===selected)?.type||draft.modules[0]?.type;paintEditor();message('Change restored. Save to apply it.');};
+  $('dashboard-undo').onclick=()=>{if(!history.length)return;redo.push(model.copy(draft));draft=history.pop();selected=draft.modules.find(item=>item.type===selected)?.type||draft.modules[0]?.type;preset.value='custom';paintEditor();message('Layout change undone.');};
+  $('dashboard-discard').onclick=()=>{draft=model.copy(saved);history=[];redo=[];selected=draft.modules[0]?.type;preset.value='custom';paintEditor();message('Unsaved changes discarded.');};
+  $('dashboard-save').onclick=()=>{try{localStorage.setItem(key,JSON.stringify(draft));}catch(_){message('Could not save. Your current dashboard is unchanged.');return;}saved=model.copy(draft);history=[];redo=[];applyLayout();paintPositions();message('Dashboard saved on this frame.');};
   window.SkylitDashboard={isDirty:dirty,layout:()=>model.copy(saved),draft:()=>model.copy(draft)};
   paintEditor();applyLayout();renderForecast();
 })();

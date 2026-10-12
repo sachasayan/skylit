@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
   private PhotoMail photoMail;
   private LocalMedia media;
   private PhoneManagement phone;
+  private AppUpdates updates;
   private final java.util.concurrent.ExecutorService imports=java.util.concurrent.Executors.newSingleThreadExecutor();
   private int pickerKind;
   private volatile long importGeneration;
@@ -53,6 +54,7 @@ public class MainActivity extends Activity {
   @Override public void onCreate(Bundle state){
     super.onCreate(state);
     prefs=getSharedPreferences("skylit",MODE_PRIVATE);
+    updates=AppUpdates.get(this);
     calendars=new CalendarStore(getSharedPreferences("skylit-calendars",MODE_PRIVATE));
     photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.receive("+photoMail.status().toString()+")",null);});
     media=new LocalMedia(this,photos);phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
@@ -108,6 +110,14 @@ public class MainActivity extends Activity {
   private boolean validYouTube(String url){try{Uri u=Uri.parse(url);return "https".equals(u.getScheme())&&("www.youtube.com".equals(u.getHost())||"m.youtube.com".equals(u.getHost())||"youtube.com".equals(u.getHost()));}catch(Exception e){return false;}}
 
   public class DashboardBridge {
+    @JavascriptInterface public String updateStatus(){return updates.status();}
+    @JavascriptInterface public void updateBackgroundCheck(){updates.check(false,null);}
+    @JavascriptInterface public void updateCheck(){updates.check(true,null);}
+    @JavascriptInterface public void updateDownload(){updates.download();}
+    @JavascriptInterface public boolean updateConfigure(String settings){return updates.configure(settings);}
+    @JavascriptInterface public void updateInstall(){runOnUiThread(()->updates.install(MainActivity.this,false));}
+    @JavascriptInterface public void updatePermission(){runOnUiThread(()->updates.permission(MainActivity.this));}
+    @JavascriptInterface public void updateHeartbeat(boolean ready){runOnUiThread(()->{updates.activity((ready||idlePhotos||quietOpen)&&foreground&&(remote==null||idlePhotos&&remotePhotos)&&(!localPhotosOpen||idlePhotos));updates.install(MainActivity.this,true);});}
     @JavascriptInterface public String calendarList(){return calendars.snapshot();}
     @JavascriptInterface public String calendarAdd(String name,String color,String url){return calendars.add(name,color,url);}
     @JavascriptInterface public boolean calendarMetadata(String id,String name,String color){return calendars.metadata(id,name,color);}
@@ -232,6 +242,7 @@ public class MainActivity extends Activity {
   private void openStockApp(){handler.removeCallbacks(idleTask);Intent stock=getPackageManager().getLaunchIntentForPackage("com.skylight");if(stock!=null)startActivity(stock);}
   private void showFailure(String message){TextView text=new TextView(this);text.setText(message);text.setTextSize(25);text.setTextColor(Color.DKGRAY);text.setGravity(Gravity.CENTER);root.addView(text,new FrameLayout.LayoutParams(-1,-1));}
   @Override public boolean dispatchTouchEvent(MotionEvent e){
+    if(updates!=null&&e.getActionMasked()==MotionEvent.ACTION_DOWN)updates.touched();
     if(swallowIdleTouch){if(e.getActionMasked()==MotionEvent.ACTION_UP||e.getActionMasked()==MotionEvent.ACTION_CANCEL)swallowIdleTouch=false;return true;}
     if(quietOpen&&remote==null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN){swallowIdleTouch=true;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.restore()",null);}return true;}
     if(idlePhotos&&remote==null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN){swallowIdleTouch=true;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);}return true;}
@@ -242,8 +253,8 @@ public class MainActivity extends Activity {
     return super.dispatchTouchEvent(e);
   }
   private void pauseMomo(boolean paused){if(dashboard!=null)dashboard.evaluateJavascript("window.Momo&&window.Momo.setPaused("+paused+")",null);}
-  @Override protected void onResume(){super.onResume();foreground=true;pauseMomo(remote!=null||localPhotosOpen||quietOpen);if(photoMail!=null)photoMail.maybeSync();resetIdle();hideBars();}
-  @Override protected void onPause(){foreground=false;pauseMomo(true);handler.removeCallbacks(idleTask);handler.removeCallbacks(exitTask);super.onPause();}
+  @Override protected void onResume(){super.onResume();foreground=true;if(updates!=null)updates.touched();pauseMomo(remote!=null||localPhotosOpen||quietOpen);if(photoMail!=null)photoMail.maybeSync();resetIdle();hideBars();}
+  @Override protected void onPause(){foreground=false;pauseMomo(true);handler.removeCallbacks(idleTask);handler.removeCallbacks(exitTask);if(updates!=null)updates.activity(false);super.onPause();}
   @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);WebView.setWebContentsDebuggingEnabled(intent.getBooleanExtra("debug",false));if(remote!=null)closeRemote();if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);}
   @Override public void onBackPressed(){if(quietOpen&&dashboard!=null){dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.restore()",null);return;}if(remote!=null)closeRemote();else if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);else if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.back()",null);}
   @Override public void onWindowFocusChanged(boolean hasFocus){super.onWindowFocusChanged(hasFocus);if(hasFocus)hideBars();}

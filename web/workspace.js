@@ -6,7 +6,7 @@
   const initialTab=app.status().tab;
   let prefs=model.preferences(read('skylit.frame',{})),house=model.household(read('skylit.household',{})),category='appearance',returnTo=null,paused=false,scheduled=false,pausedFocus=null;
   const element=(tag,cls,html)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(html)n.innerHTML=html;return n;};
-  const settings=$('settings'),categories=[['appearance','Appearance'],['dashboard','Dashboard'],['momo','Momo'],['weather','Weather & time'],['photos','Photos'],['calendars','Calendars'],['household','Household'],['services','Services'],['device','Device & status']];
+  const settings=$('settings'),categories=[['appearance','Appearance'],['dashboard','Dashboard'],['momo','Momo'],['weather','Weather & time'],['photos','Photos'],['calendars','Calendars'],['household','Household'],['services','Services'],['updates','Updates'],['device','Device & status']];
   const panels=new Map(),layout=element('div','settings-layout'),index=element('nav','settings-index'),content=element('div','settings-content');index.setAttribute('aria-label','Settings categories');const categoryLabel=element('label');categoryLabel.htmlFor='settings-category-select';categoryLabel.textContent='Settings area';const categorySelect=element('select');categorySelect.id='settings-category-select';categorySelect.onchange=()=>openSettings(categorySelect.value,null);const categoryLinks=element('div','settings-category-links');index.append(categoryLinks,categoryLabel,categorySelect);const categoryButtons=new Map();function categoryLink(id,title){const button=element('button','settings-category-button');button.type='button';button.textContent=title;button.dataset.settingsArea=id;button.onclick=()=>openSettings(id);categoryLinks.append(button);categoryButtons.set(id,button);}
   const shell=document.querySelector('.shell'),lightbox=element('div','settings-lightbox');lightbox.id='settings-lightbox';lightbox.hidden=true;
   settings.classList.remove('page','active');settings.classList.add('settings-dialog');settings.setAttribute('role','dialog');settings.setAttribute('aria-modal','true');settings.setAttribute('aria-labelledby','settings-title');settings.tabIndex=-1;
@@ -43,7 +43,7 @@
     }
     category=panels.has(id)?id:'appearance';
     for(const [key,panel] of panels)panel.hidden=key!==category;
-    categorySelect.value=category;for(const [key,button] of categoryButtons){button.setAttribute('aria-current',key===category?'true':'false');button.classList.toggle('active',key===category);}content.scrollTop=0;feedback.textContent='';
+    settings.dataset.area=category;window.dispatchEvent(new CustomEvent('skylit-settings',{detail:category}));categorySelect.value=category;for(const [key,button] of categoryButtons){button.setAttribute('aria-current',key===category?'true':'false');button.classList.toggle('active',key===category);}content.scrollTop=0;feedback.textContent='';
     close.setAttribute('aria-label',returnTo==='setup'?'Continue setup':'Close settings');
     if(category==='dashboard'&&window.SkylitDashboard)app.settingsFeedback(window.SkylitDashboard.isDirty()?'Unsaved dashboard changes':'Saved on this frame');
     if(category==='calendar-review')gateConfiguration.open=false;

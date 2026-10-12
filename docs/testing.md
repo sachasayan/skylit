@@ -179,3 +179,19 @@ finish differences and precise acceptance scope.
 independent of the main 15-second status timer, plus reduced-motion suppression.
 Its minimum/wide/medium/tall/strip/full/near-square matrix exercises both text
 profiles. Synthetic captures do not substitute for WebView 95 device acceptance.
+
+## Updater and live editor acceptance
+
+`tests/updates.test.cjs`, `tests/test_update_policy.py` and
+`tests/test_release_metadata.py` exercise malformed native status, exact release
+URLs/hostnames, version downgrade rejection, bounded release metadata, source asset
+binding, idle heartbeat freshness, and cross-midnight hour windows.
+
+Against the synthetic preview, run `scripts/check_updates_editor.cjs` with the
+same Playwright/Chromium setup as the other rendered scripts. It covers real
+widget content in a script-free preview, continuous pointer resize, transaction
+undo/redo, cancellation, palette placement, ratio selection, expanded tools,
+short-screen canvas occlusion, narrow geometry, disabled browser installation,
+conditional update routes, settings dependencies, escaped release notes and fixed
+native action dispatch. Updater native status is simulated; actual installation
+and download acceptance must run on Android, as described in [updates](updates.md).

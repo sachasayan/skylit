@@ -77,3 +77,4 @@
 @media(max-width:799px){#settings .settings-layout{flex-direction:column}#settings .settings-index{flex:0 0 auto;padding:0 18px 18px;border:0;overflow:visible}#settings .settings-index>label,#settings .settings-index>select{display:block}#settings .settings-index>select{width:100%;margin-top:6px}.settings-category-links{display:none}}
 
 #photo-mail-setup .photo-options{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.update-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.update-window{display:flex;gap:16px;max-width:420px}.update-window>div{flex:1}#update-notes{white-space:pre-wrap;overflow-wrap:anywhere}#update-progress{width:100%;accent-color:var(--accent);margin:12px 0}.rail-bottom .update-sidebar{width:100%;margin:0 0 12px;padding:12px 8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--accent)}
