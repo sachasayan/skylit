@@ -1047,3 +1047,25 @@ phone camera scanning, Home control or YouTube playback for this batch.
   no-results/failure fallback and no horizontal overflow. Desktop and mobile
   screenshots inspected. Publication and the real 37 → 38 updater flow will be
   recorded separately after the signed release is available.
+
+
+## October 14 — 2.17.1 published and installed through the updater
+
+- Published normal signed release `v2.17.1` (code 38) from `dc3d1e6`; both GitHub
+  source-check runs passed. Source/history/APK privacy and Gitleaks scans passed.
+- Existing USB D156 / Android 12 / WebView 95 upgraded from code 37 using Skylit's
+  actual check, download, verification and Android-confirmed PackageInstaller flow.
+  Installed APK bytes match the published binary, and a subsequent check reports
+  current. Display/dashboard/household preferences and HOME are unchanged. The
+  upgrade does not show first-run setup. Existing React browser tests cover fresh
+  setup, direct links, dismissal/reopen and recovery. On the upgraded frame, the
+  guide reopens and both city/calendar direct links work; no production data cleared.
+- Installed build: actual Android touch beginning 24 CSS pixels away from the
+  visible corner mark resizes and persists correctly. Original layout restored.
+  Dashboard and Software updates inspected at 1920 × 1080 physical resolution.
+- Website deployed to the existing Netlify site. Live `/docs/` navigation, local
+  search, keyboard access, mobile layout and failure fallback pass browser checks.
+- Temporary install permission restored to disabled. Normal debugging restored;
+  inspection forward removed. Private update/undo record copied to Downloads.
+  Manual update is accepted; this run does not certify unattended idle installation,
+  fresh physical installation, new service connections or physical-phone pairing.

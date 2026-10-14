@@ -65,6 +65,26 @@ isolated signed test upgrade on the exact paired frame; never uninstall or clear
 production app data to test an update. A successful policy test or simulated UI
 screenshot is not evidence of a successful Android installation.
 
+### October 14, 2026: manual updater accepted on the frame
+
+Published 2.17.1/code 38 from `dc3d1e6` and upgraded the existing 2.17.0/code 37
+installation on the explicitly selected USB D156 / Android 12 / WebView 95.
+The actual Settings UI checked GitHub, found the release, downloaded and verified
+it, opened Android's app-specific installation permission, and installed through
+PackageInstaller with the owner's authorized Android confirmation. No ADB install
+was used for this upgrade. Android required the “Continue installation” step to
+open its pending confirmation; Skylit was explicitly reopened afterward.
+
+The installed APK exactly matches the release SHA-256:
+`a412a4f1893a6db326ef2b4b7aa8e38ea69608a57c92dea54e7b9c85afcc782c`.
+The next check reports 2.17.1 as current. Saved display/dashboard/household
+preferences and HOME are retained; the setup guide does not interrupt the upgrade.
+Playback history and other runtime caches are not byte-stable preference fields.
+The app-specific install permission was temporarily granted and restored to its
+original disabled state after acceptance. Evidence and device/undo records stay
+private. This verifies the manual flow; unattended idle installation and fresh
+physical installation remain unverified by this run.
+
 Android's documented behavior:
 - [PackageInstaller user-action requirements](https://developer.android.com/reference/android/content/pm/PackageInstaller.SessionParams#setRequireUserAction(int))
 - [App-specific install permission](https://developer.android.com/reference/android/content/pm/PackageManager#canRequestPackageInstalls())
