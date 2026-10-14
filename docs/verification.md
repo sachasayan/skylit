@@ -1069,3 +1069,45 @@ phone camera scanning, Home control or YouTube playback for this batch.
   inspection forward removed. Private update/undo record copied to Downloads.
   Manual update is accepted; this run does not certify unattended idle installation,
   fresh physical installation, new service connections or physical-phone pairing.
+
+
+## October 14 — 2.17.2 performance fixes
+
+- Calendar recurrence parsing reuses bounded timezone formatters and skips timezone/
+  occurrence-detail work for historical dates that cannot overlap the view. The
+  original iterator still enforces COUNT, EXDATE and BY-rule semantics; exceptions
+  retain the conservative full path. Tests cover daylight saving, moved exceptions,
+  long overlapping events and bounded formatter work.
+- Photo notifications coalesce, each refresh reads one authoritative native snapshot,
+  and stale callback protection remains. Similarity analysis runs only in its open
+  disclosure, in bounded chunks, and reuses pairs until IDs/signatures/visibility
+  change. Hidden ordering/review images load lazily. Crop pointer samples batch per
+  animation frame and synchronize only the Fit/Fill control; release flushes the
+  final sample, while cancel discards pending work.
+- Video export transfers one 32 KiB chunk at a time with native-worker backpressure,
+  yields between polls, and checks cancellation while saving and copying to Downloads.
+  Partial output is removed on failure/cancellation. Startup APK verification runs
+  on the updater worker; restoration gates concurrent actions and serializes results.
+- Synthetic desktop probes: hidden 300-picture refresh dropped from 58–75 ms and
+  44,850 similarity comparisons to 12–16 ms and zero comparisons. One native notice
+  dropped from four status reads/two paints to one of each. A 32-move crop burst
+  dropped from 12.5 ms to 0.3–0.5 ms of dispatch work; painting is deferred to RAF.
+- D156 / Android 12 / WebView 95, selected USB, normal test build installed in place:
+  synthetic daily recurrence starting in 2024 fell from 6.43 s to 0.86 s; a 2020
+  start fell from 13.76 s to 1.38 s. A 2000 start previously exceeded the 15 s probe
+  limit and now completes in 3.02 s. All produce the expected 70 visible events,
+  within the app's unchanged 6 s deadline. These are synthetic fixtures, not proof
+  of a new household feed connection.
+- Native synthetic WebM saves took 375–501 ms with 20–25 UI timer ticks during
+  saving. Test videos were verified and removed from Downloads. Crop tests saved
+  no changes. Controlled crop comparison: about 69 ms median without global sync
+  versus 84 ms when restoring it; this does not establish 60 fps. An experimental
+  compositor rewrite showed no material gain and was not retained.
+- 109 Node and 23 Python tests pass, including real asynchronous export scheduling,
+  cancellation/stale completion and a blocking-I/O startup double. Browser checks
+  cover notification fanout, stale exclusions, hidden image loading, similarity
+  invalidation, crop save, real video recording/transfer/cancel, dashboard gestures,
+  first-run/upgrade recovery and all 13 Settings workflow groups. The narrow layout
+  check also caught existing resize-handle overflow; padding now accommodates the
+  full touch target. No household data or settings were cleared.
+- Final publication and updater acceptance are recorded after the release is live.

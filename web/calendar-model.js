@@ -2,19 +2,23 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./ical.js'));else root.CalendarModel=factory(root.ICAL);})(typeof self!=='undefined'?self:this,function(ICAL){
 'use strict';
 const pad=n=>String(n).padStart(2,'0');
+// A worker parses one feed; keep public helper use bounded as well.
+const formatters=new Map();
+function formatter(zone,clock=false){const key=zone+'|'+clock;if(!formatters.has(key)){if(formatters.size>=32)formatters.delete(formatters.keys().next().value);formatters.set(key,new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',...(clock?{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}:{})}));}return formatters.get(key);}
+
 function organizerAddress(value){
   const text=String(value||'').trim();
   const match=/^mailto:([^\s?<>]{1,254})$/i.exec(text);
   if(!match||! /^[^@]+@[^@]+\.[^@]+$/.test(match[1]))return '';
   return match[1].toLowerCase();
 }
-function dayKey(date,zone){const p={};new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).forEach(x=>p[x.type]=x.value);return p.year+'-'+p.month+'-'+p.day;}
+function dayKey(date,zone){const p={};formatter(zone).formatToParts(date).forEach(x=>p[x.type]=x.value);return p.year+'-'+p.month+'-'+p.day;}
 function wallDay(t){return t.year+'-'+pad(t.month)+'-'+pad(t.day);}
 function addDays(key,n){const d=new Date(key+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
 function wallEpoch(t,zone){
   const wall=Date.UTC(t.year,t.month-1,t.day,t.hour||0,t.minute||0,t.second||0);
   let guess=wall;
-  const fmt=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+  const fmt=formatter(zone,true);
   for(let i=0;i<4;i++){const p={};fmt.formatToParts(new Date(guess)).forEach(x=>p[x.type]=x.value);const got=Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second);const next=guess+wall-got;if(next===guess)return guess;guess=next;}
   return guess;
 }
@@ -55,9 +59,15 @@ function parse(body,from,to,zone){
     for(const ex of overrides)event.relateException(ex);
     if(event.isRecurring()){
       const iterator=event.iterator();let time,steps=0,maxShift=0;
+      // Still advance the original iterator so COUNT, EXDATE and BY* retain their
+      // semantics. Skip expensive timezone/occurrence work only when no exception
+      // can move an old occurrence into view. Two extra days cover offset/DST changes.
+      const duration=event.duration.toSeconds()*1000;
+      const skipBefore=!overrides.length&&duration>=0?lower-duration-172800000:-Infinity;
       for(const ex of overrides)if(ex.startDate)maxShift=Math.max(maxShift,Math.abs(epoch(ex.startDate,zone)-epoch(ex.recurrenceId,zone)));
       while((time=iterator.next())){
         if(++steps>30000)throw Error('This repeating calendar is too complex.');
+        if(Date.UTC(time.year,time.month-1,time.day,time.hour||0,time.minute||0,time.second||0)<skipBefore)continue;
         const original=epoch(time,zone);if(original>upper+maxShift)break;
         const details=event.getOccurrenceDetails(time);
         if(epoch(details.endDate,zone)<lower)continue;

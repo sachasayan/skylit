@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
   private PhotoStore photos;
   private PhotoMail photoMail;
   private LocalMedia media;
+  private AsyncExport exports;
   private PhoneManagement phone;
   private AppUpdates updates;
   private final java.util.concurrent.ExecutorService imports=java.util.concurrent.Executors.newSingleThreadExecutor();
@@ -58,8 +59,8 @@ public class MainActivity extends Activity {
     prefs=getSharedPreferences("skylit",MODE_PRIVATE);
     updates=AppUpdates.get(this);
     calendars=new CalendarStore(getSharedPreferences("skylit-calendars",MODE_PRIVATE));
-    photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.receive("+photoMail.status().toString()+")",null);});
-    media=new LocalMedia(this,photos);phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
+    photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,this::notifyLibrary);
+    media=new LocalMedia(this,photos);exports=new AsyncExport(new AsyncExport.Target(){public String begin(){return media.beginExport();}public boolean append(String id,String chunk){return media.appendExport(id,chunk);}public String finish(String id)throws Exception{return media.finishExport(id);}public void cancel(){media.cancelExport();}});phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
       public String request(JSONObject action,long version) throws Exception {
         java.util.concurrent.CompletableFuture<String> result=new java.util.concurrent.CompletableFuture<>();
         runOnUiThread(()->{if(dashboard==null||!phone.active(version)){result.complete(null);return;}String operation=action==null?"SkylitLibrary.remoteState()":"SkylitLibrary.remoteApply("+action.toString()+")";dashboard.evaluateJavascript("JSON.stringify(window.SkylitLibrary&&Skylit.photoManagementCurrent("+version+")?"+operation+":null)",value->{try{Object decoded=new org.json.JSONTokener(value).nextValue();result.complete(decoded instanceof String?(String)decoded:null);}catch(Exception ignored){result.complete(null);}});});return result.get(5,java.util.concurrent.TimeUnit.SECONDS);
@@ -176,10 +177,11 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void mediaImport(String kind){if(!kind.equals("image")&&!kind.equals("video")&&!kind.equals("music"))return;runOnUiThread(()->openMediaPicker(kind));}
     @JavascriptInterface public boolean mediaHasMusic(){return media.hasMusic();}
     @JavascriptInterface public void mediaEraseMusic(){media.eraseMusic();notifyLibrary();}
-    @JavascriptInterface public String mediaExportBegin(){return media.beginExport();}
-    @JavascriptInterface public boolean mediaExportAppend(String id,String chunk){return media.appendExport(id,chunk);}
-    @JavascriptInterface public String mediaExportFinish(String id){try{return media.finishExport(id);}catch(Exception ignored){return "";}}
-    @JavascriptInterface public void mediaExportCancel(){media.cancelExport();}
+    @JavascriptInterface public String mediaExportBegin(){return exports.begin();}
+    @JavascriptInterface public boolean mediaExportWrite(String id,String chunk){return exports.submit(id,chunk,false);}
+    @JavascriptInterface public boolean mediaExportFinish(String id){return exports.submit(id,null,true);}
+    @JavascriptInterface public String mediaExportStatus(String id){return exports.status(id);}
+    @JavascriptInterface public void mediaExportCancel(){exports.cancel();}
     @JavascriptInterface public void slideshowBrightness(float value){if(value!=-1&&(value<.05f||value>1||Float.isNaN(value)))return;runOnUiThread(()->{WindowManager.LayoutParams attributes=getWindow().getAttributes();if(attributes.screenBrightness!=value){attributes.screenBrightness=value;getWindow().setAttributes(attributes);}});}
     @JavascriptInterface public boolean photoManagementStart(){return phone.start();}
     @JavascriptInterface public String photoManagementStatus(){return phone.status();}
@@ -188,7 +190,8 @@ public class MainActivity extends Activity {
     @JavascriptInterface public boolean photoManagementCurrent(long version){return phone.active(version);}
     @JavascriptInterface public void openStock(){runOnUiThread(()->openStockApp());}
   }
-  private void notifyLibrary(){runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&SkylitPhotos.refresh();window.dispatchEvent(new Event('skylit-library-native'))",null);});}
+  private boolean libraryNoticePending;
+  private void notifyLibrary(){runOnUiThread(()->{if(libraryNoticePending)return;libraryNoticePending=true;handler.postDelayed(()->{libraryNoticePending=false;if(dashboard!=null)dashboard.evaluateJavascript("window.dispatchEvent(new Event('skylit-library-native'))",null);},100);});}
   private void openDisplayPicker(boolean export){
     Intent intent=new Intent(export?Intent.ACTION_CREATE_DOCUMENT:Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json");
     if(export)intent.putExtra(Intent.EXTRA_TITLE,"skylit-display.json");
@@ -286,5 +289,5 @@ public class MainActivity extends Activity {
   @Override public void onWindowFocusChanged(boolean hasFocus){super.onWindowFocusChanged(hasFocus);if(hasFocus)hideBars();}
   private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
   private void hideBars(){getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);}
-  @Override protected void onDestroy(){importGeneration++;imports.shutdownNow();if(phone!=null)phone.close();if(media!=null)media.cancelExport();calendars.close();photoMail.close();handler.removeCallbacksAndMessages(null);if(remote!=null)remote.destroy();if(dashboard!=null)dashboard.destroy();super.onDestroy();}
+  @Override protected void onDestroy(){importGeneration++;imports.shutdownNow();if(phone!=null)phone.close();if(exports!=null)exports.close();calendars.close();photoMail.close();handler.removeCallbacksAndMessages(null);if(remote!=null)remote.destroy();if(dashboard!=null)dashboard.destroy();super.onDestroy();}
 }

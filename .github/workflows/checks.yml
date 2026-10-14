@@ -42,6 +42,8 @@ jobs:
           PYTHON
           npm run test:react
           node scripts/check_dashboard_performance.cjs
+          node scripts/check_library_performance.cjs
+          node scripts/check_media_export.cjs
       - name: Website docs browser checks
         run: |
           python3 scripts/website.py serve > /tmp/skylit-site.log 2>&1 &

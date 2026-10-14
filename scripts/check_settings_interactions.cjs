@@ -34,7 +34,7 @@ if(output)fs.mkdirSync(path.join(output,'screenshots'),{recursive:true});
   for(const [w,h]of [[960,540],[1280,800],[1600,900],[1920,1200],[390,844]]){
    await page.setViewportSize({width:w,height:h});await open('dashboard');await page.waitForTimeout(250);
    assert.deepEqual(await page.locator('.dashboard-live-frame').evaluate(n=>[n.clientWidth,n.clientHeight]),w<800?[1280,720]:[w,h]);assert.deepEqual(await page.evaluate(()=>SkylitDashboard.layout()),saved);
-   assert.ok(await page.locator('.settings-content').evaluate(n=>n.scrollWidth<=n.clientWidth+1));
+   assert.ok(await page.locator('.settings-content').evaluate(n=>n.scrollWidth<=n.clientWidth+1),'Settings overflow at '+w+'×'+h);
    const canvas=await page.locator('.dashboard-canvas').boundingBox();assert.ok(canvas.width>110&&canvas.height>70);
    assert.equal(await page.locator('#dashboard-save,#dashboard-discard').count(),0);
    await snap('dashboard-'+w+'x'+h,'Dashboard · '+w+'×'+h);

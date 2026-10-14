@@ -15,3 +15,14 @@ test('organizer is normalized and recurring exceptions inherit the master organi
  assert.equal(rows.length,2);assert.deepEqual(rows.map(e=>e.organizer),['pat@example.test','pat@example.test']);
  assert.equal(M.organizerAddress('https://example.test/person'),'');
 });
+
+test('historical floating recurrence bounds timezone formatter work to the visible range',()=>{
+ const Original=Intl.DateTimeFormat;let constructions=0,parts=0;
+ Intl.DateTimeFormat=function(...args){constructions++;const fmt=new Original(...args);const original=fmt.formatToParts.bind(fmt);fmt.formatToParts=(...values)=>{parts++;return original(...values)};return fmt;};
+ try{delete require.cache[require.resolve('../web/calendar-model.js')];const fresh=require('../web/calendar-model.js');const rows=fresh.parse(wrap(event('old',['DTSTART:20000101T090000','DTEND:20000101T093000','RRULE:FREQ=DAILY'])),'2026-10-01','2026-12-01','America/Toronto');assert.equal(rows.length,61);assert(constructions<10,`Constructed ${constructions} timezone formatters`);assert(parts<2000,`Converted ${parts} historical dates`);assert.equal(new Date(rows[0].start).toISOString(),'2026-10-01T13:00:00.000Z');assert.equal(new Date(rows.at(-1).start).toISOString(),'2026-11-30T14:00:00.000Z');}finally{Intl.DateTimeFormat=Original;}
+});
+test('historical recurrence keeps COUNT, long overlapping events, and moved exceptions',()=>{
+ assert.equal(parse(wrap(event('ended',['DTSTART:20000101T090000','RRULE:FREQ=DAILY;COUNT=10']))).length,0);
+ const long=parse(wrap(event('long',['DTSTART:20200101T090000','DTEND:20210101T090000','RRULE:FREQ=YEARLY'])));assert(long.some(e=>e.startDay==='2026-01-01'&&M.onDay(e,'2026-11-30')));
+ const moved=parse(wrap(event('old',['DTSTART:20000101T090000','DTEND:20000101T100000','RRULE:FREQ=DAILY;COUNT=2']),event('old',['RECURRENCE-ID:20000102T090000','DTSTART:20261012T090000','DTEND:20261012T100000','SUMMARY:Moved'])));assert.equal(moved.length,1);assert.equal(moved[0].title,'Moved');
+});

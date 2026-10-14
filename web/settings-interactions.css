@@ -156,7 +156,7 @@
 @media(max-width:799px){#settings .settings-index{flex-basis:auto}#settings[data-area=dashboard] .dashboard-editor-grid{min-height:0}}
 .dashboard-workbench .dashboard-canvas{overflow:visible}
 .dashboard-workbench .dashboard-editor-tile:not(.selected) .dashboard-resize{visibility:hidden}
-@media(max-width:799px){#settings[data-area=dashboard] .settings-content{padding-left:24px;padding-right:24px}}
+@media(max-width:799px){#settings[data-area=dashboard] .settings-content{padding-left:28px;padding-right:28px}}
 /* Consistent Settings navigation, with a bottom widget tray. */
 #settings[data-area=dashboard] .settings-index{display:block!important}
 #settings[data-area=dashboard] .dashboard-workspace{grid-template-columns:minmax(0,1fr) 168px;gap:12px;justify-content:start;align-items:start}

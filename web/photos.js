@@ -57,15 +57,15 @@
 
   function selectedSource(){return source;}
   function setSource(value){if(value!=='album'&&value!=='email')return;source=value;localStorage.setItem(sourceKey,source);if(native&&native.photoSource)native.photoSource(source);render();}
-  function receive(raw){let next=model.normalize(raw);
+  function receive(raw,fresh=false){let next=model.normalize(raw);
     // Current native rules win over a status callback queued before an exclusion.
-    if(native&&native.photoExclude&&native.photoStatus)next=model.normalize(native.photoStatus());
+    if(!fresh&&native&&native.photoExclude&&native.photoStatus)next=model.normalize(native.photoStatus());
     if(epoch&&next.epoch&&epoch!==next.epoch){curated={};migratedExclusions=true;}
     if(!migratedExclusions&&native&&native.photoExclude){for(const [id,entry] of Object.entries(curated))if(/^[a-f0-9]{64}$/.test(id)&&entry.hidden&&!next.excluded.includes(id))native.photoExclude(id,true);next=model.normalize(native.photoStatus());migratedExclusions=true;}
     state=next;epoch=state.epoch||epoch;curated=frame.curation(curated,state.photos);
     if(native&&native.photoExclude){const excluded=new Set(state.excluded);for(const photo of state.photos){const id=frame.photoId(photo);if(excluded.has(id)||curated[id])curated[id]=Object.assign({},choice(photo),{hidden:excluded.has(id)});}}
     saveChoices();render();if(window.SkylitLibrary)window.SkylitLibrary.receive(state,curated);if(window.SkylitPlayer)window.SkylitPlayer.receive(state,curated);window.dispatchEvent(new Event('skylit-service-status'));}
-  function refresh(){if(!native||!native.photoStatus)return;try{receive(native.photoStatus());}catch(e){$('photo-mail-status').textContent='Could not read the photo status from this frame.';}}
+  function refresh(){if(!native||!native.photoStatus)return;try{receive(native.photoStatus(),true);}catch(e){$('photo-mail-status').textContent='Could not read the photo status from this frame.';}}
   function renderOverviewPhotos(){
     const items=source==='email'?frame.overviewPictures(state.photos,curated,preferences()):[];
     const button=$('overview-photos'),host=$('overview-photo-stack');

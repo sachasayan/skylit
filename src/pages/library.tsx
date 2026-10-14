@@ -65,7 +65,7 @@ export function PendingPictures({
   return pictures.length ? (
     pictures.map((photo: Picture) => (
       <div key={photo.id} className="library-photo">
-        <img src={photo.url} alt={photo.label} />
+        <img src={photo.url} alt={photo.label} loading="lazy" />
         <label>
           <Checkbox
             checked={selected.includes(photo.id)}
@@ -93,7 +93,12 @@ export function SimilarPictures({
         key={pair.map((p) => p.id).join("/")}
       >
         {pair.map((photo) => (
-          <img key={photo.id} src={photo.url} alt={photo.label} />
+          <img
+            key={photo.id}
+            src={photo.url}
+            alt={photo.label}
+            loading="lazy"
+          />
         ))}
         <Button variant="ghost" onClick={() => onOpen(pair[1].id)}>
           Review
@@ -145,7 +150,7 @@ function OrderPicture({
       >
         ↕
       </Button>
-      <img src={photo.url} alt="" />
+      <img src={photo.url} alt="" loading="lazy" />
       <span>{photo.label}</span>
       <Button
         variant="ghost"

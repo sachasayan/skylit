@@ -3,7 +3,7 @@
 // Canonical controls remain the single write path; no account data is copied.
 (() => {
  const app=SkylitApp,$=id=>document.getElementById(id),surface=app.settingsSurface;
- const {panels,categoryButtons,categorySelect}=surface,parents=new Map(),syncers=[];
+ const {panels,categoryButtons,categorySelect}=surface,parents=new Map(),syncers=[],controlSyncers=new Map();
  const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
  const button=(text,action,cls='quiet')=>{const n=el('button',cls,text);n.type='button';n.onclick=action;return n;};
  function hideControl(n){if(typeof n==='string')n=$(n);if(!n)return;n.hidden=true;document.querySelector('label[for="'+n.id+'"]')?.setAttribute('hidden','');}
@@ -20,7 +20,7 @@
  for(const [id,title]of Object.entries(titles)){const p=panels.get(id);p.prepend(el('h2','settings-area-title',title));}
  $('saved').hidden=true;document.querySelector('.appearance-preview')?.remove();
  // Visible small choice sets, with a live summary for legacy/custom values.
- function choices(id,items,visual=false){const control=$(id);if(!control)return;const label=document.querySelector('label[for="'+id+'"]');if(items)for(const [value,title]of items)if(!Array.from(control.options).some(o=>o.value===value)){const option=el('option','',title);option.value=value;control.append(option);}const view=visual?window.SkylitUI.mountVisualChoiceControl(control,label?.textContent||id,items||Array.from(control.options).filter(o=>!o.disabled).map(o=>[o.value,o.textContent])):window.SkylitUI.mountChoiceControl(control,label?.textContent||id,items);hideControl(control);syncers.push(view.sync);return view.group;}
+ function choices(id,items,visual=false){const control=$(id);if(!control)return;const label=document.querySelector('label[for="'+id+'"]');if(items)for(const [value,title]of items)if(!Array.from(control.options).some(o=>o.value===value)){const option=el('option','',title);option.value=value;control.append(option);}const view=visual?window.SkylitUI.mountVisualChoiceControl(control,label?.textContent||id,items||Array.from(control.options).filter(o=>!o.disabled).map(o=>[o.value,o.textContent])):window.SkylitUI.mountChoiceControl(control,label?.textContent||id,items);hideControl(control);syncers.push(view.sync);controlSyncers.set(id,view.sync);return view.group;}
  choices('appearance-mode',[['light','Light'],['dark','Dark'],['auto','Automatic']]);
  choices('display-text');choices('units');choices('clock-format');choices('momo-motion');choices('momo-routine');choices('calendar-color',null,true);
  link(panels.get('appearance'),'Momo','Accessory gallery, energy and daily rhythm','momo');
@@ -153,5 +153,5 @@
  function route(){const id=$('settings').dataset.area,parent=parents.get(id),title=titles[id]||panels.get(id)?.querySelector('.settings-task-heading h2')?.textContent||panels.get(id)?.getAttribute('aria-label')||'Settings',heading=$('settings-title');heading.replaceChildren(el('span','settings-crumb-root','Settings'));const separator=()=>{const n=el('span','settings-crumb-separator','›');n.setAttribute('aria-hidden','true');return n;};if(parent){heading.append(separator(),button(titles[parent]||parent,()=>app.openSettings(parent),'settings-crumb-link'));}heading.append(separator(),el('span','settings-crumb-current',title));$('photo-email').value='';$('photo-password').value='';document.querySelectorAll('.settings-task-section').forEach(n=>n.open=true);$('settings').dataset.workspace=String(id==='dashboard'||id==='photo-library'||id==='photo-edit');syncAll();}
 
  window.addEventListener('skylit-dashboard-draft',syncAll);window.addEventListener('skylit-settings',route);window.addEventListener('skylit-preferences',syncAll);window.addEventListener('skylit-display',syncAll);window.addEventListener('skylit-service-status',syncAll);document.getElementById('settings').addEventListener('change',()=>queueMicrotask(syncAll));
- window.SkylitSettingsInteractions={sync:syncAll};syncAll();
+ window.SkylitSettingsInteractions={sync:syncAll,syncControl:id=>controlSyncers.get(id)?.()};syncAll();
 })();
