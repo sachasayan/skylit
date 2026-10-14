@@ -31,7 +31,7 @@ function parse(body,bounds,group){return new Promise((resolve,reject)=>{
 });}
 function read(){try{sources=JSON.parse(bridge.calendarList());}catch(e){sources=[];}}
 function settings(){
- window.SkylitUI.calendar.sources({sources,hidden:hiddenSources,errors,busy,format:n=>new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:prefs().clock==='12'}).format(new Date(n)),onVisible(id,value){hiddenSources=value?hiddenSources.filter(x=>x!==id):[...new Set([...hiddenSources,id])];saveView();applyGate();},onRemove(id){if(!bridge.calendarRemove(id)){formMessage('Could not remove this calendar. Try again.');return;}errors.delete(id);busy.delete(id);formMessage('Calendar removed from this frame.');allEvents=allEvents.filter(e=>e.source!==id);allOverviewEvents=allOverviewEvents.filter(e=>e.source!==id);hiddenSources=hiddenSources.filter(x=>x!==id);saveView();read();applyGate();render();},onEdit(id,name,color){if(!bridge.calendarMetadata||!bridge.calendarMetadata(id,name,color)){formMessage('Edit on the frame. Use a label up to 60 characters and a colour.');return false;}revision++;read();formMessage('Calendar label and colour saved.');render();return true;}});
+ window.SkylitUI.calendar.sources({sources,hidden:hiddenSources,errors,busy,format:n=>new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hourCycle:prefs().clock==='12'?'h12':'h23'}).format(new Date(n)),onVisible(id,value){hiddenSources=value?hiddenSources.filter(x=>x!==id):[...new Set([...hiddenSources,id])];saveView();applyGate();},onRemove(id){if(!bridge.calendarRemove(id)){formMessage('Could not remove this calendar. Try again.');return;}errors.delete(id);busy.delete(id);formMessage('Calendar removed from this frame.');allEvents=allEvents.filter(e=>e.source!==id);allOverviewEvents=allOverviewEvents.filter(e=>e.source!==id);hiddenSources=hiddenSources.filter(x=>x!==id);saveView();read();applyGate();render();},onEdit(id,name,color){if(!bridge.calendarMetadata||!bridge.calendarMetadata(id,name,color)){formMessage('Edit on the frame. Use a label up to 60 characters and a colour.');return false;}revision++;read();formMessage('Calendar label and colour saved.');render();return true;}});
  $('calendar-add').disabled=!available||sources.length>=6;if(!available)formMessage('Connect calendars on the frame. This browser preview does not store private links.');
 }
 function formMessage(text){$('calendar-form-status').textContent=text;}
@@ -39,13 +39,13 @@ function status(){let overviewText='';
   let text='Connect a calendar to bring your plans here.';
   if(sources.length){const times=sources.map(s=>s.fetchedAt||0);const last=Math.min(...times);const age=Date.now()-last;const failures=errors.size;overviewText=!navigator.onLine?'Offline · Showing saved events.':failures?'Some calendars could not update · Saved events shown where available.':!last?'Waiting for your first calendar update.':age>30*60000?'Saved events · Waiting for a fresh update.':'';
     text=busy.size?'Refreshing your calendars…':!navigator.onLine?'Offline · Showing saved events.':failures?'Some calendars could not update · Saved events shown where available.':!last?'Waiting for your first calendar update.':age>30*60000?'Saved events · Waiting for a fresh update.':'Up to date';
-    if(last)text+=' · Last refreshed '+new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:prefs().clock==='12'}).format(new Date(last));
+    if(last)text+=' · Last refreshed '+new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hourCycle:prefs().clock==='12'?'h12':'h23'}).format(new Date(last));
   }
   $('calendar-status').textContent=text;$('overview-calendar-status').textContent=overviewText;
 
 }
 function onDay(e,key){return e.startDay<=key&&(e.allDay?e.endDay>key:e.endDay>=key);}
-function time(e){if(e.allDay)return 'All day';return new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,hour:'numeric',minute:'2-digit',hour12:prefs().clock==='12'}).format(new Date(e.start));}
+function time(e){if(e.allDay)return 'All day';return new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,hour:'numeric',minute:'2-digit',hourCycle:prefs().clock==='12'?'h12':'h23'}).format(new Date(e.start));}
 function paintGate(){
   $('calendar-gate-enable').checked=gate.enabled;$('calendar-unattributed').checked=gate.unattributed;
   if(document.activeElement!==$('calendar-owner'))$('calendar-owner').value=gate.owner;
@@ -65,7 +65,7 @@ function paint(){
   window.SkylitUI.calendar.grid({days,onSelect(key){selected=key;if(key.slice(0,7)!==month){month=key.slice(0,7);render();}else paint();}});
   const anchor=search?range().from:selected,span=search?70:14;let count=0;const groups=[];
   $('calendar-agenda-title').textContent=search?'Search · Loaded dates':label(anchor,{month:'short',day:'numeric'})+' onwards';
-  for(let i=0;i<span;i++){const key=addDays(anchor,i),items=events.filter(e=>onDay(e,key)&&(!search||e.title.toLowerCase().includes(search)));if(!items.length&&(search||i!==0))continue;const rows=[];for(const e of items){if(count++>=100)break;const format=n=>new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,dateStyle:'medium',timeStyle:'short',hour12:prefs().clock==='12'}).format(new Date(n));rows.push({event:e,time:time(e),range:e.allDay?'':format(e.start)+' – '+format(e.end)});}groups.push({key,title:key===today()?'Today · '+label(key,{month:'short',day:'numeric'}):label(key,{weekday:'short',month:'short',day:'numeric'}),items:rows});if(count>=100)break;}
+  for(let i=0;i<span;i++){const key=addDays(anchor,i),items=events.filter(e=>onDay(e,key)&&(!search||e.title.toLowerCase().includes(search)));if(!items.length&&(search||i!==0))continue;const rows=[];for(const e of items){if(count++>=100)break;const format=n=>new Intl.DateTimeFormat('en-CA',{timeZone:prefs().timezone,dateStyle:'medium',timeStyle:'short',hourCycle:prefs().clock==='12'?'h12':'h23'}).format(new Date(n));rows.push({event:e,time:time(e),range:e.allDay?'':format(e.start)+' – '+format(e.end)});}groups.push({key,title:key===today()?'Today · '+label(key,{month:'short',day:'numeric'}):label(key,{weekday:'short',month:'short',day:'numeric'}),items:rows});if(count>=100)break;}
   window.SkylitUI.calendar.agenda({groups,empty:count?'':sources.some(s=>!s.fetchedAt)?'Events will appear after the first successful connection.':search?'No matching titles in the loaded dates.':'No plans in the next two weeks.',onCountdown:window.SkylitApp.addCountdown});
   status();settings();paintOverview();paintGate();
 }

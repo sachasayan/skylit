@@ -32,3 +32,16 @@ test('legacy clock identifiers remain valid after visual replacements',()=>{
  const upgraded=layout.normalize(old);assert.equal(upgraded.modules[0].style,'stacked');assert.equal(clock.styles.find(s=>s.id===upgraded.modules[0].style).name,'Flip');
  assert.equal(clock.style('classic'),'classic');assert.equal(clock.style('digital'),'digital');
 });
+test('24-hour labels run 00 to 23 in every hour, never 24:xx',()=>{
+  for(let hour=0;hour<24;hour++){
+    const label=clock.read('2026-10-10T'+String(hour).padStart(2,'0')+':05:00Z','UTC','24').label;
+    assert.ok(label.startsWith(String(hour).padStart(2,'0')+':05'),hour+' → '+label);
+  }
+});
+test('time formatting sets an explicit hour cycle; hour12:false can mean 24:xx on older engines',()=>{
+  // Chromium/WebView 95 and Node 20 map hour12:false to the h24 cycle, so 00:05 renders as 24:05.
+  const fs=require('node:fs'),path=require('node:path'),root=path.join(__dirname,'..'),generated=new Set(['react-ui.js','manage-react.js']);
+  const files=[...fs.readdirSync(path.join(root,'web')).filter(f=>f.endsWith('.js')&&!generated.has(f)).map(f=>path.join('web',f)),
+    ...fs.readdirSync(path.join(root,'src'),{recursive:true}).filter(f=>/\.tsx?$/.test(f)).map(f=>path.join('src',f))];
+  for(const file of files)assert.doesNotMatch(fs.readFileSync(path.join(root,file),'utf8'),/\bhour12\s*:/,file+' uses hour12; use hourCycle h12/h23');
+});

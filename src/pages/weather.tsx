@@ -44,7 +44,7 @@ function time(
     timeZone: s.city.timezone,
     hour: "numeric",
     minute: "2-digit",
-    hour12: s.clock === "12",
+    hourCycle: s.clock === "12" ? "h12" : "h23",
     ...options,
   }).format(new Date(epoch));
 }
