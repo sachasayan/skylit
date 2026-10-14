@@ -67,6 +67,6 @@ final class AppUpdates {
   }
   void activity(boolean ready){heartbeat=SystemClock.elapsedRealtime();eligible=ready;}
   void touched(){touch=SystemClock.elapsedRealtime();eligible=false;}
-  void result(Intent intent){worker.execute(()->receiveResult(intent));}
+  void result(Intent intent,Runnable done){worker.execute(()->{try{receiveResult(intent);}finally{done.run();}});}
   private void receiveResult(Intent intent){int expected=prefs.getInt("session",-1);if(expected<0||intent.getIntExtra("expectedSession",-2)!=expected||intent.getIntExtra(PackageInstaller.EXTRA_SESSION_ID,-2)!=expected)return;int status=intent.getIntExtra(PackageInstaller.EXTRA_STATUS,PackageInstaller.STATUS_FAILURE);if(status==PackageInstaller.STATUS_PENDING_USER_ACTION){Intent confirmation=intent.getParcelableExtra(Intent.EXTRA_INTENT);if(confirmation!=null)prefs.edit().putString("pendingIntent",confirmation.toUri(Intent.URI_INTENT_SCHEME)).apply();}else if(status==PackageInstaller.STATUS_SUCCESS){clear();stage="current";}else{prefs.edit().remove("pendingIntent").remove("session").putBoolean("installError",true).apply();stage="ready";}}
 }

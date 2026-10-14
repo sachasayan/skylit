@@ -44,3 +44,17 @@ class AppUpdates {
 public class PerformanceTest {
  public static void main(String[] args)throws Exception{Thread caller=Thread.currentThread();ExecutorService calls=Executors.newSingleThreadExecutor();AppUpdates app=null;try{Future<AppUpdates> f=calls.submit(AppUpdates::create);app=f.get(2,TimeUnit.SECONDS);if(!AppUpdates.entered.await(2,TimeUnit.SECONDS)||!app.busy.get()||!app.restoring||AppUpdates.restoreThread==caller)throw new AssertionError();AppUpdates.release.countDown();app.worker.shutdown();if(!app.worker.awaitTermination(2,TimeUnit.SECONDS)||app.busy.get()||app.restoring)throw new AssertionError();}finally{AppUpdates.release.countDown();calls.shutdownNow();if(app!=null)app.worker.shutdownNow();}}
 }''')
+
+    def test_update_broadcast_lease_lasts_until_async_result_finishes(self):
+        app=(ROOT/'android/src/com/wesbos/homehq/AppUpdates.java').read_text()
+        result=re.search(r'  void result\(Intent intent,Runnable done\).*\n',app).group()
+        receiver=(ROOT/'android/src/com/wesbos/homehq/UpdateReceiver.java').read_text().replace('package com.wesbos.homehq;','').replace('import android.content.*;','').replace('public class UpdateReceiver','class UpdateReceiver')
+        self.run_java("""package com.wesbos.homehq;
+import java.util.concurrent.Executor;
+class Context {} class Intent {}
+class BroadcastReceiver {static class PendingResult {boolean finished;void finish(){finished=true;}}PendingResult pending;PendingResult goAsync(){return pending=new PendingResult();}public void onReceive(Context c,Intent i){}}
+class AppUpdates {static AppUpdates instance=new AppUpdates();static AppUpdates get(Context c){return instance;}Runnable task;boolean fail;Executor worker=r->task=r;void receiveResult(Intent i){if(fail)throw new IllegalStateException();}
+"""+result+"""}
+"""+receiver+"""
+public class PerformanceTest {public static void main(String[] args){for(boolean fail:new boolean[]{false,true}){AppUpdates.instance.fail=fail;UpdateReceiver receiver=new UpdateReceiver();receiver.onReceive(new Context(),new Intent());if(receiver.pending==null||receiver.pending.finished)throw new AssertionError();try{AppUpdates.instance.task.run();}catch(IllegalStateException expected){if(!fail)throw expected;}if(!receiver.pending.finished)throw new AssertionError();}}}
+""")

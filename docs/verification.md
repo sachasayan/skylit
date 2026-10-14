@@ -1087,7 +1087,8 @@ phone camera scanning, Home control or YouTube playback for this batch.
 - Video export transfers one 32 KiB chunk at a time with native-worker backpressure,
   yields between polls, and checks cancellation while saving and copying to Downloads.
   Partial output is removed on failure/cancellation. Startup APK verification runs
-  on the updater worker; restoration gates concurrent actions and serializes results.
+  on the updater worker; restoration gates concurrent actions and serializes results. The installer broadcast retains its asynchronous receiver
+  lease until result handling finishes, including failure paths.
 - Synthetic desktop probes: hidden 300-picture refresh dropped from 58–75 ms and
   44,850 similarity comparisons to 12–16 ms and zero comparisons. One native notice
   dropped from four status reads/two paints to one of each. A 32-move crop burst
@@ -1103,7 +1104,7 @@ phone camera scanning, Home control or YouTube playback for this batch.
   no changes. Controlled crop comparison: about 69 ms median without global sync
   versus 84 ms when restoring it; this does not establish 60 fps. An experimental
   compositor rewrite showed no material gain and was not retained.
-- 109 Node and 23 Python tests pass, including real asynchronous export scheduling,
+- 109 Node and 24 Python tests pass, including real asynchronous export scheduling,
   cancellation/stale completion and a blocking-I/O startup double. Browser checks
   cover notification fanout, stale exclusions, hidden image loading, similarity
   invalidation, crop save, real video recording/transfer/cancel, dashboard gestures,
