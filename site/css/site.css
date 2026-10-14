@@ -316,3 +316,7 @@ footer{background:var(--night);color:var(--night-muted);padding:60px 0 40px;font
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   [data-reveal],.split-words .word>span{opacity:1;transform:none;filter:none}
 }
+
+/* Keep help one tap away when the main navigation collapses. */
+.mobile-docs{display:none}
+@media(max-width:980px){.mobile-docs{display:block;margin-left:auto;padding:10px 4px;text-decoration:none;font-size:15px}}

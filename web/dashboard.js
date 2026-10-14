@@ -5,7 +5,7 @@
   const node=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
   const legacy=()=>{try{return SkylitFrameModel.preferences(JSON.parse(localStorage.getItem('skylit.frame')||'{}'));}catch(_){return {};}};
   let raw;try{raw=JSON.parse(localStorage.getItem(key));}catch(_){}
-  let saved=model.normalize(raw,legacy()),draft=model.copy(saved),selected=null,drag=null,ignoreClick=false,scrollFrame=0,saveError=false;
+  let saved=model.normalize(raw,legacy()),draft=model.copy(saved),selected=null,drag=null,ignoreClick=false,scrollFrame=0,moveFrame=0,pendingMove=null,saveError=false;
   const wrappers=new Map(),originals=new Map([
     ['clock',document.querySelector('.overview-heading')],['weather',document.querySelector('.overview-weather')],
     ['photos',$('overview-photos')],['plans',document.querySelector('.overview-plans')]
@@ -63,7 +63,7 @@
     const prefs=app.calendarPreferences(),data=SkylitClock.read(instant,prefs.timezone,prefs.clock),style=SkylitClock.style(saved.modules.find(item=>item.type==='clock')?.style);clockData=data;
     wrappers.get('clock').dataset.clockStyle=style;clockVisual.update(style,data);paintDate(originals.get('clock'),data);$('clock-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();
     if(clockSample){const choice=SkylitClock.style(draft.modules.find(item=>item.type==='clock')?.style);clockSample.dataset.clockStyle=choice;sampleVisual.update(choice,data);clockSample.querySelector('.clock-sample-digits').textContent=data.hourText+':'+data.minuteText;clockSample.querySelector('.clock-sample-period').textContent=data.period.replace(/[.\s]/g,'').toUpperCase();paintDate(clockSample,data);clockSample.setAttribute('aria-label',choice+' clock preview: '+data.label+', '+data.date);}
-    sizeModules();const paletteClock=panel.querySelector('[data-preview-type=clock]');if(paletteClock?.querySelector('b'))paletteClock.querySelector('b').textContent=data.hourText+':'+data.minuteText;if(livePreview&&app.settingsOpen())livePreview.render(draft,wrappers,data);
+    sizeModules();const paletteClock=panel.querySelector('[data-preview-type=clock]');if(paletteClock?.querySelector('b'))paletteClock.querySelector('b').textContent=data.hourText+':'+data.minuteText;if(livePreview&&editorVisible())livePreview.render(draft,wrappers,data);
   }
   window.addEventListener('skylit-clock',e=>paintClock(e.detail.instant));
   // Advance only visible Analog hands between the app's coarse status ticks.
@@ -160,7 +160,9 @@
   const visualOptions=node('div','dashboard-visual-options');inspector.append(visualOptions);
   const sample=clockSample;const detail=node('details','dashboard-clock-detail');detail.append(node('summary',null,'Clock detail'),sample);clockOptions.append(detail);
   livePreview=SkylitDashboardPreview.create(canvas,{position,paintDate,sizeClock,sizePhotos});
+  function editorVisible(){return app.settingsOpen()&&$('settings').dataset.area==='dashboard';}
   function fitPreview(){
+    if(!editorVisible())return;
     const width=innerWidth,height=innerHeight,content=document.querySelector('.settings-content'),status=$('dashboard-editor-status');
     const desktop=width>=800,css=getComputedStyle(work),gap=parseFloat(css.columnGap)||16;
     const available=Math.max(desktop?240:120,content.getBoundingClientRect().bottom-canvas.getBoundingClientRect().top-parseFloat(getComputedStyle(content).paddingBottom)-status.getBoundingClientRect().height-(center.querySelector('.dashboard-footer')?.getBoundingClientRect().height||0)-16);
@@ -170,32 +172,34 @@
     work.style.setProperty('--workbench-height',available+'px');livePreview.fit(desktop?width:1280,desktop?height:720);
     editor.style.setProperty('--editor-action-inset',desktop?(canvas.getBoundingClientRect().left-editor.getBoundingClientRect().left)+'px':'0px');
   }
-  new ResizeObserver(()=>{if(app.settingsOpen())fitPreview();}).observe(document.querySelector('.settings-content'));
+  new ResizeObserver(()=>{if(editorVisible())fitPreview();}).observe(document.querySelector('.settings-content'));
 
-  new MutationObserver(records=>{const changed=new Set(records.map(r=>(r.target.nodeType===1?r.target:r.target.parentElement)?.closest('[data-module]')?.dataset.module).filter(type=>type&&type!=='clock'));if(changed.size&&livePreview&&clockData&&app.settingsOpen())livePreview.queueRefresh(draft,wrappers,clockData,changed);}).observe(grid,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['src','hidden']});
-  window.addEventListener('skylit-settings',()=>{if(app.settingsOpen()){paintPositions();fitPreview();}});
+  new MutationObserver(records=>{const changed=new Set(records.map(r=>(r.target.nodeType===1?r.target:r.target.parentElement)?.closest('[data-module]')?.dataset.module).filter(type=>type&&type!=='clock'));if(changed.size&&livePreview&&clockData&&editorVisible())livePreview.queueRefresh(draft,wrappers,clockData,changed);}).observe(grid,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['src','hidden']});
+  // Let Settings finish switching its workspace geometry before measuring it.
+  let openFrame=0;
+  window.addEventListener('skylit-settings',()=>{const revision=++openFrame;if(editorVisible())queueMicrotask(()=>{if(revision===openFrame&&editorVisible())paintPositions(false);});});
 
-  function message(text){$('dashboard-editor-status').textContent=saveError?'Could not save this change. Your previous dashboard has been restored.':text;}
+  function message(text){const value=saveError?'Could not save this change. Your previous dashboard has been restored.':text;if($('dashboard-editor-status').textContent!==value)$('dashboard-editor-status').textContent=value;}
   function deselect(){const hadSelection=!!selected;if(drag)finish({clientX:drag.clientX,clientY:drag.clientY},true);selected=null;paintSelection();fitPreview();return hadSelection;}
   function persist(){if(!dirty())return true;try{localStorage.setItem(key,JSON.stringify(draft));}catch(_){saveError=true;draft=model.copy(saved);queueMicrotask(()=>{paintEditor();message('');});return false;}saveError=false;saved=model.copy(draft);applyLayout();return true;}
   function dirty(){return JSON.stringify(draft)!==JSON.stringify(saved);}
   function paintSelection(){
     const item=draft.modules.find(item=>item.type===selected);$('dashboard-selection').hidden=!item;palette.hidden=!!item;side.dataset.mode=item?'options':'gallery';
     tiles.forEach((tile,type)=>{tile.classList.toggle('selected',type===selected);tile.querySelector('.dashboard-move').setAttribute('aria-pressed',String(type===selected));});
-    clockOptions.hidden=selected!=='clock'||!item;visualOptions.hidden=!item||!['photos','weather'].includes(selected);if(!visualOptions.hidden)SkylitUI.dashboard.styles(visualOptions,{type:selected,value:item.style||model.styles[selected][0],pictures:Array.from($('overview-photos').querySelectorAll('img')).map(i=>i.src),temperature:$('overview-temperature').textContent,onChange(style){const next=model.change(draft,selected,{style});if(next){draft=next;paintPositions();message('Widget style saved.');}}});if(!item)return;const definition=model.definition(selected);stylePicker.value=SkylitClock.style(item.style);paintClock();$('dashboard-selection-title').textContent=definition.name;
+    clockOptions.hidden=selected!=='clock'||!item;visualOptions.hidden=!item||!['photos','weather'].includes(selected);if(!visualOptions.hidden)SkylitUI.dashboard.styles(visualOptions,{type:selected,value:item.style||model.styles[selected][0],pictures:Array.from($('overview-photos').querySelectorAll('img')).map(i=>i.src),temperature:$('overview-temperature').textContent,onChange(style){const next=model.change(draft,selected,{style});if(next){draft=next;paintPositions();message('Widget style saved.');}}});if(!item)return;const definition=model.definition(selected);stylePicker.value=SkylitClock.style(item.style);if(selected==='clock'&&clockSample.dataset.clockStyle!==stylePicker.value)paintClock();$('dashboard-selection-title').textContent=definition.name;
 
   }
-  function paintPositions(){if(!drag&&!persist())return;draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});paintSelection();if(livePreview&&clockData){livePreview.render(draft,wrappers,clockData);fitPreview();}if(app.settingsFeedback)app.settingsFeedback(saveError?'Could not save dashboard change':'Saved on this frame');window.dispatchEvent(new Event('skylit-dashboard-draft'));}
+  function paintPositions(notify=true){if(!drag&&!persist())return;draft.modules.forEach(item=>{const tile=tiles.get(item.type);position(tile,item);tile.querySelector('.dashboard-editor-size').textContent=item.w+' × '+item.h;});if(drag){if(livePreview&&clockData)livePreview.geometry(draft);return;}paintSelection();if(livePreview&&clockData&&editorVisible()){livePreview.render(draft,wrappers,clockData);fitPreview();}if(app.settingsFeedback)app.settingsFeedback(saveError?'Could not save dashboard change':'Saved on this frame');if(notify)window.dispatchEvent(new Event('skylit-dashboard-draft'));}
   function paintEditor(){
     window.SkylitUI.dashboard.tiles({modules:draft.modules,selected,definition:model.definition,onSelect(type){selected=type;paintSelection();},onRemove:removeWidget,onBegin:begin,onKey:keyboard,register(type,element){if(element)tiles.set(type,element);else tiles.delete(type);}});
     paintGallery();
     paintPositions();
   }
   function keyboard(e,type,resizing){const steps={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(!steps[e.key])return;e.preventDefault();selected=type;const item=draft.modules.find(item=>item.type===type),[dx,dy]=steps[e.key],resize=resizing||e.shiftKey;const corner=typeof resizing==='string'?resizing:'se',next=model.change(draft,type,resize?{x:item.x+(corner.includes('w')?dx:0),y:item.y+(corner.includes('n')?dy:0),w:item.w+(corner.includes('w')?-dx:dx),h:item.h+(corner.includes('n')?-dy:dy)}:{x:item.x+dx,y:item.y+dy});if(next){draft=next;preset.value='custom';paintPositions();message('Layout saved on this frame.');}else message('That position or size would overlap a module or leave the dashboard.');}
-  function begin(e,type,mode){if(e.button!==0||drag)return;e.preventDefault();selected=type;paintSelection();const item=draft.modules.find(item=>item.type===type);drag={type,mode,startX:e.clientX,startY:e.clientY,start:model.copy(draft),item:{...item},last:model.copy(draft),previewTop:preview.getBoundingClientRect().top};e.currentTarget.setPointerCapture(e.pointerId);trackScroll(e);}
-  function trackScroll(e){drag.clientX=e.clientX;drag.clientY=e.clientY;const scroll=document.querySelector('.settings-content'),palette=panel.querySelector('.dashboard-gallery');function step(){if(!drag)return;if(!app.settingsOpen()){finish({clientX:drag.clientX,clientY:drag.clientY},true);return;}const paletteRect=palette.getBoundingClientRect();if(drag.mode==='gallery'&&drag.clientX>=paletteRect.left&&drag.clientX<=paletteRect.right){if(drag.clientY<paletteRect.top+45)palette.scrollTop-=10;else if(drag.clientY>paletteRect.bottom-45)palette.scrollTop+=10;}const rect=scroll.getBoundingClientRect();if(drag.clientY<rect.top+45)scroll.scrollTop-=10;else if(drag.clientY>rect.bottom-45)scroll.scrollTop+=10;scrollFrame=requestAnimationFrame(step);}scrollFrame=requestAnimationFrame(step);}
+  function begin(e,type,mode){if(e.button!==0||drag)return;e.preventDefault();selected=type;paintSelection();const item=draft.modules.find(item=>item.type===type);drag={type,mode,startX:e.clientX,startY:e.clientY,start:model.copy(draft),item:{...item},last:model.copy(draft),previewTop:preview.getBoundingClientRect().top};livePreview.beginGeometry();e.currentTarget.setPointerCapture(e.pointerId);trackScroll(e);}
+  function trackScroll(e){drag.clientX=e.clientX;drag.clientY=e.clientY;const scroll=document.querySelector('.settings-content'),palette=panel.querySelector('.dashboard-gallery');function step(){if(!drag)return;if(!app.settingsOpen()){finish({clientX:drag.clientX,clientY:drag.clientY},true);return;}const paletteRect=palette.getBoundingClientRect();if(drag.mode==='gallery'&&drag.clientX>=paletteRect.left&&drag.clientX<=paletteRect.right){if(drag.clientY<paletteRect.top+45)palette.scrollTop-=10;else if(drag.clientY>paletteRect.bottom-45)palette.scrollTop+=10;}const beforeScroll=scroll.scrollTop+palette.scrollTop,rect=scroll.getBoundingClientRect();if(drag.clientY<rect.top+45)scroll.scrollTop-=10;else if(drag.clientY>rect.bottom-45)scroll.scrollTop+=10;if(beforeScroll!==scroll.scrollTop+palette.scrollTop)queueMove({clientX:drag.clientX,clientY:drag.clientY});scrollFrame=requestAnimationFrame(step);}scrollFrame=requestAnimationFrame(step);}
   function cellDelta(e){const rect=preview.getBoundingClientRect();return [Math.round((e.clientX-drag.startX)/rect.width*model.columns),Math.round((e.clientY-drag.startY+drag.previewTop-rect.top)/rect.height*model.rows)];}
-  document.addEventListener('pointermove',e=>{if(!drag)return;drag.clientX=e.clientX;drag.clientY=e.clientY;
+  function move(e){if(!drag)return;
     if(drag.mode==='gallery'){const rect=preview.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom){drag.position=null;ghost.hidden=true;preview.classList.remove('invalid-drop','drop-active');return;}
       const point={x:(e.clientX-rect.left)/rect.width*12,y:(e.clientY-rect.top)/rect.height*12},slot=model.placement(draft,drag.type,point);drag.position=slot;preview.classList.toggle('invalid-drop',!slot);preview.classList.add('drop-active');ghost.hidden=!slot;if(slot){position(ghost,slot);message('Release to add '+model.definition(drag.type).name+' in the highlighted space.');}else message('No open space fits this widget yet. Resize or remove a widget.');return;}
 
@@ -207,16 +211,20 @@
       const target=drag.start.modules.find(m=>m.type!==drag.type&&x>=m.x+.3&&x<m.x+m.w-.3&&y>=m.y+.3&&y<m.y+m.h-.3);
       if(target){next=model.swap(drag.start,drag.type,target.type);swapped=!!next;}
     }
-    preview.classList.toggle('invalid-drop',!next);if(next){draft=next;drag.last=next;paintPositions();message(swapped?'Release to swap these widgets.':'Release to keep this placement.');}else{draft=model.copy(drag.start);paintPositions();message('These widgets need more room for that placement.');}
+    preview.classList.toggle('invalid-drop',!next);if(next){const changed=JSON.stringify(draft)!==JSON.stringify(next);draft=next;drag.last=next;if(changed)paintPositions();message(swapped?'Release to swap these widgets.':'Release to keep this placement.');}else{const changed=JSON.stringify(draft)!==JSON.stringify(drag.start);draft=model.copy(drag.start);if(changed)paintPositions();message('These widgets need more room for that placement.');}
 
-  });
-  function finish(e,cancelled=false){if(!drag)return;const operation=drag;drag=null;ghost.hidden=true;cancelAnimationFrame(scrollFrame);preview.classList.remove('drop-active','invalid-drop');
+  }
+  // Coalesce pointer samples, but synchronously flush the last sample on release.
+  function flushMove(){cancelAnimationFrame(moveFrame);moveFrame=0;const event=pendingMove;pendingMove=null;if(event)move(event);}
+  function queueMove(e){if(!drag)return;drag.clientX=e.clientX;drag.clientY=e.clientY;pendingMove={clientX:e.clientX,clientY:e.clientY};if(!moveFrame)moveFrame=requestAnimationFrame(flushMove);}
+  document.addEventListener('pointermove',queueMove);
+  function finish(e,cancelled=false){if(!drag)return;if(cancelled){cancelAnimationFrame(moveFrame);moveFrame=0;pendingMove=null;}else{pendingMove={clientX:e.clientX,clientY:e.clientY};flushMove();}const operation=drag;drag=null;livePreview.endGeometry();ghost.hidden=true;cancelAnimationFrame(scrollFrame);preview.classList.remove('drop-active','invalid-drop');
     if(operation.mode==='gallery'){ignoreClick=Math.hypot(e.clientX-operation.startX,e.clientY-operation.startY)>8;
       const rect=preview.getBoundingClientRect(),inside=e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom;
       if(!cancelled&&inside&&operation.position){const result=model.add(draft,operation.type,operation.position);if(result.added){draft=result.layout;selected=operation.type;paintEditor();message('Module added. Saved on this frame.');}else message('No room here. Move or resize a widget to make space.');}setTimeout(()=>ignoreClick=false,0);return;
     }
     if(cancelled){draft=operation.start;paintPositions();return;}
-    if(JSON.stringify(operation.start)!==JSON.stringify(draft)){preset.value='custom';paintPositions();message('Layout saved on this frame.');}
+    if(JSON.stringify(operation.start)!==JSON.stringify(draft)){preset.value='custom';paintPositions();message('Layout saved on this frame.');}else paintPositions(false);
   }
   document.addEventListener('pointerup',e=>finish(e));document.addEventListener('pointercancel',e=>finish(e,true));
   function paintGallery(){window.SkylitUI.dashboard.gallery({catalog:model.catalog,included:draft.modules.map(m=>m.type),clock:clockData?clockData.hourText+':'+clockData.minuteText:'—',temperature:$('overview-temperature').textContent,pictures:Array.from($('overview-photos').querySelectorAll('img')).slice(0,3).map(image=>image.src),onAdd(type){if(ignoreClick)return;const slot=model.placement(draft,type,{x:6,y:6}),result=slot?model.add(draft,type,slot):{added:false};if(!result.added||result.rearranged){message('Make room by moving, resizing or removing a widget first. Your layout is unchanged.');return;}draft=result.layout;selected=type;preset.value='custom';paintEditor();message('Module added. Saved on this frame.');},onBegin(e,type){if((e.button!==0&&!(e.pointerType==='touch'&&e.buttons===1))||drag)return;e.preventDefault();ghost.replaceChildren();const art=panel.querySelector('[data-preview-type='+type+']');if(art)ghost.append(art.cloneNode(true));drag={type,mode:'gallery',startX:e.clientX,startY:e.clientY};e.currentTarget.setPointerCapture(e.pointerId);trackScroll(e);}});}

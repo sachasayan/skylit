@@ -294,3 +294,15 @@ Fahrenheit conversion, stale forecasts and hidden/resume behavior.
 The pairing browser check covers scan, matching-number approval, rejection,
 disconnection and keyboard focus at four sizes. Visual evidence for this pass is
 in `docs/reviews/2026-10-13-momo-context/`.
+
+## Dashboard gesture performance regression
+
+With the synthetic preview running, run
+`node scripts/check_dashboard_performance.cjs` (also included in CI). It drives the
+actual editor pointer handlers and checks unchanged-cell moves/resizes, queued
+release/cancellation, compositor-based live resize, native touch-action policy and
+hidden-dashboard navigation.
+It asserts work boundaries rather than desktop timing thresholds. Profile the
+physical frame separately: cached desktop rendering is not a substitute for its
+WebView/GPU. During resizing, the existing preview scales until release, when its
+responsive typography and artwork settle into the final dimensions.

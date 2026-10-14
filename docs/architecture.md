@@ -384,3 +384,14 @@ acceptance.
 The General Settings entry owns colour mode, text size, City & time and Daily routine. Palettes/Momo remain in Appearance, and updates/Android recovery remain in Frame. A header breadcrumb replaces repeated section headings and provides parent navigation. Dashboard reset uses a modal visual template picker. Photo styles (Prints, Mosaic, Spotlight) and weather styles (Landscape, At a glance, Sky) are allowlisted layout metadata; rendering reuses existing curated pictures and forecast state.
 
 The widget gallery uses visual previews with centred names and overlapping green check badges for included widgets. The preview itself is draggable: horizontal touch intent starts dragging while vertical gestures retain native scrolling. Dashboard edit history and Undo/Redo controls are removed; completed changes save live. Prints preserve each photograph’s natural content proportions and adapt spacing and overlap across the slot.
+
+## Dashboard gesture rendering
+
+Pointer samples are coalesced to one animation frame, with the final sample flushed
+before release and queued work discarded on cancellation. Unchanged layouts do not
+repaint. During a drag/resize, the script-free preview transforms its existing
+widget layers; it defers responsive artwork/typography sizing and source refreshes
+until the gesture ends. This preserves decoded photos and avoids repeated layout
+work while crossing grid cells. Detailed layout and persistence still use the
+canonical release path. Settings control synchronization happens after the gesture,
+and hidden Dashboard settings no longer render on other-category navigation.

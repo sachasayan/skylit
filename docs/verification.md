@@ -998,3 +998,52 @@ sizes. A normal empty-configuration APK builds and verifies with the existing ke
 Source-export Gitleaks reports no leaks. This integration has not been installed
 on the frame; these checks do not establish physical device acceptance, real
 phone camera scanning, Home control or YouTube playback for this batch.
+
+## October 14 — Dashboard gesture performance and native touch
+
+- Pointer samples are batched per animation frame; unchanged layouts skip redraws.
+  During drag/resize, the preview transforms existing widget layers, then performs
+  responsive typography/art sizing on release. Cancel discards queued work; release
+  flushes the final pointer position. Hidden Dashboard settings no longer refresh
+  on other Settings navigation, and global Settings synchronization stays outside
+  the gesture path. Preview sizing caches invalidate on font and text-size changes.
+- Fixed the shared button CSS overriding gesture handles' `touch-action: none`.
+  Actual Android touch previously ended in `pointercancel`; after the fix both
+  native touch resizing and drag-to-swap complete and persist. Original layout
+  restored after verification. Gallery vertical scrolling keeps its existing policy.
+- D156 / Android 12 / WebView 95, verified USB: the controlled same-cell pointer
+  burst fell from 1045 ms to 4 ms of synchronous dispatch work (the latter queues
+  work to an animation frame; this is not a full rendering-latency measurement).
+  Frame-paced probes confirm no clock reads or artwork recompositions during the
+  final gestures. Against the intermediate full-reflow implementation, changing
+  resize dimensions improved from 121 ms median / 249 ms p95 frame intervals to
+  25 ms median / 28 ms p95. Same-cell movement: 17 ms median / 29 ms p95. These are
+  short controlled probes, not sustained 60 fps certification.
+- Final Dashboard opening: four repeated trials at 219–296 ms to two animation
+  frames, with one slower first trial at 455 ms; the original five trials were
+  411–424 ms. Opening remains above the exploratory 100 ms target.
+- 103 Node and 21 Python tests pass. New browser regression fails on the original
+  gesture work and touch CSS; final no-op, compositor resize, release/cancel and
+  hidden-panel checks pass and run in CI. Existing live editor, photo stability,
+  13 Settings workflow groups and frame/desktop/narrow synthetic layouts pass.
+- Normal signed 2.17.0/code 37 development build installed in place; installed APK
+  byte identity verified. No new release/version was published. Source/history/APK
+  privacy checks pass. Private evidence and recovery APK stay ignored. Normal
+  debugging and HOME selection are restored; no accounts or device settings changed.
+
+
+## October 14 — 2.17.1 release preparation
+
+- Resize corners now have 64 × 64 CSS-pixel touch areas (96 × 96 physical pixels
+  on the tested frame), while retaining the 10-pixel marks. Delete stays above
+  the corner hit area. Browser coverage checks an off-mark touch point and delete
+  reachability, plus the gesture/performance regressions above.
+- The website adds 11 static guides at `/docs/`, grouped navigation, local search,
+  article contents and mobile navigation, modeled on the Minstrel help centre.
+  It reuses Skylit's fonts, Linen colours and synthetic preview images. Search
+  sends no query to a server. Generated-page, link and index consistency tests pass.
+- 104 Node tests, 21 Python tests, TypeScript, formatting and frontend build pass.
+  Docs browser checks pass at 1440, 1280 and 390 pixels, including keyboard search,
+  no-results/failure fallback and no horizontal overflow. Desktop and mobile
+  screenshots inspected. Publication and the real 37 → 38 updater flow will be
+  recorded separately after the signed release is available.

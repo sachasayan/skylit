@@ -69,3 +69,30 @@ test('Netlify CSP allows exactly the inline scripts the page runs',()=>{
  assert.doesNotMatch(csp,/script-src[^;]*'unsafe-inline'/);
  assert.match(toml,/command = "python3 scripts\/website.py stage _site"/);
 });
+
+
+test('generated help pages, links, sections and local search stay consistent',()=>{
+ const {execFileSync}=require('node:child_process');
+ execFileSync('python3',['scripts/site_docs.py','--check'],{cwd:ROOT});
+ const articles=JSON.parse(fs.readFileSync(path.join(SITE,'docs/content.json'),'utf8')).articles;
+ const index=JSON.parse(fs.readFileSync(path.join(SITE,'docs/search.json'),'utf8'));
+ assert.equal(index.length,articles.length);
+ for(const slug of ['',...articles.map(a=>a.slug+'/')]){
+  const source=fs.readFileSync(path.join(SITE,'docs',slug,'index.html'),'utf8');
+  assert.equal((source.match(/<h1[ >]/g)||[]).length,1);
+  assert.match(source,/<link rel="canonical" href="https:\/\/skylit.sachasayan.com\/docs\//);
+  assert.doesNotMatch(source,/<script[^>]+src="https?:|<script>|local-config|demo-photos/);
+  const ids=[...source.matchAll(/ id="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(new Set(ids).size,ids.length,'unique section anchors');
+  for(const [,ref] of source.matchAll(/(?:href|src)="([^"]+)"/g)){
+   if(ref.startsWith('https:'))continue;
+   if(ref.startsWith('#')){assert.ok(ids.includes(ref.slice(1)),ref);continue;}
+   assert.ok(ref.startsWith('/'),'root-relative doc links');
+   assert.ok(fs.existsSync(path.join(SITE,ref)),ref);
+  }
+ }
+ for(const entry of index){assert.ok(entry.url.startsWith('/docs/'));assert.ok(fs.existsSync(path.join(SITE,entry.url,'index.html')));assert.ok(entry.text.length>100);}
+ const script=fs.readFileSync(path.join(SITE,'js/docs.js'),'utf8');
+ assert.deepEqual([...script.matchAll(/fetch\(([^)]+)\)/g)].map(m=>m[1]),["'/docs/search.json'"]);
+ assert.doesNotMatch(script,/innerHTML|localStorage|https?:/);
+});

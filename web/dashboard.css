@@ -311,3 +311,6 @@
 /* Prints keep each photograph’s proportions while positions use the whole slot. */
 #overview .dashboard-module[data-widget-style=prints] .overview-photo-stack{inset:0}
 #overview .dashboard-module[data-widget-style=prints] .overview-photo-stack img{box-sizing:border-box;left:var(--print-left,10%);top:var(--print-top,10%);width:var(--print-width,120px);height:var(--print-height,160px);object-fit:cover;border-width:5px;border-bottom-width:12px}
+
+/* Gesture handles must override the shared button manipulation policy. */
+.dashboard-workbench .dashboard-move,.dashboard-workbench .dashboard-resize{touch-action:none}

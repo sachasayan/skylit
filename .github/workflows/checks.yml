@@ -41,6 +41,14 @@ jobs:
               raise SystemExit('Synthetic preview did not start')
           PYTHON
           npm run test:react
+          node scripts/check_dashboard_performance.cjs
+      - name: Website docs browser checks
+        run: |
+          python3 scripts/website.py serve > /tmp/skylit-site.log 2>&1 &
+          site_pid=$!
+          trap 'kill "$site_pid"' EXIT
+          node scripts/check_site_docs.cjs
+      - run: python3 scripts/site_docs.py --check
       - run: node --test tests/*.test.cjs
       - run: python3 -m unittest discover -s tests
       - run: python3 scripts/check_public.py --history

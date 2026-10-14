@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>https://skylit.sachasayan.com/</loc>
-    <lastmod>2026-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image><image:loc>https://skylit.sachasayan.com/img/hero-overview.webp</image:loc></image:image>
-    <image:image><image:loc>https://skylit.sachasayan.com/img/hero-photos.webp</image:loc></image:image>
-    <image:image><image:loc>https://skylit.sachasayan.com/img/hero-calendar.webp</image:loc></image:image>
-    <image:image><image:loc>https://skylit.sachasayan.com/img/hero-weather.webp</image:loc></image:image>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://skylit.sachasayan.com/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/install-skylit/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/first-setup/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/dashboard/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/appearance-weather/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/receiving-photos/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/photo-library/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/phone-pairing/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/calendars/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/updates/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/privacy/</loc></url>
+  <url><loc>https://skylit.sachasayan.com/docs/troubleshooting/</loc></url>
 </urlset>

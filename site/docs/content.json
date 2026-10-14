@@ -1,0 +1,394 @@
+{
+  "version": "2.17.1",
+  "articles": [
+    {
+      "slug": "install-skylit",
+      "title": "Install Skylit",
+      "category": "Getting started",
+      "description": "Check your frame, install the signed app and keep a way back to its original launcher.",
+      "sections": [
+        {
+          "id": "before-you-start",
+          "title": "Before you start",
+          "paragraphs": [
+            "Skylit is an Android dashboard for landscape photo frames. The tested device is a Skylight 150-FRM / D156 running Android 12 with Chromium WebView 95 at 1920 × 1080. Other models are not certified.",
+            "Your device must already permit Android app installation. Skylit does not unlock, root or flash a frame. Keep the original launcher installed, and record its HOME component before changing your default home app."
+          ]
+        },
+        {
+          "id": "install",
+          "title": "Install the signed APK",
+          "steps": [
+            "Download the latest normal Skylit APK from the GitHub release linked in the header.",
+            "For an existing Skylit installation, install the update in place. Do not uninstall or clear app data: that removes private settings and cached pictures.",
+            "For an initial ADB installation, select the exact authorized USB device and verify its model and Android version. Install with adb -s YOUR_USB_SERIAL install -r skylit-VERSION.apk, then launch com.wesbos.homehq/.MainActivity.",
+            "Open Skylit and follow the first-run guide. Keep Wi-Fi connected and the device clock correct."
+          ],
+          "note": "Use the same signing identity for upgrades. A signature mismatch is not a reason to uninstall your working app. See the repository’s build and wireless guides for developer installation details."
+        },
+        {
+          "id": "recovery",
+          "title": "Keep a recovery path",
+          "paragraphs": [
+            "Settings → Frame includes shortcuts to Android settings. Settings also offers Open original Skylight app on the tested frame; a two-finger hold opens that app too.",
+            "Making Skylit the default launcher is optional. Record your original HOME selection so you can restore it. Do not use another frame model’s firmware or recovery image."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "first-setup",
+      "title": "Set up your frame",
+      "category": "Getting started",
+      "description": "Choose a city, connect your pictures and add the calendars you want to see.",
+      "sections": [
+        {
+          "id": "guide",
+          "title": "Open the setup guide",
+          "paragraphs": [
+            "A fresh installation opens Set up your frame. Existing installations keep their settings and are not interrupted by the guide after an update.",
+            "Reopen it at Settings → Help & maintenance → Open setup guide. You can leave setup and use the dashboard at any time."
+          ]
+        },
+        {
+          "id": "three-steps",
+          "title": "Three things to choose",
+          "steps": [
+            "City: open Settings → General → City & time, search for your city and select it. This sets weather and the timezone used by Skylit.",
+            "Photos: choose a shared Google Photos album or pictures stored on the frame. For email delivery, use a dedicated Gmail account and enter its app password only on the frame.",
+            "Calendar: open Calendar → Calendar options. Copy the secret iCal address on your computer and enter it directly on the frame. Add each calendar separately."
+          ],
+          "note": "Never paste a secret calendar URL or app password into chat, a public issue, a screenshot or a setup record."
+        },
+        {
+          "id": "verify",
+          "title": "Check the result",
+          "paragraphs": [
+            "Confirm the forecast shows the right city, a picture opens and advances in the slideshow, and an event change appears after a calendar refresh. A saved credential or an opened website alone does not prove the connection works.",
+            "Skylit has no hosted account or subscription. Google Home and YouTube use their own websites and sessions; sign in on the frame if needed."
+          ]
+        }
+      ],
+      "image": "hero-overview.webp"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Arrange your dashboard",
+      "category": "Make it yours",
+      "description": "Move, resize and style the widgets that make your frame useful at a glance.",
+      "sections": [
+        {
+          "id": "open-editor",
+          "title": "Open the editor",
+          "paragraphs": [
+            "Open Settings → Dashboard. The preview follows your screen’s proportions. The Widgets gallery shows what is available and marks the widgets already included.",
+            "Choose from clock and date, weather, photos, upcoming events, hourly forecast, note, shopping list, countdowns and timers. Household content is local to the frame."
+          ]
+        },
+        {
+          "id": "move-resize",
+          "title": "Move and resize",
+          "steps": [
+            "Tap a widget to select it. Its options and four corner resize handles appear.",
+            "Drag the widget to move it. Drag onto another widget to swap their slots when both fit.",
+            "Drag a corner to resize. The small visual mark has a larger invisible finger-sized touch area. During a gesture the preview scales smoothly; its detailed layout settles when you release.",
+            "Changes save on release. Overlapping or out-of-bounds placements are rejected. Removing a widget does not delete its underlying pictures or household content."
+          ],
+          "note": "With a keyboard, arrow keys move the focused widget; Shift + arrows resize. Escape returns to the widget gallery."
+        },
+        {
+          "id": "styles",
+          "title": "Choose a style or start again",
+          "paragraphs": [
+            "Select Clock & date for Landscape, Analog, Flip or Botanical. Photos has Prints, Mosaic and Spotlight; Weather has Landscape, At a glance and Sky.",
+            "Reset to default opens a choice of Balanced, Photos first and Plans first layouts. It replaces the arrangement, not the content. Display-preference transfer does not include a custom dashboard arrangement."
+          ]
+        }
+      ],
+      "image": "dashboard-editor.webp"
+    },
+    {
+      "slug": "appearance-weather",
+      "title": "Appearance, weather & Momo",
+      "category": "Make it yours",
+      "description": "Set the colours, clock, city and companion for your room.",
+      "sections": [
+        {
+          "id": "appearance",
+          "title": "Make it readable",
+          "paragraphs": [
+            "Settings → General contains colour mode and text size. Settings → Appearance contains the six paired palettes and Momo’s wardrobe. Each palette has light and dark versions; High contrast is available when you need stronger separation.",
+            "Automatic mode follows astronomical sunrise and sunset at your configured city, calculated on the frame. It does not need location permission, a weather API call or a server. Before a city is set, it follows the device’s light/dark preference."
+          ]
+        },
+        {
+          "id": "weather",
+          "title": "Choose your city",
+          "paragraphs": [
+            "Open Settings → General → City & time to search and select a city. Weather shows current conditions, hourly and five-day forecasts from Open-Meteo. Skylit keeps the last forecast when offline and labels stale data.",
+            "The forecast illustration follows the forecast’s day/night state. Your selected interface mode can differ. These controls change the interface, not the frame’s physical brightness."
+          ]
+        },
+        {
+          "id": "momo",
+          "title": "Meet Momo",
+          "paragraphs": [
+            "Momo reacts to pages and weather, has a daily rhythm and can wear a fixed outfit or choose new clothes each day. Find accessories and motion choices under Settings → Appearance → Momo.",
+            "Quiet hours and privacy pause are under Settings → General → Daily routine. They hide content without deleting it. Manual photo browsing and external services are not automatically interrupted."
+          ]
+        }
+      ],
+      "image": "palette-linen-dark.webp"
+    },
+    {
+      "slug": "receiving-photos",
+      "title": "Get pictures onto the frame",
+      "category": "Photos",
+      "description": "Choose a shared album or receive pictures through a dedicated Gmail inbox.",
+      "sections": [
+        {
+          "id": "shared-album",
+          "title": "Use a shared Google Photos album",
+          "paragraphs": [
+            "Open Settings → Photos → Receiving photos and choose the shared-album source. Enter your album’s sharing link on the frame. This route uses Google’s own website and slideshow.",
+            "Keep the sharing link private. Local photo-library styles and curation tools apply to pictures saved on the frame, not Google’s album player."
+          ]
+        },
+        {
+          "id": "email",
+          "title": "Receive pictures by email",
+          "steps": [
+            "Use a dedicated Gmail account for frame pictures. Enable Google 2-Step Verification and create an app password on a trusted computer or phone. Some account policies do not offer app passwords.",
+            "On the frame, open Settings → Photos → Receiving photos → Pictures on this frame → Connect or change Gmail account. Enter the account and app password there.",
+            "Choose Connect and check mail, then send a picture to that inbox. Wait for an imported picture or a specific error.",
+            "Open Photos, use Check now if needed, then open the picture and start a slideshow. Confirm the picture advances."
+          ],
+          "note": "Use the app password, not the ordinary account password. Never include either credential in support messages or screenshots. An app password grants broader mail access, so use a dedicated inbox."
+        },
+        {
+          "id": "storage",
+          "title": "Storage and removal",
+          "paragraphs": [
+            "Skylit reads the inbox over encrypted IMAP. It keeps a bounded private cache, not mail bodies. Saved pictures remain playable offline. Storage & retention controls which pictures stay; Keepers have a separate bounded budget.",
+            "Disconnect email and erase saved pictures removes the local credential and photo cache. Revoke the app password in your Google Account too. Changing accounts or erasing the cache also clears local photo choices and exclusions."
+          ]
+        }
+      ],
+      "image": "hero-photos.webp"
+    },
+    {
+      "slug": "photo-library",
+      "title": "Photo library & slideshows",
+      "category": "Photos",
+      "description": "Browse, keep, hide and present the pictures stored on your frame.",
+      "sections": [
+        {
+          "id": "browse",
+          "title": "Browse and curate",
+          "paragraphs": [
+            "Tap a picture in Photos to browse and zoom. Photo settings → Photo library provides favourites, framing, crop and details. Use Select pictures for batch actions. Crop edits are staged until you save them.",
+            "The trash action excludes a picture from this frame’s gallery, Overview and slideshows. It does not delete email. Undo restores an exclusion; exclusions persist across later mail checks."
+          ]
+        },
+        {
+          "id": "play",
+          "title": "Choose a slideshow",
+          "paragraphs": [
+            "Settings → Photos → Slideshow has Soft fade, Falling prints, Photo collage, Gentle pan & zoom and Still gallery. Choose a viewing time, order and collection. Keepers survive rolling retention within their separate storage limit.",
+            "The player has Previous, Play/Pause, Zoom/Fit, Next and Close. Controls fade when you leave the player alone. Touch or pointer movement brings them back.",
+            "Set Show photos after for idle playback. The first touch exits an idle slideshow. When the frame is offline, it uses pictures already saved."
+          ]
+        },
+        {
+          "id": "more",
+          "title": "Collections and local media",
+          "paragraphs": [
+            "Use collections and saved presentations to organize different viewing choices. Local import can add supported pictures and muted clips. Optional soundtrack and video export have codec and size limits; see the detailed slideshow guide in the repository.",
+            "The shared Google Photos source uses Google’s player and has different capabilities. Switching sources does not turn a shared album into a local photo cache."
+          ]
+        }
+      ],
+      "image": "slideshow-collage.webp"
+    },
+    {
+      "slug": "phone-pairing",
+      "title": "Manage photos from your phone",
+      "category": "Photos",
+      "description": "Pair a nearby phone for a temporary, encrypted photo-management session.",
+      "sections": [
+        {
+          "id": "connect",
+          "title": "Connect on the same Wi-Fi",
+          "steps": [
+            "Open Photos on the frame and find Manage photos with your phone. Keep the phone and frame on the same Wi-Fi.",
+            "Scan the frame’s QR invitation. Follow the certificate-check instructions shown by the frame and your browser; compare the frame’s fingerprint rather than accepting an unexpected identity.",
+            "Compare the number on the phone with the number shown on the frame. Approve that matching request on the frame.",
+            "Once approved, use Photos, Collections and Slideshow on the phone to manage the frame’s pictures."
+          ],
+          "note": "Scanning alone does not grant access. The frame must approve the matching request. A physical phone’s camera and certificate prompts can vary by browser."
+        },
+        {
+          "id": "limits",
+          "title": "A temporary session",
+          "paragraphs": [
+            "The service runs on the frame and is off by default. Invitations and pending approvals expire, and the session has a 15-minute limit. It does not give the phone access to mail passwords, calendar feeds or Android debugging.",
+            "If the connection expires or is lost, scan a new invitation. Stale phone pages cannot continue making changes."
+          ]
+        },
+        {
+          "id": "stop",
+          "title": "Stop sharing",
+          "paragraphs": [
+            "Stop the session on the frame when finished. Privacy pause also revokes the session. Do not post the QR invitation, local address or certificate details in a public support screenshot."
+          ]
+        }
+      ],
+      "image": "phone-photos.webp"
+    },
+    {
+      "slug": "calendars",
+      "title": "Connect your calendars",
+      "category": "Calendar",
+      "description": "Show read-only Google calendars through private iCal feeds, without a developer project.",
+      "sections": [
+        {
+          "id": "connect",
+          "title": "Connect a calendar",
+          "steps": [
+            "On your computer, open Google Calendar → Settings. Select the calendar under Settings for my calendars, then open Integrate calendar.",
+            "Copy Secret address in iCal format. This is not the public address, an embed code or the calendar website URL.",
+            "On the frame, open Calendar → Calendar options. Enter the secret address, a label and a colour, then choose Connect calendar.",
+            "Repeat for each calendar you want to show, up to six. Confirm a known event, then change an event in Google Calendar and verify it appears after refresh."
+          ],
+          "note": "The secret address is a credential. Enter it only on the frame. Do not make a private calendar public or create a Google developer project for this integration."
+        },
+        {
+          "id": "use",
+          "title": "Browse and refresh",
+          "paragraphs": [
+            "The month grid and selected-date agenda are read-only. Edit events in Google Calendar on your phone or computer. Skylit refreshes every 15 minutes and keeps the last-good data offline. Help & maintenance offers a retry.",
+            "Today returns to the current month. Overview stays anchored to today when you browse other months. Search covers the loaded dates, not your entire calendar history."
+          ]
+        },
+        {
+          "id": "visibility",
+          "title": "Visibility, inviters and removal",
+          "paragraphs": [
+            "Calendar options lets you edit labels and colours or hide a source. Review who appears on this frame optionally filters events by approved organizer; it is a local display rule, not a Google invitation or Contacts setting.",
+            "Remove a calendar in Calendar options and confirm removal to erase its local feed and cached events. If its secret address was exposed, reset it in Google Calendar too. If the address is unavailable, check ownership or administrator restrictions; do not use public sharing as a workaround."
+          ]
+        }
+      ],
+      "image": "hero-calendar.webp"
+    },
+    {
+      "slug": "updates",
+      "title": "Update Skylit",
+      "category": "Frame care",
+      "description": "Download and install verified releases while keeping your frame’s settings.",
+      "sections": [
+        {
+          "id": "manual",
+          "title": "Check and install",
+          "steps": [
+            "Open Settings → Frame → Software updates and choose Check now. A published release with a newer version code is required.",
+            "Read the release information and choose Download update. Wait for download and verification to finish.",
+            "If prompted, allow Skylit to install packages in its Android app-specific settings. This is separate from USB or wireless debugging.",
+            "Choose Install update and complete any Android confirmation. The old app closes during installation; reopen Skylit if it does not return automatically."
+          ],
+          "note": "Do not uninstall or clear data to update. Only a correctly signed in-place upgrade preserves your private settings and cached media."
+        },
+        {
+          "id": "automatic",
+          "title": "Choose an update policy",
+          "paragraphs": [
+            "Manual checks only when you ask. Notify me checks for releases. Download also downloads a verified APK. Install when idle adds installation during your chosen window after five minutes without touch.",
+            "Downloads and installation are opt-in. The installation window follows your configured city timezone. Manual photo viewing, external services and Settings defer an idle installation; Android may still require confirmation."
+          ]
+        },
+        {
+          "id": "trust",
+          "title": "What is verified",
+          "paragraphs": [
+            "Skylit verifies the APK hash, package, newer version code and matching signing certificate before installation. It only checks this project’s published GitHub releases. A push to the repository, draft release or prerelease is not an app update.",
+            "If a check or download fails, the installed app continues working. Check connectivity and free storage, then retry. A signature mismatch should be investigated, not bypassed by uninstalling."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "title": "Your data & privacy",
+      "category": "Frame care",
+      "description": "Understand what stays on your frame and how to remove or revoke access.",
+      "sections": [
+        {
+          "id": "local",
+          "title": "What stays local",
+          "paragraphs": [
+            "Skylit has no maintained hosted backend or Skylit account. Settings, private calendar feeds, last-good events and cached photos stay on the frame. Gmail app passwords are encrypted with Android Keystore. Android backup is disabled.",
+            "Weather requests go to Open-Meteo for your chosen city. Google websites use their own sessions in the frame’s WebView. Skylit does not copy browser cookies from your computer."
+          ]
+        },
+        {
+          "id": "sharing",
+          "title": "Public screenshots and support",
+          "paragraphs": [
+            "Use the website’s labelled sample screenshots when sharing Skylit. Do not publish your own photos, event details, addresses, account identities, calendar links or QR pairing invitations.",
+            "Display-preference transfer intentionally excludes accounts, city, calendar and album links, photos, household content, inviter identities and custom dashboard arrangements."
+          ]
+        },
+        {
+          "id": "remove",
+          "title": "Remove access",
+          "steps": [
+            "For email, disconnect and erase on the frame, then revoke the app password in your Google Account.",
+            "For calendars, remove the source on the frame. Reset an exposed secret iCal address in Google Calendar.",
+            "Stop phone sharing when finished. Sign out of Google’s websites on the frame when retiring the device.",
+            "Uninstalling removes Skylit’s private app data. Keep any pictures you need elsewhere before deleting the local cache."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "troubleshooting",
+      "title": "When something isn’t working",
+      "category": "Frame care",
+      "description": "Check connectivity, cached content and recovery options before changing your setup.",
+      "sections": [
+        {
+          "id": "connection",
+          "title": "Check the basics",
+          "paragraphs": [
+            "Confirm Wi-Fi is connected and the Android clock is correct. Open Settings → Help & maintenance for service status and retries. Settings → Frame has Android recovery shortcuts.",
+            "A last-checked time is more useful than a saved connection field. For photos, verify an imported picture; for calendars, verify an owner-made event change."
+          ]
+        },
+        {
+          "id": "services",
+          "title": "Photos, calendars and websites",
+          "paragraphs": [
+            "Photos: check the selected source, mail status, retention window, exclusions and review queue. An email failure keeps previously saved pictures. Check the dedicated account’s app password on the frame; never share it with support.",
+            "Calendar: check source visibility, inviter rules, the selected date and last refresh. Overview shows today’s upcoming events regardless of the month you are browsing.",
+            "Home and YouTube: sign in on the frame if required. A website may impose WebView compatibility limits. An opened shortcut does not guarantee sign-in, playback or a working home control."
+          ]
+        },
+        {
+          "id": "editor",
+          "title": "Dashboard and updates",
+          "paragraphs": [
+            "Select a widget before using its corner handles. You can touch around the small corner mark; the target is larger than it looks. Release to save. If a placement is invalid, make room or use Reset to default.",
+            "If an update fails, keep the installed app, check the error and retry from Software updates. Do not erase data, weaken authentication or disable system apps as a troubleshooting step."
+          ]
+        },
+        {
+          "id": "help",
+          "title": "Report a problem",
+          "paragraphs": [
+            "Open a GitHub issue with the Skylit version, frame model, Android version and the steps that reproduce the problem. Include only sanitized screenshots. Keep credentials, account names, household content and device identifiers out of the report."
+          ]
+        }
+      ]
+    }
+  ]
+}

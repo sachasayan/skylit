@@ -48,3 +48,12 @@ project). Every push to `main` redeploys. If the domain changes, update the abso
 Run `node --test tests/site.test.cjs` and `python3 -m unittest tests.test_site` after edits.
 Copy must stay factual: features shipped in the app, labelled sample data, and no claims of
 verified service sign-in.
+
+## Documentation
+
+The help centre lives at `/docs/`, with grouped navigation, local search and static
+article pages. Edit `site/docs/content.json`, then run `python3 scripts/site_docs.py`.
+The generator updates the pages, search index and sitemap. Run it with `--check` to
+verify generated files. Shared site tokens and fonts keep the guides on-brand;
+`css/docs.css` and `js/docs.js` provide the reading layout and same-origin search.
+Search queries stay in the browser. Public screenshots use synthetic fixtures.

@@ -148,9 +148,9 @@
 .widget-mini-count,.widget-mini-timer{text-align:center}.widget-mini-count b,.widget-mini-timer b{font-size:30px;line-height:1}.widget-mini-count>span{font-size:9px}.widget-mini-timer i{height:3px;width:70%;background:var(--accent);margin:4px auto 0;border-radius:4px}
 .dashboard-palette-preview img{height:70px;width:29%;transform:rotate(-5deg)}.dashboard-palette-preview img:nth-child(2){transform:rotate(5deg)}
 .dashboard-drop-ghost .dashboard-palette-preview{height:100%;opacity:.85}
-.dashboard-workbench .dashboard-resize{background:transparent;border:0;border-radius:0;width:44px;height:44px;padding:0;display:grid;place-items:center;right:auto;bottom:auto}
+.dashboard-workbench .dashboard-resize{background:transparent;border:0;border-radius:0;width:64px;height:64px;padding:0;display:grid;place-items:center;right:auto;bottom:auto}
 .dashboard-workbench .dashboard-resize>span{width:10px;height:10px;background:var(--panel);border:2px solid var(--accent);border-radius:2px;box-shadow:0 1px 3px #0002;pointer-events:none}
-.dashboard-workbench .corner-nw{left:-18px;top:-18px;cursor:nwse-resize}.dashboard-workbench .corner-ne{right:-18px;top:-18px;cursor:nesw-resize}.dashboard-workbench .corner-sw{left:-18px;bottom:-18px;cursor:nesw-resize}.dashboard-workbench .corner-se{right:-18px;bottom:-18px;cursor:nwse-resize}
+.dashboard-workbench .corner-nw{left:-28px;top:-28px;cursor:nwse-resize}.dashboard-workbench .corner-ne{right:-28px;top:-28px;cursor:nesw-resize}.dashboard-workbench .corner-sw{left:-28px;bottom:-28px;cursor:nesw-resize}.dashboard-workbench .corner-se{right:-28px;bottom:-28px;cursor:nwse-resize}
 .dashboard-workbench .dashboard-editor-tile{overflow:visible}
 .theme-sample.theme-mini{align-items:stretch}.theme-mini .mini-rail i,.theme-mini .mini-plans i{background:var(--mini-accent)}
 @media(max-width:799px){#settings .settings-index{flex-basis:auto}#settings[data-area=dashboard] .dashboard-editor-grid{min-height:0}}
@@ -236,3 +236,6 @@
 .photo-phone-card .phone-pair-confirm{max-width:540px}
 .photo-phone-card .phone-instructions .library-actions{margin-top:8px}
 @media(max-width:500px){.photo-phone-card .phone-invitation{flex-direction:column;align-items:flex-start;gap:0}}
+
+/* Keep the explicit remove button above the expanded invisible corner target. */
+.dashboard-workbench .dashboard-delete{z-index:5}
