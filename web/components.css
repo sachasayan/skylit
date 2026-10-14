@@ -1,0 +1,30 @@
+/* Skylit controls: shared palette roles; no runtime CSS framework. Chrome 95. */
+:root{--control-height:48px;--control-radius:10px;--control-gap:12px;--control-focus:var(--accent);--control-disabled:.48}
+.ui-button{font:inherit;cursor:pointer;touch-action:manipulation}
+.ui-button.primary,.ui-button.secondary,.ui-button.quiet,.ui-destructive{min-height:var(--control-height);border-radius:var(--control-radius)}
+.ui-button:disabled{cursor:default;opacity:var(--control-disabled)}
+.ui-button:focus-visible,.ui-input:focus-visible,.ui-select:focus-visible,.ui-textarea:focus-visible,.ui-checkbox:focus-visible,.ui-switch:focus-visible{outline:3px solid var(--control-focus);outline-offset:3px}
+.ui-input,.ui-select,.ui-textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--control-radius);min-height:var(--control-height);max-width:100%;box-sizing:border-box}
+.ui-input:disabled,.ui-select:disabled,.ui-textarea:disabled{opacity:var(--control-disabled);cursor:default}
+.ui-input[aria-invalid=true],.ui-select[aria-invalid=true],.ui-textarea[aria-invalid=true]{border-color:var(--accent);border-width:2px}
+.ui-textarea{padding:12px;resize:vertical;width:100%}
+input.ui-checkbox{appearance:auto;width:24px;height:24px;min-height:24px;padding:0;margin:10px;vertical-align:middle;accent-color:var(--accent);flex-shrink:0}
+input.ui-switch{appearance:none;display:inline-block;width:52px;height:48px;min-height:48px;padding:0;margin:0;flex-shrink:0;border:0;background:transparent;vertical-align:middle;cursor:pointer;position:relative}
+input.ui-switch::after{content:"";position:absolute;left:0;top:9px;width:52px;height:30px;box-sizing:border-box;border:1px solid var(--muted);border-radius:20px;background:var(--soft)}
+input.ui-switch::before{content:"";position:absolute;z-index:1;left:4px;top:13px;width:22px;height:22px;border-radius:50%;background:var(--ink);transition:transform .15s}
+input.ui-switch:checked::after{background:var(--accent);border-color:var(--accent)}
+input.ui-switch:checked::before{transform:translateX(22px);background:var(--accent-ink)}
+input.ui-switch:disabled,input.ui-checkbox:disabled{opacity:var(--control-disabled);cursor:default}
+.ui-field{display:grid;gap:8px;min-width:0}
+.ui-field>label{margin:0;font-size:14px;font-weight:600;color:var(--ink)}
+.ui-field-help{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+.ui-field-error{color:var(--accent)}
+.ui-setting-row{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ui-setting-row p{margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
+.ui-setting-control{flex-shrink:0}
+.ui-status{line-height:1.5}.ui-status-error{color:var(--accent)}.ui-status-success{color:var(--green)}
+.ui-destructive{background:var(--panel);color:var(--accent);border:1px solid var(--accent);padding:12px 18px;font-weight:600}
+@media(prefers-reduced-motion:reduce){input.ui-switch::before{transition:none}}
+@media(max-width:520px){.ui-setting-row{gap:12px}}
+.ui-disclosure-title{cursor:pointer;min-height:44px;box-sizing:border-box;padding-top:12px;padding-bottom:12px}
+.ui-disclosure-title:focus-visible{outline:3px solid var(--control-focus);outline-offset:3px;border-radius:6px}

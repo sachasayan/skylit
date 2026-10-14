@@ -72,14 +72,8 @@
 .dashboard-fields label{margin-top:0;font-size:14px}
 .dashboard-fields input{width:100%;min-width:0;min-height:48px}
 .dashboard-editor-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-.dashboard-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
-.dashboard-gallery-item{display:flex;flex-direction:column;align-items:start;gap:8px;padding:16px;min-height:125px;border:1px solid var(--line);border-radius:12px;background:var(--bg);text-align:left;touch-action:pan-y}
-.dashboard-gallery-item:disabled{opacity:.6;cursor:default}
-.dashboard-gallery-item small{color:var(--accent);font-weight:600}
 @media(min-width:800px) and (max-height:650px){#overview .overview-grid.dashboard-grid{height:calc(100vh - 2 * var(--page-pad));padding-top:0}.dashboard-module[data-density=compact] #overview-weather-status{font-size:11px}}
-@media(max-width:799px){#overview .overview-grid.dashboard-grid{display:flex;height:auto!important;flex-direction:column;gap:16px}.dashboard-module{flex:none;min-height:170px}.dashboard-module[data-module=clock]{height:200px}.dashboard-module[data-module=weather]{height:350px}.dashboard-module[data-module=photos]{height:250px}.dashboard-module[data-module=plans],.dashboard-utility{height:300px}.dashboard-editor-grid{width:100%;min-width:0;min-height:300px;gap:2px}.dashboard-move{font-size:11px;padding:6px;min-height:44px}.dashboard-editor-size{display:none}.dashboard-gallery{grid-template-columns:1fr}.dashboard-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-editor-toolbar button{font-size:14px}}
-
-.dashboard-gallery-card{position:relative;min-width:0}.dashboard-gallery-item{width:100%;height:100%;padding-right:50px}.dashboard-gallery-drag{position:absolute;right:5px;top:5px;width:44px;height:44px;padding:4px;border:0;background:none;color:var(--muted);font-size:24px;touch-action:none;cursor:grab}
+@media(max-width:799px){#overview .overview-grid.dashboard-grid{display:flex;height:auto!important;flex-direction:column;gap:16px}.dashboard-module{flex:none;min-height:170px}.dashboard-module[data-module=clock]{height:200px}.dashboard-module[data-module=weather]{height:350px}.dashboard-module[data-module=photos]{height:250px}.dashboard-module[data-module=plans],.dashboard-utility{height:300px}.dashboard-editor-grid{width:100%;min-width:0;min-height:300px;gap:2px}.dashboard-move{font-size:11px;padding:6px;min-height:44px}.dashboard-editor-size{display:none}.dashboard-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-editor-toolbar button{font-size:14px}}
 
 #overview .dashboard-module[data-density=compact].dashboard-utility h2{font-size:20px}
 #overview .dashboard-module[data-density=compact] .dashboard-hours .hour{min-height:80px;padding:6px;font-size:12px}
@@ -257,3 +251,63 @@
 .clock-frame[data-clock-style=digital][data-composition=portrait]{padding-top:var(--botanical-top)!important}
 .clock-sample[data-clock-style=digital]:not([data-small=true]):not([data-composition=strip]){padding-left:var(--botanical-left)!important}
 .clock-sample[data-clock-style=digital][data-composition=wide] .clock-botanical-branch{height:calc(var(--botanical-art-height) * .78)}
+/* Read-only live workbench. Editing affordances stay out of the dashboard. */
+#settings[data-area=dashboard]{width:min(1640px,100%)}
+#settings-dashboard-panel>.dashboard-workbench{padding:18px;border:0;background:transparent;box-shadow:none}
+.dashboard-workbench>h3{font:26px/1.2 Georgia,serif;margin:0 0 8px}.dashboard-workbench>p{font-size:14px;margin:0;color:var(--muted)}
+.dashboard-workspace{display:grid;grid-template-columns:145px minmax(0,1fr) 190px;gap:16px;align-items:start}.dashboard-palette-preview{display:flex;width:100%;height:48px;align-items:center;justify-content:center;border-radius:8px;background:var(--soft);font:20px Georgia,serif;color:var(--accent);overflow:hidden}.dashboard-palette-preview[data-preview-type=clock]{background:var(--clock-landscape-sky);color:var(--clock-landscape-ink);font-size:30px}
+.dashboard-canvas-column{min-width:0}.dashboard-canvas{position:relative;width:100%;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(12,minmax(0,1fr));gap:var(--preview-gap,10px);background:var(--bg);border-radius:12px;box-shadow:none;overflow:hidden}
+.dashboard-live-frame{position:absolute;left:0;top:0;border:0;transform-origin:top left;pointer-events:none;background:var(--bg)}
+.dashboard-workbench .dashboard-editor-grid{position:absolute;inset:0;height:100%;min-height:0;gap:var(--preview-gap,10px);padding:0;border:0;background:none;border-radius:12px}
+.dashboard-workbench .dashboard-editor-tile{background:transparent;border:2px solid transparent;border-radius:12px;overflow:visible}.dashboard-workbench .dashboard-editor-tile.selected{border-color:var(--accent);background:transparent;box-shadow:0 0 0 1px var(--panel)}
+.dashboard-workbench .dashboard-move{height:100%;padding:5px 7px;color:transparent;background:transparent;display:flex;align-items:start}.dashboard-workbench .dashboard-editor-tile.selected .dashboard-move:focus-visible{outline-offset:-4px}.dashboard-workbench .dashboard-editor-size{display:none}.dashboard-workbench .dashboard-resize{opacity:0;background:var(--accent);color:var(--accent-ink);z-index:4;border:2px solid var(--panel);border-radius:9px;width:44px;height:44px;right:-2px;bottom:-2px}.dashboard-workbench .selected .dashboard-resize,.dashboard-workbench .dashboard-resize:focus-visible{opacity:1}.dashboard-workbench .invalid-drop{outline:3px dashed var(--accent);outline-offset:-3px}
+.dashboard-drop-ghost{position:relative;z-index:3;border:3px dashed var(--accent);border-radius:10px;background:var(--soft);opacity:.8;pointer-events:none}.dashboard-drop-ghost[hidden]{display:none}
+.dashboard-workspace .dashboard-selection{margin:0;border:0;padding:0;min-width:0}.dashboard-selection>p{font-size:12px}.dashboard-workspace .dashboard-fields{grid-template-columns:1fr 1fr;gap:8px}.dashboard-workspace .dashboard-fields input{width:100%;padding:9px}.dashboard-workspace label{font-size:13px}.dashboard-workspace #dashboard-clock-options{margin:12px 0;padding-top:12px}.dashboard-workspace .clock-sample{height:150px;min-height:150px}.dashboard-clock-detail>summary{font-size:13px}.dashboard-editor-toolbar{margin:14px 0;gap:8px}.dashboard-editor-toolbar button{padding:9px;min-height:44px}.dashboard-screen-control{min-width:180px;flex:1}.dashboard-screen-control label{font-size:12px;margin:0 0 5px}.dashboard-editor-toolbar select{font-size:13px;min-height:44px;padding:9px}#dashboard-starting-layout{min-width:140px;flex:1}.dashboard-workbench .dashboard-editor-actions{position:relative;background:var(--bg);padding:14px 0 0;display:flex;gap:10px;z-index:5}.dashboard-canvas-column #dashboard-editor-status{font-size:12px;min-height:18px;margin:10px 0}
+@media(max-width:1150px){.dashboard-workspace{grid-template-columns:120px minmax(0,1fr)}.dashboard-workspace .dashboard-selection{grid-column:1/-1;display:grid;grid-template-columns:1fr 2fr 1fr;gap:12px;align-items:start}.dashboard-workspace .dashboard-selection[hidden]{display:none}.dashboard-selection .dashboard-fields{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:799px){.dashboard-workspace{display:flex;flex-direction:column;gap:16px}.dashboard-canvas-column{width:100%;order:0}.dashboard-workspace .dashboard-selection{order:2;display:block;width:100%}.dashboard-selection .dashboard-fields{grid-template-columns:repeat(4,1fr)}.dashboard-workbench .dashboard-editor-actions{flex-wrap:wrap}}
+#settings[data-area=dashboard] #settings-feedback{display:none}#settings[data-area=dashboard]>.page-heading{padding:14px 24px}#settings[data-area=dashboard]>.page-heading h1{font-size:28px}.dashboard-workspace>.dashboard-selection{max-height:var(--workbench-height,440px);overflow:auto;overscroll-behavior:contain;padding-right:5px}.dashboard-canvas{margin:0 auto}.dashboard-focused[data-area=dashboard] .settings-index{display:none!important}.dashboard-focused[data-area=dashboard] .dashboard-workspace{grid-template-columns:minmax(0,1fr)}.dashboard-focused[data-area=dashboard] .dashboard-selection{display:none!important}
+@media(max-width:1150px){.dashboard-workspace>.dashboard-selection{max-height:none}}
+@media(max-width:799px){.dashboard-workspace>.dashboard-selection{overflow:visible}.dashboard-canvas{max-width:100%}}
+
+@media(min-width:800px) and (max-width:1150px){
+ #settings[data-area=dashboard] .settings-index{flex-basis:154px;padding-left:16px;padding-right:12px}
+ .dashboard-workspace{grid-template-columns:96px minmax(0,1fr) 150px;gap:12px}
+ .dashboard-workspace .dashboard-selection{grid-column:auto;display:block}
+ .dashboard-selection .dashboard-fields{grid-template-columns:1fr 1fr}
+ .dashboard-workbench>h3{font-size:22px}.dashboard-workbench>p{font-size:12px}
+ .dashboard-screen-control{min-width:140px}#dashboard-starting-layout{min-width:120px}
+ .dashboard-editor-toolbar button{font-size:12px;padding:7px}
+}
+
+.dashboard-palette-preview[data-preview-type=photos]{gap:3px}.dashboard-palette-preview img{width:30%;height:44px;object-fit:cover;border:2px solid var(--panel);border-radius:3px}
+
+@media(min-width:800px) and (max-height:650px){
+ .dashboard-workbench>p{display:none}
+ .dashboard-workbench>h3{margin-bottom:4px}
+ .dashboard-editor-toolbar{margin:8px 0}
+}
+/* Photo treatments share the existing curated image nodes. */
+#overview .dashboard-module[data-widget-style=mosaic] .overview-photo-stack{inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px}
+#overview .dashboard-module[data-widget-style=mosaic] .overview-photo-stack img{position:static;width:100%;height:100%;min-height:0;min-width:0;transform:none;border:0;border-radius:6px;box-shadow:none;object-fit:cover}
+#overview .dashboard-module[data-widget-style=mosaic] .overview-photo-stack img:first-child{grid-row:span 2}
+#overview .dashboard-module[data-widget-style=mosaic] .overview-photo-stack img:only-child{grid-column:span 2}
+#overview .dashboard-module[data-widget-style=mosaic] .overview-photo-stack img:nth-child(2):last-child{grid-row:span 2}
+#overview .dashboard-module[data-widget-style=spotlight] .overview-photo-stack{inset:0}
+#overview .dashboard-module[data-widget-style=spotlight] .overview-photo-stack img{display:none}
+#overview .dashboard-module[data-widget-style=spotlight] .overview-photo-stack img:first-child{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;transform:none;box-shadow:none;border-radius:var(--radius)}
+.overview-condition-icon{display:none}
+#overview .dashboard-module[data-widget-style=minimal] #overview-sky{display:none}
+#overview .dashboard-module[data-widget-style=minimal] .overview-weather-scene{display:flex;align-items:center;justify-content:center;background:var(--panel)}
+#overview .dashboard-module[data-widget-style=minimal] .overview-weather-copy{max-width:100%;width:100%;text-align:center;padding:18px 48px}
+#overview .dashboard-module[data-widget-style=minimal] .overview-condition-icon{display:block;width:34px;height:34px;margin:8px auto;color:var(--accent)}
+#overview .dashboard-module[data-widget-style=minimal][data-short=true] .overview-condition-icon{display:none}
+#overview .dashboard-module[data-widget-style=sky] #overview-sky{inset:0;width:100%;height:100%;opacity:.8;border-radius:0}
+#overview .dashboard-module[data-widget-style=sky] .overview-weather-copy{max-width:100%;width:100%;padding-bottom:44px;background:linear-gradient(var(--panel) 45%,transparent)}
+#overview .dashboard-module[data-widget-style=sky] .overview-weather-metrics{background:var(--panel)}
+.dashboard-workbench .dashboard-delete{position:absolute;right:14px;top:14px;width:44px;height:44px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--accent);display:grid;place-items:center;padding:10px;z-index:4;box-shadow:0 2px 6px #0002}
+.dashboard-workbench .dashboard-delete svg{width:20px;height:20px}
+.dashboard-workbench .dashboard-editor-tile:not(.selected) .dashboard-delete{visibility:hidden}
+
+/* Prints keep each photograph’s proportions while positions use the whole slot. */
+#overview .dashboard-module[data-widget-style=prints] .overview-photo-stack{inset:0}
+#overview .dashboard-module[data-widget-style=prints] .overview-photo-stack img{box-sizing:border-box;left:var(--print-left,10%);top:var(--print-top,10%);width:var(--print-width,120px);height:var(--print-height,160px);object-fit:cover;border-width:5px;border-bottom-width:12px}

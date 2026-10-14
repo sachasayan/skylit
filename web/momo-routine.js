@@ -15,5 +15,25 @@
     const pool=period==='night'?['sleepy']:period==='morning'?['yawn','stretch','yawn','curious']:period==='evening'?['yawn','sleepy','stretch']:quietFor>45000?['sleepy']:['curious','wink','delighted','stretch','sneeze','dance','peek','proud','puzzled'];
     return pool[Math.min(pool.length-1,Math.floor(Math.max(0,random)*pool.length))];
   }
-  const api={at,idle};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MomoRoutine=api;
+  // One action at a time; automatic requests are dropped, never queued.
+  function coordinator(){
+    let action=null,blockedUntil=0;
+    return {
+      request(name,now,{night=false,user=false,quiet=false,duration=3000}={}){
+        if(quiet||(!user&&(night||now<blockedUntil||action&&now<action.until)))return false;
+        action={name,started:now,until:now+duration,user};blockedUntil=now+90000;return true;
+      },
+      current(now,night=false){if(action&&(now>=action.until||night&&!action.user))action=null;return action;},
+      reset(now,delay=60000){action=null;blockedUntil=now+delay;}
+    };
+  }
+  function weather(data,units,now=Date.now()){
+    if(!data||!Number.isFinite(data.fetchedAt)||now-data.fetchedAt>3600000||data.fetchedAt>now+60000)return '';
+    const c=data.current;if(!c)return '';
+    const temp=Number(c.temperature_2m),code=Number(c.weather_code);
+    if(c.temperature_2m!=null&&Number.isFinite(temp)&&(units==='fahrenheit'?(temp-32)*5/9:temp)<0)return 'frost';
+    if([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].includes(code))return 'rain';
+    return '';
+  }
+  const api={at,idle,coordinator,weather};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.MomoRoutine=api;
 })(typeof window!=='undefined'?window:globalThis);

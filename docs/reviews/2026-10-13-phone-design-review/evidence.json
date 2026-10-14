@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "shots": [
+    "01-pairing",
+    "02-library",
+    "03-full-page",
+    "04-selected",
+    "05-actions-upload",
+    "06-confirmation-offscreen",
+    "07-confirmation-message",
+    "08-picture-details",
+    "09-collections",
+    "10-slideshow",
+    "11-save-failure-offscreen",
+    "12-no-results",
+    "13-review",
+    "14-excluded",
+    "15-empty-library",
+    "16-disconnected",
+    "library-320",
+    "library-430"
+  ],
+  "metrics": {
+    "viewport": 844,
+    "page": 3172,
+    "picturesY": 524.578125,
+    "bulkY": 1630.578125,
+    "slideshowY": 2566.203125
+  },
+  "runtimeErrors": []
+}

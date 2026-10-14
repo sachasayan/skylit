@@ -1,5 +1,29 @@
 # Delivery verification — October 12, 2026
 
+## Version 2.16.0 — Signed updates and live dashboard workbench
+
+- Native GitHub release checks, bounded private downloads, package/version/hash and
+  installed-signer validation, explicit installer callbacks, app-specific permission
+  route and optional idle installation window. Automatic download/install are opt-in.
+  Automatic ambient displays remain eligible; manual browsing/services defer updates.
+- Dashboard palette, real script-free live canvas, continuous resize/move, inspector,
+  undo/redo, 16:9/16:10 preview sizes and Expand canvas. Saved state changes only on
+  Save; cancellation, collisions and failed storage writes preserve it.
+- 87 Node tests and 18 Python/production Java policy tests pass. Rendered acceptance:
+  32 full-app groups, 23 dashboard groups, 76 clock groups and 12 focused updater/editor
+  groups, no runtime errors. 19 synthetic screenshots in the
+  [visual report](reviews/2026-10-12-updates-live-editor/index.html).
+- Normal APK 2.16.0/code 35 builds with one verified signer and the existing key.
+  Source/history/APK public checks report zero findings; Gitleaks source export and
+  all-ref history scans report no leaks.
+- The paired wireless frame was unreachable. No device install or settings changes
+  were performed. Native release download/verification, permission/confirmation,
+  unattended self-install, return to HOME, private-data and guide preservation still
+  require hardware acceptance. Updater screenshots are native status fixtures.
+- No binary GitHub release has been published for this version. Install the bootstrap
+  APK once; future signed releases must include matching update.json. The release
+  helper defaults to a draft and requires clean/pushed main and a matching build.
+
 ## Version 2.15.6 — Landscape, Flip and Botanical reference reconstruction
 
 - Separate target-only inventories, cross-validation and direct pixel comparison
@@ -905,3 +929,72 @@ Gitleaks pass. Test UID/media removed; service off and task forwards removed.
 Physical phone camera scanning and owner-browser certificate acceptance remain
 unverified. See [visual report](reviews/2026-10-12-phone-pairing/index.html).
 APK SHA-256: `c72d748b6523782c4fe7220edae67ef5c716c2aefb0dc35a151e2f2349c03fa3`.
+
+
+## Version 2.16.1 — Settings interaction redesign
+
+Seven main Settings destinations with focused task workspaces; visible appearance,
+slideshow, wardrobe and policy choices; a current-screen dashboard canvas without
+coordinate/ratio/Arrange/Expand controls; explicit gallery selection and staged
+direct crop editing. Native document transfer is display-only and reviewed before
+Apply. Existing canonical preference/service handlers remain the write path.
+
+88 Node and 18 Python tests pass. The focused browser suite passes 13 groups,
+captures 62 synthetic screenshots and reports zero runtime errors. The visual
+report includes 37 before/after comparisons, landscape sizes and narrow fallback.
+
+Signed normal APK installed in place on the configured D156 over verified USB.
+Actual Android 12 / WebView 95 at 1920×1080 physical (1280×720 CSS): eight upgrade
+and Settings task groups, three actual-touch groups, and three document-transfer
+groups pass. The setup guide reopened with working city/photos/calendar links and empty credential fields. Original appearance, layout, delivery policy, photo membership and
+curation were preserved/restored. Weather timestamps and slideshow resume progress
+can advance normally. An automation-only overlapping-picker attempt was repeated
+from a fresh launch; the normal export/import flow passed. No new live household
+mail import, calendar change, Home operation or GitHub release installation is
+claimed from this UI pass. Source/history/final-APK privacy checks and Gitleaks pass.
+Private evidence and rollback APK remain ignored; normal debugging is restored
+after acceptance. See [before/after report](reviews/2026-10-12-settings-interactions/index.html).
+
+## October 13 — Shared React components
+
+- Added shared input/select/textarea, checkbox/switch, field, settings-row, status
+  and disclosure primitives alongside the existing buttons and choice controls.
+  Adopted primitives in the React shell, canonical forms and feature views;
+  selected immediate preferences use switches, while selection remains checkboxes.
+- The interactive [component showcase](reviews/2026-10-13-component-system/showcase.html)
+  uses the actual source components. The [report](reviews/2026-10-13-component-system/index.html)
+  includes 62 paired synthetic Settings views and documents remaining controllers.
+- TypeScript, 86 Node tests and 19 Python tests pass. Settings passes 13 workflow
+  groups / 62 captures with no runtime errors; top-level screens pass at three
+  landscape sizes. Component behavior, keyboard operation and light/dark responsive
+  checks pass. These are browser results, not physical WebView acceptance.
+- Signed 2.17.0 APK rebuilt; final source/APK privacy scan has zero findings.
+  Source-export Gitleaks reports no leaks. Not installed on the frame or merged.
+
+## React review fixes · October 13, 2026
+
+The recovery pass adds validated forecast/phone data, recoverable React feature
+boundaries, revision-aware slideshow drafts, phone deadline/disconnection cleanup,
+and resettable calendar removal confirmation. Page props and React/native service
+contracts are typed; source formatting and frontend build/browser checks are in CI.
+Local verification: 89 Node tests, 19 Python tests, type-check/format/build, React
+integration and recovery checks, 13 Settings workflow groups, and all top-level
+screens at 1280×720, 1600×1000 and 1920×1080 CSS pixels. Synthetic screenshots only.
+A normal signed APK was rebuilt. The paired wireless frame was undiscoverable and
+its configured USB transport was absent, so this build was not installed and its
+native session-expiry metadata still needs physical acceptance.
+
+## October 13 — React, dashboard, phone and Momo integration
+
+The integration batch includes the React frontend and shared components, live
+responsive dashboard editing, phone Photos/Collections/Slideshow workspaces,
+progressive QR approval, and coordinated Momo page/weather reactions. Design
+reports and synthetic screenshots are retained under `docs/reviews/`.
+
+Merge preparation passes 96 Node tests, 19 Python tests, TypeScript, formatting,
+frontend compilation and the React integration/recovery browser suites. The
+Momo/pairing pass additionally checks six mascot states and four pairing viewport
+sizes. A normal empty-configuration APK builds and verifies with the existing key.
+Source-export Gitleaks reports no leaks. This integration has not been installed
+on the frame; these checks do not establish physical device acceptance, real
+phone camera scanning, Home control or YouTube playback for this batch.

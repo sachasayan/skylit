@@ -1,0 +1,48 @@
+{
+  "checks": [
+    "Local QR across four sizes",
+    "Pending number and stable keyboard focus",
+    "Reject replaces QR",
+    "Allow hides invitation",
+    "Stop removes pairing details",
+    "Phone clears URL fragment, hides photos until approval and removes typed code"
+  ],
+  "screens": [
+    {
+      "file": "screenshots/qr-frame.png",
+      "title": "Scan invitation · 1280 × 720"
+    },
+    {
+      "file": "screenshots/approve-frame.png",
+      "title": "Compare and approve · 1280 × 720"
+    },
+    {
+      "file": "screenshots/qr-desktop.png",
+      "title": "Scan invitation · 1920 × 1080"
+    },
+    {
+      "file": "screenshots/approve-desktop.png",
+      "title": "Compare and approve · 1920 × 1080"
+    },
+    {
+      "file": "screenshots/qr-small.png",
+      "title": "Scan invitation · 1024 × 640"
+    },
+    {
+      "file": "screenshots/approve-small.png",
+      "title": "Compare and approve · 1024 × 640"
+    },
+    {
+      "file": "screenshots/qr-narrow.png",
+      "title": "Scan invitation · 390 × 844"
+    },
+    {
+      "file": "screenshots/approve-narrow.png",
+      "title": "Compare and approve · 390 × 844"
+    },
+    {
+      "file": "screenshots/phone-number.png",
+      "title": "Phone · matching number, no typing"
+    }
+  ]
+}

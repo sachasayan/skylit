@@ -35,6 +35,9 @@ not a household account. They demonstrate the interface, not a live service sign
 | --- | --- |
 | ![Calendar](docs/screenshots/calendar-linen.jpg) | ![Appearance settings](docs/screenshots/appearance.jpg) |
 
+[Momo context and simpler phone pairing](docs/reviews/2026-10-13-momo-context/index.html).
+[Phone interface redesign](docs/reviews/2026-10-13-phone-implementation/index.html).
+[Settings interaction redesign and before/after screenshots](docs/reviews/2026-10-12-settings-interactions/index.html).
 [Android recovery shortcuts and screenshots](docs/reviews/2026-10-11-wireless-shortcuts/index.html).
 [P1/P2 review fixes and screenshots](docs/reviews/2026-10-11-review-fixes/index.html).
 [Clock visual critique across sizes](docs/reviews/2026-10-11-clock-critique/index.html).
@@ -58,14 +61,15 @@ not a household account. They demonstrate the interface, not a live service sign
 | Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, date/count retention, responsive framing, five styles, stable shuffle/history, Keepers/collections, review, local pictures/muted clips, optional soundtrack/video export and temporary encrypted phone curation |
 | Calendar | Read-only month and selected-date agenda, source visibility in Settings, editable labels/colours, loaded-date search, direct Google iCal feeds, offline cache and on-frame inviter review |
 | Home | Google Home’s website, using its supported controls and your own session |
-| YouTube | Touch-friendly mobile site or standard website, with full-screen video support |
-| Momo | Procedural Canvas 2D character, reactions, accessory gallery, daily outfits, night snoozes and morning yawns |
+| YouTube | Direct mobile-site browsing beside the sidebar, with full-screen video support |
+| Momo | Procedural Canvas 2D character, coordinated page/weather reactions, accessory gallery, daily outfits and bedtime routine |
 | Settings | Lightbox over the current screen, left-side category navigation, six paired palettes, astronomical mode, larger text, draggable/resizable dashboard editor and module gallery, optional navigation, quiet hours/privacy pause, service recovery and non-secret display transfer |
 | Household · optional | Local pinned note, shopping checklist with undo, countdowns and visible timers; no phone sync or background-alert promise |
 | First-run guide | A three-step on-frame guide for city, photos and calendar; reopen it from Settings at any time |
 
-The dashboard is plain HTML, CSS and JavaScript. No npm install, hosted backend,
-Google API key, Play Store or Google Play services is required. Optional phone curation runs a temporary encrypted service on the frame itself. The Android viewer
+The dashboard uses React 18 and TypeScript with Skylit’s existing CSS and local
+JavaScript service adapters. No hosted backend, Google API key, Play Store or Google
+Play services is required. Optional phone curation runs a temporary encrypted service on the frame itself. The Android viewer
 bundles the dashboard for offline startup; online services still need internet.
 A Mac does not need to remain connected. Google decides whether its sign-in and
 websites support a particular WebView; a shortcut is not proof of an authenticated
@@ -73,9 +77,11 @@ connection. See [verification and known limits](docs/verification.md).
 
 ## Try it in a browser
 
-Requires Python 3.10+ (Node 18+ is needed only for tests):
+Requires Python 3.10+ and Node 18+. Install pinned frontend dependencies and build first:
 
 ```sh
+npm ci --ignore-scripts
+npm run build
 python3 -m http.server 8765 --bind 127.0.0.1 --directory web
 ```
 
@@ -85,45 +91,64 @@ services in new tabs. Native idle switching is available in the Android app.
 
 ## Configure the dashboard
 
-Open **Settings → Dashboard**. Drag a module by its name to move it and drag its
-corner to resize. Modules snap to a 12 × 12 grid and cannot overlap. Select a
-module to set its row, column, width and height precisely; keyboard arrows move
-it, and Shift + arrows resize it.
+Open **Settings → Dashboard**. Drag a widget in the live canvas to move it and drag
+its corner to resize. The widget palette, canvas and selected-widget choices share
+the current layout. Modules snap to a 12 × 12 grid. Drag onto another widget to exchange their slots when both fit; a swap preserves their content and style. Keyboard arrows move
+a selected widget; Shift + arrows resize it. The preview automatically follows the
+current screen's proportions.
 
-The gallery has nine modules, with one of each per dashboard. Tap a card to add
-it, or drag its grip into empty space in the preview. When a tap needs more room,
-Skylit arranges the modules automatically; **Undo** restores the previous layout.
-**Save dashboard** applies your draft; **Discard changes** keeps the saved layout.
-Removing a module leaves its photos, calendars and Household data intact.
+Tap a gallery preview to add a widget, or drag it into the canvas. The drop
+preview shows its destination. Select a widget to see its style and options;
+click empty canvas or **Back to widgets** to return to the gallery. Corner handles
+resize it, and the trash action removes it without deleting its underlying content.
+Changes save immediately, with drag and resize saved on release. **Reset to default**
+opens the Balanced, Photos first and Plans first layout choices.
 
-Select **Clock & date** in the preview to choose **Landscape**, **Analog**,
-**Flip** or **Botanical**. The live sample follows your city and 12/24-hour
-preference; **Save dashboard** applies the style. Resizing, arranging and changing
-a starting layout retain your choice.
+Select **Clock & date** to choose Landscape, Analog, Flip or Botanical from visual
+cards. Layouts adapt to landscape 16:9 and 16:10 screens; smaller modules simplify
+or scroll internally. Narrow previews stack modules. Custom layouts stay local and
+are excluded from display-preference transfer.
 
-Balanced, Photos first and Agenda first are starting layouts. Layout coordinates
-adapt to 16:9 and 16:10 landscape screens; smaller modules simplify their content
-or scroll internally. Narrow previews stack modules. Custom layouts are stored
-locally and are excluded from display-preference transfer.
+Settings starts with General and uses focused destinations with focused tasks. Appearance provides
+visible mode, palette and text choices, with Momo in its accessory workspace. Photos
+opens a task list for browsing, slideshow presentation, collections, delivery,
+retention and other photo work. Browse pictures normally; **Select pictures** shows
+batch actions. Opening a picture provides direct crop editing with explicit saving.
+Frame contains city/time, daily routine, software updates and Android shortcuts.
+Help & maintenance contains service recovery, setup help and display transfer.
+
+## App updates
+
+On Android, **Settings → Frame → Software updates** checks published GitHub releases and downloads
+verified APKs. An **Update** action appears in the sidebar when a release is
+available. Automatic checks are enabled by default; automatic downloads and
+installation require your opt-in. Choose an installation window in the city's
+timezone. Android may ask you to allow Skylit to install packages, or confirm an
+installation. The browser preview cannot install APKs.
+
+One initial install of version 2.16.0 or later is needed to bootstrap the updater.
+Future release APKs keep the package, signing key and increasing version code.
+See [update behavior and acceptance](docs/updates.md) and the
+[visual report](docs/reviews/2026-10-12-updates-live-editor/index.html).
 
 ## Make it your household’s dashboard
 
 On a fresh install, Skylit opens **Set up your frame**. Its three cards lead to the
 existing city, Photos and calendar controls. You can choose **Use dashboard** at any
-time and reopen the guide from **Settings → Device & status → Open setup guide**. An update over an
+time and reopen the guide from **Settings → Help & maintenance → Open setup guide**. An update over an
 existing installation does not interrupt the current dashboard. The guide never
 asks for a Google password or stores a private link in the public app bundle.
 
 Before setup, connect the frame to Wi-Fi and confirm its clock is correct. Use the
 on-frame controls for private information; a desktop preview is for layout only.
 
-1. In **Settings → Weather & time**, find and select your city.
-2. In **Settings → Photos**, choose a shared Google Photos album or pictures sent to a dedicated
+1. In **Settings → Frame → City & time**, find and select your city.
+2. In **Settings → Photos → Receiving photos**, choose a shared Google Photos album or pictures sent to a dedicated
    Gmail inbox. For an album, paste its sharing link in **Photos & idle mode**; keep
    that link out of source control. For email delivery, follow the [photo setup](docs/photos.md)
    and enter an app password only on the frame. Email photos can be browsed, zoomed,
    and played with Soft fade, Falling prints or Photo collage; choose a style in
-   **Photos → Photo settings**. The shared album uses Google's own slideshow.
+   **Settings → Photos → Slideshow**. The shared album uses Google's own slideshow.
 3. Open **Calendar → Calendar options**. On your computer, copy the calendar’s
    **Secret address in iCal format** from Google Calendar settings. Enter it on the
    frame with a name and colour. Repeat for each calendar (up to six). See the
@@ -131,7 +156,7 @@ on-frame controls for private information; a desktop preview is for layout only.
    To review which organizers appear on this frame, use **Calendar → Calendar options → Who appears on this frame** (Review inviters appears on Calendar when decisions are waiting).
 4. Open **Home** and sign in to the account invited to your home. Google Home web
    capabilities vary by device. Do not expect every mobile-app feature.
-5. Choose YouTube’s mobile or standard site. Sign-in is optional for public videos.
+5. Open YouTube directly from its tab. Sign-in is optional for public videos.
 6. Choose a palette and **Light**, **Dark**, or **Automatic** under Appearance.
    Automatic uses your weather city’s sunrise/sunset, calculated offline. Until a city
    is set, it follows the device’s light/dark preference. High contrast is optional;
@@ -152,7 +177,7 @@ store, so signing in may also sign you into other Google pages on this frame.
 Skylit never copies your computer’s cookies or stores your Google password.
 
 Calendar is read-only and refreshes every 15 minutes. Manual retry is available in
-**Settings → Device & status**.
+**Settings → Help & maintenance**.
 Add and edit events in Google Calendar on your phone. Private feed addresses and
 last-good event data stay in the app's private Android storage. The desktop preview
 shows the interface but does not connect or store feeds. No hosted service is needed.
@@ -171,16 +196,17 @@ appropriate sections. The synthetic rendered check covers 960×540 through
 1920×1200, both text profiles, and a secondary narrow preview. This is browser
 coverage, not certification of every Android display.
 
-Household is off in the default rail. Open **Settings → Household** to try it and
+Household is off in the default rail. Open **Settings → Dashboard → Household content** to try it and
 optionally enable navigation or a one-line Overview note. Quiet hours and manual
-privacy pause are under **Settings → Photos**. They hide content without changing
+privacy pause are under **Settings → Frame → Daily routine**. They hide content without changing
 hardware brightness and leave active videos/manual photo browsing alone.
 
-**Settings → Device & status** provides coarse service timestamps and recovery
+**Settings → Help & maintenance** provides coarse service timestamps and recovery
 controls. Display preference transfer includes only palette/mode/clock/units,
 text size, Overview preset and Home/YouTube visibility; it excludes city, accounts,
-feed/album links, pictures, notes and inviter identities. On the frame, use the
-copy/paste JSON field; desktop browsers can download/import a small JSON file.
+feed/album links, pictures, notes and inviter identities. Use **Settings → Help & maintenance → Transfer display preferences** to export or
+choose a JSON file. Android uses its document picker; an import is reviewed before
+applying it. Desktop browsers can download/import the same small file.
 
 ## Build the Android viewer
 
@@ -255,6 +281,10 @@ adb -d shell input keyevent KEYCODE_HOME
 ```
 
 Do not assume that component or any firmware instructions apply to another model.
+
+See the [shared component system](docs/components.md) and its
+[interactive showcase](docs/reviews/2026-10-13-component-system/showcase.html) for
+control choices, states and adoption boundaries.
 
 ## Development and checks
 

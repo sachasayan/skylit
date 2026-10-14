@@ -23,3 +23,6 @@ __pycache__/
 *.hprof
 *.db
 *.sqlite*
+
+# Frontend dependencies
+node_modules/

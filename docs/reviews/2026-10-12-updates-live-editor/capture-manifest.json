@@ -1,0 +1,193 @@
+{
+  "date": "2026-10-12",
+  "version": "2.16.0",
+  "synthetic": true,
+  "checks": [
+    "Actual widget content renders in a script-free, isolated, pointer-inert document",
+    "Live pointer resize matches draft bounds, one Undo transaction, Redo and cancellation",
+    "Palette supports scroll, valid placement preview and drop without altering saved layout",
+    "Screen ratios and expanded canvas preserve the draft and real clock composition",
+    "Workbench geometry 960×540",
+    "Workbench geometry 1280×800",
+    "Workbench geometry 1600×900",
+    "Workbench geometry 1920×1200",
+    "Workbench geometry 390×844",
+    "Browser preview cannot install APKs or enable auto updates",
+    "Conditional sidebar action, release notes as text, and automatic settings dependencies",
+    "Download, installation permission and Android confirmation actions use fixed native methods"
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "editor",
+      "title": "Live dashboard workbench · frame canvas",
+      "file": "screenshots/editor.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "resize",
+      "title": "Responsive clock · staged resize",
+      "file": "screenshots/resize.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "palette-drop",
+      "title": "Palette drag · note placed on canvas",
+      "file": "screenshots/palette-drop.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "expanded",
+      "title": "Expanded canvas · fewer tools",
+      "file": "screenshots/expanded.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-analog",
+      "title": "Live analog clock preview",
+      "file": "screenshots/clock-analog.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-stacked",
+      "title": "Live stacked clock preview",
+      "file": "screenshots/clock-stacked.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-digital",
+      "title": "Live digital clock preview",
+      "file": "screenshots/clock-digital.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "editor-960x540",
+      "title": "Workbench · 960×540",
+      "file": "screenshots/editor-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "editor-1280x800",
+      "title": "Workbench · 1280×800",
+      "file": "screenshots/editor-1280x800.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "editor-1600x900",
+      "title": "Workbench · 1600×900",
+      "file": "screenshots/editor-1600x900.jpg",
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "editor-1920x1200",
+      "title": "Workbench · 1920×1200",
+      "file": "screenshots/editor-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "editor-390x844",
+      "title": "Workbench · 390×844",
+      "file": "screenshots/editor-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "editor-dark",
+      "title": "Workbench · Ocean dark",
+      "file": "screenshots/editor-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-browser",
+      "title": "Updates · browser capability boundary",
+      "file": "screenshots/updates-browser.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "update-sidebar",
+      "title": "Overview · update appears only when available · simulated native status",
+      "file": "screenshots/update-sidebar.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-available",
+      "title": "Updates · available release · simulated native status",
+      "file": "screenshots/updates-available.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-automatic",
+      "title": "Automatic update window · simulated native status",
+      "file": "screenshots/updates-automatic.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-ready",
+      "title": "Updates · ready to install · simulated native status",
+      "file": "screenshots/updates-ready.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-confirm",
+      "title": "Updates · Android confirmation fallback · simulated native status",
+      "file": "screenshots/updates-confirm.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

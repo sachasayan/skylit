@@ -64,3 +64,26 @@ After the privacy and artifact checks pass, push the intended refs, check
 GitHub settings and change visibility. Treat uploading binary releases as a separate
 reviewed operation. CI runs source/privacy tests; it does not publish anything or use
 household credentials, and it does not build with a private signing key.
+
+## Updater-compatible releases
+
+Normal builds create `dist/update.json` alongside the signed APK. It binds package,
+version name/code, minimum SDK, exact versioned asset name, SHA-256 and source commit.
+Never publish metadata from a personal build or mismatch it with another binary.
+
+After merging, push main, build again from that clean commit, and complete hardware
+acceptance or explicitly record the unresolved device limitations. Then:
+
+```sh
+python3 scripts/publish_release.py
+```
+
+This prepares a **draft** GitHub release with `update.json` and a versioned APK.
+It requires clean/pushed main, validates the actual APK badging and signature,
+checks the APK/source hash binding, and runs privacy/Gitleaks source and history
+scans. Review the draft and the verification scope. To deliberately publish in
+one operation, use `python3 scripts/publish_release.py --publish` instead. For an
+already prepared draft, publish that existing release rather than creating a
+second one. The signing key stays local; CI still does not publish binaries.
+Frames consume only published, non-prerelease releases with valid metadata and
+matching installed signing identity. An increasing version code is mandatory.

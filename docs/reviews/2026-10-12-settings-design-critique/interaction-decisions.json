@@ -1,0 +1,2641 @@
+{
+  "controlRecords": 253,
+  "decisionGroups": 124,
+  "scope": "All control records in the current synthetic DOM inventory; includes repeated instances and hidden legacy controls, not simultaneously visible controls.",
+  "decisions": [
+    {
+      "area": "appearance",
+      "title": "Colour mode",
+      "decision": "Replace dropdown",
+      "alternative": "Light / Dark / Automatic in one segmented choice. Selecting a mode immediately updates a nearby live preview; Automatic has a short sunrise/sunset explanation.",
+      "reason": "Three mutually exclusive values should be discoverable without opening a menu. A binary switch cannot faithfully express three modes.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "appearance-mode",
+          "label": "Colour mode",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "appearance",
+      "title": "Six palette choices",
+      "decision": "Keep visual; improve feedback",
+      "alternative": "Six labeled visual tiles using the selected mode\u2019s actual surfaces, text and accents. A check marks the chosen palette.",
+      "reason": "A visual choice already uses a visual interaction. Improve fidelity rather than invent a new control.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "",
+          "label": "Linen",
+          "type": "button"
+        },
+        {
+          "index": 2,
+          "id": "",
+          "label": "Sage",
+          "type": "button"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "label": "Stone",
+          "type": "button"
+        },
+        {
+          "index": 4,
+          "id": "",
+          "label": "Ocean",
+          "type": "button"
+        },
+        {
+          "index": 5,
+          "id": "",
+          "label": "Plum",
+          "type": "button"
+        },
+        {
+          "index": 6,
+          "id": "",
+          "label": "High contrast",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "appearance",
+      "title": "Text size",
+      "decision": "Replace dropdown",
+      "alternative": "Standard / Larger as visible choices beside real examples of labels, calendar events and widget text. Apply immediately.",
+      "reason": "Two values do not warrant a hidden menu. The sample should demonstrate legibility rather than decorative placeholder content.",
+      "controls": [
+        {
+          "index": 7,
+          "id": "display-text",
+          "label": "Text size",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Starting layout",
+      "decision": "Visual templates",
+      "alternative": "Small previews of Balanced, Photos first and Agenda first. Open them through \u201cChoose a layout\u201d; selecting one previews replacement before Apply. Custom is a current-state label, not a disabled option.",
+      "reason": "The choice is spatial. A name alone does not show what will move or disappear. Replacement needs explicit scope and a Cancel route.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "overview-preset",
+          "label": "Starting layout",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Arrange neatly",
+      "decision": "Remove permanent action",
+      "alternative": "Remove this button. Offer the visual layout templates for intentional replacement. When a widget cannot fit, explain the constraint and let the owner make room.",
+      "reason": "The current action repacks everything into equal-size tiles. \u201cNeatly\u201d hides a substantial and potentially unwanted reset.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "dashboard-arrange",
+          "label": "Arrange neatly",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Undo and Redo",
+      "decision": "Contextual recovery",
+      "alternative": "Remove the permanent pair from the toolbar. After a meaningful move/remove/replacement, offer a quiet Undo action while the draft exists. Keep keyboard history available; Cancel restores the saved layout.",
+      "reason": "Recovery remains important, but two permanently visible editing commands do not need equal weight with composition. Do not make the only recovery route a short-lived toast.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "dashboard-undo",
+          "label": "Undo",
+          "type": "submit"
+        },
+        {
+          "index": 3,
+          "id": "dashboard-redo",
+          "label": "Redo",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Preview screen",
+      "decision": "Infer automatically",
+      "alternative": "Match the current dashboard\u2019s viewport and aspect ratio automatically. Scale that exact canvas to the available editor space. Put alternate-size checks in developer tooling.",
+      "reason": "Screen geometry is known. Asking the owner to choose a testing resolution exposes our development workflow.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "dashboard-preview-screen",
+          "label": "Preview screen",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Expand canvas",
+      "decision": "Remove workaround",
+      "alternative": "Remove the button. Open arrangement in a sufficiently spacious workspace, adapting palette and inspector into temporary panels when necessary.",
+      "reason": "A user should not have to repair the editor\u2019s allocation of space. Current expansion hides tools without meaningfully enlarging the captured canvas.",
+      "controls": [
+        {
+          "index": 5,
+          "id": "dashboard-expand",
+          "label": "Expand canvas",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Widget palette: add and drag",
+      "decision": "One visual entry per widget",
+      "alternative": "One recognizable card per widget with an integrated drag affordance. Tap places it in a suitable free spot; drag shows the destination before release. Already-added cards show a clear state.",
+      "reason": "Two separate button identities for each widget should not become two visually competing operations. Preserve tap and keyboard alternatives to dragging.",
+      "controls": [
+        {
+          "index": 6,
+          "id": "",
+          "label": "Add Clock & date",
+          "type": "button"
+        },
+        {
+          "index": 7,
+          "id": "",
+          "label": "Drag Clock & date to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 8,
+          "id": "",
+          "label": "Add Weather",
+          "type": "button"
+        },
+        {
+          "index": 9,
+          "id": "",
+          "label": "Drag Weather to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 10,
+          "id": "",
+          "label": "Add Photos",
+          "type": "button"
+        },
+        {
+          "index": 11,
+          "id": "",
+          "label": "Drag Photos to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 12,
+          "id": "",
+          "label": "Add Upcoming events",
+          "type": "button"
+        },
+        {
+          "index": 13,
+          "id": "",
+          "label": "Drag Upcoming events to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 14,
+          "id": "",
+          "label": "Add Hourly forecast",
+          "type": "button"
+        },
+        {
+          "index": 15,
+          "id": "",
+          "label": "Drag Hourly forecast to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 16,
+          "id": "",
+          "label": "Add Note",
+          "type": "button"
+        },
+        {
+          "index": 17,
+          "id": "",
+          "label": "Drag Note to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 18,
+          "id": "",
+          "label": "Add Shopping list",
+          "type": "button"
+        },
+        {
+          "index": 19,
+          "id": "",
+          "label": "Drag Shopping list to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 20,
+          "id": "",
+          "label": "Add Countdowns",
+          "type": "button"
+        },
+        {
+          "index": 21,
+          "id": "",
+          "label": "Drag Countdowns to dashboard",
+          "type": "button"
+        },
+        {
+          "index": 22,
+          "id": "",
+          "label": "Add Timers",
+          "type": "button"
+        },
+        {
+          "index": 23,
+          "id": "",
+          "label": "Drag Timers to dashboard",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Move and resize affordances",
+      "decision": "Direct manipulation",
+      "alternative": "Drag a widget body to move it; use a modest corner grip to resize. Enlarge invisible hit areas instead of drawing huge handles. Show snapping and invalid placement directly on the canvas.",
+      "reason": "The object is the best control. Keep focused keyboard movement and resizing with concise help in an accessible support route.",
+      "controls": [
+        {
+          "index": 24,
+          "id": "",
+          "label": "Move Clock & date",
+          "type": "button"
+        },
+        {
+          "index": 25,
+          "id": "",
+          "label": "Resize Clock & date",
+          "type": "button"
+        },
+        {
+          "index": 26,
+          "id": "",
+          "label": "Move Weather",
+          "type": "button"
+        },
+        {
+          "index": 27,
+          "id": "",
+          "label": "Resize Weather",
+          "type": "button"
+        },
+        {
+          "index": 28,
+          "id": "",
+          "label": "Move Photos",
+          "type": "button"
+        },
+        {
+          "index": 29,
+          "id": "",
+          "label": "Resize Photos",
+          "type": "button"
+        },
+        {
+          "index": 30,
+          "id": "",
+          "label": "Move Upcoming events",
+          "type": "button"
+        },
+        {
+          "index": 31,
+          "id": "",
+          "label": "Resize Upcoming events",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Column, Row, Width and Height",
+      "decision": "Remove numeric controls",
+      "alternative": "Remove all four. Drag/resize with snapping; optionally offer useful named sizes as a shortcut. Keep keyboard equivalents.",
+      "reason": "These are layout-engine coordinates, not owner preferences. Hiding them in Advanced would retain the wrong model.",
+      "controls": [
+        {
+          "index": 32,
+          "id": "dashboard-column",
+          "label": "Column",
+          "type": "number"
+        },
+        {
+          "index": 33,
+          "id": "dashboard-row",
+          "label": "Row",
+          "type": "number"
+        },
+        {
+          "index": 34,
+          "id": "dashboard-width",
+          "label": "Width",
+          "type": "number"
+        },
+        {
+          "index": 35,
+          "id": "dashboard-height",
+          "label": "Height",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Clock style",
+      "decision": "Visual selector",
+      "alternative": "Landscape, Analog, Flip and Botanical thumbnails using the selected widget\u2019s current proportions and theme. Selecting one changes the widget in place.",
+      "reason": "The owner chooses an appearance. The live widget supplies the preview; a second expandable clock sample is redundant.",
+      "controls": [
+        {
+          "index": 36,
+          "id": "dashboard-clock-style",
+          "label": "Clock style",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Remove module",
+      "decision": "Contextual action",
+      "alternative": "Show a recognizable Remove action only for the selected widget, with an accessible text label and recovery in the draft.",
+      "reason": "Removal belongs to selection. It must not compete with every widget or require searching a general inspector form.",
+      "controls": [
+        {
+          "index": 37,
+          "id": "dashboard-remove",
+          "label": "Remove module",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "dashboard",
+      "title": "Save dashboard and Discard changes",
+      "decision": "Keep transaction; simplify language",
+      "alternative": "Stable Apply and Cancel controls. Apply appears enabled when the draft differs; Cancel abandons the draft. Leaving with a draft must offer an explicit outcome.",
+      "reason": "Spatial editing benefits from experimentation. Clear draft boundaries solve this without turning the whole Settings area into a form.",
+      "controls": [
+        {
+          "index": 38,
+          "id": "dashboard-save",
+          "label": "Save dashboard",
+          "type": "submit"
+        },
+        {
+          "index": 39,
+          "id": "dashboard-discard",
+          "label": "Discard changes",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "Today\u2019s accessory / automatic variation",
+      "decision": "Separate behavior from appearance",
+      "alternative": "An \u201cChange accessories automatically\u201d switch controls variation. When on, show Daily / Frequent as cadence choices, with the actual interval explained. When off, select a fixed accessory in the gallery.",
+      "reason": "Automatic variation is a policy; a hat is an object. Mixing both in one list hides the distinction. Preserve existing cadence on migration rather than silently choosing a new one.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "momo-outfit",
+          "label": "Today\u2019s accessory",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "Accessory gallery",
+      "decision": "Keep as primary selector",
+      "alternative": "One gallery with live Momo thumbnails, including None. Tap a tile to wear it immediately; mark selection. In automatic mode, preview a hat without silently changing the policy.",
+      "reason": "This is the human-friendly interaction already present. Remove the duplicate text list and make the mode relationship explicit.",
+      "controls": [
+        {
+          "index": 3,
+          "id": "",
+          "label": "Wear Just Momo",
+          "type": "button"
+        },
+        {
+          "index": 4,
+          "id": "",
+          "label": "Wear Terracotta beret",
+          "type": "button"
+        },
+        {
+          "index": 5,
+          "id": "",
+          "label": "Wear Bobble beanie",
+          "type": "button"
+        },
+        {
+          "index": 6,
+          "id": "",
+          "label": "Wear Garden bucket",
+          "type": "button"
+        },
+        {
+          "index": 7,
+          "id": "",
+          "label": "Wear Weekend cap",
+          "type": "button"
+        },
+        {
+          "index": 8,
+          "id": "",
+          "label": "Wear Party hat",
+          "type": "button"
+        },
+        {
+          "index": 9,
+          "id": "",
+          "label": "Wear Little crown",
+          "type": "button"
+        },
+        {
+          "index": 10,
+          "id": "",
+          "label": "Wear Flower clip",
+          "type": "button"
+        },
+        {
+          "index": 11,
+          "id": "",
+          "label": "Wear Headphones",
+          "type": "button"
+        },
+        {
+          "index": 12,
+          "id": "",
+          "label": "Wear Ribbon bow",
+          "type": "button"
+        },
+        {
+          "index": 13,
+          "id": "",
+          "label": "Wear Nightcap",
+          "type": "button"
+        },
+        {
+          "index": 14,
+          "id": "",
+          "label": "Wear Wizard hat",
+          "type": "button"
+        },
+        {
+          "index": 15,
+          "id": "",
+          "label": "Wear Autumn leaf",
+          "type": "button"
+        },
+        {
+          "index": 16,
+          "id": "",
+          "label": "Wear Winter earmuffs",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "His energy",
+      "decision": "Visible choices",
+      "alternative": "Playful / Gentle / Still with tiny illustrative motion previews. Selecting one updates Momo; respect reduced-motion preferences.",
+      "reason": "Three named behaviors deserve a visible, comparable choice, not an obscured dropdown.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "momo-motion",
+          "label": "His energy",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "His daily rhythm",
+      "decision": "Behavior choice",
+      "alternative": "A clearly labeled \u201cRest at night\u201d switch with the effective hours shown and a link to Daily routine. Allow an intentional independent rhythm where needed.",
+      "reason": "This is a binary policy. The relationship to the frame\u2019s other night behavior should be explained, not inferred.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "momo-routine",
+          "label": "His daily rhythm",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "Try another accessory",
+      "decision": "Conditional action",
+      "alternative": "A small shuffle icon with an accessible \u201cTry another\u201d label beside the preview. In fixed mode it chooses a new fixed accessory; in automatic mode it previews the next one without disabling automatic variation.",
+      "reason": "An action needs a predictable effect. It is distinct from turning ongoing variation on.",
+      "controls": [
+        {
+          "index": 17,
+          "id": "momo-shuffle",
+          "label": "Try another accessory",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "momo",
+      "title": "Make a face",
+      "decision": "Keep playful preview",
+      "alternative": "A small clearly named interaction beside Momo, secondary to the preference controls. Respect Still/reduced motion and avoid making it a large configuration action.",
+      "reason": "It adds delight and helps demonstrate behavior; it does not need form-level emphasis.",
+      "controls": [
+        {
+          "index": 18,
+          "id": "momo-preview",
+          "label": "Make a face",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "weather",
+      "title": "Find your city and Find",
+      "decision": "Focused search flow",
+      "alternative": "Start with the selected city and a Change action. Search opens a labeled query field with result rows; choose a result to commit, or Cancel. Keep submit available for keyboard users.",
+      "reason": "Configured state and pending search are different states. Do not leave owners guessing which city is active.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "city-search",
+          "label": "Find your city",
+          "type": "text"
+        },
+        {
+          "index": 1,
+          "id": "",
+          "label": "Find",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "weather",
+      "title": "Temperature",
+      "decision": "Segmented choice",
+      "alternative": "\u00b0C / \u00b0F as labeled mutually exclusive choices. Update weather examples immediately.",
+      "reason": "A two-option enum should be visible. Retain names for accessibility rather than relying on symbols alone.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "units",
+          "label": "Temperature",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "weather",
+      "title": "Clock format",
+      "decision": "Segmented choice",
+      "alternative": "12-hour / 24-hour with a live time example. One shared preference for all clocks and schedule displays.",
+      "reason": "The choice is small and its effect easy to demonstrate. It should not be repeated on every widget.",
+      "controls": [
+        {
+          "index": 3,
+          "id": "clock-format",
+          "label": "Clock",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Photo source",
+      "decision": "State plus source picker",
+      "alternative": "Show the selected source and its verified status. \u201cChange source\u201d opens two labeled source cards, each explaining what it supports. Connection fields appear only in the appropriate flow.",
+      "reason": "A source determines capabilities, not just a value in a menu. Switching should not silently disconnect or erase the inactive source.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "photo-source",
+          "label": "Photo source",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Slideshow style and duplicate style previews",
+      "decision": "Animated visual selector",
+      "alternative": "Five labeled style tiles with brief representative motion: fade, prints, collage, pan/zoom and still. A single selector owns the value. Preview motion on selection, respecting reduced motion.",
+      "reason": "\u201cSoft fade\u201d alone requires prior knowledge. Existing three preview buttons duplicate the dropdown and omit two styles.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "photo-style",
+          "label": "Slideshow style",
+          "type": "select-one"
+        },
+        {
+          "index": 24,
+          "id": "",
+          "label": "Soft fade",
+          "type": "submit"
+        },
+        {
+          "index": 25,
+          "id": "",
+          "label": "Falling prints",
+          "type": "submit"
+        },
+        {
+          "index": 26,
+          "id": "",
+          "label": "Photo collage",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Seconds per picture",
+      "decision": "Meaningful pace presets",
+      "alternative": "A compact pace selector, for example Quick \u00b7 8s / Relaxed \u00b7 20s / Lingering \u00b7 1 min, plus a deliberate More durations sheet for existing longer options. Show the exact applied duration.",
+      "reason": "Few useful defaults reduce scanning without removing supported long durations. Existing nonpreset values remain visible as Custom, never silently rounded.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "photo-speed",
+          "label": "Seconds per picture",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Play collection",
+      "decision": "Visual collection picker",
+      "alternative": "A row showing the current collection and count opens a thumbnail list of collections, including Recent, Keepers, Favourites and memories. Empty collections show their state.",
+      "reason": "An unbounded/custom collection set justifies a picker; it should show what will play rather than present only names.",
+      "controls": [
+        {
+          "index": 3,
+          "id": "slideshow-collection",
+          "label": "Play collection",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Preview presentation",
+      "decision": "Scoped preview action",
+      "alternative": "One clearly named \u201cPreview slideshow\u201d beside style/pace choices. Opens the actual chosen collection and settings, then returns to the same location.",
+      "reason": "Preview is useful for motion. It must communicate whether it previews manual playback or automatic display, rather than ambiguously saying presentation.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "slideshow-preview",
+          "label": "Preview presentation",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Automatic mail check",
+      "decision": "Short visible frequency choice",
+      "alternative": "Under Receiving, show Every 15 min / Hourly / Daily with the next check or manual Check now nearby. Keep the three existing options.",
+      "reason": "This is a small policy set, not a technical text field. Delivery state helps the owner judge the choice.",
+      "controls": [
+        {
+          "index": 5,
+          "id": "photo-refresh-interval",
+          "label": "Automatic mail check",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Trusted senders and address entry",
+      "decision": "Policy plus conditional list",
+      "alternative": "\u201cOnly accept photos from these people\u201d switch; when on, show sender rows with Add/Remove and a focused email entry. Allow bulk paste as an optional shortcut.",
+      "reason": "One-address-per-line text is an implementation convenience. Exact-address matching still matters; empty-list behavior must be explicit before enabling restriction.",
+      "controls": [
+        {
+          "index": 6,
+          "id": "photo-trusted",
+          "label": "Only import from these senders",
+          "type": "checkbox"
+        },
+        {
+          "index": 7,
+          "id": "photo-senders",
+          "label": "Exact email addresses \u00b7 one per line",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Save delivery options",
+      "decision": "Remove separate generic Save",
+      "alternative": "Ordinary delivery choices apply when valid. A sender Add flow commits an address explicitly and can be canceled. Show nearby validation/save failure.",
+      "reason": "A separate Save button gives this preference group a different persistence model without explaining why.",
+      "controls": [
+        {
+          "index": 8,
+          "id": "",
+          "label": "Save delivery options",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Gmail address, app password and Connect",
+      "decision": "Keep necessary secure form",
+      "alternative": "A focused account connection flow with labeled email/password fields, show/hide password while editing, clear prerequisites and Connect. Use a real imported photo to verify success.",
+      "reason": "Credentials genuinely require entry. Simplification must not become a fake one-click sign-in, prefilled secret or unverifiable \u201cconnected\u201d state.",
+      "controls": [
+        {
+          "index": 9,
+          "id": "photo-email",
+          "label": "Gmail address",
+          "type": "email"
+        },
+        {
+          "index": 10,
+          "id": "photo-password",
+          "label": "Google app password",
+          "type": "password"
+        },
+        {
+          "index": 11,
+          "id": "photo-connect",
+          "label": "Connect and check mail",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Gallery retention",
+      "decision": "Policy picker",
+      "alternative": "Visible recommended choices Last 30 days / Last 90 days / Last 30 photos; More opens all existing choices grouped by age or count. Summarize the effective rule and impact before pruning.",
+      "reason": "Age and count are different policies. A structured picker shows that distinction; a dropdown of eleven interleaved-looking values does not explain retention.",
+      "controls": [
+        {
+          "index": 12,
+          "id": "photo-retention",
+          "label": "Gallery retention",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Maximum shown photos",
+      "decision": "Remove competing primary choice",
+      "alternative": "Use the existing bounded capacity automatically for new setups. If an owner has a custom additional cap, show it explicitly on the retention detail page as \u201cAlso limit recent photos to \u2026\u201d.",
+      "reason": "A second unlabeled constraint can contradict the chosen policy. Preserve existing caps unless the owner deliberately changes them; never erase a migration choice silently.",
+      "controls": [
+        {
+          "index": 13,
+          "id": "photo-limit",
+          "label": "Maximum shown photos",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Disconnect email / erase local cache",
+      "decision": "Scoped destructive actions",
+      "alternative": "Separate source detail \u201cDisconnect and erase local photos\u201d from storage detail \u201cClear local photos.\u201d Show exact scope in confirmation and a clear Cancel; do not alter the mailbox.",
+      "reason": "Similar verbs have different outcomes. These actions need deliberate context and remain immediately available for revocation.",
+      "controls": [
+        {
+          "index": 14,
+          "id": "photo-disconnect",
+          "label": "Disconnect email and erase saved pictures",
+          "type": "submit"
+        },
+        {
+          "index": 15,
+          "id": "photo-erase-cache",
+          "label": "Erase saved pictures only",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Composition",
+      "decision": "Visual layout choices",
+      "alternative": "Three illustrated tiles: Automatic, One picture, Two pictures. Automatic explains portrait pairing; selected style previews the effective layout.",
+      "reason": "Arrangement is spatial. A text dropdown conceals the strongest distinction.",
+      "controls": [
+        {
+          "index": 16,
+          "id": "slideshow-layout",
+          "label": "Composition",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Default framing",
+      "decision": "Visual exclusive choice",
+      "alternative": "Fit / Fill / Automatic over one sample photo, showing preserved edges versus cropping. Automatic briefly explains its decision.",
+      "reason": "Seeing the crop is more meaningful than learning the words. Keep the global default separate from a picture override.",
+      "controls": [
+        {
+          "index": 17,
+          "id": "slideshow-fit",
+          "label": "Default framing",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Surrounding space",
+      "decision": "Visual swatches",
+      "alternative": "Theme mat / Black / Picture background tiles around the same sample image. Preview the current theme\u2019s actual mat.",
+      "reason": "This is another appearance choice with a readily visible effect; do not make the owner translate text into visuals.",
+      "controls": [
+        {
+          "index": 18,
+          "id": "slideshow-background",
+          "label": "Surrounding space",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Transition duration",
+      "decision": "Integrate with motion preview",
+      "alternative": "A small speed choice beside a selected transition, with a preview replay action. \u201cNone\u201d is represented by Cut rather than a contradictory independent duration value.",
+      "reason": "Transition type and timing must form a coherent result. Preserve legitimate saved timing while showing the actual effective combination.",
+      "controls": [
+        {
+          "index": 19,
+          "id": "slideshow-transition",
+          "label": "Transition duration",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Transition type",
+      "decision": "Style-owned customization",
+      "alternative": "Polished defaults come from the style. If customization is requested, show animated Dissolve / Cut / Slide / Reveal / Variety tiles on a motion page.",
+      "reason": "The style and transition menus overlap. A dedicated visual customization page is earned only by an intentional customization task.",
+      "controls": [
+        {
+          "index": 20,
+          "id": "slideshow-transition-type",
+          "label": "Transition",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Browsing playback seconds",
+      "decision": "Remove exposed number",
+      "alternative": "Default browsing playback to the chosen pace. Preserve an existing separate value as an explicit \u201cBrowsing pace differs\u201d row with a duration picker if this distinction remains supported.",
+      "reason": "A second number with unclear playback scope is fiddly. Unification should be intentional and preserve established preferences.",
+      "controls": [
+        {
+          "index": 21,
+          "id": "slideshow-browse-speed",
+          "label": "Browsing playback \u00b7 seconds",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Allow gentle motion",
+      "decision": "Policy switch with demonstration",
+      "alternative": "\u201cMotion in slideshow\u201d switch beside the motion preview; show Still when reduced motion takes precedence. Do not allow a toggle that falsely promises an unavailable effect.",
+      "reason": "A binary accessibility-sensitive behavior needs observable state and clear precedence.",
+      "controls": [
+        {
+          "index": 22,
+          "id": "slideshow-motion",
+          "label": "Allow gentle motion",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Resume previous photo",
+      "decision": "Keep purposeful switch",
+      "alternative": "\u201cContinue where I left off\u201d under playback behavior, with a short explanation of which automatic/manual sessions it applies to.",
+      "reason": "This is a valid preference with a clear human consequence; the existing wording and scope need refinement.",
+      "controls": [
+        {
+          "index": 23,
+          "id": "slideshow-resume",
+          "label": "Resume the previous photo",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Legacy Shuffle and Favourites-only",
+      "decision": "Retire duplicate controls",
+      "alternative": "Keep one Photo order choice and one collection picker. Migrate legacy flags into those canonical settings.",
+      "reason": "These hidden legacy controls duplicate current choices. They need retirement/migration, not new visual styling.",
+      "controls": [
+        {
+          "index": 27,
+          "id": "photo-shuffle",
+          "label": "Shuffle slideshow",
+          "type": "checkbox"
+        },
+        {
+          "index": 29,
+          "id": "photo-favourites-only",
+          "label": "Play favourites only",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Repeat slideshow",
+      "decision": "Contextual playback switch",
+      "alternative": "Repeat / Play once when starting a deliberate presentation. Ambient photo display loops by design; existing finite-playback settings remain honored in the appropriate mode.",
+      "reason": "A wall frame and a one-off presentation have different purposes. Do not force the owner to configure a routine slideshow\u2019s basic continuity.",
+      "controls": [
+        {
+          "index": 28,
+          "id": "photo-repeat",
+          "label": "Repeat slideshow",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Prefer favourites on Overview",
+      "decision": "Move to widget context",
+      "alternative": "In the selected Photos widget, show its collection preference with a direct Favourites choice. Link to the library for starring photos.",
+      "reason": "This affects one dashboard widget, not slideshow order. Place it beside the surface it changes.",
+      "controls": [
+        {
+          "index": 30,
+          "id": "photo-prefer-favourites",
+          "label": "Prefer favourites on Overview",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Photo order",
+      "decision": "Visible order choice",
+      "alternative": "Newest / Oldest / Shuffle / My order. Choosing My order opens the sequence editor; only that mode exposes sequence-management tools.",
+      "reason": "Four exclusive modes can be visible. Their differing interactions should be conditional, not laid out simultaneously.",
+      "controls": [
+        {
+          "index": 31,
+          "id": "slideshow-order",
+          "label": "Photo order",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Queue new arrivals next",
+      "decision": "Conditional priority switch",
+      "alternative": "Show \u201cShow new photos sooner\u201d when the chosen order supports it, with a plain explanation that current playback is not interrupted.",
+      "reason": "This policy is separate from sorting. Its effective behavior should not require understanding an internal queue.",
+      "controls": [
+        {
+          "index": 32,
+          "id": "slideshow-new-first",
+          "label": "Queue new arrivals next",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Give favourites extra turns",
+      "decision": "Conditional frequency choice",
+      "alternative": "Under Shuffle, offer \u201cShow favourites more often\u201d with a clear on/off choice and a preview/brief explanation.",
+      "reason": "Weighting is meaningful only in the relevant playback modes. Avoid implying it changes chronological or manual order.",
+      "controls": [
+        {
+          "index": 33,
+          "id": "slideshow-weighted",
+          "label": "Give favourites extra turns",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Sequence drag/up/down controls",
+      "decision": "Contextual sequence editor",
+      "alternative": "Reorder thumbnail tiles by drag; offer accessible Move earlier/later actions for the focused item through a contextual menu. Clear Done/Cancel applies the sequence.",
+      "reason": "Each photo currently carries three controls. The same functionality can be available without three permanent buttons per row.",
+      "controls": [
+        {
+          "index": 34,
+          "id": "",
+          "label": "Drag Picture 1",
+          "type": "button"
+        },
+        {
+          "index": 35,
+          "id": "",
+          "label": "Move Picture 1 up",
+          "type": "button"
+        },
+        {
+          "index": 36,
+          "id": "",
+          "label": "Move Picture 1 down",
+          "type": "button"
+        },
+        {
+          "index": 37,
+          "id": "",
+          "label": "Drag Picture 2",
+          "type": "button"
+        },
+        {
+          "index": 38,
+          "id": "",
+          "label": "Move Picture 2 up",
+          "type": "button"
+        },
+        {
+          "index": 39,
+          "id": "",
+          "label": "Move Picture 2 down",
+          "type": "button"
+        },
+        {
+          "index": 40,
+          "id": "",
+          "label": "Drag Picture 3",
+          "type": "button"
+        },
+        {
+          "index": 41,
+          "id": "",
+          "label": "Move Picture 3 up",
+          "type": "button"
+        },
+        {
+          "index": 42,
+          "id": "",
+          "label": "Move Picture 3 down",
+          "type": "button"
+        },
+        {
+          "index": 43,
+          "id": "",
+          "label": "Drag Picture 4",
+          "type": "button"
+        },
+        {
+          "index": 44,
+          "id": "",
+          "label": "Move Picture 4 up",
+          "type": "button"
+        },
+        {
+          "index": 45,
+          "id": "",
+          "label": "Move Picture 4 down",
+          "type": "button"
+        },
+        {
+          "index": 46,
+          "id": "",
+          "label": "Drag Picture 5",
+          "type": "button"
+        },
+        {
+          "index": 47,
+          "id": "",
+          "label": "Move Picture 5 up",
+          "type": "button"
+        },
+        {
+          "index": 48,
+          "id": "",
+          "label": "Move Picture 5 down",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Find a picture",
+      "decision": "Keep search in library tool",
+      "alternative": "A compact search field above the gallery with clear/reset, relevant result count and an empty-result state.",
+      "reason": "Search is justified when the library grows. It belongs where pictures are visible, rather than halfway through preferences.",
+      "controls": [
+        {
+          "index": 49,
+          "id": "library-query",
+          "label": "Find a picture",
+          "type": "search"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Show / library filter",
+      "decision": "Grouped sidebar or picker",
+      "alternative": "Visible primary collections/filters in the library; less common Excluded and Waiting for review appear as labeled destinations, with pending counts. Collapse to a picker on smaller screens.",
+      "reason": "Seven states mix collections, dates and moderation. Grouping helps people understand where they are.",
+      "controls": [
+        {
+          "index": 50,
+          "id": "library-filter",
+          "label": "Show",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Select all matching / Clear selection",
+      "decision": "Selection-mode actions",
+      "alternative": "Enter Select mode first. Only then show Select all results and Deselect all, with an explicit count and search scope.",
+      "reason": "Selection commands make little sense before selection is an active task. \u201cAll\u201d must state whether it means displayed results or the entire library.",
+      "controls": [
+        {
+          "index": 51,
+          "id": "library-select-all",
+          "label": "Select all matching",
+          "type": "button"
+        },
+        {
+          "index": 52,
+          "id": "library-select-none",
+          "label": "Clear selection",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Per-photo checkboxes",
+      "decision": "Conditional selection state",
+      "alternative": "Normal mode: tap a photo to inspect. Select mode: tap toggles a clear selection check overlay on the image. Provide an accessible Select action; do not depend only on long press.",
+      "reason": "Permanent checkboxes make every photo card look like a form before the person chooses a bulk task.",
+      "controls": [
+        {
+          "index": 53,
+          "id": "",
+          "label": "Picture 1",
+          "type": "checkbox"
+        },
+        {
+          "index": 55,
+          "id": "",
+          "label": "Picture 2",
+          "type": "checkbox"
+        },
+        {
+          "index": 57,
+          "id": "",
+          "label": "Picture 3",
+          "type": "checkbox"
+        },
+        {
+          "index": 59,
+          "id": "",
+          "label": "Picture 4",
+          "type": "checkbox"
+        },
+        {
+          "index": 61,
+          "id": "",
+          "label": "Picture 5",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Repeated Edit buttons",
+      "decision": "Remove permanent card furniture",
+      "alternative": "Tap the photo to open its viewer; Edit opens the framing/details tool from there. Keyboard activation follows the same route.",
+      "reason": "Every item does not need a labeled Edit button and a checkbox below its image. Mode separation makes the interaction legible.",
+      "controls": [
+        {
+          "index": 54,
+          "id": "",
+          "label": "Edit",
+          "type": "button"
+        },
+        {
+          "index": 56,
+          "id": "",
+          "label": "Edit",
+          "type": "button"
+        },
+        {
+          "index": 58,
+          "id": "",
+          "label": "Edit",
+          "type": "button"
+        },
+        {
+          "index": 60,
+          "id": "",
+          "label": "Edit",
+          "type": "button"
+        },
+        {
+          "index": 62,
+          "id": "",
+          "label": "Edit",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Keep / Remove from Keepers",
+      "decision": "Contextual retention actions",
+      "alternative": "Show Keep for unprotected selection and Stop keeping for protected selection. Mixed selection states are explicit. Explain retention protection once in that workflow.",
+      "reason": "Opposite actions should not appear equally available without regard to selection. Keepers is not simply another collection.",
+      "controls": [
+        {
+          "index": 63,
+          "id": "library-keep",
+          "label": "Keep selected",
+          "type": "button"
+        },
+        {
+          "index": 64,
+          "id": "library-unkeep",
+          "label": "Remove from Keepers",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Favourite",
+      "decision": "Contextual star action",
+      "alternative": "An accessible star in the viewer and selection toolbar. Indicate on/off/mixed state; batch action states the intended outcome.",
+      "reason": "Starring is a lightweight preference. A bare Favourite verb hides whether it adds, removes or toggles a mixed selection.",
+      "controls": [
+        {
+          "index": 65,
+          "id": "library-star",
+          "label": "Favourite",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Exclude / Restore",
+      "decision": "Contextual reversible curation",
+      "alternative": "Exclude appears for eligible photos; Restore appears in Excluded. Confirm the persistent exclusion effect, show an Undo route, and preserve exclusions across mail checks.",
+      "reason": "Opposite actions do not need to sit beside each other at all times. Deletion from email must not be implied.",
+      "controls": [
+        {
+          "index": 66,
+          "id": "library-exclude",
+          "label": "Exclude",
+          "type": "button"
+        },
+        {
+          "index": 67,
+          "id": "library-restore",
+          "label": "Restore",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "New collection and Create with selected",
+      "decision": "Focused creation flow",
+      "alternative": "With photos selected, \u201cAdd to collection\u201d offers Existing or New. New opens a name field with Create/Cancel and a count of included photos.",
+      "reason": "Naming and bulk membership are one task. Empty name fields should not occupy the default gallery.",
+      "controls": [
+        {
+          "index": 68,
+          "id": "library-album-name",
+          "label": "New collection",
+          "type": "text"
+        },
+        {
+          "index": 70,
+          "id": "library-create-album",
+          "label": "Create with selected",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Existing collection picker / add / remove",
+      "decision": "Membership picker and context",
+      "alternative": "Add selected opens a collection picker. Remove from collection is offered only inside a particular collection and never erases photos.",
+      "reason": "The operation needs a known collection context. A global remove button and empty dropdown require guesswork.",
+      "controls": [
+        {
+          "index": 69,
+          "id": "library-album",
+          "label": "Add to collection",
+          "type": "select-one"
+        },
+        {
+          "index": 71,
+          "id": "library-add-album",
+          "label": "Add selected",
+          "type": "button"
+        },
+        {
+          "index": 72,
+          "id": "library-remove-album",
+          "label": "Remove selected",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Delete collection",
+      "decision": "Collection-detail action",
+      "alternative": "Put Delete collection in that collection\u2019s menu. Confirm that pictures stay on the frame, with Cancel.",
+      "reason": "A destructive action against a container should not be mixed into photo-selection controls.",
+      "controls": [
+        {
+          "index": 73,
+          "id": "library-delete-album",
+          "label": "Delete collection",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Picture selector",
+      "decision": "Remove detached picker",
+      "alternative": "The picture opened in the viewer is the editing target. Previous/Next moves through the current library scope with unsaved-edit handling.",
+      "reason": "A separate text dropdown disconnects editing from the selected image and duplicates gallery navigation.",
+      "controls": [
+        {
+          "index": 74,
+          "id": "photo-choice-select",
+          "label": "Picture",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Per-photo Favourite / Exclude",
+      "decision": "Canonical viewer actions",
+      "alternative": "Use the same star and Exclude actions as the library, operating on this photo. Do not provide a second checkbox-based exclusion model inside framing.",
+      "reason": "Repeated entry points are fine when they share semantics; duplicate presentations with different state language are confusing.",
+      "controls": [
+        {
+          "index": 75,
+          "id": "photo-favourite",
+          "label": "Favourite",
+          "type": "submit"
+        },
+        {
+          "index": 76,
+          "id": "photo-hide",
+          "label": "Exclude from gallery",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Picture framing override",
+      "decision": "Visual inherited choice",
+      "alternative": "Default / Fit / Fill choices directly beside the image. Default shows the current inherited behavior and a reset route.",
+      "reason": "People need to see both the crop and whether their change affects this photo or every photo.",
+      "controls": [
+        {
+          "index": 77,
+          "id": "photo-fit",
+          "label": "Picture framing",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Caption, title and accessibility description",
+      "decision": "Optional details page",
+      "alternative": "Keep a concise title for finding the photo and an accessibility description in Photo details. Consolidate redundant caption/title roles; keep captions off the player.",
+      "reason": "These are metadata, not mandatory slideshow setup. Accessibility description must remain available even if visible captions are omitted.",
+      "controls": [
+        {
+          "index": 78,
+          "id": "photo-caption",
+          "label": "Caption \u00b7 on this frame",
+          "type": "text"
+        },
+        {
+          "index": 79,
+          "id": "library-title",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "index": 80,
+          "id": "library-description",
+          "label": "Description for accessibility",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Rotation",
+      "decision": "Direct icon action",
+      "alternative": "Rotate clockwise from the image toolbar, with orientation visible and Reset available. An accessible menu may expose exact orientations.",
+      "reason": "Rotation is best understood as an action on the picture, not selecting a degree value from a form.",
+      "controls": [
+        {
+          "index": 81,
+          "id": "library-rotation",
+          "label": "Rotation",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Capture date",
+      "decision": "Keep optional date entry",
+      "alternative": "A labeled date picker in Photo details, with Unknown/clear state and a brief note explaining its use for memories.",
+      "reason": "A date genuinely requires a date control. Never silently infer capture date from received date.",
+      "controls": [
+        {
+          "index": 82,
+          "id": "library-capture-date",
+          "label": "Capture date \u00b7 optional",
+          "type": "date"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Crop horizontal and vertical",
+      "decision": "Remove axes; manipulate image",
+      "alternative": "In Fill mode, drag the image within a fixed frame; keep edges visible, constrain movement and provide keyboard nudge alternatives.",
+      "reason": "Two independent sliders are a poor proxy for a two-dimensional visual task. Fit mode should not expose controls with no effect.",
+      "controls": [
+        {
+          "index": 83,
+          "id": "library-crop-x",
+          "label": "Crop position \u00b7 horizontal",
+          "type": "range"
+        },
+        {
+          "index": 84,
+          "id": "library-crop-y",
+          "label": "Crop position \u00b7 vertical",
+          "type": "range"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Suggested face position",
+      "decision": "Explicit framing option",
+      "alternative": "\u201cSuggest framing\u201d previews a local proposal that can be accepted or adjusted. Explain that it uses on-device detection and does not identify people.",
+      "reason": "A hidden automatic override and a manual crop can conflict. An explicit suggestion with visible effect is easier to trust.",
+      "controls": [
+        {
+          "index": 85,
+          "id": "library-auto-crop",
+          "label": "Use suggested face position",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Custom viewing time",
+      "decision": "Inherited duration picker",
+      "alternative": "A row reads \u201cUse slideshow pace\u201d or the specific duration. A picker offers a small set plus Custom duration, with Reset to slideshow.",
+      "reason": "Zero-as-default is a storage encoding. A custom override should express inheritance clearly and require deliberate use.",
+      "controls": [
+        {
+          "index": 86,
+          "id": "library-seconds",
+          "label": "Custom viewing time \u00b7 seconds",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Save picture details",
+      "decision": "Keep explicit edit transaction",
+      "alternative": "Done/Cancel on the image-editing tool. Preview changes in the draft; warn about a dirty draft before changing the target photo.",
+      "reason": "A larger multi-step edit needs a boundary, unlike a quick favourite toggle.",
+      "controls": [
+        {
+          "index": 87,
+          "id": "library-save-picture",
+          "label": "Save picture details",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Show excluded / Restore all excluded",
+      "decision": "Excluded destination; deliberate bulk action",
+      "alternative": "Use the existing Excluded library destination instead of a second show-hidden flag. Offer Restore all only there, with a clear count and confirmation.",
+      "reason": "The destination already provides discovery. A global restore action can reverse many intentional exclusions unexpectedly.",
+      "controls": [
+        {
+          "index": 88,
+          "id": "photo-show-hidden",
+          "label": "Show excluded pictures in the library",
+          "type": "checkbox"
+        },
+        {
+          "index": 89,
+          "id": "photo-restore-hidden",
+          "label": "Restore all excluded pictures",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Review new emailed pictures",
+      "decision": "Receiving policy switch",
+      "alternative": "\u201cReview photos before showing them\u201d with a pending queue link when enabled and nonempty. Explain what happens to already pending photos when turning it off.",
+      "reason": "This controls admission, not storage. It belongs with sender restrictions rather than an arbitrary library accordion.",
+      "controls": [
+        {
+          "index": 90,
+          "id": "library-review-new",
+          "label": "Review new emailed pictures before display",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Keep capture date from new imports",
+      "decision": "Keep explicit opt-in",
+      "alternative": "A clear \u201cRemember capture dates for memories\u201d switch in source/privacy details. Explain that prior discarded dates cannot be recovered and location metadata stays discarded.",
+      "reason": "This is a privacy-sensitive tradeoff with a meaningful benefit. Do not silently enable it for prettier memories.",
+      "controls": [
+        {
+          "index": 91,
+          "id": "library-capture-new",
+          "label": "Keep only the capture date from new imports",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Approve / Reject selected",
+      "decision": "Review-mode actions",
+      "alternative": "Inside the pending-photo queue, show actions only after selection. Reject explains whether the picture is excluded persistently; empty queue shows completion without commands.",
+      "reason": "Approval is a task with prerequisites. Always-visible actions on an empty queue create confusing furniture.",
+      "controls": [
+        {
+          "index": 92,
+          "id": "library-approve",
+          "label": "Approve selected",
+          "type": "button"
+        },
+        {
+          "index": 93,
+          "id": "library-reject",
+          "label": "Reject selected",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Import photos / muted clip",
+      "decision": "Library Add flow",
+      "alternative": "A single Add action in the library opens Photos or Muted clip, followed by Android\u2019s picker. Show concise duration/size limits, progress, result and actionable failure.",
+      "reason": "Importing is content creation. Separate permanent buttons and codec prose do not belong on the default Settings page.",
+      "controls": [
+        {
+          "index": 94,
+          "id": "library-import-images",
+          "label": "Import pictures to Keepers",
+          "type": "button"
+        },
+        {
+          "index": 95,
+          "id": "library-import-video",
+          "label": "Import a muted clip",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Choose / remove soundtrack",
+      "decision": "Presentation soundtrack row",
+      "alternative": "No file: Add soundtrack. File present: show a safe display name, Replace and contextual Remove. Use a native picker and make the supported formats discoverable in help.",
+      "reason": "State determines which operations make sense. Do not show Remove before a soundtrack exists.",
+      "controls": [
+        {
+          "index": 96,
+          "id": "library-import-music",
+          "label": "Choose AAC / M4A soundtrack",
+          "type": "button"
+        },
+        {
+          "index": 97,
+          "id": "library-erase-music",
+          "label": "Remove soundtrack",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Play soundtrack / volume",
+      "decision": "Conditional audio controls",
+      "alternative": "Only with a soundtrack present, show an Audio switch and themed volume slider with audible preview on explicit request. Stop audio on cancel/exit; preserve mute defaults.",
+      "reason": "Volume is genuinely continuous, so a slider is appropriate. Audio should never start as a surprise from opening Settings.",
+      "controls": [
+        {
+          "index": 98,
+          "id": "library-music-enabled",
+          "label": "Play soundtrack with slideshow",
+          "type": "checkbox"
+        },
+        {
+          "index": 99,
+          "id": "library-music-volume",
+          "label": "Soundtrack volume",
+          "type": "range"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Automatic photos only during these hours",
+      "decision": "Daily routine policy",
+      "alternative": "In Frame \u2192 Daily routine, show automatic photos enabled/disabled and their active window. Reveal times only when scheduling is enabled.",
+      "reason": "This governs the whole frame. Displaying inactive times makes disabled behavior look configured and active.",
+      "controls": [
+        {
+          "index": 100,
+          "id": "slideshow-scheduled",
+          "label": "Automatic photos only during these hours",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Photo schedule From / Until",
+      "decision": "Readable time range",
+      "alternative": "Two labeled time pickers in the chosen clock format, with an overnight-aware summary and the selected city\u2019s time shown.",
+      "reason": "Times justify time controls. Describe the range in natural language so crossing midnight is understandable.",
+      "controls": [
+        {
+          "index": 101,
+          "id": "slideshow-start",
+          "label": "From",
+          "type": "time"
+        },
+        {
+          "index": 102,
+          "id": "slideshow-end",
+          "label": "Until",
+          "type": "time"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Set app brightness by schedule",
+      "decision": "Daily routine switch",
+      "alternative": "A brightness schedule row explains that only Skylit\u2019s window is affected. Enable reveals day/night brightness and the actual effective window.",
+      "reason": "A behavior affecting the whole display should not be hidden among photo editing tools.",
+      "controls": [
+        {
+          "index": 103,
+          "id": "slideshow-dim",
+          "label": "Set app brightness by schedule",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Scheduled / outside brightness",
+      "decision": "Keep slider; make effect visible",
+      "alternative": "Themed sliders labeled for their effective periods, with brightness icons and visible values. Preview temporarily; restore normal system behavior when disabled.",
+      "reason": "Brightness is a continuous perceptual choice. A slider fits, but generic blue bars without clear state and feedback do not.",
+      "controls": [
+        {
+          "index": 104,
+          "id": "slideshow-brightness",
+          "label": "During scheduled hours",
+          "type": "range"
+        },
+        {
+          "index": 105,
+          "id": "slideshow-night-brightness",
+          "label": "Outside scheduled hours",
+          "type": "range"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Save slideshow as / Save preset",
+      "decision": "Named-presentation creation",
+      "alternative": "Save as presentation opens a name sheet with a thumbnail summary, Save and Cancel. It does not expose an empty name box continuously.",
+      "reason": "This creates an object. Object creation deserves a small focused flow.",
+      "controls": [
+        {
+          "index": 106,
+          "id": "slideshow-preset-name",
+          "label": "Save current slideshow as",
+          "type": "text"
+        },
+        {
+          "index": 108,
+          "id": "slideshow-save-preset",
+          "label": "Save preset",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Saved presets / Load / Delete",
+      "decision": "Visual presentation library",
+      "alternative": "Named cards show collection/style. Open to preview and Use; contextual menu contains Rename/Delete. Show empty state rather than an empty dropdown.",
+      "reason": "Load/delete commands around a blank select expose file-management mechanics rather than a recognizable collection of presentations.",
+      "controls": [
+        {
+          "index": 107,
+          "id": "slideshow-preset",
+          "label": "Saved presets",
+          "type": "select-one"
+        },
+        {
+          "index": 109,
+          "id": "slideshow-load-preset",
+          "label": "Load preset",
+          "type": "button"
+        },
+        {
+          "index": 110,
+          "id": "slideshow-delete-preset",
+          "label": "Delete preset",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Seasonal / From month / Through month",
+      "decision": "Conditional month-range choice",
+      "alternative": "An \u201cUse during these months\u201d switch within one presentation\u2019s details reveals named month pickers. Show a natural range including year-wrap behavior.",
+      "reason": "Month numbers are an internal encoding. The range belongs to a particular presentation, not a general photo form.",
+      "controls": [
+        {
+          "index": 111,
+          "id": "slideshow-seasonal",
+          "label": "This preset is seasonal",
+          "type": "checkbox"
+        },
+        {
+          "index": 112,
+          "id": "slideshow-season-start",
+          "label": "From month",
+          "type": "number"
+        },
+        {
+          "index": 113,
+          "id": "slideshow-season-end",
+          "label": "Through month",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Title cards, title and closing title",
+      "decision": "Presentation-specific title flow",
+      "alternative": "Default has no title cards. An Add title action opens an optional title/closing-title editor with immediate visual preview and a clear Remove title route.",
+      "reason": "This is deliberate presentation authoring. It must not reintroduce captions or persistent controls on the slideshow player.",
+      "controls": [
+        {
+          "index": 114,
+          "id": "slideshow-story",
+          "label": "Show presentation title cards",
+          "type": "checkbox"
+        },
+        {
+          "index": 115,
+          "id": "slideshow-story-title",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "index": 116,
+          "id": "slideshow-story-outro",
+          "label": "Closing title \u00b7 optional",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Seconds per title / exported slide",
+      "decision": "Purposeful export timing",
+      "alternative": "Export follows the presentation\u2019s pace by default. A timing row allows deliberate overrides through human duration choices and shows estimated total length.",
+      "reason": "Two raw numbers do not explain the resulting movie. Some timing choices are valid; their consequences should be visible.",
+      "controls": [
+        {
+          "index": 117,
+          "id": "slideshow-title-seconds",
+          "label": "Seconds per title card",
+          "type": "number"
+        },
+        {
+          "index": 118,
+          "id": "slideshow-export-seconds",
+          "label": "Seconds per exported slide",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Export video / Cancel export",
+      "decision": "Task and progress state",
+      "alternative": "Export from the selected presentation or selected photos, with a summary and native destination flow. Cancel appears only while work runs; completion opens/shares the actual output.",
+      "reason": "Export has prerequisites, progress and an artifact. It should not be a standing preference button with unrelated timing fields.",
+      "controls": [
+        {
+          "index": 119,
+          "id": "slideshow-export",
+          "label": "Export selected pictures as video",
+          "type": "button"
+        },
+        {
+          "index": 120,
+          "id": "slideshow-export-cancel",
+          "label": "Cancel export",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Start / Stop phone session",
+      "decision": "Guided temporary session",
+      "alternative": "Inactive: Manage from phone. Active flow: QR, matching number, frame approval, expiry and Stop. Show verification help at the relevant certificate step.",
+      "reason": "Start and Stop are opposite states, not permanent peer commands. Keep normal expiry, immediate revocation and local-only scope.",
+      "controls": [
+        {
+          "index": 121,
+          "id": "slideshow-phone-start",
+          "label": "Start phone session",
+          "type": "button"
+        },
+        {
+          "index": 122,
+          "id": "slideshow-phone-stop",
+          "label": "Stop session",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Show photos after",
+      "decision": "Behavior switch plus delay choice",
+      "alternative": "Automatic photos on/off, then visible 1 / 2 / 5 / 10 minute delay choices when enabled. Show a short \u201cafter no touch\u201d explanation.",
+      "reason": "Never and durations mix enablement with a parameter. Make both concepts explicit without showing inactive parameters.",
+      "controls": [
+        {
+          "index": 123,
+          "id": "idle-delay",
+          "label": "Show photos after",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Shared album link / Save album",
+      "decision": "Source-specific connection flow",
+      "alternative": "Only for the shared-album source, a focused private-link entry with Connect/Cancel and meaningful validation. Show saved status without displaying the secret link.",
+      "reason": "A credential-like URL genuinely needs input, but should not sit below unrelated local-library tools.",
+      "controls": [
+        {
+          "index": 124,
+          "id": "album-url",
+          "label": "Google Photos shared-album link",
+          "type": "url"
+        },
+        {
+          "index": 125,
+          "id": "save-album",
+          "label": "Save album",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Preview idle photo mode",
+      "decision": "One scoped preview",
+      "alternative": "In Daily routine, \u201cTry automatic display\u201d demonstrates the chosen source and return behavior, then returns to the same setting.",
+      "reason": "Previewing automatic display is valid. Its label must distinguish it from previewing a manual slideshow.",
+      "controls": [
+        {
+          "index": 126,
+          "id": "test-idle",
+          "label": "Preview idle photo mode",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Quiet ambient display",
+      "decision": "Daily routine/privacy switch",
+      "alternative": "\u201cQuiet display at night\u201d with a visual example of the clock-only state. Times appear only when enabled; scope explains that active manual playback is not interrupted.",
+      "reason": "This is a whole-frame privacy behavior, not a photo setting. Demonstration makes the policy understandable.",
+      "controls": [
+        {
+          "index": 127,
+          "id": "quiet-enabled",
+          "label": "Quiet ambient display during these hours",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Quiet From / Until",
+      "decision": "Time-range control",
+      "alternative": "Use the same readable time-range interaction as other routines. Show any intentional difference from photo/brightness hours and permit it explicitly.",
+      "reason": "Consolidation should reveal relationships without forcing saved independent schedules to match.",
+      "controls": [
+        {
+          "index": 128,
+          "id": "quiet-start",
+          "label": "From",
+          "type": "time"
+        },
+        {
+          "index": 129,
+          "id": "quiet-end",
+          "label": "Until",
+          "type": "time"
+        }
+      ]
+    },
+    {
+      "area": "photos",
+      "title": "Pause private content now",
+      "decision": "Stateful quick action",
+      "alternative": "An easily reached Pause action in Frame and a suitable quick-action route. While paused show Resume and current scope; do not bury it below the photo tool suite.",
+      "reason": "An immediate privacy operation must be reachable at the moment it is needed, not found by searching long preference forms.",
+      "controls": [
+        {
+          "index": 130,
+          "id": "privacy-pause",
+          "label": "Pause private content now",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Review who appears",
+      "decision": "Contextual calendar workflow",
+      "alternative": "Event visibility row shows Off, On or pending count. Open a nested review tool; highlight only real pending work.",
+      "reason": "It is neither a calendar account field nor a global top-level setting. State should precede an empty queue.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "calendar-review-settings",
+          "label": "Review who appears on this frame",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Show on frame",
+      "decision": "Keep clear visibility switch",
+      "alternative": "One labeled switch in each connected-calendar row, with immediate dashboard/calendar effect and reversible state.",
+      "reason": "This is a genuine entity-specific binary preference. Keep it adjacent to the calendar label.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "",
+          "label": "Show on frame",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Edit / Remove calendar",
+      "decision": "Entity detail and contextual removal",
+      "alternative": "Tap the calendar row to open details. Rename/color there; Remove in its contextual menu with scope and confirmation.",
+      "reason": "Repeated equal-weight editing commands clutter the connected list. Removal is a deliberate source operation.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "",
+          "label": "Edit Example calendar",
+          "type": "submit"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "label": "Remove Example calendar",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Calendar name",
+      "decision": "Keep task input",
+      "alternative": "A labeled name field in Add/Edit calendar, with a meaningful default only when safely available and a clear cancel route.",
+      "reason": "Naming an entity requires text; changing its location does not justify replacing it with a visual-only control.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "calendar-name",
+          "label": "Calendar name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Calendar colour",
+      "decision": "Labeled color swatches",
+      "alternative": "Five color swatches with names and a selection marker, beside the label preview. Never rely solely on color to identify a calendar.",
+      "reason": "Appearance is visual. A text dropdown hides the effect and asks people to translate a color name.",
+      "controls": [
+        {
+          "index": 5,
+          "id": "calendar-color",
+          "label": "Colour",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "calendars",
+      "title": "Secret iCal address / Connect",
+      "decision": "Focused secure setup",
+      "alternative": "A masked private-feed entry with on-device help, Connect/Cancel and real refresh verification. Keep stored links hidden after saving.",
+      "reason": "The necessary form should be carefully designed, not abolished. Retain read-only private-feed integration and existing privacy boundaries.",
+      "controls": [
+        {
+          "index": 6,
+          "id": "calendar-feed",
+          "label": "Secret iCal address",
+          "type": "password"
+        },
+        {
+          "index": 7,
+          "id": "calendar-add",
+          "label": "Connect calendar",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "calendar-review",
+      "title": "Review new inviters",
+      "decision": "Explicit enablement choice",
+      "alternative": "Event visibility starts with \u201cReview new event organizers\u201d on/off. Disabled state hides queues and policy details; enabling explains scope before setup.",
+      "reason": "Do not bury enablement inside setup while showing a disabled feature as an empty active workflow.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "calendar-gate-enable",
+          "label": "Review new inviters before showing their events",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "calendar-review",
+      "title": "Calendar account email",
+      "decision": "Conditional owner setup",
+      "alternative": "A focused owner-identity field inside review setup, explaining its role; keep the actual value private and editable on-device.",
+      "reason": "This is legitimate exact-address information, but not an everyday control above every review decision.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "calendar-owner",
+          "label": "Calendar account email",
+          "type": "email"
+        }
+      ]
+    },
+    {
+      "area": "calendar-review",
+      "title": "Approve inviter / Approve action",
+      "decision": "Person review or add-person flow",
+      "alternative": "Pending items present exact addresses with Show/Hide decisions. A separate Add approved person sheet takes a typed address and explicit confirmation.",
+      "reason": "Normal review should use known pending entities; manual entry is a distinct exceptional task.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "calendar-approve-email",
+          "label": "Approve an inviter",
+          "type": "email"
+        },
+        {
+          "index": 3,
+          "id": "",
+          "label": "Approve",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "calendar-review",
+      "title": "Show events without organizer",
+      "decision": "Conditional policy switch",
+      "alternative": "A clear \u201cShow events with no organizer\u201d switch in review policy, with an example of what that means.",
+      "reason": "It is a meaningful fallback policy, but belongs beside review configuration rather than as a global always-visible choice.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "calendar-unattributed",
+          "label": "Show events without an organizer address",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "household",
+      "title": "Show Household",
+      "decision": "Move to page visibility",
+      "alternative": "Dashboard \u2192 Visible pages has a single Household switch with an example of the navigation item.",
+      "reason": "Optional-page visibility currently has three scattered homes.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "show-household",
+          "label": "Show Household in navigation",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "household",
+      "title": "Open Household",
+      "decision": "Task route",
+      "alternative": "A concise Manage notes & lists link from relevant context. Widget edit links open the same activity even if its navigation entry is hidden.",
+      "reason": "An activity launch is useful; it should replace the embedded content form, not duplicate it.",
+      "controls": [
+        {
+          "index": 1,
+          "id": "household-open",
+          "label": "Open Household",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "household",
+      "title": "Pinned note / Save note",
+      "decision": "Content-editing sheet",
+      "alternative": "Edit the note in Household or from its widget, with a focused textarea and Save/Cancel. Show the intended widget preview, not an unrelated preference card.",
+      "reason": "Text entry is appropriate; the problem is context and draft semantics, not the existence of a form.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "household-note-input",
+          "label": "Pinned note \u00b7 on this frame",
+          "type": "textarea"
+        },
+        {
+          "index": 3,
+          "id": "household-note-save",
+          "label": "Save note",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "household",
+      "title": "Countdown title / date / Add",
+      "decision": "Creation flow",
+      "alternative": "Add countdown in Household or widget context opens title/date fields and a resulting countdown preview, with Add/Cancel.",
+      "reason": "These are creation fields for an object. They should not remain blank on a settings page.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "countdown-title",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "index": 5,
+          "id": "countdown-date",
+          "label": "Date",
+          "type": "date"
+        },
+        {
+          "index": 6,
+          "id": "",
+          "label": "Add countdown",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "services",
+      "title": "Google Home page / Save",
+      "decision": "Automatic default; connection detail",
+      "alternative": "Use the supported default entry. Open Google Home and sign in on the frame. If custom destinations serve a verified need, edit through a labeled connection-detail flow with exact host restrictions.",
+      "reason": "Raw URL configuration is not the normal goal. A destination loaded successfully still does not prove home control.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "home-url",
+          "label": "Google Home page",
+          "type": "url"
+        },
+        {
+          "index": 1,
+          "id": "save-home",
+          "label": "Save home page",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "services",
+      "title": "Show Home / Show YouTube",
+      "decision": "Move to page visibility",
+      "alternative": "Place the two switches beside Household under Dashboard \u2192 Visible pages; demonstrate the navigation result.",
+      "reason": "One conceptual preference family should have one home and one consistent interaction.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "show-home",
+          "label": "Show Home in navigation",
+          "type": "checkbox"
+        },
+        {
+          "index": 3,
+          "id": "show-youtube",
+          "label": "Show YouTube in navigation",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "services",
+      "title": "Shortcut title / link / Add",
+      "decision": "Shortcut creation tool",
+      "alternative": "Create a shortcut in YouTube, with a link field, validated recognizable type, optional title and Add/Cancel. Edit existing shortcuts through their own menus.",
+      "reason": "A content-making workflow should be tied to its output; necessary link entry stays, but the empty standing form goes.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "youtube-shortcut-title",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "index": 5,
+          "id": "youtube-shortcut-url",
+          "label": "Video or playlist link",
+          "type": "url"
+        },
+        {
+          "index": 6,
+          "id": "",
+          "label": "Add shortcut",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "updates",
+      "title": "Main update action / Check now",
+      "decision": "State-driven action",
+      "alternative": "One primary action follows actual state: Check, Download or Install. A secondary Check again is offered when relevant, not as a competing duplicate.",
+      "reason": "State dictates the next step. Automatic policy does not remove an owner\u2019s ability to act manually.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "update-action",
+          "label": "Check for updates",
+          "type": "submit"
+        },
+        {
+          "index": 1,
+          "id": "update-check",
+          "label": "Check now",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "updates",
+      "title": "Allow install permission",
+      "decision": "Just-in-time permission step",
+      "alternative": "Explain why Android permission is needed and open its settings only when the owner chooses install/idle updates. Resume the update flow afterward.",
+      "reason": "Permission is a prerequisite step, not ordinary permanent preference furniture. Keep denial and unsupported states clear.",
+      "controls": [
+        {
+          "index": 2,
+          "id": "update-permission",
+          "label": "Allow Skylit to install updates",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "updates",
+      "title": "Automatic check/download/install",
+      "decision": "Exclusive policy",
+      "alternative": "Manual / Check automatically / Download automatically / Update while idle, with a short consequence for each. Preserve current combinations as an explicit equivalent or Custom state until the owner chooses.",
+      "reason": "Three independent flags expose a pipeline. An owner-facing policy avoids invalid or surprising combinations without silently enabling automation.",
+      "controls": [
+        {
+          "index": 3,
+          "id": "update-auto-check",
+          "label": "Check for releases automatically",
+          "type": "checkbox"
+        },
+        {
+          "index": 4,
+          "id": "update-auto-download",
+          "label": "Download updates automatically",
+          "type": "checkbox"
+        },
+        {
+          "index": 5,
+          "id": "update-auto-install",
+          "label": "Install automatically while the frame is idle",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "area": "updates",
+      "title": "Update window",
+      "decision": "Conditional time range",
+      "alternative": "Only for idle installation, offer natural time pickers in the chosen format and a readable overnight summary. State Android confirmation requirements where applicable.",
+      "reason": "A 24-entry hour dropdown is a poor time picker. The window is irrelevant when automatic installation is off.",
+      "controls": [
+        {
+          "index": 6,
+          "id": "update-start",
+          "label": "Between",
+          "type": "select-one"
+        },
+        {
+          "index": 7,
+          "id": "update-end",
+          "label": "And",
+          "type": "select-one"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Wi-Fi / wireless / Android apps",
+      "decision": "Recognizable recovery routes",
+      "alternative": "Frame \u2192 Android & connections offers labeled icon rows. Show recovery guidance beside wireless settings and return cleanly to Skylit.",
+      "reason": "These solve a real owner need. They deserve approachable labels and clear effects, rather than three equal technical buttons.",
+      "controls": [
+        {
+          "index": 0,
+          "id": "wifi-settings",
+          "label": "Wi-Fi settings",
+          "type": "submit"
+        },
+        {
+          "index": 1,
+          "id": "wireless-settings",
+          "label": "Wireless connection settings",
+          "type": "submit"
+        },
+        {
+          "index": 2,
+          "id": "android-controls",
+          "label": "Android apps",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Weather/Calendar Retry; mail Check now; Home Open",
+      "decision": "State-specific service actions",
+      "alternative": "Healthy fetch services use Refresh; failed services use Retry with reason. Mail uses Check now; Home uses Open with verified-capability state. Only relevant actions appear.",
+      "reason": "Generic Retry in a healthy row is misleading. Keep the distinction between rendering a remote page and verified service function.",
+      "controls": [
+        {
+          "index": 3,
+          "id": "",
+          "label": "Retry",
+          "type": "submit"
+        },
+        {
+          "index": 5,
+          "id": "",
+          "label": "Retry",
+          "type": "submit"
+        },
+        {
+          "index": 7,
+          "id": "",
+          "label": "Check now",
+          "type": "submit"
+        },
+        {
+          "index": 9,
+          "id": "",
+          "label": "Open",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Repeated service Settings buttons",
+      "decision": "Entity route",
+      "alternative": "A service row opens the canonical connection page, with a clear return to status. Avoid a repeated button beside every row when the row itself is the route.",
+      "reason": "Repeated labels consume attention and can create multiple configuration homes.",
+      "controls": [
+        {
+          "index": 4,
+          "id": "",
+          "label": "Settings",
+          "type": "submit"
+        },
+        {
+          "index": 6,
+          "id": "",
+          "label": "Settings",
+          "type": "submit"
+        },
+        {
+          "index": 8,
+          "id": "",
+          "label": "Settings",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Open setup guide",
+      "decision": "Keep contextual help route",
+      "alternative": "Help offers the guide; incomplete or failed service rows link to the relevant step. Reopening does not reset settings or expose credentials.",
+      "reason": "Help is valuable when connected to a problem. It should not be buried between diagnostic and transfer forms.",
+      "controls": [
+        {
+          "index": 10,
+          "id": "setup-reopen",
+          "label": "Open setup guide",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Open original Skylight app",
+      "decision": "Contextual fallback",
+      "alternative": "Keep a clearly named fallback under Android apps/recovery, with a reliable return route.",
+      "reason": "The original launcher/app is a recovery resource, not an everyday appearance preference.",
+      "controls": [
+        {
+          "index": 11,
+          "id": "stock",
+          "label": "Open original Skylight app",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Export preferences",
+      "decision": "Native file task",
+      "alternative": "Export a preferences file through the Android file/share flow, showing a compact scope summary and result. Keep private credentials/content excluded.",
+      "reason": "Export produces an artifact and needs destination/result feedback, not raw serialized text.",
+      "controls": [
+        {
+          "index": 12,
+          "id": "preferences-export",
+          "label": "Export display preferences",
+          "type": "submit"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "Import file",
+      "decision": "Native import with review",
+      "alternative": "Choose a file, validate it, preview supported changes and omissions, then Apply/Cancel. Preserve unrelated settings and explain failures specifically.",
+      "reason": "This is the appropriate form of data transfer. Do not imply that unsupported dashboard layouts or private content will be restored.",
+      "controls": [
+        {
+          "index": 13,
+          "id": "preferences-import",
+          "label": "Import a display-preferences file",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "area": "device",
+      "title": "JSON textarea / Import pasted",
+      "decision": "Remove owner-facing representation",
+      "alternative": "Remove pasted JSON from normal Settings. Use the native file flow; any debugging representation belongs in developer tools outside the owner interface.",
+      "reason": "This exposes the storage format and requires technical literacy without improving the household task.",
+      "controls": [
+        {
+          "index": 14,
+          "id": "preferences-transfer",
+          "label": "Display preferences JSON",
+          "type": "textarea"
+        },
+        {
+          "index": 15,
+          "id": "preferences-apply",
+          "label": "Import pasted preferences",
+          "type": "submit"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,9 @@
     package="com.wesbos.homehq">
 
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <uses-permission android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
   <queries><intent><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent></queries>
   <application
@@ -12,6 +15,8 @@
       android:hardwareAccelerated="true"
       android:usesCleartextTraffic="false"
       android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+    <receiver android:name=".UpdateReceiver" android:exported="false" />
+    <service android:name=".UpdateJob" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" />
     <activity
         android:name=".MainActivity"
         android:exported="true"

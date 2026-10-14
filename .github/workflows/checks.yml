@@ -11,6 +11,36 @@ jobs:
           # Inspect the published commit, not GitHub's generated PR merge metadata.
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck
+      - run: npm run format:check
+      - run: npm run build
+      - name: Check generated bundles match their sources
+        run: git diff --exit-code -- web/react-ui.js web/manage-react.js web/frontend-LICENSES.txt web/react-ui.js.LEGAL.txt web/manage-react.js.LEGAL.txt
+      - run: npx playwright install --with-deps chromium
+      - name: React browser regressions
+        env:
+          SKYLIT_PREVIEW: http://127.0.0.1:8767
+        run: |
+          python3 scripts/preview.py > /tmp/skylit-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid"' EXIT
+          python3 - <<'PYTHON'
+          import time, urllib.request
+          for attempt in range(60):
+              try:
+                  urllib.request.urlopen('http://127.0.0.1:8767', timeout=1)
+                  break
+              except OSError:
+                  time.sleep(1)
+          else:
+              raise SystemExit('Synthetic preview did not start')
+          PYTHON
+          npm run test:react
       - run: node --test tests/*.test.cjs
       - run: python3 -m unittest discover -s tests
       - run: python3 scripts/check_public.py --history

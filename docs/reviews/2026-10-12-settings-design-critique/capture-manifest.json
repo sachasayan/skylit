@@ -1,0 +1,468 @@
+{
+  "date": "2026-10-12",
+  "synthetic": true,
+  "source": "scripts/preview.py",
+  "screenshots": [
+    {
+      "id": "appearance-1",
+      "area": "appearance",
+      "position": "top",
+      "file": "screenshots/appearance-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "appearance-2",
+      "area": "appearance",
+      "position": "bottom",
+      "file": "screenshots/appearance-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-1",
+      "area": "dashboard",
+      "position": "top",
+      "file": "screenshots/dashboard-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo-1",
+      "area": "momo",
+      "position": "top",
+      "file": "screenshots/momo-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo-2",
+      "area": "momo",
+      "position": "bottom",
+      "file": "screenshots/momo-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather-1",
+      "area": "weather",
+      "position": "top",
+      "file": "screenshots/weather-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-1",
+      "area": "photos",
+      "position": "top",
+      "file": "screenshots/photos-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-2",
+      "area": "photos",
+      "position": "scroll 1",
+      "file": "screenshots/photos-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-3",
+      "area": "photos",
+      "position": "scroll 2",
+      "file": "screenshots/photos-3.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-4",
+      "area": "photos",
+      "position": "scroll 3",
+      "file": "screenshots/photos-4.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-5",
+      "area": "photos",
+      "position": "scroll 4",
+      "file": "screenshots/photos-5.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-6",
+      "area": "photos",
+      "position": "scroll 5",
+      "file": "screenshots/photos-6.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-7",
+      "area": "photos",
+      "position": "bottom",
+      "file": "screenshots/photos-7.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendars-1",
+      "area": "calendars",
+      "position": "top",
+      "file": "screenshots/calendars-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-review-1",
+      "area": "calendar-review",
+      "position": "top",
+      "file": "screenshots/calendar-review-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household-1",
+      "area": "household",
+      "position": "top",
+      "file": "screenshots/household-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household-2",
+      "area": "household",
+      "position": "bottom",
+      "file": "screenshots/household-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "services-1",
+      "area": "services",
+      "position": "top",
+      "file": "screenshots/services-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "services-2",
+      "area": "services",
+      "position": "bottom",
+      "file": "screenshots/services-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-1",
+      "area": "updates",
+      "position": "top",
+      "file": "screenshots/updates-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates-2",
+      "area": "updates",
+      "position": "bottom",
+      "file": "screenshots/updates-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "device-1",
+      "area": "device",
+      "position": "top",
+      "file": "screenshots/device-1.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "device-2",
+      "area": "device",
+      "position": "scroll 1",
+      "file": "screenshots/device-2.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "device-3",
+      "area": "device",
+      "position": "bottom",
+      "file": "screenshots/device-3.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-add",
+      "area": "calendars",
+      "position": "expanded disclosure",
+      "file": "screenshots/calendar-add.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "inviter-setup",
+      "area": "calendar-review",
+      "position": "expanded disclosure",
+      "file": "screenshots/inviter-setup.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-account",
+      "area": "photos",
+      "position": "expanded disclosure",
+      "file": "screenshots/photo-account.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "device-transfer",
+      "area": "device",
+      "position": "expanded disclosure",
+      "file": "screenshots/device-transfer.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "appearance-short",
+      "area": "appearance",
+      "position": "responsive",
+      "file": "screenshots/appearance-short.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "photos-short",
+      "area": "photos",
+      "position": "responsive",
+      "file": "screenshots/photos-short.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "appearance-16-10",
+      "area": "appearance",
+      "position": "responsive",
+      "file": "screenshots/appearance-16-10.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "photos-desktop",
+      "area": "photos",
+      "position": "responsive",
+      "file": "screenshots/photos-desktop.jpg",
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "appearance-narrow",
+      "area": "appearance",
+      "position": "responsive",
+      "file": "screenshots/appearance-narrow.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "appearance-dark",
+      "area": "appearance",
+      "position": "dark",
+      "file": "screenshots/appearance-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-composition",
+      "area": "photos",
+      "position": "expanded slideshow-composition",
+      "file": "screenshots/slideshow-composition.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-sequence",
+      "area": "photos",
+      "position": "expanded slideshow-sequence",
+      "file": "screenshots/slideshow-sequence.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-curation",
+      "area": "photos",
+      "position": "expanded library-curation",
+      "file": "screenshots/library-curation.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-curation-end",
+      "area": "photos",
+      "position": "expanded library-curation bottom",
+      "file": "screenshots/library-curation-end.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-edit",
+      "area": "photos",
+      "position": "expanded library-edit",
+      "file": "screenshots/library-edit.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-edit-end",
+      "area": "photos",
+      "position": "expanded library-edit bottom",
+      "file": "screenshots/library-edit-end.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-arrivals",
+      "area": "photos",
+      "position": "expanded library-arrivals",
+      "file": "screenshots/library-arrivals.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-import",
+      "area": "photos",
+      "position": "expanded library-import",
+      "file": "screenshots/library-import.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-schedule",
+      "area": "photos",
+      "position": "expanded slideshow-schedule",
+      "file": "screenshots/slideshow-schedule.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-presets",
+      "area": "photos",
+      "position": "expanded slideshow-presets",
+      "file": "screenshots/slideshow-presets.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-presets-end",
+      "area": "photos",
+      "position": "expanded slideshow-presets bottom",
+      "file": "screenshots/slideshow-presets-end.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-phone",
+      "area": "photos",
+      "position": "expanded slideshow-phone",
+      "file": "screenshots/slideshow-phone.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "runtimeErrors": []
+}

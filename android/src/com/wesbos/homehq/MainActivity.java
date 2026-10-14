@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
   private final Handler handler=new Handler(Looper.getMainLooper());
   private FrameLayout root;
   private WebView dashboard, remote;
+  private boolean remoteDocked=false;private double remoteRailFraction=.17;
   private View fullScreen;
   private WebChromeClient.CustomViewCallback fullScreenCallback;
   private Button returnButton;
@@ -37,8 +38,10 @@ public class MainActivity extends Activity {
   private PhotoMail photoMail;
   private LocalMedia media;
   private PhoneManagement phone;
+  private AppUpdates updates;
   private final java.util.concurrent.ExecutorService imports=java.util.concurrent.Executors.newSingleThreadExecutor();
   private int pickerKind;
+  private String pendingDisplayExport;
   private volatile long importGeneration;
   private boolean idlePhotos,localPhotosOpen,remotePhotos,foreground,slideshowScheduled,slideshowStarted;
   private boolean swallowIdleTouch,quietOpen;
@@ -53,6 +56,7 @@ public class MainActivity extends Activity {
   @Override public void onCreate(Bundle state){
     super.onCreate(state);
     prefs=getSharedPreferences("skylit",MODE_PRIVATE);
+    updates=AppUpdates.get(this);
     calendars=new CalendarStore(getSharedPreferences("skylit-calendars",MODE_PRIVATE));
     photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.receive("+photoMail.status().toString()+")",null);});
     media=new LocalMedia(this,photos);phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
@@ -65,7 +69,7 @@ public class MainActivity extends Activity {
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_FULLSCREEN);
     WebView.setWebContentsDebuggingEnabled(getIntent().getBooleanExtra("debug",false));
     root=new FrameLayout(this);root.setBackgroundColor(Color.rgb(238,232,221));setContentView(root);
-    createDashboard();handler.post(photoCheckTask);
+    createDashboard();root.addOnLayoutChangeListener((v,l,t,r,b,ol,ot,or_,ob)->layoutRemote());handler.post(photoCheckTask);
   }
   private void settings(WebView web){WebSettings s=web.getSettings();s.setJavaScriptEnabled(true);s.setDomStorageEnabled(true);s.setUseWideViewPort(true);s.setLoadWithOverviewMode(true);s.setMediaPlaybackRequiresUserGesture(false);s.setAllowFileAccess(false);s.setAllowContentAccess(false);s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);}
   private void createDashboard(){
@@ -108,6 +112,16 @@ public class MainActivity extends Activity {
   private boolean validYouTube(String url){try{Uri u=Uri.parse(url);return "https".equals(u.getScheme())&&("www.youtube.com".equals(u.getHost())||"m.youtube.com".equals(u.getHost())||"youtube.com".equals(u.getHost()));}catch(Exception e){return false;}}
 
   public class DashboardBridge {
+    @JavascriptInterface public void preferencesExport(String raw){try{final String safe=DisplayTransfer.validate(raw);runOnUiThread(()->{pendingDisplayExport=safe;openDisplayPicker(true);});}catch(Exception ignored){displayTransferResult("Choose a valid display-preferences file.");}}
+    @JavascriptInterface public void preferencesImport(){runOnUiThread(()->openDisplayPicker(false));}
+    @JavascriptInterface public String updateStatus(){return updates.status();}
+    @JavascriptInterface public void updateBackgroundCheck(){updates.check(false,null);}
+    @JavascriptInterface public void updateCheck(){updates.check(true,null);}
+    @JavascriptInterface public void updateDownload(){updates.download();}
+    @JavascriptInterface public boolean updateConfigure(String settings){return updates.configure(settings);}
+    @JavascriptInterface public void updateInstall(){runOnUiThread(()->updates.install(MainActivity.this,false));}
+    @JavascriptInterface public void updatePermission(){runOnUiThread(()->updates.permission(MainActivity.this));}
+    @JavascriptInterface public void updateHeartbeat(boolean ready){runOnUiThread(()->{updates.activity((ready||idlePhotos||quietOpen)&&foreground&&(remote==null||idlePhotos&&remotePhotos)&&(!localPhotosOpen||idlePhotos));updates.install(MainActivity.this,true);});}
     @JavascriptInterface public String calendarList(){return calendars.snapshot();}
     @JavascriptInterface public String calendarAdd(String name,String color,String url){return calendars.add(name,color,url);}
     @JavascriptInterface public boolean calendarMetadata(String id,String name,String color){return calendars.metadata(id,name,color);}
@@ -135,6 +149,12 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void ambientClosed(){runOnUiThread(()->{quietOpen=false;pauseMomo(false);resetIdle();});}
     @JavascriptInterface public void configure(String album,int seconds){if(!album.isEmpty()&&!validAlbum(album))return;int delay=(seconds==0||seconds==60||seconds==120||seconds==300||seconds==600)?seconds:120;prefs.edit().putString("album",album).putInt("idle",delay).apply();runOnUiThread(()->resetIdle());}
     @JavascriptInterface public void openPhotos(String album,boolean idle){if(validAlbum(album))runOnUiThread(()->openRemote(album,true,idle));}
+    @JavascriptInterface public void openService(String service,String url,double railFraction){
+      if(!Double.isFinite(railFraction)||railFraction<.08||railFraction>.45)return;
+      if(!("home".equals(service)&&validHome(url)||"youtube".equals(service)&&validYouTube(url)))return;
+      runOnUiThread(()->{openRemote(url,false,false);if(remote==null)return;remoteDocked=true;remoteRailFraction=railFraction;layoutRemote();if(returnButton!=null){root.removeView(returnButton);returnButton=null;}});
+    }
+    @JavascriptInterface public void closeService(){runOnUiThread(()->{if(remoteDocked)closeRemote();});}
     @JavascriptInterface public void openHome(String url){if(validHome(url))runOnUiThread(()->openRemote(url,false,false));}
     @JavascriptInterface public void openYouTube(String layout){runOnUiThread(()->openRemote("desktop".equals(layout)?"https://www.youtube.com/":"https://m.youtube.com/",false,false));}
     @JavascriptInterface public void openYouTubeLink(String url){if(validYouTube(url)&&YouTubeLink.valid(url))runOnUiThread(()->openRemote(url,false,false));}
@@ -169,8 +189,23 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void openStock(){runOnUiThread(()->openStockApp());}
   }
   private void notifyLibrary(){runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&SkylitPhotos.refresh();window.dispatchEvent(new Event('skylit-library-native'))",null);});}
+  private void openDisplayPicker(boolean export){
+    Intent intent=new Intent(export?Intent.ACTION_CREATE_DOCUMENT:Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json");
+    if(export)intent.putExtra(Intent.EXTRA_TITLE,"skylit-display.json");
+    try{startActivityForResult(intent,export?7321:7322);}catch(android.content.ActivityNotFoundException ignored){pendingDisplayExport=null;displayTransferResult("Android file picker is unavailable on this frame.");}
+  }
+  private void displayTransferResult(String message){runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("document.getElementById('preferences-transfer-status').textContent="+JSONObject.quote(message),null);});}
+  private void displayTransfer(int request,int result,Intent data){
+    final String export=pendingDisplayExport;pendingDisplayExport=null;
+    if(result!=RESULT_OK||data==null||data.getData()==null)return;final Uri uri=data.getData();
+    if(!"content".equals(uri.getScheme())){displayTransferResult("Choose a file from Android’s document picker.");return;}
+    imports.execute(()->{try{
+      if(request==7321){if(export==null)throw new IOException();try(java.io.OutputStream out=getContentResolver().openOutputStream(uri,"wt")){if(out==null)throw new IOException();out.write(export.getBytes(java.nio.charset.StandardCharsets.UTF_8));}displayTransferResult("Display preferences exported. No private setup was included.");}
+      else{java.io.ByteArrayOutputStream bytes=new java.io.ByteArrayOutputStream();try(java.io.InputStream in=getContentResolver().openInputStream(uri)){if(in==null)throw new IOException();byte[] buffer=new byte[1024];int count;while((count=in.read(buffer))!=-1){if(bytes.size()+count>4096)throw new IOException();bytes.write(buffer,0,count);}}final String safe=DisplayTransfer.validate(new String(bytes.toByteArray(),java.nio.charset.StandardCharsets.UTF_8));runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&SkylitApp.importDisplayPreferences("+JSONObject.quote(safe)+")",null);});}
+    }catch(Exception ignored){displayTransferResult("Could not transfer preferences. Choose a valid Skylit display file.");}});
+  }
   private void openMediaPicker(String kind){pickerKind="image".equals(kind)?1:"video".equals(kind)?2:3;Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType(pickerKind==1?"image/*":pickerKind==2?"video/mp4":"audio/*");intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,pickerKind==1);intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);try{startActivityForResult(intent,7310+pickerKind);}catch(android.content.ActivityNotFoundException e){Toast.makeText(this,"This device has no file picker. Phone curation can import JPEG pictures.",Toast.LENGTH_LONG).show();}}
-  @Override protected void onActivityResult(int request,int result,Intent data){super.onActivityResult(request,result,data);if(result!=RESULT_OK||data==null||request<7311||request>7313)return;final int kind=request-7310;final long generation=importGeneration;java.util.List<Uri> uris=new java.util.ArrayList<>();if(data.getClipData()!=null){for(int i=0;i<Math.min(100,data.getClipData().getItemCount());i++)uris.add(data.getClipData().getItemAt(i).getUri());}else if(data.getData()!=null)uris.add(data.getData());imports.execute(()->{int done=0;String message="Nothing imported.";for(Uri uri:uris){if(generation!=importGeneration)break;if(!"content".equals(uri.getScheme())){message="Choose a picture from Android’s file picker.";continue;}try{media.guard(()->generation==importGeneration);message=kind==1?media.image(uri):kind==2?media.clip(uri):"Soundtrack saved on this frame.";if(kind==3)media.soundtrack(uri);done++;photos.prune(photoMail.days(),photoMail.maximum());}catch(Exception ignored){message="Some media could not be imported. Check format, size and capacity.";}}if(generation!=importGeneration)return;final String feedback=done>1?done+" files imported. "+message:message;runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitLibrary&&SkylitLibrary.mediaResult("+JSONObject.quote(feedback)+")",null);});});}
+  @Override protected void onActivityResult(int request,int result,Intent data){super.onActivityResult(request,result,data);if(request==7321||request==7322){displayTransfer(request,result,data);return;}if(result!=RESULT_OK||data==null||request<7311||request>7313)return;final int kind=request-7310;final long generation=importGeneration;java.util.List<Uri> uris=new java.util.ArrayList<>();if(data.getClipData()!=null){for(int i=0;i<Math.min(100,data.getClipData().getItemCount());i++)uris.add(data.getClipData().getItemAt(i).getUri());}else if(data.getData()!=null)uris.add(data.getData());imports.execute(()->{int done=0;String message="Nothing imported.";for(Uri uri:uris){if(generation!=importGeneration)break;if(!"content".equals(uri.getScheme())){message="Choose a picture from Android’s file picker.";continue;}try{media.guard(()->generation==importGeneration);message=kind==1?media.image(uri):kind==2?media.clip(uri):"Soundtrack saved on this frame.";if(kind==3)media.soundtrack(uri);done++;photos.prune(photoMail.days(),photoMail.maximum());}catch(Exception ignored){message="Some media could not be imported. Check format, size and capacity.";}}if(generation!=importGeneration)return;final String feedback=done>1?done+" files imported. "+message:message;runOnUiThread(()->{if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitLibrary&&SkylitLibrary.mediaResult("+JSONObject.quote(feedback)+")",null);});});}
   private void resetIdle(){idleGeneration++;handler.removeCallbacks(idleTask);if(!foreground||remote!=null||localPhotosOpen||quietOpen)return;boolean hasSource="email".equals(prefs.getString("photo_source","album"))?photos.list().length()>0:validAlbum(prefs.getString("album",""));if(!hasSource&&!prefs.getBoolean("quiet",false))return;int seconds=prefs.getInt("idle",120);if(seconds==0&&prefs.getBoolean("quiet",false))seconds=120;if(seconds>0)handler.postDelayed(idleTask,seconds*1000L);}
   private void openLocalPhotos(boolean idle){openLocalPhotos(idle,0,true);}
   private void openLocalPhotos(boolean idle,int index,boolean autoplay){int count=photos.list().length();if(dashboard==null||count==0)return;int safeIndex=Math.max(0,Math.min(count-1,index));handler.removeCallbacks(idleTask);localPhotosOpen=true;idlePhotos=idle;final int generation=++localPhotoGeneration;pauseMomo(true);dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.open("+idle+","+safeIndex+","+autoplay+")",value->{if("false".equals(value)&&generation==localPhotoGeneration){localPhotosOpen=false;idlePhotos=false;pauseMomo(false);resetIdle();}});}
@@ -198,6 +233,7 @@ public class MainActivity extends Activity {
     });
     root.addView(remote,new FrameLayout.LayoutParams(-1,-1));addReturnControl();String entry=validCalendar(url)&&!"/calendar/embed".equals(Uri.parse(url).getPath())?"https://accounts.google.com/ServiceLogin?service=cl&continue="+Uri.encode(url):url;remote.loadUrl(entry);Log.i(TAG,photos?(idle?"Idle photo mode opened":"Photo mode opened"):youtube?"YouTube opened":validCalendar(url)?"Calendar opened":"Home controls opened");
   }
+  private void layoutRemote(){if(remote==null||!remoteDocked)return;int left=(int)Math.round(root.getWidth()*remoteRailFraction);FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(Math.max(1,root.getWidth()-left),-1);params.leftMargin=left;remote.setLayoutParams(params);}
   private void addReturnControl(){
     if(returnButton!=null)root.removeView(returnButton);if(photoHint!=null)root.removeView(photoHint);
     if(idlePhotos){photoHint=new TextView(this);photoHint.setText("Touch to return to Skylit");photoHint.setTextColor(Color.WHITE);photoHint.setTextSize(12);photoHint.setPadding(18,10,18,10);photoHint.setBackgroundColor(0x55000000);FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-2,-2,Gravity.BOTTOM|Gravity.END);lp.setMargins(0,0,15,15);root.addView(photoHint,lp);}
@@ -227,11 +263,12 @@ public class MainActivity extends Activity {
     });
   }
 
-  private void hideCustomView(){if(fullScreen!=null){root.removeView(fullScreen);fullScreen=null;if(fullScreenCallback!=null){fullScreenCallback.onCustomViewHidden();fullScreenCallback=null;}}}
-  private void closeRemote(){++remoteGeneration;hideCustomView();if(returnButton!=null){root.removeView(returnButton);returnButton=null;}if(photoHint!=null){root.removeView(photoHint);photoHint=null;}if(remote!=null){WebView old=remote;remote=null;root.removeView(old);old.destroy();}idlePhotos=false;remotePhotos=false;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.photoReturned()",null);resetIdle();hideBars();}
+  private void hideCustomView(){if(remoteDocked&&returnButton!=null){root.removeView(returnButton);returnButton=null;}if(fullScreen!=null){root.removeView(fullScreen);fullScreen=null;if(fullScreenCallback!=null){fullScreenCallback.onCustomViewHidden();fullScreenCallback=null;}}}
+  private void closeRemote(){remoteDocked=false;++remoteGeneration;hideCustomView();if(returnButton!=null){root.removeView(returnButton);returnButton=null;}if(photoHint!=null){root.removeView(photoHint);photoHint=null;}if(remote!=null){WebView old=remote;remote=null;root.removeView(old);old.destroy();}idlePhotos=false;remotePhotos=false;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.photoReturned()",null);resetIdle();hideBars();}
   private void openStockApp(){handler.removeCallbacks(idleTask);Intent stock=getPackageManager().getLaunchIntentForPackage("com.skylight");if(stock!=null)startActivity(stock);}
   private void showFailure(String message){TextView text=new TextView(this);text.setText(message);text.setTextSize(25);text.setTextColor(Color.DKGRAY);text.setGravity(Gravity.CENTER);root.addView(text,new FrameLayout.LayoutParams(-1,-1));}
   @Override public boolean dispatchTouchEvent(MotionEvent e){
+    if(updates!=null&&e.getActionMasked()==MotionEvent.ACTION_DOWN)updates.touched();
     if(swallowIdleTouch){if(e.getActionMasked()==MotionEvent.ACTION_UP||e.getActionMasked()==MotionEvent.ACTION_CANCEL)swallowIdleTouch=false;return true;}
     if(quietOpen&&remote==null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN){swallowIdleTouch=true;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.restore()",null);}return true;}
     if(idlePhotos&&remote==null){if(e.getActionMasked()==MotionEvent.ACTION_DOWN){swallowIdleTouch=true;if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);}return true;}
@@ -242,10 +279,10 @@ public class MainActivity extends Activity {
     return super.dispatchTouchEvent(e);
   }
   private void pauseMomo(boolean paused){if(dashboard!=null)dashboard.evaluateJavascript("window.Momo&&window.Momo.setPaused("+paused+")",null);}
-  @Override protected void onResume(){super.onResume();foreground=true;pauseMomo(remote!=null||localPhotosOpen||quietOpen);if(photoMail!=null)photoMail.maybeSync();resetIdle();hideBars();}
-  @Override protected void onPause(){foreground=false;pauseMomo(true);handler.removeCallbacks(idleTask);handler.removeCallbacks(exitTask);super.onPause();}
+  @Override protected void onResume(){super.onResume();foreground=true;if(updates!=null)updates.touched();pauseMomo(remote!=null||localPhotosOpen||quietOpen);if(photoMail!=null)photoMail.maybeSync();resetIdle();hideBars();}
+  @Override protected void onPause(){foreground=false;pauseMomo(true);handler.removeCallbacks(idleTask);handler.removeCallbacks(exitTask);if(updates!=null)updates.activity(false);super.onPause();}
   @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);WebView.setWebContentsDebuggingEnabled(intent.getBooleanExtra("debug",false));if(remote!=null)closeRemote();if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);}
-  @Override public void onBackPressed(){if(quietOpen&&dashboard!=null){dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.restore()",null);return;}if(remote!=null)closeRemote();else if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);else if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.back()",null);}
+  @Override public void onBackPressed(){if(quietOpen&&dashboard!=null){dashboard.evaluateJavascript("window.SkylitWorkspace&&window.SkylitWorkspace.restore()",null);return;}if(remote!=null){if(fullScreen!=null){hideCustomView();if(remoteDocked&&returnButton!=null){root.removeView(returnButton);returnButton=null;}}else if(remote.canGoBack())remote.goBack();else{closeRemote();dashboard.evaluateJavascript("window.SkylitApp&&SkylitApp.go(\"overview\")",null);}}else if(localPhotosOpen&&dashboard!=null)dashboard.evaluateJavascript("window.SkylitPhotos&&window.SkylitPhotos.close()",null);else if(dashboard!=null)dashboard.evaluateJavascript("window.SkylitApp&&window.SkylitApp.back()",null);}
   @Override public void onWindowFocusChanged(boolean hasFocus){super.onWindowFocusChanged(hasFocus);if(hasFocus)hideBars();}
   private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
   private void hideBars(){getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);}
