@@ -9,6 +9,7 @@ His experiment showed the possibilities of turning a frame into a home dashboard
 See [credits and third-party notices](docs/credits.md).
 
 [Download the latest signed APK](https://github.com/sachasayan/skylit/releases/latest).
+Project website: [skylit.sachasayan.com](https://skylit.sachasayan.com/) (source in [`site/`](site/README.md)).
 
 ## Screenshots
 

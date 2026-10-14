@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skylit · Your photo frame is now your home base</title>
+<meta name="description" content="Skylit turns the Android photo frame you already own into your family's home base: photos, weather, shared calendars and Momo, a tiny animated robot.">
+<link rel="canonical" href="https://skylit.sachasayan.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#eee8dd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#241f1c" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light">
+<meta name="application-name" content="Skylit">
+<meta name="keywords" content="Android photo frame dashboard, digital photo frame app, family calendar display, family wall dashboard, Google Calendar photo frame, photo frame weather, kiosk dashboard">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Skylit">
+<meta property="og:title" content="Skylit · Your photo frame is now your home base">
+<meta property="og:description" content="Family photos, weather, shared calendars and Momo the robot on a wall-mounted Android photo frame. Free, with no subscription, cloud account or Google API key.">
+<meta property="og:url" content="https://skylit.sachasayan.com/">
+<meta property="og:image" content="https://skylit.sachasayan.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Skylit's overview on a photo frame: a clock, the weather, family photos and upcoming plans, next to Momo the robot.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Skylit · Your photo frame is now your home base">
+<meta name="twitter:description" content="Family photos, weather, shared calendars and Momo the robot on a wall-mounted Android photo frame.">
+<meta name="twitter:image" content="https://skylit.sachasayan.com/og-image.jpg">
+<meta name="twitter:image:alt" content="Skylit's overview on a photo frame next to Momo the robot.">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="app/clock-display.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="app/clock-sans.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="img/hero-overview.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://skylit.sachasayan.com/#website",
+      "url": "https://skylit.sachasayan.com/",
+      "name": "Skylit",
+      "description": "Your photo frame is now your home base: a family dashboard for Android photo frames.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://skylit.sachasayan.com/#app",
+      "name": "Skylit",
+      "description": "Skylit turns a wall-mounted Android photo frame into a touch-friendly family dashboard with family photos, live weather, read-only Google calendars, a configurable overview and Momo, an animated robot companion.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Android",
+      "url": "https://skylit.sachasayan.com/",
+      "downloadUrl": "https://github.com/sachasayan/skylit/releases/latest",
+      "installUrl": "https://github.com/sachasayan/skylit/releases/latest",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "image": "https://skylit.sachasayan.com/og-image.jpg",
+      "screenshot": [
+        "https://skylit.sachasayan.com/img/hero-overview.webp",
+        "https://skylit.sachasayan.com/img/hero-photos.webp",
+        "https://skylit.sachasayan.com/img/hero-calendar.webp",
+        "https://skylit.sachasayan.com/img/hero-weather.webp"
+      ],
+      "featureList": [
+        "Overview with clock, weather, family photos and upcoming events",
+        "Photos from a shared Google Photos album or a dedicated Gmail inbox",
+        "Five slideshow styles with favourites, Keepers and collections",
+        "Read-only Google Calendar through private iCal addresses",
+        "Open-Meteo weather with illustrated scenes and offline cache",
+        "Four clock styles and a drag-and-drop dashboard editor",
+        "Six colour palettes with light, dark and automatic modes",
+        "Temporary encrypted phone curation over local Wi-Fi",
+        "Signed updates from GitHub releases",
+        "Momo, an animated robot companion"
+      ],
+      "author": {"@type": "Person", "name": "sachasayan", "url": "https://github.com/sachasayan"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "What hardware does Skylit run on?", "acceptedAnswer": {"@type": "Answer", "text": "Skylit is an Android app for wall-mounted photo frames with a landscape 16:9 or 16:10 screen. It is developed and verified on an Android 12 frame with WebView 95."}},
+        {"@type": "Question", "name": "Do I need a subscription, cloud account or Google API key?", "acceptedAnswer": {"@type": "Answer", "text": "No. Skylit is free and has no hosted backend, so there is no Skylit account or subscription. It needs no Google API key, developer project or Google Play services."}},
+        {"@type": "Question", "name": "How do photos get onto the frame?", "acceptedAnswer": {"@type": "Answer", "text": "Use a shared Google Photos album, or email pictures to a dedicated Gmail account whose app password you enter on the frame. You can also curate pictures from your phone over local Wi-Fi after pairing with a QR code."}},
+        {"@type": "Question", "name": "How does the calendar work?", "acceptedAnswer": {"@type": "Answer", "text": "Copy each Google Calendar's secret address in iCal format on your computer and enter it on the frame. Skylit shows up to six calendars read-only and refreshes them every 15 minutes. You keep adding events on your phone as usual."}},
+        {"@type": "Question", "name": "Where is my data stored?", "acceptedAnswer": {"@type": "Answer", "text": "On the frame. Calendar addresses, mail credentials and cached pictures stay in the app's private Android storage."}},
+        {"@type": "Question", "name": "What happens when the internet drops?", "acceptedAnswer": {"@type": "Answer", "text": "The dashboard is bundled with the app, so it starts offline. The last forecast, calendar events and saved pictures stay available until the connection returns."}},
+        {"@type": "Question", "name": "How does Skylit update?", "acceptedAnswer": {"@type": "Answer", "text": "From version 2.16, Skylit checks published GitHub releases, verifies the signed APK and can download or install it during an idle window you choose. Automatic download and installation are opt-in."}},
+        {"@type": "Question", "name": "Is Skylit affiliated with Skylight or Wes Bos?", "acceptedAnswer": {"@type": "Answer", "text": "No. Skylit is an independent project inspired by Wes Bos's photo-frame-dashboard. It is not an official Wes Bos or Skylight product."}}
+      ]
+    }
+  ]
+}
+</script>
+<script>document.documentElement.classList.replace('no-js','js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Skylit home">
+      <svg viewBox="0 0 76 56" aria-hidden="true"><use href="#momo-mark"/></svg>
+      Skylit
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#photos">Photos</a>
+      <a href="#yours">Personalize</a>
+      <a href="#meet-momo">Momo</a>
+      <a href="#setup">Setup</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-small header-cta" href="https://github.com/sachasayan/skylit/releases/latest">Download</a>
+  </div>
+</header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="momo-mark" viewBox="0 0 76 56">
+    <rect x="1.5" y="17" width="9" height="20" rx="4.5" fill="#8d9e7e" stroke="#493b33" stroke-width="2.5"/>
+    <rect x="65.5" y="17" width="9" height="20" rx="4.5" fill="#8d9e7e" stroke="#493b33" stroke-width="2.5"/>
+    <rect x="7" y="7" width="62" height="46" rx="17" fill="#f3c57d" stroke="#493b33" stroke-width="3"/>
+    <rect x="14" y="14" width="48" height="32" rx="11" fill="#3c3531" stroke="#fff6df" stroke-width="2.5"/>
+    <rect x="25" y="22" width="6" height="11" rx="3" fill="#fff0cc"/>
+    <rect x="45" y="22" width="6" height="11" rx="3" fill="#fff0cc"/>
+    <ellipse cx="22" cy="38" rx="3" ry="1.8" fill="#cc795e"/>
+    <ellipse cx="54" cy="38" rx="3" ry="1.8" fill="#cc795e"/>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 20 20"><path d="M10 3v13m-5-5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-sky" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    </div>
+    <div class="motes" aria-hidden="true"></div>
+    <div class="hills" aria-hidden="true">
+      <svg class="hill-back" viewBox="0 0 1440 600" preserveAspectRatio="none"><path d="M0 330C240 250 420 170 690 230S1180 120 1440 180V600H0Z" fill="#ebc4a0"/></svg>
+      <svg class="hill-mid" viewBox="0 0 1440 600" preserveAspectRatio="none"><path d="M0 400C300 330 520 300 760 350S1220 300 1440 330V600H0Z" fill="#d79c75"/></svg>
+      <svg class="hill-front" viewBox="0 0 1440 600" preserveAspectRatio="none"><path d="M0 470C260 420 560 440 820 470S1260 430 1440 450V600H0Z" fill="#9aa06a"/><path d="M0 540C320 500 640 520 980 550S1300 520 1440 530V600H0Z" fill="#7d8455"/></svg>
+    </div>
+
+    <div class="hero-copy">
+      <h1 id="hero-title" class="split-words" data-split>Your photo frame is now your <em>home base</em></h1>
+      <p class="lede" data-reveal style="--i:3">Skylit turns a wall-mounted Android photo frame into the place your household checks every day: family photos, the weather, everyone's calendars and a small animated robot named Momo.</p>
+      <div class="hero-actions" data-reveal style="--i:4">
+        <a class="btn btn-primary" href="https://github.com/sachasayan/skylit/releases/latest">Download the APK <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="#features">See how it works <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+      </div>
+      <ul class="hero-facts" data-reveal style="--i:5">
+        <li>Free</li><li>No subscription or cloud account</li><li>Your data stays on the frame</li>
+      </ul>
+    </div>
+
+    <!-- The app's real screens, rendered from the synthetic preview -->
+    <div class="showcase" id="showcase">
+      <div class="device" data-tilt="3">
+        <div class="screen-viewport">
+          <img class="shot on" data-shot="overview" src="img/hero-overview.webp" width="2200" height="1238" alt="Skylit overview: Saturday 9:15 clock over painted hills, partly cloudy 17° forecast, falling photo prints and today's plans" fetchpriority="high">
+          <img class="shot" data-shot="photos" src="img/hero-photos.webp" width="2200" height="1238" alt="Skylit Photos: the photo library on the frame with a slideshow button" loading="lazy" decoding="async">
+          <img class="shot" data-shot="calendar" src="img/hero-calendar.webp" width="2200" height="1238" alt="Skylit Calendar: October month view beside an agenda of today's events" loading="lazy" decoding="async">
+          <img class="shot" data-shot="weather" src="img/hero-weather.webp" width="2200" height="1238" alt="Skylit Weather: illustrated scene, rain, wind and sunset details, hourly and five-day forecast" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="showcase-shadow" aria-hidden="true"></div>
+      <div class="showcase-tabs" role="group" aria-label="Screens">
+        <button data-shot="overview" aria-pressed="true"><span>Overview</span><i></i></button>
+        <button data-shot="photos" aria-pressed="false"><span>Photos</span><i></i></button>
+        <button data-shot="calendar" aria-pressed="false"><span>Calendar</span><i></i></button>
+        <button data-shot="weather" aria-pressed="false"><span>Weather</span><i></i></button>
+      </div>
+      <p class="showcase-note">Actual Skylit screens at the frame's resolution, shown with sample data.</p>
+    </div>
+  </section>
+
+  <div class="marquee" aria-label="Highlights">
+    <ul>
+      <li>Family photos</li><li>Shared calendars</li><li>Live weather</li><li>Four clock styles</li><li>Six palettes, light &amp; dark</li><li>Momo the robot</li><li>Curate from your phone</li><li>Starts offline</li><li>No subscription</li>
+      <li aria-hidden="true">Family photos</li><li aria-hidden="true">Shared calendars</li><li aria-hidden="true">Live weather</li><li aria-hidden="true">Four clock styles</li><li aria-hidden="true">Six palettes, light &amp; dark</li><li aria-hidden="true">Momo the robot</li><li aria-hidden="true">Curate from your phone</li><li aria-hidden="true">Starts offline</li><li aria-hidden="true">No subscription</li>
+    </ul>
+  </div>
+
+  <!-- Features: scrollytelling -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="features-title" class="split-words" data-split>One calm screen for the whole household</h2>
+        <p data-reveal>Large type, generous touch targets and soft colours, readable from across the room on a 1280×720 frame.</p>
+      </div>
+      <div class="story">
+        <div class="story-visual" aria-hidden="true">
+          <div class="device" data-tilt="4">
+            <div class="screen-viewport">
+              <img class="shot on" data-shot="0" src="img/hero-overview.webp" alt="" width="2200" height="1238" loading="lazy" decoding="async">
+              <img class="shot" data-shot="1" src="img/hero-photos.webp" alt="" width="2200" height="1238" loading="lazy" decoding="async">
+              <img class="shot" data-shot="2" src="img/hero-calendar.webp" alt="" width="2200" height="1238" loading="lazy" decoding="async">
+              <img class="shot" data-shot="3" src="img/hero-weather.webp" alt="" width="2200" height="1238" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+        <div class="story-steps">
+          <article class="step on" data-step="0">
+            <span class="n">1</span>
+            <h3>Today, at a glance</h3>
+            <p>The time, the forecast, recent photos and today's plans share one screen. Start from Balanced, Photos first or Plans first, then arrange it however your household likes.</p>
+            <ul><li>Optional note, shopping list, countdowns and timers</li><li>Google Home and YouTube one tap away in the sidebar</li></ul>
+            <div class="step-shot"><img src="img/hero-overview.webp" alt="Skylit overview with clock, weather, photos and upcoming events" width="2200" height="1238" loading="lazy" decoding="async"></div>
+          </article>
+          <article class="step" data-step="1">
+            <span class="n">2</span>
+            <h3>Photos from everyone</h3>
+            <p>Grandparents, friends and family can add pictures without an app: share a Google Photos album, or email them to the frame's own inbox. Everything plays as a gentle slideshow when the frame is idle.</p>
+            <ul><li>Browse, zoom, favourite and hide pictures</li><li>New pictures can wait for your approval</li></ul>
+            <div class="step-shot"><img src="img/hero-photos.webp" alt="Skylit photo library on the frame" width="2200" height="1238" loading="lazy" decoding="async"></div>
+          </article>
+          <article class="step" data-step="2">
+            <span class="n">3</span>
+            <h3>Everyone's plans together</h3>
+            <p>A month view and agenda that combine up to six Google calendars, each with its own label and colour. Keep adding events on your phone; the frame refreshes every 15 minutes.</p>
+            <ul><li>Read-only, from private iCal addresses</li><li>Choose whose invitations appear on the frame</li></ul>
+            <div class="step-shot"><img src="img/hero-calendar.webp" alt="Skylit calendar month view and agenda with sample events" width="2200" height="1238" loading="lazy" decoding="async"></div>
+          </article>
+          <article class="step" data-step="3">
+            <span class="n">4</span>
+            <h3>Weather worth a glance</h3>
+            <p>Live Open-Meteo forecasts with hourly and five-day outlooks, illustrated in nine scenes with day and night variants.</p>
+            <ul><li>City search with no location permission</li><li>The last forecast stays available offline</li></ul>
+            <div class="step-shot"><img src="img/hero-weather.webp" alt="Skylit weather screen with an illustrated scene and forecasts" width="2200" height="1238" loading="lazy" decoding="async"></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photos chapter -->
+  <section class="section" id="photos" aria-labelledby="photos-title" style="padding-top:0">
+    <div class="wrap split">
+      <div class="split-media stack" data-progress>
+        <img src="img/slideshow-prints.webp" alt="Falling prints slideshow with a sample photo of marigolds" width="1600" height="900" loading="lazy" decoding="async">
+        <img src="img/slideshow-collage.webp" alt="Photo collage slideshow with three sample photos" width="1600" height="900" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <h2 id="photos-title" class="split-words" data-split>A slideshow with a sense of pace</h2>
+        <p data-reveal>Pictures are decoded before their turn, so each one gets its full viewing time. Touch brings the controls back; they fade again after four seconds.</p>
+        <ul class="facts">
+          <li data-reveal style="--i:1">Five styles: Soft fade, Falling prints, Photo collage, Gentle pan &amp; zoom and Still gallery</li>
+          <li data-reveal style="--i:2">Portrait pictures pair up automatically</li>
+          <li data-reveal style="--i:3">Favourites, Keepers and named collections</li>
+          <li data-reveal style="--i:4">Crop, rotate and caption any picture</li>
+          <li data-reveal style="--i:5">Muted clips, saved presets and seasonal collections</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phone" aria-labelledby="phone-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="phone-title" class="split-words" data-split>Curate from your phone</h2>
+        <p data-reveal>Scan the QR code on the frame, check that the number matches, then browse, hide, collect and crop pictures from the sofa. The connection is encrypted, stays on your Wi-Fi and closes itself after 15 minutes.</p>
+      </div>
+      <div class="phones" data-progress>
+        <div class="phone" style="--i:-1.5;--a:1.5"><img src="img/phone-photos.webp" alt="Phone app Photos screen with a grid of sample pictures" width="430" height="932" loading="lazy" decoding="async"></div>
+        <div class="phone" style="--i:-.5;--a:.5"><img src="img/phone-collections.webp" alt="Phone app Collections screen" width="430" height="932" loading="lazy" decoding="async"></div>
+        <div class="phone" style="--i:.5;--a:.5"><img src="img/phone-slideshow.webp" alt="Phone app Slideshow settings with style choices" width="430" height="932" loading="lazy" decoding="async"></div>
+        <div class="phone" style="--i:1.5;--a:1.5"><img src="img/phone-editor.webp" alt="Phone app picture editor with crop and title" width="430" height="932" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personalize -->
+  <section class="section tint" id="yours" aria-labelledby="yours-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="yours-title" class="split-words" data-split>Make it feel like home</h2>
+        <p data-reveal>Choose a clock, arrange the dashboard and pick colours that suit the room.</p>
+      </div>
+      <h3 class="sub-title" data-reveal>Four warm clocks</h3>
+      <div class="clocks" data-progress>
+        <figure class="clock-card" style="--fan:330;--turn:18"><div class="tilt" data-tilt="8"><img src="img/clock-classic.webp" alt="Landscape clock showing 9:15 above rolling hills and a sun" width="900" height="550" loading="lazy" decoding="async"></div><figcaption><b>Landscape</b><span>Rolling hills and a low sun</span></figcaption></figure>
+        <figure class="clock-card" style="--fan:110;--turn:6"><div class="tilt" data-tilt="8"><img src="img/clock-analog.webp" alt="Analog clock face with a potted plant on a shelf" width="900" height="550" loading="lazy" decoding="async"></div><figcaption><b>Analog</b><span>A soft dial with live hands</span></figcaption></figure>
+        <figure class="clock-card" style="--fan:-110;--turn:-6"><div class="tilt" data-tilt="8"><img src="img/clock-stacked.webp" alt="Flip clock with olive plates beside a vase" width="900" height="550" loading="lazy" decoding="async"></div><figcaption><b>Flip</b><span>Olive plates that flip each minute</span></figcaption></figure>
+        <figure class="clock-card" style="--fan:-330;--turn:-18"><div class="tilt" data-tilt="8"><img src="img/clock-digital.webp" alt="Botanical clock with large terracotta numerals and leaves" width="900" height="550" loading="lazy" decoding="async"></div><figcaption><b>Botanical</b><span>Generous numerals and leaves</span></figcaption></figure>
+      </div>
+
+      <div class="split flip" style="margin-top:clamp(80px,10vw,130px)">
+        <div class="split-media">
+          <div class="device" data-tilt="4"><div class="screen-viewport"><img src="img/dashboard-editor.webp" alt="Dashboard editor in Settings with a live canvas and widget gallery" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+          <div class="annot" data-reveal style="--i:2;left:-4%;top:12%"><b>Drag</b> to move</div>
+          <div class="annot" data-reveal style="--i:3;right:4%;top:-5%"><b>Tap</b> a preview to add</div>
+          <div class="annot" data-reveal style="--i:4;left:30%;bottom:-6%"><b>Corners</b> resize</div>
+        </div>
+        <div>
+          <h3 class="split-words" data-split>Arrange the dashboard</h3>
+          <p data-reveal>Drag widgets from the gallery onto a live canvas. Drop one on another to swap their places, drag a corner to resize, and pick a style for each. Widgets adapt from a small tile to the full screen.</p>
+          <div class="chiprow" data-reveal style="--i:2"><span class="chip">Clock &amp; date</span><span class="chip">Weather</span><span class="chip">Photos</span><span class="chip">Upcoming events</span><span class="chip">Hourly forecast</span><span class="chip">Note</span><span class="chip">Shopping list</span><span class="chip">Countdowns</span><span class="chip">Timers</span></div>
+        </div>
+      </div>
+
+      <div class="palettes" id="palettes" style="margin-top:clamp(80px,10vw,130px)">
+        <div class="palette-copy">
+          <h3 class="split-words" data-split>Six palettes, light and dark</h3>
+          <p data-reveal>Automatic mode switches at sunrise and sunset in your city, calculated on the frame. High contrast is there when you need it.</p>
+          <div class="palette-picks" id="palette-picks" role="group" aria-label="Palette" data-reveal style="--i:2"></div>
+          <div class="seg" role="group" aria-label="Mode" data-reveal style="--i:3"><button data-mode="light" aria-pressed="true">Light</button><button data-mode="dark" aria-pressed="false">Dark</button></div>
+        </div>
+        <div class="device" data-tilt="4"><div class="screen-viewport"><img id="palette-shot" src="img/palette-linen-light.webp" alt="Skylit overview in the Linen light palette" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Momo -->
+  <section class="section momo-sec" id="meet-momo" aria-labelledby="momo-title">
+    <div class="wrap momo-stage">
+      <div>
+        <div class="momo-live">
+          <span class="momo-caption" id="momo-expression" role="status">Pleased to meet you.</span>
+          <button id="momo" class="momo-button" aria-label="Say hello to Momo" title="Tap to say hello"><canvas id="momo-canvas" width="420" height="310" aria-hidden="true"></canvas></button>
+          <span class="pad" aria-hidden="true"></span>
+        </div>
+        <div class="poses">
+          <figure data-reveal style="--i:0"><img src="img/momo-hello.webp" alt="Momo waving hello in an autumn leaf" width="420" height="310" loading="lazy" decoding="async"><figcaption>Hello, you.</figcaption></figure>
+          <figure data-reveal style="--i:1"><img src="img/momo-sneeze.webp" alt="Momo sneezing in winter earmuffs" width="420" height="310" loading="lazy" decoding="async"><figcaption>Ah… ah… achoo!</figcaption></figure>
+          <figure data-reveal style="--i:2"><img src="img/momo-dance.webp" alt="Momo dancing in a party hat" width="420" height="310" loading="lazy" decoding="async"><figcaption>A tiny happy dance.</figcaption></figure>
+          <figure data-reveal style="--i:3"><img src="img/momo-rain.webp" alt="Momo under an umbrella on a rainy day" width="420" height="310" loading="lazy" decoding="async"><figcaption>Ready for rain</figcaption></figure>
+        </div>
+      </div>
+      <div>
+        <h2 id="momo-title" class="split-words" data-split>Meet Momo</h2>
+        <p data-reveal style="margin-top:18px;color:var(--muted)">Every frame comes with a tiny robot, drawn entirely in code. Tap him for one of thirteen reactions. He follows your touch with his eyes, notices the rain, new pictures and bedtime, and can pick new clothes every day. This is the real Momo, running right here.</p>
+        <div class="wardrobe" data-reveal style="--i:2">
+          <div class="wardrobe-controls">
+            <label>Outfit
+              <select id="momo-outfit">
+                <option value="auto">Surprise me · changes every 90 seconds</option>
+                <option value="daily">New clothes every day</option>
+                <option value="none">Just Momo</option>
+                <option value="beret">Terracotta beret</option>
+                <option value="beanie">Blue bobble beanie</option>
+                <option value="bucket">Garden bucket hat</option>
+                <option value="cap">Weekend cap</option>
+                <option value="party">Party hat</option>
+                <option value="crown">Little crown</option>
+                <option value="flower">Flower clip</option>
+                <option value="headphones">Headphones</option>
+                <option value="bow">Bow tie for his hair</option>
+                <option value="nightcap">Sleepy nightcap</option>
+                <option value="wizard">Wizard hat</option>
+                <option value="leaf">Autumn leaf</option>
+                <option value="earmuffs">Winter earmuffs</option>
+              </select>
+            </label>
+            <label>His energy
+              <select id="momo-motion"><option value="lively">Playful</option><option value="gentle">Gentle</option><option value="still">Still</option></select>
+            </label>
+            <button class="btn btn-ghost btn-small" id="momo-shuffle" type="button">Try another accessory</button>
+            <button class="btn btn-ghost btn-small" id="momo-preview" type="button">Make a face</button>
+          </div>
+          <div id="momo-gallery" class="momo-gallery" role="group" aria-label="Momo's accessory gallery"></div>
+          <p id="momo-outfit-note" class="sr" role="status"></p>
+          <select id="momo-routine" class="sr" aria-hidden="true" tabindex="-1"><option value="day">Follow the day</option><option value="anytime">Playful at any hour</option></select>
+          <p id="momo-routine-note" class="sr"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built for the wall -->
+  <section class="section" id="wall" aria-labelledby="wall-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="wall-title" class="split-words" data-split>Built to live on the wall</h2>
+        <p data-reveal>A frame runs all day, in a shared room, for people of every age. Skylit is designed around that.</p>
+      </div>
+      <div class="wall-grid">
+        <article class="wall-card" data-reveal style="--i:0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg></span><h3>Readable across the room</h3><p>Large type, generous touch targets and a larger-text option. Clear labels instead of clever ones.</p></article>
+        <article class="wall-card" data-reveal style="--i:1"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M4 17l5-4.5 4 3.5 3-2.5 4 3.5"/></svg></span><h3>Calm when nobody's looking</h3><p>When the frame sits idle it plays your pictures; the first touch brings the dashboard back.</p></article>
+        <article class="wall-card" data-reveal style="--i:2"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><h3>Quiet hours</h3><p>A quiet schedule and a privacy pause for evenings, guests or a good night's sleep.</p></article>
+        <article class="wall-card" data-reveal style="--i:3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg></span><h3>Steady through outages</h3><p>The dashboard is bundled with the app, so it starts offline and keeps the last forecast, events and pictures.</p></article>
+        <article class="wall-card" data-reveal style="--i:4"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="12" rx="2"/><path d="M8 20.5h8"/></svg></span><h3>Fits the frame you have</h3><p>Layouts adapt to landscape 16:9 and 16:10 screens, from compact panels to large displays.</p></article>
+        <article class="wall-card" data-reveal style="--i:5"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10"/></svg></span><h3>Guided setup</h3><p>A three-step guide on the frame covers your city, photos and calendars, and reopens from Settings any time.</p></article>
+      </div>
+      <div class="duo" style="margin-top:20px">
+        <article class="card" data-reveal>
+          <h3>Private by design</h3>
+          <p>There is no Skylit account or hosted service. The frame talks directly to the services you choose.</p>
+          <ul class="facts"><li>No Google developer project, API key or Play services</li><li>Calendar addresses and app passwords are entered on the frame and stay in its private storage</li><li>Calendars are read-only</li></ul>
+        </article>
+        <article class="card" data-reveal style="--i:1">
+          <h3>Signed updates</h3>
+          <p>Skylit checks the project's published GitHub releases, verifies the package and signer, then downloads or installs only when you allow it.</p>
+          <div class="policy-wrap"><div class="policy" id="policy"><span class="policy-pill" aria-hidden="true"></span><span>Manual</span><span>Notify me</span><span>Download</span><span>Install when idle</span></div></div>
+          <ul class="facts"><li>Installs only while nobody is using the frame, inside your chosen window</li><li>Settings and pictures stay in place</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup -->
+  <section class="section" id="setup" aria-labelledby="setup-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="setup-title" class="split-words" data-split>Getting started</h2>
+        <p data-reveal>You need a wall-mounted Android photo frame on Wi-Fi. Private details are always entered on the frame itself.</p>
+      </div>
+      <ol class="steps" data-progress>
+        <svg class="line" viewBox="0 0 1200 4" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2H1170"/></svg>
+        <li data-reveal style="--i:0"><span class="num">1</span><h3>Install the APK</h3><p>Download the signed APK from GitHub releases and install it on your frame.</p><a href="https://github.com/sachasayan/skylit/blob/main/docs/wireless.md">Wireless setup guide →</a></li>
+        <li data-reveal style="--i:1"><span class="num">2</span><h3>Choose your city</h3><p>Weather, time and automatic light and dark mode follow the city you pick.</p></li>
+        <li data-reveal style="--i:2"><span class="num">3</span><h3>Add photos</h3><p>Paste a shared Google Photos album link, or connect a dedicated Gmail inbox with an app password.</p><a href="https://github.com/sachasayan/skylit/blob/main/docs/photos.md">Photo setup →</a></li>
+        <li data-reveal style="--i:3"><span class="num">4</span><h3>Connect calendars</h3><p>Copy each calendar's secret iCal address on your computer and enter it on the frame.</p><a href="https://github.com/sachasayan/skylit/blob/main/docs/calendar.md">Calendar setup →</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2 id="faq-title" class="split-words" data-split>Questions</h2></div>
+      <div class="faq">
+        <details><summary>What hardware does Skylit run on?<i aria-hidden="true"></i></summary><div class="a"><p>Skylit is an Android app for wall-mounted photo frames with a landscape 16:9 or 16:10 screen. It is developed and verified on an Android 12 frame with WebView 95.</p></div></details>
+        <details><summary>Do I need a subscription, cloud account or Google API key?<i aria-hidden="true"></i></summary><div class="a"><p>No. Skylit is free and has no hosted backend, so there is no Skylit account or subscription. It needs no Google API key, developer project or Google Play services.</p></div></details>
+        <details><summary>How do photos get onto the frame?<i aria-hidden="true"></i></summary><div class="a"><p>Use a shared Google Photos album, or email pictures to a dedicated Gmail account whose app password you enter on the frame. You can also curate pictures from your phone over local Wi-Fi after pairing with a QR code.</p></div></details>
+        <details><summary>How does the calendar work?<i aria-hidden="true"></i></summary><div class="a"><p>Copy each Google Calendar's secret address in iCal format on your computer and enter it on the frame. Skylit shows up to six calendars read-only and refreshes them every 15 minutes. You keep adding events on your phone as usual.</p></div></details>
+        <details><summary>Where is my data stored?<i aria-hidden="true"></i></summary><div class="a"><p>On the frame. Calendar addresses, mail credentials and cached pictures stay in the app's private Android storage.</p></div></details>
+        <details><summary>What happens when the internet drops?<i aria-hidden="true"></i></summary><div class="a"><p>The dashboard is bundled with the app, so it starts offline. The last forecast, calendar events and saved pictures stay available until the connection returns.</p></div></details>
+        <details><summary>How does Skylit update?<i aria-hidden="true"></i></summary><div class="a"><p>From version 2.16, Skylit checks published GitHub releases, verifies the signed APK and can download or install it during an idle window you choose. Automatic download and installation are opt-in.</p></div></details>
+        <details><summary>Is Skylit affiliated with Skylight or Wes Bos?<i aria-hidden="true"></i></summary><div class="a"><p>No. Skylit is an independent project inspired by <a href="https://github.com/wesbos/photo-frame-dashboard">Wes Bos's photo-frame-dashboard</a>. It is not an official Wes Bos or Skylight product.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-title" data-progress>
+    <div class="cta-sun" aria-hidden="true"></div>
+    <svg class="cta-hills" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 220C300 140 520 120 760 180S1200 130 1440 160V400H0Z" fill="#d79c75"/><path d="M0 300C320 250 640 270 980 300S1300 270 1440 280V400H0Z" fill="#9aa06a"/></svg>
+    <div class="wrap">
+      <h2 id="cta-title" class="split-words" data-split>Give your frame a warmer job</h2>
+      <p data-reveal>Free to download. Read the source and documentation on GitHub.</p>
+      <div class="hero-actions" data-reveal style="--i:2">
+        <a class="btn btn-primary" href="https://github.com/sachasayan/skylit/releases/latest">Download the APK <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="https://github.com/sachasayan/skylit">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><svg viewBox="0 0 76 56" aria-hidden="true"><use href="#momo-mark"/></svg>Skylit</a>
+        <p>Your photo frame is now your home base: a family dashboard for Android photo frames. Inspired by <a href="https://github.com/wesbos/photo-frame-dashboard">Wes Bos's photo-frame-dashboard</a>; an independent project, not an official Wes Bos or Skylight product.</p>
+      </div>
+      <div>
+        <h3>Project</h3>
+        <ul><li><a href="https://github.com/sachasayan/skylit/releases/latest">Latest release</a></li><li><a href="https://github.com/sachasayan/skylit">Source on GitHub</a></li><li><a href="https://github.com/sachasayan/skylit#readme">Documentation</a></li></ul>
+      </div>
+      <div>
+        <h3>Credits</h3>
+        <ul><li><a href="https://github.com/sachasayan/skylit/blob/main/docs/credits.md">Credits &amp; notices</a></li><li><a href="https://open-meteo.com/">Weather by Open-Meteo</a></li><li><a href="app/clock-display-OFL.txt">Lora</a> · <a href="app/clock-sans-OFL.txt">Jost</a> (SIL OFL 1.1)</li></ul>
+      </div>
+    </div>
+    <div class="fine"><span>Screens show Skylit with synthetic sample data and AI-generated sample photos.</span><span>Product names belong to their respective owners.</span></div>
+  </div>
+</footer>
+
+<script src="app/momo-routine.js" defer></script>
+<script src="app/appearance.js" defer></script>
+<script src="js/site.js" defer></script>
+<script src="app/momo.js" defer></script>
+</body>
+</html>

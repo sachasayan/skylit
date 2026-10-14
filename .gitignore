@@ -26,3 +26,7 @@ __pycache__/
 
 # Frontend dependencies
 node_modules/
+
+# Website build output and Netlify link state
+_site/
+.netlify/
