@@ -1,0 +1,25 @@
+# Skylit website (site/) on Netlify: https://skylit.sachasayan.com/
+# The build stages site/ plus the allow-listed shared app files from web/ (see scripts/website.py).
+[build]
+  command = "python3 scripts/website.py stage _site"
+  publish = "_site"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    # The only inline script is the no-js class swap; its hash must change if that script changes.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-OuZY6WzJOIh2C89ThsUSxQtxIJomDP4jHuL8NXL3o5c='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/app/*.ttf"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
