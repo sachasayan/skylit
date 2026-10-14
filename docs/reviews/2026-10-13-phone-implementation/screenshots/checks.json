@@ -1,0 +1,25 @@
+{
+  "synthetic": true,
+  "checks": [
+    "approval boundary",
+    "private URL fragment removal",
+    "library filtering",
+    "contextual selection",
+    "hide cancellation and restore",
+    "visual crop and rotation",
+    "failed save retains editor",
+    "details allowlist",
+    "collection membership and creation",
+    "arrival approval",
+    "slideshow draft across tabs",
+    "settings persistence",
+    "JPEG upload",
+    "empty search",
+    "320/390/430/1280/1920 layouts",
+    "expiry clears photos and dialogs",
+    "PNG-to-JPEG conversion",
+    "per-file upload failure and retry",
+    "320/430 editor, slideshow and collection layouts"
+  ],
+  "runtimeErrors": []
+}

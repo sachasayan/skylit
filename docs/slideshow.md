@@ -89,8 +89,7 @@ remains available. Optional brightness changes only Skylit’s window. Disabling
 restores system brightness. Quiet hours remain independent. This does not promise
 system sleep, wake-from-power-off or background playback.
 
-**Phone curation · local Wi-Fi** starts an encrypted 15-minute session. It is off
-by default and never starts automatically. Scan the locally generated QR code with a phone on the same Wi-Fi within five
+**Manage photos with your phone** lives on the Photos page. Opening Photos automatically prepares an encrypted, temporary invitation; no Start step is needed. Unapproved invitations stop when Photos is left. Approved sessions retain their 15-minute deadline, and expired invitations renew while Photos remains visible. Stop phone access revokes access and pauses pairing until you resume or revisit Photos. Scan the locally generated QR code with a phone on the same Wi-Fi within five
 minutes. Inspect its certificate and compare the SHA-256 fingerprint with the frame
 before accepting the local certificate warning. The phone and frame show the same
 random six-digit number. Compare them, then tap **Numbers match · Allow** on the
@@ -106,7 +105,7 @@ real session for publication. The comparison number is not an access credential.
 
 The phone can curate stored pictures, edit their details, create collections,
 change the basic slideshow settings and upload a JPEG or muted H.264 MP4. It has
-no debugging access, calendar feeds, account fields or mail credentials. Stop session
+no debugging access, calendar feeds, account fields or mail credentials. Stop phone access
 revokes access immediately. Privacy pause, account changes and erase/disconnect
 also revoke it. There is no cloud account, router setup or remote access away from
 the local network. A browser that does not allow inspecting/accepting this local

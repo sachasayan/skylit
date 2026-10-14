@@ -8,7 +8,7 @@ are excluded. No GitHub token, hosted service or signing key is placed on the fr
 ## Owner flow
 
 1. Install the first updater-enabled APK (2.16.0+) with the existing signing key.
-2. Open Settings → Updates. Check now, read the release notes, then Download update.
+2. Open Settings → Frame → Software updates. Check now, read the release notes, then Download update.
    The sidebar shows Update only when an available/downloaded release needs attention.
 3. Allow Skylit to install updates in Android's app-specific settings when prompted.
    This is separate from ADB and does not enable wireless debugging.

@@ -1,7 +1,7 @@
 # Photos by email
 
 Skylit can play either a Google Photos shared album or a private slideshow made from
-pictures mailed to a dedicated Gmail account. Choose the source in **Settings → Photos → Photo source**. The
+pictures mailed to a dedicated Gmail account. Choose the source in **Settings → Photos → Receiving photos**. The
 shared-album route remains the default and requires no extra account setup.
 
 ## Set up email delivery on the frame
@@ -12,7 +12,7 @@ shared-album route remains the default and requires no extra account setup.
 2. On a trusted phone or computer, enable [Google 2-Step Verification](https://support.google.com/accounts/answer/185839)
    and create an [app password](https://support.google.com/accounts/answer/185833).
    Google may not offer app passwords for every account or security configuration.
-3. On the frame, open **Photos → Photo settings → Photo source → Pictures sent by email**, then **Delivery**. Enter the
+3. On the frame, open **Settings → Photos → Receiving photos → Pictures on this frame**, then **Connect or change Gmail account**. Enter the
    Gmail address and 16-character app password there. Never
    put either credential in chat, source code, screenshots or the setup record.
 4. Tap **Connect and check mail**. The app stores the credential first, then checks
@@ -70,9 +70,9 @@ the same signing key retains settings; uninstalling removes the private cache.
 Its left-side navigation stays available while the editor scrolls. Presentation
 contains style, speed, shuffle, repeat, favourites-only playback and an Overview
 favourite preference. These apply to cached emailed pictures; a shared album uses
-Google's player. Open **Settings → Photos → Framing & photo details**, select a
+Google's player. Open **Settings → Photos → Photo library**, open a
 picture, and favourite/exclude it, choose **Fit** (the default, whole image) or **Fill**,
-or add a local caption. Received dates appear there; Capture-date retention is opt-in for new imports, or entered manually. Skylit does not invent dates or identify people. The photo viewer has only Previous, Play/Pause, Zoom/Fit,
+or edit photo information. Existing local captions are retained but are not shown in the slideshow. Received dates appear there; Capture-date retention is opt-in for new imports, or entered manually. Skylit does not invent dates or identify people. The photo viewer has only Previous, Play/Pause, Zoom/Fit,
 Next and Close, each shown as an icon with an accessible name.
 
 Each gallery thumbnail has a trash icon. It **excludes** that picture from this
@@ -139,3 +139,30 @@ portrait pairing, motion, local file import, soundtrack, presentation export,
 brightness scheduling and temporary encrypted phone management. Those features
 apply to **Pictures on this frame**. Google shared albums retain their separate
 Google player. Choosing local pictures does not require connecting an inbox.
+
+The phone page clears its photos and editing state when its session deadline is
+reached or the connection fails. While connected, it checks the frame every ten
+seconds and when the page becomes visible again. Stopping access on the frame
+revokes server access immediately; the phone reflects this on its next check.
+A disconnected phone must scan a new invitation. Slideshow edits are kept separate
+from server refreshes, including edits made while an earlier save is still pending.
+
+## Phone companion
+
+Open **Photos** on the frame and scan its QR code. Compare the number on both
+screens and approve on the frame before any photo access. The phone has three
+destinations: **Photos**, **Collections** and **Slideshow**. The connection line
+shows remaining access time; stopping access on the frame or expiry clears the
+phone workspace.
+
+Tap a thumbnail to edit with a visible framing preview, or **Select** pictures for
+collection, hide/restore, favourite and retention actions. Hidden pictures stay
+separate from the on-frame library. Collections use the same saved groups as the
+frame. Picture edits and slideshow changes have explicit Save actions and retain
+unsaved drafts during polling; other curation actions save immediately.
+
+**Add** accepts up to 20 JPEG, PNG or WebP pictures at once, at most 12 MiB each.
+PNG/WebP are converted locally to JPEG before sending; HEIC must first be exported
+as JPEG. The bounded sequential queue reports per-file results and retries only
+unsaved files. The separate video option keeps the native muted H.264 MP4 limits. No hosted
+service or new phone access to accounts, mail or calendars is introduced.

@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Build the Android viewer using a local, checksum-verified Android/JDK toolchain."""
 from pathlib import Path
-import argparse, hashlib, json, os, shutil, subprocess, zipfile
+import argparse, hashlib, json, os, re, shutil, subprocess, zipfile
 from assets import stage_assets
+from frontend import build_frontend
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--personal",action="store_true",help="Embed ignored local configuration; NEVER distribute this APK")
 args=parser.parse_args()
 root=Path(__file__).resolve().parents[1]
+build_frontend(root)
+version_source=(root/'web/version.js').read_text()
+version_code=int(re.search(r'code:(\d+)',version_source).group(1))
+version_name=re.search(r"name:'(\d+\.\d+\.\d+)'",version_source).group(1)
 mail_jars=(root/'vendor/mail/android-mail-1.6.7.jar',root/'vendor/mail/android-activation-1.6.7.jar')
 mail_hashes=('12c4240aa3a4ccda37c49b4e6b880a797a21e03a4f8c7421a1b51e0db552b79c','285713b2b549f382f26a57919ecddc4c83d9755737969fb7c006c905322bb253')
 for artifact,expected in zip(mail_jars,mail_hashes):
@@ -27,7 +32,7 @@ for artifact in mail_jars:
 env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
 def run(*args):subprocess.run([str(a) for a in args],cwd=root,env=env,check=True)
 run(bt/'aapt2','compile','--dir',app/'res','-o',build/'res.zip')
-run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code','35','--version-name','2.16.0')
+run(bt/'aapt2','link','-o',build/'base.apk','-I',jar,'--manifest',app/'AndroidManifest.xml','-A',build/'assets',build/'res.zip','--java',build/'gen','--min-sdk-version','23','--target-sdk-version','32','--version-code',str(version_code),'--version-name',version_name)
 sources=list((app/'src').rglob('*.java'))+list((build/'gen').rglob('*.java'))
 run(java/'bin/javac','-source','8','-target','8','-classpath',os.pathsep.join(map(str,(jar,*mail_jars))),'-d',build/'classes',*sources)
 run(bt/'d8','--min-api','23','--lib',jar,'--output',build/'dex',*list((build/'classes').rglob('*.class')),*mail_jars)
@@ -41,4 +46,4 @@ print('Built:',output/('skylit-personal.apk' if args.personal else 'skylit.apk')
 
 if not args.personal:
     apk=output/'skylit.apk'
-    (output/'update.json').write_text(json.dumps({'package':'com.wesbos.homehq','versionCode':35,'versionName':'2.16.0','minSdk':23,'asset':'skylit-2.16.0.apk','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()),'sha256':hashlib.sha256(apk.read_bytes()).hexdigest()},indent=2)+'\n')
+    (output/'update.json').write_text(json.dumps({'package':'com.wesbos.homehq','versionCode':version_code,'versionName':version_name,'minSdk':23,'asset':f'skylit-{version_name}.apk','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()),'sha256':hashlib.sha256(apk.read_bytes()).hexdigest()},indent=2)+'\n')

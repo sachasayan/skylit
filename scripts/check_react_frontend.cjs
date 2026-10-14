@@ -1,0 +1,35 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {chromium}=require(process.env.SKYLIT_PLAYWRIGHT||'playwright');
+const origin=process.env.SKYLIT_PREVIEW||'http://127.0.0.1:8767';
+(async()=>{
+ const browser=await chromium.launch({headless:true,...(process.env.SKYLIT_CHROME?{executablePath:process.env.SKYLIT_CHROME}:{})});
+ const errors=[];
+ try{
+  const context=await browser.newContext({viewport:{width:1280,height:720}}),page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+  await context.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
+  // Empty public config: no fixture, credentials, network or stored preferences.
+  await context.route('**/demo.js',r=>r.fulfill({body:''}));await context.route('**/demo-photos.js',r=>r.fulfill({body:''}));
+  await page.goto(origin);await page.waitForFunction(()=>window.SkylitSettingsInteractions&&SkylitApp.status().tab==='setup');
+  assert.equal(await page.locator('#photo-email').inputValue(),'');assert.equal(await page.locator('#calendar-feed').inputValue(),'');
+  await page.locator('[data-setup-target=city-search]').click();assert.equal(await page.locator('#settings').getAttribute('data-area'),'weather');await page.locator('#settings-close').click();assert.equal(await page.evaluate(()=>SkylitApp.status().tab),'setup');
+  await page.locator('#setup-dismiss').click();assert.equal(await page.evaluate(()=>localStorage.getItem('skylit.onboarding.done')),'1');await page.reload();await page.waitForFunction(()=>window.SkylitSettingsInteractions);assert.equal(await page.evaluate(()=>SkylitApp.status().tab),'overview');
+  await page.evaluate(()=>SkylitApp.openSettings('device'));await page.locator('#setup-reopen').click();assert.equal(await page.evaluate(()=>SkylitApp.status().tab),'setup');
+  await page.locator('[data-setup-target=calendar]').click();assert.equal(await page.locator('#settings').getAttribute('data-area'),'calendars');await page.locator('#settings-close').click();
+  await page.locator('#setup-finish').click();await page.evaluate(()=>{localStorage.removeItem('skylit.onboarding.done');localStorage.setItem('skylit.settings','{}')});await page.reload();await page.waitForFunction(()=>window.SkylitSettingsInteractions);assert.equal(await page.evaluate(()=>SkylitApp.status().tab),'overview');
+  console.log('PASS first-run guide, direct links, dismissal, reopen and upgrade');
+  await page.evaluate(()=>{SkylitApp.go('photos');window.pairDecision=null;SkylitUI.phoneSession({phone:{active:true,request:'synthetic-request',number:'123456',address:'https://192.0.2.1:8443',expires:Date.now()+900000,fingerprint:'Synthetic fingerprint'},onDecide:(request,allow)=>{window.pairDecision={request,allow}}})});
+  await page.locator('#slideshow-phone-approve').click();assert.deepEqual(await page.evaluate(()=>window.pairDecision),{request:'synthetic-request',allow:true});
+  await page.evaluate(()=>SkylitUI.phoneSession({phone:{active:false},onDecide(){}}));assert.equal(await page.locator('#slideshow-phone-approve').count(),0);assert.equal(await page.locator('.phone-pair-number').count(),0);console.log('PASS frame-side matching-number approval and expired-session cleanup');await context.close();
+  const phoneContext=await browser.newContext({viewport:{width:390,height:844}}),phone=await phoneContext.newPage();phone.on('pageerror',e=>errors.push(e.message));let approved=false,expired=false,stateRequests=0,actions=[];
+  const id='b'.repeat(64),ticket='a'.repeat(64),state={photos:[{id,title:'Synthetic garden',keeper:false,pending:false,choice:{title:'Synthetic garden',description:'Generated garden',fit:'contain',rotation:0,x:50,y:50,taken:'',hidden:false,favourite:false}}],albums:[],options:{duration:30,style:'fade',collection:'recent',order:'newest',music:false,repeat:true},storage:{}};
+  await phoneContext.route('**/*',async route=>{const url=new URL(route.request().url()),pathname=url.pathname;if(url.origin!==origin)return route.abort();if(pathname==='/pair'){assert.deepEqual(route.request().postDataJSON(),{ticket});return route.fulfill({json:{number:'123456'}})}if(pathname==='/pair-state')return route.fulfill({status:expired?403:200,json:approved?{state:'paired'}:{state:'pending',number:'123456'}});if(pathname==='/state'){stateRequests++;assert.ok(approved,'No photo access before frame approval');return route.fulfill({status:expired?403:200,json:state})}if(pathname==='/action'){actions.push(route.request().postDataJSON());return route.fulfill({status:expired?403:200,json:{ok:true}})}if(pathname.startsWith('/photo/'))return route.fulfill({path:path.resolve('tests/fixtures/demo-photos/marigolds.png')});return route.continue()});
+  await phone.goto(origin+'/manage.html#pair='+ticket);await phone.locator('#pair-number').waitFor();assert.equal(await phone.locator('#pair-number').textContent(),'123 456');assert.equal(stateRequests,0);assert.equal(await phone.locator('#manager').count(),0);assert.equal(await phone.evaluate(()=>location.hash),'');
+  approved=true;await phone.locator('#manager').waitFor();await phone.locator('#pictures button').first().click();await phone.locator('#edit-title').fill('Updated synthetic title');await phone.getByRole('button',{name:'Save picture details',exact:true}).click();await phone.waitForFunction(()=>document.querySelector('#status').textContent==='Picture details saved.');assert.deepEqual(Object.keys(actions.at(-1).choice).sort(),['customCrop','description','fit','rotation','taken','title','x','y'].sort());
+  await phone.getByRole('navigation').getByRole('button',{name:'Slideshow',exact:true}).click();await phone.getByRole('button',{name:'Save slideshow',exact:true}).click();await phone.waitForFunction(()=>document.querySelector('#status').textContent==='Slideshow saved on the frame.');assert.deepEqual(Object.keys(actions.at(-1).options).sort(),['duration','style','collection','order'].sort());
+  await phone.getByRole('navigation').getByRole('button',{name:'Photos',exact:true}).click();await phone.getByRole('button',{name:'Select',exact:true}).click();await phone.locator('#pictures button').first().click();const count=actions.length;await phone.getByRole('button',{name:'Hide',exact:true}).click();assert.equal(actions.length,count);await phone.getByRole('button',{name:'Hide pictures',exact:true}).click();await phone.waitForFunction(()=>document.querySelector('#status').textContent==='Saved on the frame.');assert.equal(actions.at(-1).action,'exclude');await phone.getByRole('navigation').getByRole('button',{name:'Slideshow',exact:true}).click();
+  expired=true;await phone.getByRole('button',{name:'Save slideshow',exact:true}).click();await phone.locator('#pair').waitFor();assert.equal(await phone.locator('#pictures').count(),0);assert.equal(await phone.locator('#edit').count(),0);assert.deepEqual(errors,[]);console.log('PASS QR pairing approval boundary, allowlisted payloads, confirmation and session expiry');await phoneContext.close();
+ }finally{await browser.close()}
+})().catch(error=>{console.error(error);process.exitCode=1});

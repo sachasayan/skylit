@@ -1,0 +1,27 @@
+{
+  "appearance": {
+    "screenshot": "appearance-before.jpg",
+    "requestedChanges": [
+      "Add icons alongside Light, Dark and Automatic labels.",
+      "Add distinct text-size icons alongside Standard and Larger text labels.",
+      "Make shared segmented controls content-sized by default rather than stretching across the card.",
+      "Preserve generous touch targets and a responsive fit on narrow screens.",
+      "Add icons to all Settings sidebar navigation items.",
+      "Replace theme colour swatches with miniature symbolic dashboard-layout previews."
+    ],
+    "sourceFinding": "Shared non-visual segmented controls use a block flex container and flex: 1 1 0 for each segment."
+  },
+  "dashboard": {
+    "screenshot": "dashboard-drag-before.jpg",
+    "observed": "A move was rejected with the overlap/out-of-bounds message while the canvas was fully occupied.",
+    "interactionIssue": "Existing widgets neither swap nor make room automatically; dragging requires unoccupied cells.",
+    "requestedChanges": [
+      "Support rearranging occupied layouts without requiring users to shrink or remove widgets first; consider swapping widgets.",
+      "Replace the large resize button with conventional small square corner handles on the selected widget.",
+      "Keep resize handles visually small but give them generous invisible touch targets; anchor resizing to the opposite corner.",
+      "Use recognizable miniature visual representations of the actual widgets as the primary palette artwork, replacing text/symbol placeholders.",
+      "Preserve each widget\u2019s visual identity from palette thumbnail through drag preview to canvas placement; keep names as supporting labels.",
+      "Use representative sample content for empty or unconfigured widgets so each preview communicates its purpose."
+    ]
+  }
+}

@@ -61,3 +61,13 @@ Pinned Google Fonts commit: `186331d77cc99caaa9c3b52391fd2b519c9e1ee8`.
 Font SHA-256: `822a6621ccbe8d97d20ac88c1c41f5615c9c2c202eaa75f272cd452aac6475a7`.
 No external font or illustration requests at runtime. Exact illustration prompts
 are in the clock reference reconstruction report.
+
+## React frontend
+
+React 18, React DOM, Radix UI primitives, class-variance-authority and clsx are
+MIT-licensed. The owned Button and segmented-control components follow the
+shadcn-style composition pattern while using Skylit’s existing warm CSS.
+Complete installed production-dependency notices are bundled in
+[`frontend-LICENSES.txt`](../web/frontend-LICENSES.txt); esbuild also preserves
+linked legal comments beside both generated bundles. TypeScript and esbuild
+are development-only build tools.

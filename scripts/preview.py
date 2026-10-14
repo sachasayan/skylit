@@ -7,6 +7,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from assets import stage_assets
+from frontend import build_frontend
 
 
 class PreviewServer(ThreadingHTTPServer):
@@ -30,6 +31,7 @@ def main():
     parser.add_argument('--port', type=int, default=8767)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    build_frontend(root)
     with TemporaryDirectory(prefix='skylit-demo-') as temp:
         stage_assets(root / 'web', temp)
         target = Path(temp)

@@ -44,3 +44,15 @@ class PublicChecksTest(unittest.TestCase):
         self.assertNotIn(sentinel.decode(),output.getvalue())
         with mock.patch.object(check_public,'git',return_value=b''),mock.patch.object(sys,'argv',['check_public.py','--history']),redirect_stdout(io.StringIO()):
             self.assertFalse(check_public.main())
+
+    def test_only_exact_upstream_copyright_lines_are_allowed_in_dependency_notices(self):
+        notice = (check_public.ROOT/'web/frontend-LICENSES.txt').read_bytes()
+        self.assertIn('personal email', check_public.findings(notice))
+        self.assertEqual(check_public.findings(notice, 'web/frontend-LICENSES.txt'), [])
+        self.assertEqual(check_public.findings(notice, 'assets/frontend-LICENSES.txt'), [])
+        self.assertIn('personal email', check_public.findings(notice, 'web/app.js'))
+        sentinel = b'household-sentinel' + b'@gmail.com'
+        self.assertIn('personal email', check_public.findings(notice+b'\n'+sentinel, 'web/frontend-LICENSES.txt'))
+        for line in notice.splitlines():
+            if check_public.hashlib.sha256(line).hexdigest() in check_public.PUBLIC_NOTICE_LINES:
+                self.assertIn('personal email', check_public.findings(line+sentinel, 'web/frontend-LICENSES.txt'))

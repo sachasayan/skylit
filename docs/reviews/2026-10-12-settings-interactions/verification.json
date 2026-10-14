@@ -1,0 +1,34 @@
+{
+  "version": "2.16.1",
+  "code": 36,
+  "nodeTests": 88,
+  "pythonTests": 18,
+  "browserGroups": 13,
+  "screenshots": 62,
+  "browserRuntimeErrors": 0,
+  "sourceHistoryPrivacyFindings": 0,
+  "finalApkPrivacyFindings": 0,
+  "gitleaksHistory": "pass",
+  "gitleaksSource": "pass",
+  "native": {
+    "model": "D156",
+    "android": "12",
+    "browser": "95.0.4638.74",
+    "transport": "verified USB",
+    "physicalResolution": [
+      1920,
+      1080
+    ],
+    "cssViewport": [
+      1280,
+      720
+    ],
+    "upgradeAndTasks": 8,
+    "actualTouch": 3,
+    "documentTransfer": 3,
+    "setupGuide": 1
+  },
+  "apkSha256": "907be986852b30b1593b014ae49acceade8b762fc7cfb4be7ea68986877f353d",
+  "installedApkByteIdentity": true,
+  "temporaryDebuggingRemoved": true
+}

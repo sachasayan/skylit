@@ -1,6 +1,7 @@
 # Architecture
 
-`web/` contains the offline-first dashboard and canvas companion. Settings are saved
+`src/` contains the React 18 / TypeScript rendering layer. `web/` contains bundled
+assets, the reusable service and preference adapters, and the canvas companion. Settings are saved
 under `skylit.settings` in localStorage; Momo maintains its own preferences. A fresh
 install has no city, album, household identifier, calendar ID or account baked in.
 The clock uses the device timezone until a city is selected.
@@ -12,14 +13,13 @@ photo connection, calendar count), never a mail secret or calendar URL.
 
 `android/` serves reviewed bundled assets from a virtual HTTPS origin. Only that
 local, navigation-restricted WebView receives the small `Skylit` JavaScript bridge.
-Google Photos, Home and YouTube open in a separate full-screen WebView
+Google Photos opens in a separate full-screen WebView. Home and YouTube open directly from their tabs in a separate WebView beside the dashboard sidebar
 without the bridge. Remote top-level navigation uses exact HTTPS host allowlists.
 Third-party sites still load their own subresources. Remote pages share WebView’s
 cookie store, but no login tokens are read or transferred by the dashboard.
 
 The native viewer owns the idle timer. It is suspended while an external service is
-open. Photo idle mode returns on the first touch; manually opened services have a
-persistent return button, including full-screen video. Momo stops animation while
+open. Photo idle mode returns on the first touch. Docked Home/YouTube views retain the Skylit sidebar; full-screen remote views and video provide a return button. Momo stops animation while
 hidden or covered. Android backup is disabled; remote debugging is opt-in per launch.
 
 `build.py` uses JDK 17, aapt2, javac, d8, zipalign and apksigner without Gradle.
@@ -199,10 +199,9 @@ storage/Undo path as Household. Countdown dates use the configured city zone and
 update at local midnight; timers remain visible reminders without background alarms.
 There are no new requests, permissions or service integrations.
 
-The Dashboard Settings editor has a separate draft and bounded Undo history. Save
-writes the draft before applying it, so a storage failure preserves the visible
-layout. Pointer capture, cancellation, internal autoscroll and keyboard/numeric
-alternatives support placement and resizing. Tap-add can compact modules into a
+The Dashboard Settings editor uses a transient gesture draft. Completed changes
+save immediately; a storage failure restores the saved layout. Pointer capture,
+cancellation, internal autoscroll and keyboard alternatives support placement and resizing. Tap-add can compact modules into a
 three-column layout when necessary; direct drop requires free space. ResizeObserver
 chooses compact styling from actual module dimensions, without container queries.
 CSS grid scales coordinates across landscape sizes; narrow previews stack in visual
@@ -215,7 +214,7 @@ Classic uses the original serif clock; Digital changes its typography. The
 the configured city zone, DST and 12/24-hour format together. The original clock
 heading remains the accessible current-time label; decorative alternatives are
 hidden from assistive technology. Clock style is staged with the layout and
-preserved by presets, packing, geometry edits and Undo. Unknown styles fall back
+preserved by presets, packing and geometry edits. Unknown styles fall back
 to Classic. No seconds animation, remote fonts, requests or new permissions.
 
 ## Local slideshow suite (2.15)
@@ -286,8 +285,7 @@ not fetch release binaries in JavaScript. See [updates](updates.md).
 
 ## Live dashboard workbench
 
-`dashboard.js` retains the 12×12 collision model and saved/draft split, now with
-undo/redo and palette/canvas/inspector tools. `dashboard-preview.js` creates a
+`dashboard.js` retains the 12×12 collision model, with a transient gesture preview and immediate persistence on release. Style, add, remove and template choices save immediately. A shared contextual rail alternates between the palette and selected-widget options. `dashboard-preview.js` creates a
 script-free same-origin sandboxed document using the production CSS and cloned
 current widget data. Native bridges/services are never invoked by its document;
 no second weather/calendar/photo controller runs. A dedicated clock renderer uses
@@ -298,3 +296,91 @@ preview. Selectable logical landscape sizes use the actual full viewport CSS, ra
 geometry and grid gap; the canvas crops to the widget area. Rendered checks compare
 those metrics against the real dashboard at each selected size. Palette and inspector scroll independently; short/narrow Settings can
 scroll without covering the canvas with the Save row.
+
+
+## Task-based Settings presentation
+
+`settings-interactions.js` reorganizes the canonical Settings controls into task
+workspaces, and presents small exclusive choices with visible buttons and visual
+selectors. Existing service and preference handlers remain the single write path.
+Picture crop/details stay staged; a shared departure guard
+requires Apply, Discard or Keep editing. Normal gallery browsing has no permanent
+batch checkboxes. File transfer uses Android's document picker and a strict native
+non-secret whitelist (`DisplayTransfer`), then a browser-side review before apply.
+The application and APK release metadata share `web/version.js`.
+
+## React rendering boundaries
+
+`src/main.tsx` mounts the frame shell and exposes the rendering boundary used by
+existing local service adapters. React owns weather, calendar/event lists, calendar
+source editing and inviter decisions, dashboard editor tiles and palette, household
+lists, photo galleries/collections/order, shared simple and visual choices, setup,
+updates and the separate phone-curation page. The canonical Settings/photo/editor
+forms are JSX components in `src/components/form-templates.tsx`; their existing
+adapters bind the native and persistence actions. UI values are escaped by JSX.
+`src/lib/mount.tsx` gives each stable surface one root; repeated updates reconcile
+that root instead of replacing its children. Do not manually replace children of
+those hosts. Service callbacks supply view models and actions.
+
+Existing JavaScript adapters still coordinate routing, Settings layout/form writes,
+dashboard positioning/dragging, native callbacks and preference persistence. The
+Settings forms are uncontrolled inputs with a single existing write path. Momo,
+clock artwork, the live dashboard mirror, crop transforms and the slideshow scene
+engine retain imperative rendering. This is a hybrid React integration, not a claim
+that every controller or DOM operation has been rewritten. A follow-up that removes
+these adapters must preserve draft recovery, focus restoration and native callback
+ordering, rather than adding a second state/write path.
+
+The shared controls use Radix Toggle Group and an owned shadcn-style Button/Slot
+composition with the current CSS. Tailwind 4 is not used: the build targets Chrome
+95, and no newer CSS/browser baseline is assumed. `scripts/build_frontend.mjs`
+produces two local IIFE bundles and their notices. Both the APK builder and synthetic
+preview rebuild before staging, using the pinned npm lockfile. Native mail/calendar,
+TLS phone authorization, signed updates, private media URLs and remote WebViews
+retain their existing boundaries. The phone server serves only the explicit React
+bundle path; the read bound accommodates that bundle without allowing other files.
+
+## Shared React controls
+
+`src/components/ui/` owns action, input, checkbox, switch, status and disclosure
+primitives. `web/components.css` maps those controls to existing appearance tokens.
+Native form elements and IDs preserve the service-adapter boundary. See
+[component rules and adoption](components.md). The interactive review showcase is
+not an APK asset. Existing lightbox and task-navigation controllers are retained.
+
+## React state and recovery contracts
+
+- `src/types/services.ts` declares the native methods used by React and its app/update
+  service contracts. `src/types/views.ts` declares shared dashboard, calendar and
+  household view models. The `SkylitUI` interface is inferred from actual component
+  props, so new render entry points must not accept arbitrary objects.
+- Validate untrusted weather/cache and phone JSON in `src/lib/weather-data.ts` and
+  `src/lib/phone-data.ts` before publishing it. Type assertions alone do not validate
+  a network or native response. Bad forecasts never replace a valid cached forecast.
+- Each independently mounted feature has a recovery boundary. Adapter-driven roots
+  retry on new render data or an explicit Try again; subscribed Weather views use
+  the store revision so a valid forecast also recovers without a page reload.
+- `useDraft` separates an editable value from server refreshes. A save acknowledges
+  only the revision it submitted, preserving edits made while that save was pending.
+  Phone slideshow and picture-details forms are controlled presentation components;
+  session and persistence coordination stays in their parent.
+- Phone sessions have a generation and a non-extending deadline, derived from native
+  remaining milliseconds to avoid device/phone clock differences. Expiry, HTTP 403
+  and network failure clear displayed photos and drafts. Focus/visibility rechecks
+  and ten-second polling detect a stopped server. Late responses cannot reopen an
+  expired session. A transient disconnection requires scanning a new invitation.
+- Transient calendar removal confirmations reset on Settings navigation/close and
+  have an explicit Cancel. Hiding a mounted React root is not an unmount.
+- Legacy controllers remain the only persistence path for their canonical forms.
+  React render hosts must not have their children replaced by those controllers.
+  Do not add a parallel React writer without transferring ownership explicitly.
+
+All React source is formatted with the pinned Prettier version (`npm run format`).
+CI installs pinned dependencies, type-checks, checks formatting, rebuilds and checks
+bundle drift, then runs browser recovery checks against synthetic data. Production
+assets continue to target Chromium 95; desktop browser checks do not replace frame
+acceptance.
+
+The General Settings entry owns colour mode, text size, City & time and Daily routine. Palettes/Momo remain in Appearance, and updates/Android recovery remain in Frame. A header breadcrumb replaces repeated section headings and provides parent navigation. Dashboard reset uses a modal visual template picker. Photo styles (Prints, Mosaic, Spotlight) and weather styles (Landscape, At a glance, Sky) are allowlisted layout metadata; rendering reuses existing curated pictures and forecast state.
+
+The widget gallery uses visual previews with centred names and overlapping green check badges for included widgets. The preview itself is draggable: horizontal touch intent starts dragging while vertical gestures retain native scrolling. Dashboard edit history and Undo/Redo controls are removed; completed changes save live. Prints preserve each photograph’s natural content proportions and adapt spacing and overlap across the slot.

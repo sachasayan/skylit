@@ -1,0 +1,146 @@
+[
+  {
+    "type": "photos",
+    "style": "prints",
+    "shape": "small",
+    "file": "photos-prints-small.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "prints",
+    "shape": "wide",
+    "file": "photos-prints-wide.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "prints",
+    "shape": "tall",
+    "file": "photos-prints-tall.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "prints",
+    "shape": "large",
+    "file": "photos-prints-large.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "mosaic",
+    "shape": "small",
+    "file": "photos-mosaic-small.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "mosaic",
+    "shape": "wide",
+    "file": "photos-mosaic-wide.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "mosaic",
+    "shape": "tall",
+    "file": "photos-mosaic-tall.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "mosaic",
+    "shape": "large",
+    "file": "photos-mosaic-large.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "spotlight",
+    "shape": "small",
+    "file": "photos-spotlight-small.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "spotlight",
+    "shape": "wide",
+    "file": "photos-spotlight-wide.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "spotlight",
+    "shape": "tall",
+    "file": "photos-spotlight-tall.jpg"
+  },
+  {
+    "type": "photos",
+    "style": "spotlight",
+    "shape": "large",
+    "file": "photos-spotlight-large.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "landscape",
+    "shape": "small",
+    "file": "weather-landscape-small.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "landscape",
+    "shape": "wide",
+    "file": "weather-landscape-wide.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "landscape",
+    "shape": "tall",
+    "file": "weather-landscape-tall.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "landscape",
+    "shape": "large",
+    "file": "weather-landscape-large.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "minimal",
+    "shape": "small",
+    "file": "weather-minimal-small.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "minimal",
+    "shape": "wide",
+    "file": "weather-minimal-wide.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "minimal",
+    "shape": "tall",
+    "file": "weather-minimal-tall.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "minimal",
+    "shape": "large",
+    "file": "weather-minimal-large.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "sky",
+    "shape": "small",
+    "file": "weather-sky-small.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "sky",
+    "shape": "wide",
+    "file": "weather-sky-wide.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "sky",
+    "shape": "tall",
+    "file": "weather-sky-tall.jpg"
+  },
+  {
+    "type": "weather",
+    "style": "sky",
+    "shape": "large",
+    "file": "weather-sky-large.jpg"
+  }
+]

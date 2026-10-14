@@ -22,7 +22,8 @@
   function period(){return prefs.routine?calendar.period:'day';}
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const palette = {ink:document.documentElement.dataset.mode==='dark'?'#f2d6a4':'#493b33',cream:'#fff6df',shell:'#f3c57d',coral:'#cc795e',sage:'#8d9e7e',blue:'#7d9da6',face:'#3c3531',eye:'#fff0cc'};
-  let mode=period()==='night'?'sleepy':period()==='morning'?'yawn':'hello',started=performance.now(),until=started+3000,nextIdle=started+9000;
+  const behavior=window.MomoRoutine.coordinator();
+  let mode=period()==='night'?'sleepy':period()==='morning'?'yawn':'hello',started=performance.now(),until=started+3000,nextIdle=started+90000;
   let lastInput=started,lastGaze=0,lookX=0,lookY=0,gazeX=0,gazeY=0,scrollKick=0;
   let nextBlink=started+2400,blinkStart=-10000,hatIndex=1,nextHat=started+90000;
   let manualIndex=0,paused=false,raf=0,lastFrame=0,frames=0,pointerBounds=null;
@@ -61,14 +62,39 @@
     else round(-w/2,-h/2,w,h,w/2,palette.eye,null);
     ctx.restore();
   }
-  function react(name,user=false){mode=name;started=performance.now();until=started+(name==='sleepy'?7500:name==='dance'?4500:3000);nextIdle=until+5000+Math.random()*8000;if(user){lastInput=started;caption.textContent=labels[name];}wake();}
+  function react(name,user=false){const now=performance.now();if(paused||document.hidden)return;const duration=['camera','calendar'].includes(name)?4200:name==='sleepy'?7500:name==='dance'?4500:3000;if(!behavior.request(name,now,{night:period()==='night',user,quiet:quiet(),duration}))return;mode=name;started=now;until=now+duration;nextIdle=until+90000+Math.random()*60000;if(user){lastInput=started;caption.textContent=labels[name]||'Hello, you.';}wake();}
+  function weatherPose(){return window.MomoRoutine.weather(window.SkylitUI?.weather.get().data,window.SkylitApp?.displayPreferences().units);}
+  function props(kind,age,still,behind){
+    const p=palette;
+    if(kind==='rain'&&behind){
+      line([[62,-66],[62,17],[57,22],[51,20]],p.ink,3);
+      ctx.beginPath();ctx.moveTo(15,-64);ctx.quadraticCurveTo(60,-125,98,-64);ctx.quadraticCurveTo(84,-74,72,-64);ctx.quadraticCurveTo(58,-76,44,-64);ctx.quadraticCurveTo(30,-74,15,-64);ctx.fillStyle=p.blue;ctx.fill();ctx.strokeStyle=p.ink;ctx.lineWidth=2;ctx.stroke();
+      line([[58,-96],[58,-101]],p.ink,2);
+    }
+    if(behind)return;
+    if(kind==='frost'){for(const [x,y,h] of [[-39,33,9],[-31,37,7],[36,34,10]]){shape([[x-3,y],[x+3,y],[x,y+h]],'#cce3e5');}}
+    if(kind==='camera'){
+      ctx.save();ctx.translate(10,still?10:17-17*Math.sin(Math.PI*clamp(age/4.2,0,1)));
+      round(-28,-12,56,33,6,p.sage);round(-19,-18,15,8,3,p.sage);oval(5,4,12,12,p.ink);oval(5,4,8,8,p.blue);oval(2,1,2,2,p.cream,null);round(-20,-6,9,5,2,p.shell,null);
+      if(!still&&prefs.motion==='lively'&&age>1.65&&age<1.82)star(-17,-10,5,p.cream);
+      oval(-30,11,6,8,p.shell);oval(30,11,6,8,p.shell);ctx.restore();
+    }
+    if(kind==='calendar'){
+      ctx.save();ctx.translate(16,12);ctx.rotate(still?-.08:-.08+Math.sin(age*1.5)*.025);
+      round(-23,-18,46,44,5,p.cream);round(-23,-18,46,12,4,p.coral);line([[-12,-23],[-12,-14]],p.ink,3);line([[12,-23],[12,-14]],p.ink,3);
+      for(let y=2;y<=16;y+=7)for(let x=-13;x<=13;x+=13)oval(x,y,1.5,1.5,p.sage,null);
+      oval(0,9,5,5,null,p.coral,1.5);oval(-25,15,5,7,p.shell);oval(25,15,5,7,p.shell);ctx.restore();
+    }
+  }
   function resize(){const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(210*dpr);canvas.height=Math.round(155*dpr);pointerBounds=null;draw(performance.now());wake();}
   function draw(now,preview){
     const surface=preview?preview.canvas:canvas,previousContext=ctx;
     if(preview)ctx=surface.getContext('2d');
     const still=!!preview||quiet(),t=still?0:now/1000,age=(now-started)/1000;
     const resting=period()==='night'?'sleepy':period()==='morning'||period()==='evening'?'drowsy':'neutral';
-    const active=preview?'neutral':still?resting:now<until?mode:resting;
+    const action=behavior.current(now,period()==='night');
+    const active=preview?'neutral':still?resting:action? action.name:resting;
+    const prop=preview||period()==='night'?'':['camera','calendar'].includes(active)?active:action?'':weatherPose();
     const lively=prefs.motion==='lively'?1:.38;
     const env=still?0:Math.sin(Math.PI*clamp(age/3,0,1));
     let tilt=Math.sin(t*.8)*.025*lively+gazeX*.025,dy=Math.sin(t*1.5)*1.5*lively,dx=0,sx=1,sy=1;
@@ -91,6 +117,7 @@
     const blink=still?0:Math.max(0,1-Math.abs((now-blinkStart)/85-1));
     const dpr=surface.width/210;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,210,155);ctx.lineCap='round';ctx.lineJoin='round';
     ctx.translate(105+dx,104+dy);ctx.rotate(tilt);ctx.scale(sx,sy);
+    props(prop,age,still,true);
     round(-70,-17,16,31,8,palette.sage);round(54,-17,16,31,8,palette.sage);
     line([[-64,-8],[-64,5]],palette.cream,2);line([[64,-8],[64,5]],palette.cream,2);
     round(-59,-39,118,79,27,palette.shell,palette.ink,3);
@@ -102,7 +129,8 @@
     oval(-33,16,3,1.5,palette.coral,null);oval(33,16,3,1.5,palette.coral,null);
     if(active==='yawn')oval(0,15,3+env*2,1+env*5,palette.eye,null);
     drawHat(preview?preview.hat:chosenHat(),t);
-    if(!preview){frames++;canvas.dataset.expression=active;canvas.dataset.hat=chosenHat();canvas.dataset.period=period();}
+    props(prop,age,still,false);
+    if(!preview){canvas.dataset.context=prop;frames++;canvas.dataset.expression=active;canvas.dataset.hat=chosenHat();canvas.dataset.period=period();}
     ctx=previousContext;
   }
   function step(now){raf=0;if(paused||document.hidden)return;
@@ -112,32 +140,32 @@
         if(now>nextBlink){blinkStart=now;nextBlink=now+2400+Math.random()*4000;}
         if(now-lastGaze>2800){lookX*=.94;lookY*=.94;}
         gazeX+=(lookX-gazeX)*.12;gazeY+=(lookY-gazeY)*.12;scrollKick*=.88;
-        if(now>nextIdle){const idle=now-lastInput;react(window.MomoRoutine.idle(period(),idle));}
-        if(prefs.hat==='auto'&&now>nextHat){hatIndex=(hatIndex+1)%hats.length;nextHat=now+90000;updateWardrobe();if(period()!=='night')react('proud');}
+        if(now>nextIdle){nextIdle=now+90000+Math.random()*60000;react(window.MomoRoutine.idle(period(),now-lastInput));}
+        if(prefs.hat==='auto'&&now>nextHat){hatIndex=(hatIndex+1)%hats.length;nextHat=now+90000;updateWardrobe();}
       }
       draw(now);
     }
     if(!quiet())wake();
   }
   function wake(){if(!raf&&!paused&&!document.hidden)raf=requestAnimationFrame(step);}
-  function suspend(value){paused=!!value;if(raf){cancelAnimationFrame(raf);raf=0;}lastFrame=0;if(!paused){refreshCalendar();lastInput=performance.now();nextIdle=lastInput+8000;wake();}}
+  function suspend(value){paused=!!value;if(raf){cancelAnimationFrame(raf);raf=0;}lastFrame=0;if(!paused){refreshCalendar();lastInput=performance.now();nextIdle=lastInput+90000;behavior.reset(lastInput);wake();}}
   button.addEventListener('click',()=>react(moods[manualIndex++%moods.length],true));
   document.getElementById('momo-preview').addEventListener('click',()=>react(moods[manualIndex++%moods.length],true));
   document.getElementById('momo-shuffle').addEventListener('click',()=>{const index=hats.indexOf(chosenHat());selectHat(hats[(index+1)%hats.length]);});
   outfit.addEventListener('change',()=>{selectHat(outfit.value);});
-  motion.addEventListener('change',()=>{prefs.motion=motion.value;persist();lastFrame=0;wake();});
-  function attention(e){lastInput=performance.now();if(quiet())return;pointerBounds=pointerBounds||canvas.getBoundingClientRect();lookX=clamp((e.clientX-pointerBounds.left-pointerBounds.width/2)/400,-1,1);lookY=clamp((e.clientY-pointerBounds.top-pointerBounds.height/2)/300,-1,1);lastGaze=lastInput;if(mode==='sleepy'&&lastInput<until)react('surprised');wake();}
+  motion.addEventListener('change',()=>{prefs.motion=motion.value;persist();behavior.reset(performance.now());lastFrame=0;wake();});
+  function attention(e){lastInput=performance.now();if(quiet())return;pointerBounds=pointerBounds||canvas.getBoundingClientRect();lookX=clamp((e.clientX-pointerBounds.left-pointerBounds.width/2)/400,-1,1);lookY=clamp((e.clientY-pointerBounds.top-pointerBounds.height/2)/300,-1,1);lastGaze=lastInput;wake();}
   document.addEventListener('pointermove',attention,{passive:true});document.addEventListener('pointerdown',attention,{passive:true});
-  document.addEventListener('keydown',()=>{lastInput=performance.now();if(mode==='sleepy')react('surprised');});
+  document.addEventListener('keydown',()=>{lastInput=performance.now();});
   let previousScroll=window.scrollY;
   window.addEventListener('scroll',()=>{const y=window.scrollY,delta=y-previousScroll;previousScroll=y;pointerBounds=null;lastInput=performance.now();if(!quiet()){scrollKick=clamp(delta/25,-2,2);lookY=Math.sign(delta)*.85;lastGaze=lastInput;wake();}},{passive:true});
   new MutationObserver(()=>{const dark=document.documentElement.dataset.mode==='dark'||document.documentElement.dataset.theme==='cocoa';palette.ink=dark?'#f2d6a4':'#493b33';renderGallery();lastFrame=0;wake();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-mode']});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;}else{refreshCalendar();lastFrame=0;wake();}});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){behavior.reset(performance.now());if(raf)cancelAnimationFrame(raf);raf=0;}else{refreshCalendar();lastFrame=0;wake();}});
   reduced.addEventListener('change',()=>{lastFrame=0;wake();});window.addEventListener('resize',resize);
-  window.Momo={setPaused:suspend,greet:()=>{refreshCalendar();react(period()==='night'?'sleepy':period()==='morning'?'yawn':'hello');},status:()=>({hat:chosenHat(),preference:prefs.hat,period:period(),date:calendar.date,timezone:calendar.timezone,motion:prefs.motion,reduced:reduced.matches,paused,frames,expression:canvas.dataset.expression})};
+  window.Momo={setPaused:suspend,greet:()=>{refreshCalendar();react(period()==='night'?'sleepy':period()==='morning'?'yawn':'hello');},status:()=>({hat:chosenHat(),preference:prefs.hat,period:period(),date:calendar.date,timezone:calendar.timezone,motion:prefs.motion,reduced:reduced.matches,paused,frames,expression:canvas.dataset.expression,context:canvas.dataset.context})};
   const gallery=document.getElementById('momo-gallery'),cards=[];
   const hatLabels={none:'Just Momo',beret:'Terracotta beret',beanie:'Bobble beanie',bucket:'Garden bucket',cap:'Weekend cap',party:'Party hat',crown:'Little crown',flower:'Flower clip',headphones:'Headphones',bow:'Ribbon bow',nightcap:'Nightcap',wizard:'Wizard hat',leaf:'Autumn leaf',earmuffs:'Winter earmuffs'};
-  function selectHat(hat){prefs.hat=hat;outfit.value=hat;persist();updateWardrobe();react('proud',true);}
+  function selectHat(hat){prefs.hat=hat;outfit.value=hat;persist();updateWardrobe();react('proud',true);lastFrame=0;wake();}
   function updateWardrobe(){
     const selected=chosenHat();
     cards.forEach(card=>card.button.setAttribute('aria-pressed',String(card.hat===selected)));
@@ -158,12 +186,15 @@
   function refreshCalendar(){
     const before=calendar;calendar=readCalendar();
     if(before.date!==calendar.date||before.period!==calendar.period||before.timezone!==calendar.timezone){
-      if(before.period!==calendar.period&&prefs.routine){mode=period()==='morning'?'yawn':period()==='night'?'sleepy':'stretch';started=performance.now();until=started+3000;nextIdle=until+9000;}
+      if(before.period!==calendar.period&&prefs.routine){mode=period()==='morning'?'yawn':period()==='night'?'sleepy':'stretch';started=performance.now();until=started+3000;nextIdle=until+90000;behavior.reset(started,0);react(mode);}
       routineNote();updateWardrobe();lastFrame=0;wake();
     }
   }
-  routineControl.addEventListener('change',()=>{prefs.routine=routineControl.value==='day';persist();routineNote();until=0;lastFrame=0;wake();});
+  routineControl.addEventListener('change',()=>{prefs.routine=routineControl.value==='day';persist();routineNote();behavior.reset(performance.now());until=0;lastFrame=0;wake();});
   // Wall-clock checks are cheap; still mode never starts a perpetual render loop.
   setInterval(()=>{if(!paused&&!document.hidden)refreshCalendar();},30000);
+  let currentPage=window.SkylitApp?.status().tab;
+  window.addEventListener('skylit-tab',event=>{const page=event.detail;if(page===currentPage)return;currentPage=page;if(page==='photos')react('camera');else if(page==='calendar')react('calendar');});
+  window.SkylitUI?.weather.subscribe(()=>{lastFrame=0;wake();});
   renderGallery();routineNote();updateWardrobe();resize();
 })();

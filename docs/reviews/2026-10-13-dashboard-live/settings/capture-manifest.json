@@ -1,0 +1,571 @@
+{
+  "version": "2.17.0",
+  "synthetic": true,
+  "checks": [
+    "Settings has nine task destinations and removes numeric dashboard controls",
+    "Visible display choices save through the existing preference path",
+    "Visual templates save immediately and leaving needs no dashboard confirmation",
+    "The preview automatically follows the current viewport without changing the layout",
+    "Responsive clock cards save the selected style immediately",
+    "Gallery browsing has no permanent selection checkboxes or repeated Edit buttons",
+    "Crop dragging is staged; navigation cannot discard picture edits silently",
+    "Custom viewing times and all five slideshow styles are retained",
+    "Visual collections and saved presentations track curation",
+    "Imported preferences are reviewed before writing and can be cancelled",
+    "Shared album and local library expose only their supported capabilities",
+    "Small landscape and narrow fallback retain scroll access without horizontal overflow",
+    "Native policy dispatch preserves overnight window and manual choice"
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    {
+      "id": "appearance-dark",
+      "title": "Appearance · dark mode",
+      "file": "screenshots/appearance-dark.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "text-size",
+      "title": "Visible text-size choices",
+      "file": "screenshots/text-size.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "appearance",
+      "title": "Appearance · modes and palette",
+      "file": "screenshots/appearance.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-templates",
+      "title": "Dashboard · visual starting layouts",
+      "file": "screenshots/dashboard-templates.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard",
+      "title": "Dashboard · live canvas",
+      "file": "screenshots/dashboard.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "dashboard-960x540",
+      "title": "Dashboard · 960×540",
+      "file": "screenshots/dashboard-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "dashboard-1280x800",
+      "title": "Dashboard · 1280×800",
+      "file": "screenshots/dashboard-1280x800.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "dashboard-1600x900",
+      "title": "Dashboard · 1600×900",
+      "file": "screenshots/dashboard-1600x900.jpg",
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "id": "dashboard-1920x1200",
+      "title": "Dashboard · 1920×1200",
+      "file": "screenshots/dashboard-1920x1200.jpg",
+      "viewport": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "id": "dashboard-390x844",
+      "title": "Dashboard · 390×844",
+      "file": "screenshots/dashboard-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "clock-analog",
+      "title": "Dashboard · analog style",
+      "file": "screenshots/clock-analog.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-stacked",
+      "title": "Dashboard · stacked style",
+      "file": "screenshots/clock-stacked.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "clock-digital",
+      "title": "Dashboard · digital style",
+      "file": "screenshots/clock-digital.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library",
+      "title": "Photo library · browse",
+      "file": "screenshots/library.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "library-selection",
+      "title": "Photo library · selection and batch actions",
+      "file": "screenshots/library-selection.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "picture-editor",
+      "title": "Picture editor · direct crop",
+      "file": "screenshots/picture-editor.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "picture-crop",
+      "title": "Picture editor · crop changed",
+      "file": "screenshots/picture-crop.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow",
+      "title": "Slideshow · visual styles",
+      "file": "screenshots/slideshow.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-pace",
+      "title": "Slideshow · pace choices",
+      "file": "screenshots/slideshow-pace.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-custom-pace",
+      "title": "Slideshow · retained custom pace",
+      "file": "screenshots/slideshow-custom-pace.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-composition",
+      "title": "Slideshow · composition and framing",
+      "file": "screenshots/slideshow-composition.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "slideshow-transitions",
+      "title": "Slideshow · visual transitions",
+      "file": "screenshots/slideshow-transitions.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "collections",
+      "title": "Visual collection choices",
+      "file": "screenshots/collections.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "presentations-saved",
+      "title": "Saved presentation · visual card",
+      "file": "screenshots/presentations-saved.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "transfer-review",
+      "title": "Display preferences · review before applying",
+      "file": "screenshots/transfer-review.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "general",
+      "title": "general · task view",
+      "file": "screenshots/general.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "appearance",
+      "title": "appearance · task view",
+      "file": "screenshots/appearance.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo",
+      "title": "momo · task view",
+      "file": "screenshots/momo.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "weather",
+      "title": "weather · task view",
+      "file": "screenshots/weather.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos",
+      "title": "photos · task view",
+      "file": "screenshots/photos.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-source",
+      "title": "photo source · task view",
+      "file": "screenshots/photo-source.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-storage",
+      "title": "photo storage · task view",
+      "file": "screenshots/photo-storage.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-sequence",
+      "title": "photo sequence · task view",
+      "file": "screenshots/photo-sequence.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-arrivals",
+      "title": "photo arrivals · task view",
+      "file": "screenshots/photo-arrivals.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-import",
+      "title": "photo import · task view",
+      "file": "screenshots/photo-import.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-presets",
+      "title": "photo presets · task view",
+      "file": "screenshots/photo-presets.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "routine",
+      "title": "routine · task view",
+      "file": "screenshots/routine.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "navigation",
+      "title": "navigation · task view",
+      "file": "screenshots/navigation.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "household",
+      "title": "household · task view",
+      "file": "screenshots/household.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendars",
+      "title": "calendars · task view",
+      "file": "screenshots/calendars.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-review",
+      "title": "calendar review · task view",
+      "file": "screenshots/calendar-review.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "services",
+      "title": "services · task view",
+      "file": "screenshots/services.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "youtube-shortcuts",
+      "title": "youtube shortcuts · task view",
+      "file": "screenshots/youtube-shortcuts.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "frame",
+      "title": "frame · task view",
+      "file": "screenshots/frame.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "updates",
+      "title": "updates · task view",
+      "file": "screenshots/updates.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "device",
+      "title": "device · task view",
+      "file": "screenshots/device.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "transfer",
+      "title": "transfer · task view",
+      "file": "screenshots/transfer.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "momo-gallery",
+      "title": "Momo · single accessory gallery",
+      "file": "screenshots/momo-gallery.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photo-account",
+      "title": "Receiving photos · explicit account setup",
+      "file": "screenshots/photo-account.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-add",
+      "title": "Connect calendar · focused form",
+      "file": "screenshots/calendar-add.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "calendar-review-setup",
+      "title": "Inviter review · policy setup",
+      "file": "screenshots/calendar-review-setup.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "photos-shared",
+      "title": "Photos · shared-album source",
+      "file": "screenshots/photos-shared.jpg",
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "appearance-960x540",
+      "title": "appearance · 960×540",
+      "file": "screenshots/appearance-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "photos-960x540",
+      "title": "photos · 960×540",
+      "file": "screenshots/photos-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "photo-library-960x540",
+      "title": "photo-library · 960×540",
+      "file": "screenshots/photo-library-960x540.jpg",
+      "viewport": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": "appearance-1280x800",
+      "title": "appearance · 1280×800",
+      "file": "screenshots/appearance-1280x800.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "photos-1280x800",
+      "title": "photos · 1280×800",
+      "file": "screenshots/photos-1280x800.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "photo-library-1280x800",
+      "title": "photo-library · 1280×800",
+      "file": "screenshots/photo-library-1280x800.jpg",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    {
+      "id": "appearance-390x844",
+      "title": "appearance · 390×844",
+      "file": "screenshots/appearance-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "photos-390x844",
+      "title": "photos · 390×844",
+      "file": "screenshots/photos-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "photo-library-390x844",
+      "title": "photo-library · 390×844",
+      "file": "screenshots/photo-library-390x844.jpg",
+      "viewport": [
+        390,
+        844
+      ]
+    }
+  ]
+}

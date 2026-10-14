@@ -1,0 +1,224 @@
+[
+  {
+    "title": "Settings structure",
+    "before": "../2026-10-12-settings-design-critique/screenshots/appearance-1.jpg",
+    "after": "screenshots/appearance.jpg",
+    "change": "Seven main destinations, with clear task headings and return routes. The repeated static clock preview and universal saved badge are removed; actions give their own feedback."
+  },
+  {
+    "title": "Light, Dark and Automatic",
+    "before": "../2026-10-12-settings-design-critique/screenshots/appearance-1.jpg",
+    "after": "screenshots/appearance-dark.jpg",
+    "change": "The three modes are visible choices. Palette and mode remain independent; Automatic still follows offline sunrise/sunset at the configured city."
+  },
+  {
+    "title": "Text size",
+    "before": "../2026-10-12-settings-design-critique/screenshots/appearance-2.jpg",
+    "after": "screenshots/text-size.jpg",
+    "change": "Standard and Larger text are visible alternatives. The palette gallery stays visual; there is no dropdown for a two-option decision."
+  },
+  {
+    "title": "Dashboard editor",
+    "before": "../2026-10-12-settings-design-critique/screenshots/dashboard-1.jpg",
+    "after": "screenshots/dashboard.jpg",
+    "change": "The editor opens a dedicated canvas workspace. Coordinates, Arrange neatly, preview-resolution selection and Expand canvas are removed. The canvas follows the current display proportions; a selected widget shows relevant choices."
+  },
+  {
+    "title": "Starting layouts",
+    "before": "../2026-10-12-settings-design-critique/screenshots/dashboard-1.jpg",
+    "after": "screenshots/dashboard-templates.jpg",
+    "change": "Balanced, Photos first and Plans first become visual template cards. Choosing one stages a draft; it applies only when Apply layout is pressed. Adding a widget no longer silently rearranges the existing layout."
+  },
+  {
+    "title": "Clock styles",
+    "before": "../2026-10-12-settings-design-critique/screenshots/dashboard-1.jpg",
+    "after": "screenshots/clock-analog.jpg",
+    "change": "Landscape, Analog, Flip and Botanical show actual responsive clock compositions. Changing style is staged with the layout."
+  },
+  {
+    "title": "Draft recovery",
+    "before": "../2026-10-12-settings-design-critique/screenshots/dashboard-1.jpg",
+    "after": "screenshots/draft-recovery.jpg",
+    "change": "Permanent Undo/Redo buttons leave the main toolbar. Recent changes is available while a layout is dirty. Close, Back, backdrop and category changes ask Apply, Discard or Keep editing; failed saves retain the draft."
+  },
+  {
+    "title": "Page visibility",
+    "before": "../2026-10-12-settings-design-critique/screenshots/services-2.jpg",
+    "after": "screenshots/navigation.jpg",
+    "change": "Optional sidebar pages and Overview favourite preference live together under Dashboard \u2192 Pages. Household is an explicit optional destination."
+  },
+  {
+    "title": "Momo wardrobe policy",
+    "before": "../2026-10-12-settings-design-critique/screenshots/momo-1.jpg",
+    "after": "screenshots/momo.jpg",
+    "change": "Keep one look, A new look each day and Surprise me are distinct visible policies. Motion and daily rhythm are visible choices rather than mixed with accessories."
+  },
+  {
+    "title": "Momo accessory gallery",
+    "before": "../2026-10-12-settings-design-critique/screenshots/momo-2.jpg",
+    "after": "screenshots/momo-gallery.jpg",
+    "change": "One illustrated gallery chooses the accessory. Random rotation gets a contextual Try another accessory action; the duplicate accessory dropdown is removed."
+  },
+  {
+    "title": "City, units and clock format",
+    "before": "../2026-10-12-settings-design-critique/screenshots/weather-1.jpg",
+    "after": "screenshots/weather.jpg",
+    "change": "City search remains a focused task under Frame. Temperature units and 12/24-hour format become visible two-option choices; the app retains configured timezone behavior."
+  },
+  {
+    "title": "Photos landing",
+    "before": "../2026-10-12-settings-design-critique/screenshots/photos-1.jpg",
+    "after": "screenshots/photos.jpg",
+    "change": "Photos opens understandable task destinations instead of a long stack of forms: library, slideshow, collections, review, delivery, retention, import, presentations and temporary phone connection. Shared-album mode shows its supported tasks."
+  },
+  {
+    "title": "Gallery browsing",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-curation.jpg",
+    "after": "screenshots/library.jpg",
+    "change": "Pictures are the primary interaction. Tap a picture to edit it. Permanent checkboxes and repeated Edit buttons are removed from normal browsing."
+  },
+  {
+    "title": "Gallery selection",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-curation-end.jpg",
+    "after": "screenshots/library-selection.jpg",
+    "change": "Select pictures starts an explicit batch mode; Done selecting returns to browsing. Keep, favourite, exclude, restore and collection membership appear when selection is active."
+  },
+  {
+    "title": "Picture editing",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-edit.jpg",
+    "after": "screenshots/picture-editor.jpg",
+    "change": "A focused picture task leads with a large crop preview. Rotate is a direct action, framing uses visible choices, and metadata sits in Photo information. Captions stay off the player; existing stored text is preserved."
+  },
+  {
+    "title": "Direct crop",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-edit-end.jpg",
+    "after": "screenshots/picture-crop.jpg",
+    "change": "Dragging the picture chooses Fill and stages crop position and framing together. Save applies the draft; navigation uses the same dependable departure guard. Custom viewing time remains available on demand."
+  },
+  {
+    "title": "Slideshow presentation",
+    "before": "../2026-10-12-settings-design-critique/screenshots/photos-1.jpg",
+    "after": "screenshots/slideshow.jpg",
+    "change": "All five styles become illustrated choices with restrained animated samples: Soft fade, Falling prints, Photo collage, Gentle pan & zoom and Still gallery. Preview presentation opens the real player."
+  },
+  {
+    "title": "Viewing pace",
+    "before": "../2026-10-12-settings-design-critique/screenshots/photos-1.jpg",
+    "after": "screenshots/slideshow-pace.jpg",
+    "change": "Common viewing times are visible presets. Another viewing time preserves arbitrary existing values, such as 15 minutes, without forcing them to a preset."
+  },
+  {
+    "title": "Composition and framing",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-composition.jpg",
+    "after": "screenshots/slideshow-composition.jpg",
+    "change": "Layout and background are visual choices. Fit and Fill demonstrate their effect using an eligible local picture. Transition refinement is a separate disclosure; reduced-motion behavior remains in force."
+  },
+  {
+    "title": "Transition refinement",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-composition.jpg",
+    "after": "screenshots/slideshow-transitions.jpg",
+    "change": "Transition timing has named defaults, with visual type choices. These controls appear only when Fine-tune transitions is opened."
+  },
+  {
+    "title": "Collections and order",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-sequence.jpg",
+    "after": "screenshots/collections.jpg",
+    "change": "Collection cards show the pictures that will play, including favourites and user collections. Excluded pictures are removed from card previews. Order is visible; conditional shuffle weighting and manual arrangement appear when relevant."
+  },
+  {
+    "title": "Receiving photos",
+    "before": "../2026-10-12-settings-design-critique/screenshots/photo-account.jpg",
+    "after": "screenshots/photo-source.jpg",
+    "change": "Source choice is visible. Delivery frequency saves independently of credential entry; trusted-sender fields appear only when enabled, with an explicit Apply sender rule action. Account connection is a disclosure with empty credential fields."
+  },
+  {
+    "title": "Retention and exclusions",
+    "before": "../2026-10-12-settings-design-critique/screenshots/photos-2.jpg",
+    "after": "screenshots/photo-storage.jpg",
+    "change": "Last 30 days, Last 90 days, Last 30 photos and Last 100 photos are foregrounded. Other retention windows remain available on demand. Received-date rules, capacity, Keepers and persistent exclusions are explained together; erase remains deliberate."
+  },
+  {
+    "title": "Arrival review",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-arrivals.jpg",
+    "after": "screenshots/photo-arrivals.jpg",
+    "change": "Review, capture-date policy and storage feedback move to their own task. Existing approval and rejection behavior is retained; private image metadata is not invented."
+  },
+  {
+    "title": "Import and soundtrack",
+    "before": "../2026-10-12-settings-design-critique/screenshots/library-import.jpg",
+    "after": "screenshots/photo-import.jpg",
+    "change": "Picture and muted-clip import are clear task actions. Optional soundtrack details and volume appear only when needed. Native format/capacity/privacy boundaries remain unchanged."
+  },
+  {
+    "title": "Saved presentations",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-presets.jpg",
+    "after": "screenshots/presentations-saved.jpg",
+    "change": "Saved presentations are visual cards. Creation is an explicit disclosure; removal requires a second tap. Seasonal options use named months; title/video-export refinements remain available on demand."
+  },
+  {
+    "title": "Temporary phone connection",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-phone.jpg",
+    "after": "screenshots/photo-phone.jpg",
+    "change": "Phone curation gets a focused destination. QR invitation, matching-number approval and immediate Stop retain their existing temporary encrypted behavior."
+  },
+  {
+    "title": "Daily routine",
+    "before": "../2026-10-12-settings-design-critique/screenshots/slideshow-schedule.jpg",
+    "after": "screenshots/routine.jpg",
+    "change": "Automatic photo delay, schedule, app brightness and quiet/privacy behavior are grouped under Frame \u2192 Daily routine. Common idle delays are visible choices; detailed schedules remain available."
+  },
+  {
+    "title": "Household content",
+    "before": "../2026-10-12-settings-design-critique/screenshots/household-1.jpg",
+    "after": "screenshots/household.jpg",
+    "change": "Household is reached from the dashboard workspace. Notes remain local; countdown creation appears under Add a date instead of competing with existing content."
+  },
+  {
+    "title": "Calendars",
+    "before": "../2026-10-12-settings-design-critique/screenshots/calendars-1.jpg",
+    "after": "screenshots/calendars.jpg",
+    "change": "Connected calendars and visibility are primary. Connect another calendar is a deliberate disclosure, with visual colour choices. Secret feed fields retain the direct read-only integration and never appear in public screenshots."
+  },
+  {
+    "title": "Inviter review",
+    "before": "../2026-10-12-settings-design-critique/screenshots/inviter-setup.jpg",
+    "after": "screenshots/calendar-review-setup.jpg",
+    "change": "Pending decisions and approved organizers precede setup. Review policy and account setup remain in a disclosure; the screen states that these are frame-only display decisions."
+  },
+  {
+    "title": "Apps",
+    "before": "../2026-10-12-settings-design-critique/screenshots/services-1.jpg",
+    "after": "screenshots/services.jpg",
+    "change": "Google Home leads with Open Google Home. The connection URL lives under Connection details. YouTube shortcuts are a separate task; opening a service is not described as verified sign-in or control."
+  },
+  {
+    "title": "YouTube shortcuts",
+    "before": "../2026-10-12-settings-design-critique/screenshots/services-2.jpg",
+    "after": "screenshots/youtube-shortcuts.jpg",
+    "change": "Title/link entry has its own task reached from Apps. It remains optional and separate from page visibility."
+  },
+  {
+    "title": "Frame",
+    "before": "../2026-10-12-settings-design-critique/screenshots/device-1.jpg",
+    "after": "screenshots/frame.jpg",
+    "change": "City/time, Daily routine and Software updates become a short task list. Android Wi-Fi, developer options and app switching retain direct recovery shortcuts."
+  },
+  {
+    "title": "Update policy",
+    "before": "../2026-10-12-settings-design-critique/screenshots/updates-2.jpg",
+    "after": "screenshots/updates.jpg",
+    "change": "Manual, Notify me, Download and Install when idle are mutually understandable policies. Existing overnight windows remain intact; the window and permission actions appear when relevant. The desktop preview remains explicit about native installation limits."
+  },
+  {
+    "title": "Help and maintenance",
+    "before": "../2026-10-12-settings-design-critique/screenshots/device-1.jpg",
+    "after": "screenshots/device.jpg",
+    "change": "Coarse service health, settings links, setup help and recovery remain together. Healthy services say Refresh; failures say Retry. Routine personalization no longer competes with maintenance."
+  },
+  {
+    "title": "Preference transfer",
+    "before": "../2026-10-12-settings-design-critique/screenshots/device-transfer.jpg",
+    "after": "screenshots/transfer-review.jpg",
+    "change": "Export/choose-file replaces the permanent raw JSON form. Android uses its document picker. Valid imports show a non-secret review before Apply; Cancel preserves the original settings. Accounts, photos, links, content and custom layout are excluded."
+  }
+]

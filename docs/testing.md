@@ -3,13 +3,15 @@
 Run from the repository root with Node 18+, Python 3.10+, and JDK 17 for Java tests:
 
 ```sh
+npm ci --ignore-scripts
+npm run typecheck
+npm run build
 node --test tests/*.test.cjs
 python3 -m unittest discover -s tests
 python3 scripts/check_public.py --history
 ```
 
-The suite uses Node/Python standard test runners. No runtime framework or network
-service is needed. Test observable behavior and failure boundaries; avoid snapshots
+The suite uses Node/Python standard test runners. No network service is needed. React bundles are built locally before preview or APK staging. Test observable behavior and failure boundaries; avoid snapshots
 of household data, tests that only repeat constants, and broad mocks of unrelated
 APIs. For example the synthetic preview mocks only the forecast endpoint, and a
 regression test ensures script/resource fetches pass through unchanged.
@@ -195,3 +197,100 @@ short-screen canvas occlusion, narrow geometry, disabled browser installation,
 conditional update routes, settings dependencies, escaped release notes and fixed
 native action dispatch. Updater native status is simulated; actual installation
 and download acceptance must run on Android, as described in [updates](updates.md).
+
+
+## Task-based Settings acceptance
+
+Run `scripts/check_settings_interactions.cjs` against `scripts/preview.py` with the
+Playwright/Chrome environment above. `SKYLIT_PREVIEW` selects the localhost origin;
+`--capture docs/reviews/2026-10-12-settings-interactions` writes synthetic evidence.
+Checks cover visible preference choices, staged dashboard templates and styles,
+Apply/Discard/Keep editing recovery, current-screen geometry, explicit gallery
+selection, saved direct crop/framing, custom pace, visual collections/presentations,
+review-before-apply transfer, source capabilities and narrow/short fallback.
+Native updater policy is simulated here; frame installation, native persistence
+and document-picker integration require separate physical acceptance. Older editor
+suites that assert removed coordinate/ratio/expand controls describe the prior UI.
+
+## React migration checks
+
+`check_react_frontend.cjs` exercises first-run versus upgrade behavior, setup direct links,
+phone matching-number approval before photo access, mutation payload allowlists, exclusion
+confirmation and session expiry. `check_settings_interactions.cjs` covers the preserved
+Settings tasks, staged dashboard edits, crop recovery and responsive layouts. Both use
+only the isolated synthetic preview and block external requests. Set `SKYLIT_PREVIEW`,
+`SKYLIT_PLAYWRIGHT` and optionally `SKYLIT_CHROME` for the local browser runtime.
+
+## Shared components
+
+Build the review-only interactive gallery with
+`node scripts/build_component_showcase.mjs`, then run
+`node scripts/check_components.cjs` with the Playwright/Chrome environment above.
+It checks live action feedback, switches, selection, field error associations,
+disabled controls and segmented keyboard focus/activation. Captures cover light
+and dark at 1280×720, 1920×1080 and 390×844. Run the Settings workflow suite and
+React screen suite after changing shared styles, since a primitive affects many
+features. See [component rules](components.md).
+
+## React recovery regression checks
+
+`npm run test:react` runs the initial React integration suite and
+`check_react_recovery.cjs` against the synthetic preview. The latter checks incomplete
+forecast recovery, independent feature boundaries, calendar confirmation cancellation
+and navigation, slideshow drafts during unrelated refresh and in-flight saves,
+external changes to clean drafts, server closure, deadline expiry and late responses.
+`tests/frontend-data.test.cjs` validates nested API/cache data, polar sunset absence,
+invalid timestamps and phone session metadata. Browser tests intentionally inject
+render failures into an isolated test host, never household data.
+CI runs these checks after a fresh frontend build. Local use accepts the existing
+`SKYLIT_PREVIEW`, `SKYLIT_PLAYWRIGHT` and `SKYLIT_CHROME` environment variables.
+
+## Walkthrough controls and editor
+
+`node scripts/check_walkthrough.cjs` uses the synthetic preview (`SKYLIT_PREVIEW`),
+with optional installed Chrome (`SKYLIT_CHROME`). It checks compact icon choices,
+top-level Navigation, an actual pointer swap, opposite-corner anchoring at all four
+resize handles, and landscape/narrow screenshots. Narrow screens edit a scaled
+1280×720 landscape canvas; landscape screens use their current proportions.
+Swaps exchange entire slots and reject incompatible minimum sizes.
+
+### Settings / Photos follow-up regression checks
+
+Use an isolated `scripts/preview.py` URL via `SKYLIT_PREVIEW`.
+`node scripts/check_followup.cjs` covers grouped settings, sidebar and bottom tray, compact timer placement, preview/drop agreement, automatic invitation renewal and native service dispatch.
+`node scripts/check_editor_photo_stability.cjs` verifies selection and dragging preserve photo image nodes while actual photo updates still refresh.
+`node scripts/check_phone_pairing.cjs` covers QR and matching-number approval across four viewports with mocked native state. These mocks do not verify the Android listener, sign-in, Home controls or YouTube playback.
+
+### Live dashboard and General settings
+
+`node scripts/check_dashboard_live.cjs` checks immediate persistence, gesture commit,
+reload, storage-failure rollback, selection/removal, reset cancellation and responsive
+canvas geometry. `node scripts/check_widget_styles.cjs` captures 24 photo/weather
+style and shape combinations. `check_settings_interactions.cjs` now checks General
+and live dashboard templates, replacing the previous staged Apply/Cancel contract.
+All use a synthetic `SKYLIT_PREVIEW` and optional `SKYLIT_CHROME`.
+
+`node scripts/check_gallery_refinement.cjs` covers gallery scrolling, included states, addition, responsive widths and natural photo proportions at four widget shapes. `check_gallery_touch.cjs` uses Chromium touch events to verify dragging directly from the preview and vertical scrolling without separate handles.
+
+### Phone companion redesign
+
+`node scripts/check_phone_redesign.cjs [screenshot-directory]` runs against an
+isolated synthetic preview (`SKYLIT_PREVIEW`, optional `SKYLIT_CHROME`). It checks
+pairing before data access, focused navigation, selection confirmation/restore,
+visual crop and save failure, saved collection membership, arrival review,
+slideshow drafts across tabs, sequential JPEG/PNG uploads and retry, empty states,
+320–1920px layouts and expiry cleanup. All endpoints are local mocks. Run
+`npm run test:react` for draft races and late-response regressions. Physical phone
+certificate acceptance, native storage/upload results and frame playback remain
+separate device checks.
+
+### Momo context and phone pairing
+
+Run `scripts/check_momo_context.cjs` against a synthetic preview with
+`SKYLIT_PREVIEW` and `SKYLIT_CHROME` set. It captures camera, calendar, rain,
+frost, bedtime and still-mode scenes; checks accessory preservation, competing
+page requests and bounded rendering. Coordinator tests also cover cooldowns,
+Fahrenheit conversion, stale forecasts and hidden/resume behavior.
+The pairing browser check covers scan, matching-number approval, rejection,
+disconnection and keyboard focus at four sizes. Visual evidence for this pass is
+in `docs/reviews/2026-10-13-momo-context/`.

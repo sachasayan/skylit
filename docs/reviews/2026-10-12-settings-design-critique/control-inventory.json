@@ -1,0 +1,1906 @@
+[
+  {
+    "area": "appearance",
+    "headings": [
+      "Appearance",
+      "Display"
+    ],
+    "controls": [
+      {
+        "id": "appearance-mode",
+        "type": "select-one",
+        "label": "Colour mode",
+        "options": [
+          "Automatic · sunrise and sunset",
+          "Light",
+          "Dark"
+        ],
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Linen",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Sage",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Stone",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Ocean",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Plum",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "High contrast",
+        "visible": true
+      },
+      {
+        "id": "display-text",
+        "type": "select-one",
+        "label": "Text size",
+        "options": [
+          "Standard",
+          "Larger text"
+        ],
+        "visible": true
+      }
+    ],
+    "text": "Appearance\nColour mode\nAutomatic · sunrise and sunset\nLight\nDark\n\nLinen · Light · Always light.\n\nLinen\nSage\nStone\nOcean\nPlum\nHigh contrast\nDisplay\nText size\nStandard\nLarger text\n\nLayouts adapt to landscape screens. Colour mode follows the sun independently of quiet hours.\n\n9:15\nToday on your frame\nSelected palette"
+  },
+  {
+    "area": "dashboard",
+    "headings": [
+      "Your dashboard",
+      "Widgets",
+      "Clock & date",
+      "Clock detail"
+    ],
+    "controls": [
+      {
+        "id": "overview-preset",
+        "type": "select-one",
+        "label": "Starting layout",
+        "options": [
+          "Custom",
+          "Balanced",
+          "Photos first",
+          "Agenda first"
+        ],
+        "visible": true
+      },
+      {
+        "id": "dashboard-arrange",
+        "type": "submit",
+        "label": "Arrange neatly",
+        "visible": true
+      },
+      {
+        "id": "dashboard-undo",
+        "type": "submit",
+        "label": "Undo",
+        "visible": true
+      },
+      {
+        "id": "dashboard-redo",
+        "type": "button",
+        "label": "Redo",
+        "visible": true
+      },
+      {
+        "id": "dashboard-preview-screen",
+        "type": "select-one",
+        "label": "Preview screen",
+        "options": [
+          "1280 × 720 · 16:9",
+          "1280 × 800 · 16:10",
+          "1920 × 1080 · 16:9",
+          "1920 × 1200 · 16:10"
+        ],
+        "visible": true
+      },
+      {
+        "id": "dashboard-expand",
+        "type": "button",
+        "label": "Expand canvas",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Clock & date",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Clock & date to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Weather",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Weather to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Photos",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Photos to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Upcoming events",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Upcoming events to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Hourly forecast",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Hourly forecast to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Note",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Note to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Shopping list",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Shopping list to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Countdowns",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Countdowns to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Add Timers",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Timers to dashboard",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Clock & date",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Resize Clock & date",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Weather",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Resize Weather",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Photos",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Resize Photos",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Upcoming events",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Resize Upcoming events",
+        "visible": true
+      },
+      {
+        "id": "dashboard-column",
+        "type": "number",
+        "label": "Column",
+        "visible": true
+      },
+      {
+        "id": "dashboard-row",
+        "type": "number",
+        "label": "Row",
+        "visible": true
+      },
+      {
+        "id": "dashboard-width",
+        "type": "number",
+        "label": "Width",
+        "visible": true
+      },
+      {
+        "id": "dashboard-height",
+        "type": "number",
+        "label": "Height",
+        "visible": true
+      },
+      {
+        "id": "dashboard-clock-style",
+        "type": "select-one",
+        "label": "Clock style",
+        "options": [
+          "Landscape",
+          "Analog",
+          "Flip",
+          "Botanical"
+        ],
+        "visible": true
+      },
+      {
+        "id": "dashboard-remove",
+        "type": "submit",
+        "label": "Remove module",
+        "visible": true
+      },
+      {
+        "id": "dashboard-save",
+        "type": "submit",
+        "label": "Save dashboard",
+        "visible": true
+      },
+      {
+        "id": "dashboard-discard",
+        "type": "submit",
+        "label": "Discard changes",
+        "visible": true
+      }
+    ],
+    "text": "Your dashboard\n\nDrag, resize, then Save. The preview follows your real widgets.\n\nStarting layout\nCustom\nBalanced\nPhotos first\nAgenda first\nArrange neatly\nUndo\nRedo\nPreview screen\n1280 × 720 · 16:9\n1280 × 800 · 16:10\n1920 × 1080 · 16:9\n1920 × 1200 · 16:10\nExpand canvas\nWidgets\n\nDrag onto the canvas, or tap to add.\n\n9:15\nClock & date\nAdded\n⠿\n17°\nWeather\nAdded\n⠿\nPhotos\nAdded\n⠿\nToday · Upcoming\nUpcoming events\nAdded\n⠿\n☀ ☁ ☀\nHourly forecast\nAdd module\n⠿\nA little note\nNote\nAdd module\n⠿\n○ Shopping list\nShopping list\nAdd module\n⠿\nDays to go\nCountdowns\nAdd module\n⠿\nTimer\nTimers\nAdd module\n⠿\nClock & date\n⤡\nWeather\n⤡\nPhotos\n⤡\nUpcoming events\n⤡\n\nClock & date\n\nArrow keys on a module move it. Shift + arrows resize it.\n\nColumn\nRow\nWidth\nHeight\nClock style\nLandscape\nAnalog\nFlip\nBotanical\nClock detail\nRemove module\nSave dashboard\nDiscard changes"
+  },
+  {
+    "area": "momo",
+    "headings": [
+      "Momo"
+    ],
+    "controls": [
+      {
+        "id": "momo-outfit",
+        "type": "select-one",
+        "label": "Today’s accessory",
+        "options": [
+          "Surprise me · changes every 90 seconds",
+          "New clothes every day",
+          "Just Momo",
+          "Terracotta beret",
+          "Blue bobble beanie",
+          "Garden bucket hat",
+          "Weekend cap",
+          "Party hat",
+          "Little crown",
+          "Flower clip",
+          "Headphones",
+          "Bow tie for his hair",
+          "Sleepy nightcap",
+          "Wizard hat",
+          "Autumn leaf",
+          "Winter earmuffs"
+        ],
+        "visible": true
+      },
+      {
+        "id": "momo-motion",
+        "type": "select-one",
+        "label": "His energy",
+        "options": [
+          "Playful",
+          "Gentle",
+          "Still"
+        ],
+        "visible": true
+      },
+      {
+        "id": "momo-routine",
+        "type": "select-one",
+        "label": "His daily rhythm",
+        "options": [
+          "Follow the day · snooze at night",
+          "Playful at any hour"
+        ],
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Just Momo",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Terracotta beret",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Bobble beanie",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Garden bucket",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Weekend cap",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Party hat",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Little crown",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Flower clip",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Headphones",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Ribbon bow",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Nightcap",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Wizard hat",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Autumn leaf",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Wear Winter earmuffs",
+        "visible": true
+      },
+      {
+        "id": "momo-shuffle",
+        "type": "submit",
+        "label": "Try another accessory",
+        "visible": true
+      },
+      {
+        "id": "momo-preview",
+        "type": "submit",
+        "label": "Make a face",
+        "visible": true
+      }
+    ],
+    "text": "Momo\n\nTap him for a hello. He looks around, follows your scrolling, and gets a little sleepy in quiet moments.\n\nToday’s accessory\nSurprise me · changes every 90 seconds\nNew clothes every day\nJust Momo\nTerracotta beret\nBlue bobble beanie\nGarden bucket hat\nWeekend cap\nParty hat\nLittle crown\nFlower clip\nHeadphones\nBow tie for his hair\nSleepy nightcap\nWizard hat\nAutumn leaf\nWinter earmuffs\nHis energy\nPlayful\nGentle\nStill\nHis daily rhythm\nFollow the day · snooze at night\nPlayful at any hour\n\nUp and about · playful until 8 p.m. Clock: Europe/London.\n\nWearing Terracotta beret · rotating every 90 seconds.\n\nTap an accessory to keep that look, or choose a changing wardrobe above.\n\nJust Momo\nTerracotta beret\nBobble beanie\nGarden bucket\nWeekend cap\nParty hat\nLittle crown\nFlower clip\nHeadphones\nRibbon bow\nNightcap\nWizard hat\nAutumn leaf\nWinter earmuffs\nTry another accessory\nMake a face\nPleased to meet you.\n\nMomo also respects your device’s reduced-motion preference."
+  },
+  {
+    "area": "weather",
+    "headings": [
+      "Weather & time"
+    ],
+    "controls": [
+      {
+        "id": "city-search",
+        "type": "text",
+        "label": "Find your city",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Find",
+        "visible": true
+      },
+      {
+        "id": "units",
+        "type": "select-one",
+        "label": "Temperature",
+        "options": [
+          "Celsius · °C",
+          "Fahrenheit · °F"
+        ],
+        "visible": true
+      },
+      {
+        "id": "clock-format",
+        "type": "select-one",
+        "label": "Clock",
+        "options": [
+          "12 hour",
+          "24 hour"
+        ],
+        "visible": true
+      }
+    ],
+    "text": "Weather & time\nFind your city\nFind\nTemperature\nCelsius · °C\nFahrenheit · °F\nClock\n12 hour\n24 hour\n\nClock uses Europe/London."
+  },
+  {
+    "area": "photos",
+    "headings": [
+      "Photo settings ⌄",
+      "Presentation",
+      "Delivery",
+      "Trusted senders · optional",
+      "Connect or change Gmail account",
+      "Storage",
+      "Layout & pacing",
+      "Order & variety",
+      "Arrange the collection",
+      "Library & collections",
+      "Possible similar pictures",
+      "Framing & photo details",
+      "New arrivals & storage",
+      "Import & media",
+      "Optional soundtrack",
+      "Schedule & screen brightness",
+      "Presets, memories & presentations",
+      "Presentation title & video export",
+      "Phone curation · local Wi-Fi",
+      "Photos & idle mode",
+      "Quiet hours & privacy"
+    ],
+    "controls": [
+      {
+        "id": "photo-source",
+        "type": "select-one",
+        "label": "Photo source",
+        "options": [
+          "Google Photos shared album",
+          "Pictures on this frame"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-style",
+        "type": "select-one",
+        "label": "Slideshow style",
+        "options": [
+          "Soft fade",
+          "Falling prints",
+          "Photo collage",
+          "Gentle pan & zoom",
+          "Still gallery"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-speed",
+        "type": "select-one",
+        "label": "Seconds per picture",
+        "options": [
+          "5",
+          "8",
+          "12",
+          "20",
+          "30",
+          "1 minute",
+          "5 minutes",
+          "15 minutes"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-collection",
+        "type": "select-one",
+        "label": "Play collection",
+        "options": [
+          "Recent photos",
+          "Keepers",
+          "All stored pictures",
+          "Favourites",
+          "On this day"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-preview",
+        "type": "button",
+        "label": "Preview presentation",
+        "visible": true
+      },
+      {
+        "id": "photo-refresh-interval",
+        "type": "select-one",
+        "label": "Automatic mail check",
+        "options": [
+          "Every 15 minutes",
+          "Every hour",
+          "Once a day"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-trusted",
+        "type": "checkbox",
+        "label": "Only import from these senders",
+        "visible": true
+      },
+      {
+        "id": "photo-senders",
+        "type": "textarea",
+        "label": "Exact email addresses · one per line",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Save delivery options",
+        "visible": true
+      },
+      {
+        "id": "photo-email",
+        "type": "email",
+        "label": "Gmail address",
+        "visible": true
+      },
+      {
+        "id": "photo-password",
+        "type": "password",
+        "label": "Google app password",
+        "visible": true
+      },
+      {
+        "id": "photo-connect",
+        "type": "submit",
+        "label": "Connect and check mail",
+        "visible": true
+      },
+      {
+        "id": "photo-retention",
+        "type": "select-one",
+        "label": "Gallery retention",
+        "options": [
+          "Last 7 days",
+          "Last 30 days",
+          "Last 90 days",
+          "Last 180 days",
+          "Last 10 photos",
+          "Last 20 photos",
+          "Last 30 photos",
+          "Last 40 photos",
+          "Last 50 photos",
+          "Last 100 photos",
+          "Last 200 photos"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-limit",
+        "type": "select-one",
+        "label": "Maximum shown photos",
+        "options": [
+          "5",
+          "10",
+          "20",
+          "30",
+          "40",
+          "50",
+          "100",
+          "200"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-disconnect",
+        "type": "submit",
+        "label": "Disconnect email and erase saved pictures",
+        "visible": true
+      },
+      {
+        "id": "photo-erase-cache",
+        "type": "submit",
+        "label": "Erase saved pictures only",
+        "visible": true
+      },
+      {
+        "id": "slideshow-layout",
+        "type": "select-one",
+        "label": "Composition",
+        "options": [
+          "Automatic · pair portrait pictures",
+          "One picture",
+          "Two pictures"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-fit",
+        "type": "select-one",
+        "label": "Default framing",
+        "options": [
+          "Fit · whole picture",
+          "Fill · crop to canvas",
+          "Automatic · avoid large crops"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-background",
+        "type": "select-one",
+        "label": "Surrounding space",
+        "options": [
+          "Theme mat",
+          "Black",
+          "Soft background from the picture"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-transition",
+        "type": "select-one",
+        "label": "Transition duration",
+        "options": [
+          "No transition",
+          "Quick · 0.3 seconds",
+          "Soft · 0.8 seconds",
+          "Slow · 1.5 seconds"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-transition-type",
+        "type": "select-one",
+        "label": "Transition",
+        "options": [
+          "Dissolve",
+          "Cut",
+          "Gentle slide",
+          "Reveal",
+          "Variety"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-browse-speed",
+        "type": "number",
+        "label": "Browsing playback · seconds",
+        "visible": true
+      },
+      {
+        "id": "slideshow-motion",
+        "type": "checkbox",
+        "label": "Allow gentle motion",
+        "visible": true
+      },
+      {
+        "id": "slideshow-resume",
+        "type": "checkbox",
+        "label": "Resume the previous photo",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Soft fade",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Falling prints",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Photo collage",
+        "visible": true
+      },
+      {
+        "id": "photo-shuffle",
+        "type": "checkbox",
+        "label": "Shuffle slideshow",
+        "visible": false
+      },
+      {
+        "id": "photo-repeat",
+        "type": "checkbox",
+        "label": "Repeat slideshow",
+        "visible": true
+      },
+      {
+        "id": "photo-favourites-only",
+        "type": "checkbox",
+        "label": "Play favourites only",
+        "visible": false
+      },
+      {
+        "id": "photo-prefer-favourites",
+        "type": "checkbox",
+        "label": "Prefer favourites on Overview",
+        "visible": true
+      },
+      {
+        "id": "slideshow-order",
+        "type": "select-one",
+        "label": "Photo order",
+        "options": [
+          "Newest received first",
+          "Oldest received first",
+          "My order",
+          "Shuffle"
+        ],
+        "visible": true
+      },
+      {
+        "id": "slideshow-new-first",
+        "type": "checkbox",
+        "label": "Queue new arrivals next",
+        "visible": true
+      },
+      {
+        "id": "slideshow-weighted",
+        "type": "checkbox",
+        "label": "Give favourites extra turns",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Picture 1",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 1 up",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 1 down",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Picture 2",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 2 up",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 2 down",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Picture 3",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 3 up",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 3 down",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Picture 4",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 4 up",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 4 down",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Drag Picture 5",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 5 up",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Move Picture 5 down",
+        "visible": true
+      },
+      {
+        "id": "library-query",
+        "type": "search",
+        "label": "Find a picture",
+        "visible": true
+      },
+      {
+        "id": "library-filter",
+        "type": "select-one",
+        "label": "Show",
+        "options": [
+          "Recent photos",
+          "Keepers",
+          "All stored pictures",
+          "Favourites",
+          "On this day",
+          "Waiting for review",
+          "Excluded"
+        ],
+        "visible": true
+      },
+      {
+        "id": "library-select-all",
+        "type": "button",
+        "label": "Select all matching",
+        "visible": true
+      },
+      {
+        "id": "library-select-none",
+        "type": "button",
+        "label": "Clear selection",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Picture 1",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Edit",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Picture 2",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Edit",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Picture 3",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Edit",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Picture 4",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Edit",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Picture 5",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "button",
+        "label": "Edit",
+        "visible": true
+      },
+      {
+        "id": "library-keep",
+        "type": "button",
+        "label": "Keep selected",
+        "visible": true
+      },
+      {
+        "id": "library-unkeep",
+        "type": "button",
+        "label": "Remove from Keepers",
+        "visible": true
+      },
+      {
+        "id": "library-star",
+        "type": "button",
+        "label": "Favourite",
+        "visible": true
+      },
+      {
+        "id": "library-exclude",
+        "type": "button",
+        "label": "Exclude",
+        "visible": true
+      },
+      {
+        "id": "library-restore",
+        "type": "button",
+        "label": "Restore",
+        "visible": true
+      },
+      {
+        "id": "library-album-name",
+        "type": "text",
+        "label": "New collection",
+        "visible": true
+      },
+      {
+        "id": "library-album",
+        "type": "select-one",
+        "label": "Add to collection",
+        "options": [],
+        "visible": true
+      },
+      {
+        "id": "library-create-album",
+        "type": "button",
+        "label": "Create with selected",
+        "visible": true
+      },
+      {
+        "id": "library-add-album",
+        "type": "button",
+        "label": "Add selected",
+        "visible": true
+      },
+      {
+        "id": "library-remove-album",
+        "type": "button",
+        "label": "Remove selected",
+        "visible": true
+      },
+      {
+        "id": "library-delete-album",
+        "type": "button",
+        "label": "Delete collection",
+        "visible": true
+      },
+      {
+        "id": "photo-choice-select",
+        "type": "select-one",
+        "label": "Picture",
+        "options": [
+          "Picture 1",
+          "Picture 2",
+          "Picture 3",
+          "Picture 4",
+          "Picture 5"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-favourite",
+        "type": "submit",
+        "label": "Favourite",
+        "visible": true
+      },
+      {
+        "id": "photo-hide",
+        "type": "checkbox",
+        "label": "Exclude from gallery",
+        "visible": true
+      },
+      {
+        "id": "photo-fit",
+        "type": "select-one",
+        "label": "Picture framing",
+        "options": [
+          "Follow slideshow default",
+          "Fit · show the whole picture",
+          "Fill · crop to the frame"
+        ],
+        "visible": true
+      },
+      {
+        "id": "photo-caption",
+        "type": "text",
+        "label": "Caption · on this frame",
+        "visible": true
+      },
+      {
+        "id": "library-title",
+        "type": "text",
+        "label": "Title",
+        "visible": true
+      },
+      {
+        "id": "library-description",
+        "type": "text",
+        "label": "Description for accessibility",
+        "visible": true
+      },
+      {
+        "id": "library-rotation",
+        "type": "select-one",
+        "label": "Rotation",
+        "options": [
+          "Original",
+          "90° clockwise",
+          "180°",
+          "90° anticlockwise"
+        ],
+        "visible": true
+      },
+      {
+        "id": "library-capture-date",
+        "type": "date",
+        "label": "Capture date · optional",
+        "visible": true
+      },
+      {
+        "id": "library-crop-x",
+        "type": "range",
+        "label": "Crop position · horizontal",
+        "visible": true
+      },
+      {
+        "id": "library-crop-y",
+        "type": "range",
+        "label": "Crop position · vertical",
+        "visible": true
+      },
+      {
+        "id": "library-auto-crop",
+        "type": "checkbox",
+        "label": "Use suggested face position",
+        "visible": true
+      },
+      {
+        "id": "library-seconds",
+        "type": "number",
+        "label": "Custom viewing time · seconds",
+        "visible": true
+      },
+      {
+        "id": "library-save-picture",
+        "type": "button",
+        "label": "Save picture details",
+        "visible": true
+      },
+      {
+        "id": "photo-show-hidden",
+        "type": "checkbox",
+        "label": "Show excluded pictures in the library",
+        "visible": true
+      },
+      {
+        "id": "photo-restore-hidden",
+        "type": "submit",
+        "label": "Restore all excluded pictures",
+        "visible": true
+      },
+      {
+        "id": "library-review-new",
+        "type": "checkbox",
+        "label": "Review new emailed pictures before display",
+        "visible": true
+      },
+      {
+        "id": "library-capture-new",
+        "type": "checkbox",
+        "label": "Keep only the capture date from new imports",
+        "visible": true
+      },
+      {
+        "id": "library-approve",
+        "type": "button",
+        "label": "Approve selected",
+        "visible": true
+      },
+      {
+        "id": "library-reject",
+        "type": "button",
+        "label": "Reject selected",
+        "visible": true
+      },
+      {
+        "id": "library-import-images",
+        "type": "button",
+        "label": "Import pictures to Keepers",
+        "visible": true
+      },
+      {
+        "id": "library-import-video",
+        "type": "button",
+        "label": "Import a muted clip",
+        "visible": true
+      },
+      {
+        "id": "library-import-music",
+        "type": "button",
+        "label": "Choose AAC / M4A soundtrack",
+        "visible": true
+      },
+      {
+        "id": "library-erase-music",
+        "type": "button",
+        "label": "Remove soundtrack",
+        "visible": true
+      },
+      {
+        "id": "library-music-enabled",
+        "type": "checkbox",
+        "label": "Play soundtrack with slideshow",
+        "visible": true
+      },
+      {
+        "id": "library-music-volume",
+        "type": "range",
+        "label": "Soundtrack volume",
+        "visible": true
+      },
+      {
+        "id": "slideshow-scheduled",
+        "type": "checkbox",
+        "label": "Automatic photos only during these hours",
+        "visible": true
+      },
+      {
+        "id": "slideshow-start",
+        "type": "time",
+        "label": "From",
+        "visible": true
+      },
+      {
+        "id": "slideshow-end",
+        "type": "time",
+        "label": "Until",
+        "visible": true
+      },
+      {
+        "id": "slideshow-dim",
+        "type": "checkbox",
+        "label": "Set app brightness by schedule",
+        "visible": true
+      },
+      {
+        "id": "slideshow-brightness",
+        "type": "range",
+        "label": "During scheduled hours",
+        "visible": true
+      },
+      {
+        "id": "slideshow-night-brightness",
+        "type": "range",
+        "label": "Outside scheduled hours",
+        "visible": true
+      },
+      {
+        "id": "slideshow-preset-name",
+        "type": "text",
+        "label": "Save current slideshow as",
+        "visible": true
+      },
+      {
+        "id": "slideshow-preset",
+        "type": "select-one",
+        "label": "Saved presets",
+        "options": [],
+        "visible": true
+      },
+      {
+        "id": "slideshow-save-preset",
+        "type": "button",
+        "label": "Save preset",
+        "visible": true
+      },
+      {
+        "id": "slideshow-load-preset",
+        "type": "button",
+        "label": "Load preset",
+        "visible": true
+      },
+      {
+        "id": "slideshow-delete-preset",
+        "type": "button",
+        "label": "Delete preset",
+        "visible": true
+      },
+      {
+        "id": "slideshow-seasonal",
+        "type": "checkbox",
+        "label": "This preset is seasonal",
+        "visible": true
+      },
+      {
+        "id": "slideshow-season-start",
+        "type": "number",
+        "label": "From month",
+        "visible": true
+      },
+      {
+        "id": "slideshow-season-end",
+        "type": "number",
+        "label": "Through month",
+        "visible": true
+      },
+      {
+        "id": "slideshow-story",
+        "type": "checkbox",
+        "label": "Show presentation title cards",
+        "visible": true
+      },
+      {
+        "id": "slideshow-story-title",
+        "type": "text",
+        "label": "Title",
+        "visible": true
+      },
+      {
+        "id": "slideshow-story-outro",
+        "type": "text",
+        "label": "Closing title · optional",
+        "visible": true
+      },
+      {
+        "id": "slideshow-title-seconds",
+        "type": "number",
+        "label": "Seconds per title card",
+        "visible": true
+      },
+      {
+        "id": "slideshow-export-seconds",
+        "type": "number",
+        "label": "Seconds per exported slide",
+        "visible": true
+      },
+      {
+        "id": "slideshow-export",
+        "type": "button",
+        "label": "Export selected pictures as video",
+        "visible": true
+      },
+      {
+        "id": "slideshow-export-cancel",
+        "type": "button",
+        "label": "Cancel export",
+        "visible": false
+      },
+      {
+        "id": "slideshow-phone-start",
+        "type": "button",
+        "label": "Start phone session",
+        "visible": true
+      },
+      {
+        "id": "slideshow-phone-stop",
+        "type": "button",
+        "label": "Stop session",
+        "visible": true
+      },
+      {
+        "id": "idle-delay",
+        "type": "select-one",
+        "label": "Show photos after",
+        "options": [
+          "Never automatically",
+          "1 minute without a touch",
+          "2 minutes without a touch",
+          "5 minutes without a touch",
+          "10 minutes without a touch"
+        ],
+        "visible": true
+      },
+      {
+        "id": "album-url",
+        "type": "url",
+        "label": "Google Photos shared-album link",
+        "visible": true
+      },
+      {
+        "id": "save-album",
+        "type": "submit",
+        "label": "Save album",
+        "visible": true
+      },
+      {
+        "id": "test-idle",
+        "type": "submit",
+        "label": "Preview idle photo mode",
+        "visible": true
+      },
+      {
+        "id": "quiet-enabled",
+        "type": "checkbox",
+        "label": "Quiet ambient display during these hours",
+        "visible": true
+      },
+      {
+        "id": "quiet-start",
+        "type": "time",
+        "label": "From",
+        "visible": true
+      },
+      {
+        "id": "quiet-end",
+        "type": "time",
+        "label": "Until",
+        "visible": true
+      },
+      {
+        "id": "privacy-pause",
+        "type": "submit",
+        "label": "Pause private content now",
+        "visible": true
+      }
+    ],
+    "text": "Choose a shared Google album or pictures stored on this frame. These slideshow and library settings apply to stored pictures; shared albums use Google’s player.\n\nPhoto source\nGoogle Photos shared album\nPictures on this frame\nPresentation\nSlideshow style\nSoft fade\nFalling prints\nPhoto collage\nGentle pan & zoom\nStill gallery\nSeconds per picture\n5\n8\n12\n20\n30\n1 minute\n5 minutes\n15 minutes\nPlay collection\nRecent photos\nKeepers\nAll stored pictures\nFavourites\nOn this day\nPreview presentation\n\nDelivery\n\nSaving an app password configures delivery. Send a test picture, then check the library, slideshow advance and offline playback on the frame.\n\nAutomatic mail check\nEvery 15 minutes\nEvery hour\nOnce a day\nTrusted senders · optional\nSave delivery options\n\nConnect or change Gmail account\nStorage\nGallery retention\nLast 7 days\nLast 30 days\nLast 90 days\nLast 180 days\nLast 10 photos\nLast 20 photos\nLast 30 photos\nLast 40 photos\nLast 50 photos\nLast 100 photos\nLast 200 photos\n\nUses the email received date, up to the capacity below. Reducing retention removes older cached pictures.\n\nMaximum shown photos\n5\n10\n20\n30\n40\n50\n100\n200\nDisconnect email and erase saved pictures\n\nErase saved pictures only\n\nDisconnect removes the app password and pictures on this frame. Revoke the app password in your Google Account to remove its Google-side authorization.\n\nLayout & pacing\nOrder & variety\nLibrary & collections\nFraming & photo details\nNew arrivals & storage\nImport & media\nSchedule & screen brightness\nPresets, memories & presentations\nPhone curation · local Wi-Fi\nPhotos & idle mode\nShow photos after\nNever automatically\n1 minute without a touch\n2 minutes without a touch\n5 minutes without a touch\n10 minutes without a touch\nGoogle Photos shared-album link\nSave album\nPreview idle photo mode\n\nSharing-link access is required. Keep this link private.\n\nQuiet hours & privacy\nQuiet ambient display during these hours\nFrom\nUntil\n\nUses your chosen city’s time. After the idle delay, a quiet clock replaces photos and events. Active video and manual photo browsing are left uninterrupted. If automatic photos are off, quiet display uses two minutes of inactivity. Touch to return. This does not change screen brightness.\n\nPause private content now"
+  },
+  {
+    "area": "calendars",
+    "headings": [
+      "Your calendars",
+      "Connect another calendar",
+      "Where do I find my calendar link?"
+    ],
+    "controls": [
+      {
+        "id": "calendar-review-settings",
+        "type": "submit",
+        "label": "Review who appears on this frame",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "checkbox",
+        "label": "Show on frame",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Edit Example calendar",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Remove Example calendar",
+        "visible": true
+      },
+      {
+        "id": "calendar-name",
+        "type": "text",
+        "label": "Calendar name",
+        "visible": true
+      },
+      {
+        "id": "calendar-color",
+        "type": "select-one",
+        "label": "Colour",
+        "options": [
+          "Terracotta",
+          "Olive",
+          "Blue",
+          "Plum",
+          "Honey"
+        ],
+        "visible": true
+      },
+      {
+        "id": "calendar-feed",
+        "type": "password",
+        "label": "Secret iCal address",
+        "visible": true
+      },
+      {
+        "id": "calendar-add",
+        "type": "submit",
+        "label": "Connect calendar",
+        "visible": true
+      }
+    ],
+    "text": "Your calendars\n\nRead-only Google Calendar feeds.\n\nReview who appears on this frame\nExample calendar\nShow on frame\n\nUpdated · Oct 10, 9:15 a.m.\n\nEdit\nRemove\nConnect another calendar"
+  },
+  {
+    "area": "calendar-review",
+    "headings": [
+      "Inviter review",
+      "Who appears on this frame",
+      "Waiting for review 0",
+      "Shown on frame",
+      "Inviter review setup"
+    ],
+    "controls": [
+      {
+        "id": "calendar-gate-enable",
+        "type": "checkbox",
+        "label": "Review new inviters before showing their events",
+        "visible": true
+      },
+      {
+        "id": "calendar-owner",
+        "type": "email",
+        "label": "Calendar account email",
+        "visible": true
+      },
+      {
+        "id": "calendar-approve-email",
+        "type": "email",
+        "label": "Approve an inviter",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Approve",
+        "visible": true
+      },
+      {
+        "id": "calendar-unattributed",
+        "type": "checkbox",
+        "label": "Show events without an organizer address",
+        "visible": true
+      }
+    ],
+    "text": "Inviter review\n\nChoose whose events appear on this frame. This does not accept invitations in Google Calendar. Only loaded dates are reviewed.\n\nWaiting for review\n0\n\nTurn on review to screen new inviters.\n\nShown on frame\n\nNo approved inviters yet.\n\nInviter review setup"
+  },
+  {
+    "area": "household",
+    "headings": [
+      "Household note & shopping",
+      "Countdowns"
+    ],
+    "controls": [
+      {
+        "id": "show-household",
+        "type": "checkbox",
+        "label": "Show Household in navigation",
+        "visible": true
+      },
+      {
+        "id": "household-open",
+        "type": "submit",
+        "label": "Open Household",
+        "visible": true
+      },
+      {
+        "id": "household-note-input",
+        "type": "textarea",
+        "label": "Pinned note · on this frame",
+        "visible": true
+      },
+      {
+        "id": "household-note-save",
+        "type": "submit",
+        "label": "Save note",
+        "visible": true
+      },
+      {
+        "id": "countdown-title",
+        "type": "text",
+        "label": "Title",
+        "visible": true
+      },
+      {
+        "id": "countdown-date",
+        "type": "date",
+        "label": "Date",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Add countdown",
+        "visible": true
+      }
+    ],
+    "text": "Household note & shopping\nShow Household in navigation\nOpen Household\nPinned note · on this frame\nSave note\n\nNotes and lists stay on this frame. They do not sync to a phone or Google Keep.\n\nCountdowns\n\nUp to five dates, entered locally. Calendar event details also offer Add countdown.\n\nTitle\nDate\nAdd countdown"
+  },
+  {
+    "area": "services",
+    "headings": [
+      "Home connection",
+      "Navigation",
+      "YouTube shortcuts · optional"
+    ],
+    "controls": [
+      {
+        "id": "home-url",
+        "type": "url",
+        "label": "Google Home page",
+        "visible": true
+      },
+      {
+        "id": "save-home",
+        "type": "submit",
+        "label": "Save home page",
+        "visible": true
+      },
+      {
+        "id": "show-home",
+        "type": "checkbox",
+        "label": "Show Home in navigation",
+        "visible": true
+      },
+      {
+        "id": "show-youtube",
+        "type": "checkbox",
+        "label": "Show YouTube in navigation",
+        "visible": true
+      },
+      {
+        "id": "youtube-shortcut-title",
+        "type": "text",
+        "label": "Title",
+        "visible": true
+      },
+      {
+        "id": "youtube-shortcut-url",
+        "type": "url",
+        "label": "Video or playlist link",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Add shortcut",
+        "visible": true
+      }
+    ],
+    "text": "Home connection\nGoogle Home page\nSave home page\n\nSign in on the frame. Your Mac's login is not transferred.\n\nNavigation\nShow Home in navigation\nShow YouTube in navigation\n\nOverview, Weather, Photos, Calendar and Settings always stay available.\n\nYouTube shortcuts · optional\n\nUp to six owner-entered public videos or playlists. They open the external website; playback still depends on the frame browser.\n\nTitle\nVideo or playlist link\nAdd shortcut"
+  },
+  {
+    "area": "updates",
+    "headings": [
+      "App updates",
+      "What’s new",
+      "Automatic updates"
+    ],
+    "controls": [
+      {
+        "id": "update-action",
+        "type": "submit",
+        "label": "Check for updates",
+        "visible": false
+      },
+      {
+        "id": "update-check",
+        "type": "submit",
+        "label": "Check now",
+        "visible": false
+      },
+      {
+        "id": "update-permission",
+        "type": "submit",
+        "label": "Allow Skylit to install updates",
+        "visible": false
+      },
+      {
+        "id": "update-auto-check",
+        "type": "checkbox",
+        "label": "Check for releases automatically",
+        "visible": true
+      },
+      {
+        "id": "update-auto-download",
+        "type": "checkbox",
+        "label": "Download updates automatically",
+        "visible": true
+      },
+      {
+        "id": "update-auto-install",
+        "type": "checkbox",
+        "label": "Install automatically while the frame is idle",
+        "visible": true
+      },
+      {
+        "id": "update-start",
+        "type": "select-one",
+        "label": "Between",
+        "options": [
+          "00:00",
+          "01:00",
+          "02:00",
+          "03:00",
+          "04:00",
+          "05:00",
+          "06:00",
+          "07:00",
+          "08:00",
+          "09:00",
+          "10:00",
+          "11:00",
+          "12:00",
+          "13:00",
+          "14:00",
+          "15:00",
+          "16:00",
+          "17:00",
+          "18:00",
+          "19:00",
+          "20:00",
+          "21:00",
+          "22:00",
+          "23:00"
+        ],
+        "visible": true
+      },
+      {
+        "id": "update-end",
+        "type": "select-one",
+        "label": "And",
+        "options": [
+          "00:00",
+          "01:00",
+          "02:00",
+          "03:00",
+          "04:00",
+          "05:00",
+          "06:00",
+          "07:00",
+          "08:00",
+          "09:00",
+          "10:00",
+          "11:00",
+          "12:00",
+          "13:00",
+          "14:00",
+          "15:00",
+          "16:00",
+          "17:00",
+          "18:00",
+          "19:00",
+          "20:00",
+          "21:00",
+          "22:00",
+          "23:00"
+        ],
+        "visible": true
+      }
+    ],
+    "text": "App updates\n\nApp installation is available on the Android frame. This browser preview cannot update an APK.\n\nAutomatic updates\nCheck for releases automatically\nDownload updates automatically\nInstall automatically while the frame is idle\nBetween\n00:00\n01:00\n02:00\n03:00\n04:00\n05:00\n06:00\n07:00\n08:00\n09:00\n10:00\n11:00\n12:00\n13:00\n14:00\n15:00\n16:00\n17:00\n18:00\n19:00\n20:00\n21:00\n22:00\n23:00\nAnd\n00:00\n01:00\n02:00\n03:00\n04:00\n05:00\n06:00\n07:00\n08:00\n09:00\n10:00\n11:00\n12:00\n13:00\n14:00\n15:00\n16:00\n17:00\n18:00\n19:00\n20:00\n21:00\n22:00\n23:00\n\nTimes follow Europe/London.\n\nInstallation waits until nobody has touched the frame for five minutes and the dashboard or automatic ambient display is idle. Android may require confirmation. Android closes Skylit during installation; reopen it if needed. Your settings and pictures stay on the frame."
+  },
+  {
+    "area": "device",
+    "headings": [
+      "Android & wireless updates",
+      "Service status",
+      "Setup guide",
+      "About this frame",
+      "Transfer display preferences",
+      "Copy or paste on the frame"
+    ],
+    "controls": [
+      {
+        "id": "wifi-settings",
+        "type": "submit",
+        "label": "Wi-Fi settings",
+        "visible": true
+      },
+      {
+        "id": "wireless-settings",
+        "type": "submit",
+        "label": "Wireless connection settings",
+        "visible": true
+      },
+      {
+        "id": "android-controls",
+        "type": "submit",
+        "label": "Android apps",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Retry",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Settings",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Retry",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Settings",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Check now",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Settings",
+        "visible": true
+      },
+      {
+        "id": "",
+        "type": "submit",
+        "label": "Open",
+        "visible": true
+      },
+      {
+        "id": "setup-reopen",
+        "type": "submit",
+        "label": "Open setup guide",
+        "visible": true
+      },
+      {
+        "id": "stock",
+        "type": "submit",
+        "label": "Open original Skylight app",
+        "visible": true
+      },
+      {
+        "id": "preferences-export",
+        "type": "submit",
+        "label": "Export display preferences",
+        "visible": true
+      },
+      {
+        "id": "preferences-import",
+        "type": "file",
+        "label": "Import a display-preferences file",
+        "visible": false
+      },
+      {
+        "id": "preferences-transfer",
+        "type": "textarea",
+        "label": "Display preferences JSON",
+        "visible": true
+      },
+      {
+        "id": "preferences-apply",
+        "type": "submit",
+        "label": "Import pasted preferences",
+        "visible": true
+      }
+    ],
+    "text": "Android & wireless updates\n\nAfter a restart, reconnect Wi-Fi if needed, then turn on Wireless debugging in Developer options.\n\nWi-Fi settings\nWireless connection settings\nAndroid apps\n\nOpen Android Settings or another installed app. Home returns to Skylit when it is your home screen. Back returns from Android Settings.\n\nService status\n\nNetwork availability does not verify an account or service. Saved data remains usable when a refresh fails.\n\nWeather\n\nUpdated · Oct 10, 9:15 a.m.\n\nRetry\nSettings\nCalendars\n\nUpdated · Oct 10, 9:15 a.m.\n\nRetry\nSettings\nEmail photos\n\nChecked Oct 10, 9:15 a.m. · 5 pictures saved\n\nCheck now\nSettings\nGoogle Home\n\nSign-in and device operations must be checked by the owner.\n\nOpen\nSetup guide\n\nCity, photos and calendar in one place.\n\nOpen setup guide\nAbout this frame\n\nSkylit · 2.15.3\n\nAn offline dashboard with connected services.\n\nOpen original Skylight app\n\nSetup and restoration notes are in the frame's Downloads folder.\n\nTransfer display preferences\n\nPalette, mode, clock, units, text size and optional Home/YouTube navigation. Custom dashboard layouts stay on this frame. Accounts, links, pictures, city, notes and inviter identities are excluded.\n\nExport display preferences\nCopy or paste on the frame"
+  }
+]
