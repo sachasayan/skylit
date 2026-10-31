@@ -129,3 +129,24 @@ The actual frame fetched and rendered a temporary public Google holiday feed. Te
 cover recurrence exceptions, DST, date boundaries, download restrictions, cache
 retention after failed refresh and removal. Household-specific feed access and event
 changes still need verification with the owner. See [verification](verification.md).
+
+
+## Retaining displayed events after parse failures
+
+The controller keeps a bounded in-memory last-good expansion per calendar for the
+visible month window and today's Overview window. A parser error or worker timeout
+retains events only when the cached date bounds and timezone exactly match that
+view. Month navigation and timezone changes never borrow events from another
+range; the Overview can retain its own matching expansion independently.
+
+Successful empty results replace the cache, so canceled events can disappear.
+Calendar removal clears its expansions immediately, and superseded renders cannot
+publish cache changes. Visibility and inviter filters still apply to saved events.
+Render errors clear after a successful retry without clearing unrelated download
+errors. An empty failed view reports unavailable rather than asserting no events.
+
+These expansions live only for the current dashboard session; the existing private
+native ICS cache remains the source after restart. This does not bypass the parser
+or remove its six-second timeout. Controller regressions exercise timeout, recovery,
+empty updates, multiple sources, range/timezone isolation and stale completions.
+Live household-feed/device acceptance is still required for a signed release.

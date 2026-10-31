@@ -9,19 +9,19 @@ class Element{
 }
 function setup({multiple=false,organizer='',savedView=null,sourceCount=1}={}){
  const now=Date.parse('2026-10-10T08:00Z'),elements=new Map(),pending=[],listeners={},views={};
- const network={onLine:true},storage=new Map();if(savedView)storage.set('skylit.calendarView',JSON.stringify(savedView));
+ const network={onLine:true},storage=new Map(),timers=new Map();let timerId=0;const preferences={timezone:'UTC',clock:'24'};if(savedView)storage.set('skylit.calendarView',JSON.stringify(savedView));
  const $=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id)};
  let sources=Array.from({length:sourceCount},(_,i)=>({id:i?'demo'+i:'demo',name:'Example',color:'#833e2c',body:'synthetic',fetchedAt:now}));
- const window={SkylitApp:{calendarPreferences:()=>({timezone:'UTC',clock:'24'}),go(){}},Skylit:{calendarList:()=>JSON.stringify(sources),calendarRefresh(){},calendarRemove(id){sources=sources.filter(s=>s.id!==id);return true}},addEventListener(name,fn){listeners[name]=fn}};
+ const window={SkylitApp:{calendarPreferences:()=>preferences,go(){}},Skylit:{calendarList:()=>JSON.stringify(sources),calendarRefresh(){},calendarRemove(id){sources=sources.filter(s=>s.id!==id);return true}},addEventListener(name,fn){listeners[name]=fn}};
  window.SkylitUI={calendar:Object.fromEntries(['sources','grid','agenda','overview','approved','pending'].map(key=>[key,props=>{views[key]=props;const id={sources:'calendar-sources',grid:'calendar-grid',agenda:'calendar-agenda',overview:'overview-events',approved:'calendar-approved',pending:'calendar-pending'}[key];$(id).textContent=JSON.stringify(props)+(props.onAdd?'Add a calendar':'');}]))};
  class FixedDate extends Date{constructor(...a){super(...(a.length?a:[now]))}static now(){return now}}
  class Worker{postMessage(bounds){this.bounds=bounds;pending.push(this)}terminate(){this.terminated=true;}}
- vm.runInNewContext(fs.readFileSync('web/calendar.js','utf8'),{window,document:{getElementById:$,createElement:tag=>new Element(tag),createTextNode:t=>({textContent:t})},Date:FixedDate,Intl,Worker,SkylitOverview:Overview,SkylitCalendarPolicy:CalendarPolicy,navigator:network,localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},setTimeout,clearTimeout,setInterval(){}});
+ vm.runInNewContext(fs.readFileSync('web/calendar.js','utf8'),{window,document:{getElementById:$,createElement:tag=>new Element(tag),createTextNode:t=>({textContent:t})},Date:FixedDate,Intl,Worker,SkylitOverview:Overview,SkylitCalendarPolicy:CalendarPolicy,navigator:network,localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},setTimeout(fn){const id=++timerId;timers.set(id,fn);return id;},clearTimeout(id){timers.delete(id);},setInterval(){}});
  const event={title:'Upcoming example',organizer,allDay:false,startDay:'2026-10-10',endDay:'2026-10-10',start:now+3600000,end:now+7200000};
  const eventList=multiple?[event,{...event,title:'Later today',start:now+10800000,end:now+14400000},{...event,title:'Next day',startDay:'2026-10-11',endDay:'2026-10-11',start:now+86400000,end:now+90000000}]:[event];
- const complete=(worker,fail=false)=>fail?worker.onmessage({data:{error:'bad'}}):worker.onmessage({data:{events:eventList.filter(e=>worker.bounds.from<=e.startDay&&worker.bounds.to>e.startDay)}});
+ const complete=(worker,fail=false,items=eventList)=>fail?worker.onmessage({data:{error:'bad'}}):worker.onmessage({data:{events:items.filter(e=>worker.bounds.from<=e.startDay&&worker.bounds.to>e.startDay)}});
  const flush=()=>new Promise(resolve=>setImmediate(resolve));
- return {$,pending,complete,flush,network,listeners,storage,views};
+ return {$,pending,complete,flush,network,listeners,storage,views,preferences,window,timeout(){for(const fn of [...timers.values()])fn();}};
 }
 test('calendar ignores stale render results and overview stays on today while browsing other months',async()=>{
  const h=setup();h.complete(h.pending.shift());await h.flush();assert.match(h.$('overview-events').textContent,/Upcoming example/);
@@ -99,4 +99,93 @@ test('superseded multi-feed renders terminate work and never start another obsol
  h.complete(latest);await h.flush();assert.equal(h.pending.length,1);
  h.complete(h.pending.shift());await h.flush();assert.equal(h.pending.length,1);
  h.complete(h.pending.shift());await h.flush();assert.match(h.$('overview-events').textContent,/Upcoming example/);assert.equal(h.pending.length,0);
+});
+
+
+test('parser timeout retains last-good events and recovery clears the warning',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ h.listeners['skylit-tab']({detail:'calendar'});const slow=h.pending.shift();h.timeout();await h.flush();
+ // The Overview expansion has its own retry/cache even when the visible range fails.
+ h.complete(h.pending.shift(),true);await h.flush();
+ assert.equal(slow.terminated,true);
+ assert.match(h.$('calendar-agenda').textContent,/Upcoming example/);
+ assert.match(h.$('overview-events').textContent,/Upcoming example/);
+ assert.match(h.$('overview-calendar-status').textContent,/Some calendars could not update/);
+ assert.equal(h.window.SkylitCalendar.health().error,true);
+ h.listeners['skylit-tab']({detail:'overview'});h.complete(h.pending.shift());await h.flush();
+ assert.equal(h.$('overview-calendar-status').textContent,'');
+ assert.equal(h.window.SkylitCalendar.health().error,false);
+});
+
+test('a successful empty parse clears saved events instead of preserving canceled plans',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ h.listeners['skylit-tab']({detail:'calendar'});h.complete(h.pending.shift(),false,[]);await h.flush();
+ assert.doesNotMatch(h.$('calendar-agenda').textContent,/Upcoming example/);
+ assert.doesNotMatch(h.$('overview-events').textContent,/Upcoming example/);
+ assert.equal(h.views.overview.empty,'No upcoming events in the next two weeks.');
+});
+
+test('failed month navigation never reuses another range but preserves todays Overview',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ h.$('calendar-next').onclick();h.complete(h.pending.shift(),true);await h.flush();
+ h.complete(h.pending.shift(),true);await h.flush();
+ assert.doesNotMatch(h.$('calendar-agenda').textContent,/Upcoming example/);
+ assert.equal(h.views.agenda.empty,'Calendar unavailable for these dates. Try refreshing.');
+ assert.match(h.$('overview-events').textContent,/Upcoming example/);
+ // Returning to the last successful month can still use its saved expansion.
+ h.$('calendar-prev').onclick();h.complete(h.pending.shift(),true);await h.flush();
+ h.complete(h.pending.shift(),true);await h.flush();
+ assert.match(h.$('calendar-agenda').textContent,/Upcoming example/);
+});
+
+test('timezone changes do not reuse event expansions from another zone',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ h.preferences.timezone='America/Chicago';h.listeners['skylit-preferences']();
+ h.complete(h.pending.shift(),true);await h.flush();h.complete(h.pending.shift(),true);await h.flush();
+ assert.doesNotMatch(h.$('calendar-agenda').textContent,/Upcoming example/);
+ assert.doesNotMatch(h.$('overview-events').textContent,/Upcoming example/);
+ assert.match(h.views.overview.empty,/unavailable/);
+});
+
+test('one failed source preserves its events while another source updates',async()=>{
+ const h=setup({sourceCount:2});h.complete(h.pending.shift());await h.flush();h.complete(h.pending.shift());await h.flush();
+ h.listeners['skylit-tab']({detail:'calendar'});
+ h.complete(h.pending.shift(),true);await h.flush();h.complete(h.pending.shift(),true);await h.flush();
+ h.complete(h.pending.shift(),false,[]);await h.flush();
+ const items=h.views.overview.groups.flatMap(g=>g.items);
+ assert.equal(items.length,1);assert.equal(items[0].event.source,'demo');
+ h.views.sources.onVisible('demo',false);assert.equal(h.views.overview.groups.length,0);
+ h.views.sources.onVisible('demo',true);assert.equal(h.views.overview.groups.length,1);
+ h.views.sources.onRemove('demo');h.complete(h.pending.shift(),false,[]);await h.flush();
+ assert.equal(h.views.overview.groups.length,0);
+ assert.equal(h.window.SkylitCalendar.health().error,false);
+});
+
+test('late success from a timed-out render cannot restore removed or canceled events',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ h.listeners['skylit-tab']({detail:'calendar'});const obsolete=h.pending.shift();h.timeout();await h.flush();
+ const oldOverview=h.pending.shift();
+ h.listeners['skylit-tab']({detail:'calendar'});h.complete(h.pending.shift(),false,[]);await h.flush();
+ h.complete(obsolete);h.complete(oldOverview);await h.flush();
+ assert.equal(h.views.overview.groups.length,0);
+ h.views.sources.onRemove('demo');await h.flush();
+ assert.equal(h.views.overview.empty,'Add a calendar to see upcoming events.');
+});
+
+
+test('network refresh failure keeps events and a later render does not clear its warning',async()=>{
+ const h=setup();h.complete(h.pending.shift());await h.flush();
+ await h.window.SkylitCalendar.receive({id:'demo',error:'Synthetic download timeout'});
+ assert.match(h.$('overview-events').textContent,/Upcoming example/);
+ h.listeners['skylit-tab']({detail:'overview'});h.complete(h.pending.shift());await h.flush();
+ assert.match(h.$('calendar-agenda').textContent,/Upcoming example/);
+ assert.equal(h.window.SkylitCalendar.health().error,true);
+ assert.match(h.$('overview-calendar-status').textContent,/Some calendars could not update/);
+});
+
+test('first parse failure reports unavailable rather than an empty calendar',async()=>{
+ const h=setup();h.complete(h.pending.shift(),true);await h.flush();h.complete(h.pending.shift(),true);await h.flush();
+ assert.equal(h.views.overview.groups.length,0);
+ assert.match(h.views.overview.empty,/unavailable/);
+ assert.doesNotMatch(h.views.agenda.empty,/No plans/);
 });
