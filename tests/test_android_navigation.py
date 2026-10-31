@@ -33,6 +33,10 @@ public class NavigationTest {
       expect(RemoteNavigation.allows("https", null, youtube), false, "missing host");
       expect(RemoteNavigation.allows("https", "accounts.google.com", youtube), true, "login");
     }
+    expect(RemoteNavigation.allows("https", "accounts.youtube.com", true), true, "YouTube sign-in completion");
+    expect(RemoteNavigation.allows("https", "accounts.youtube.com", false), false, "YouTube account isolation");
+    expect(RemoteNavigation.allows("http", "accounts.youtube.com", true), false, "YouTube account HTTPS");
+    expect(RemoteNavigation.allows("https", "accounts.youtube.com.example.org", true), false, "YouTube account suffix spoof");
     expect(RemoteNavigation.allows("https", "calendar.google.com", false), true, "calendar");
     expect(RemoteNavigation.allows("https", "photos.google.com", false), true, "photos");
     expect(RemoteNavigation.allows("https", "m.youtube.com", true), true, "youtube");
