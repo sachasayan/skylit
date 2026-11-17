@@ -93,7 +93,6 @@
 .collection-images{display:flex;height:80px;gap:3px;align-items:center;justify-content:center;background:var(--bg);border-radius:7px;overflow:hidden;font-size:14px}.collection-images img{width:33.333%;height:100%;object-fit:cover}.settings-collection-card small{font-size:13px}
 .framing-example{width:100%;height:85px;display:flex;background:var(--bg);border-radius:8px;overflow:hidden}.framing-example img{width:100%;height:100%}
 .settings-transfer-review{padding:20px;margin-top:20px;border:2px solid var(--accent);border-radius:12px;background:var(--panel)}.settings-transfer-review button{margin-right:10px}.preference-review{display:grid;grid-template-columns:1fr 1fr;gap:8px}.preference-review dd{margin:0;text-transform:capitalize}
-[data-choice-for=photo-retention] .choice-picture{display:none}.settings-choices[data-choice-for=photo-retention]{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:799px){.settings-collection-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Small exclusive choices share a single track; illustrated galleries stay cards. */
@@ -239,3 +238,10 @@
 
 /* Keep the explicit remove button above the expanded invisible corner target. */
 .dashboard-workbench .dashboard-delete{z-index:5}
+
+/* A labelled count field sits above the slideshow's presentation choices. */
+#photo-count-settings{display:grid;grid-template-columns:minmax(0,1fr) 210px;align-items:center;gap:12px 24px;margin-bottom:20px}
+#photo-count-settings>h3,#photo-count-settings>p{grid-column:1/-1;margin:0}
+#photo-count-settings>label{margin:4px 0;font-weight:500}
+#photo-count-settings>select{width:100%;min-height:48px;margin:0}
+@media(max-width:799px){#photo-count-settings{grid-template-columns:minmax(0,1fr);gap:10px}#photo-count-settings>select{grid-column:1}}

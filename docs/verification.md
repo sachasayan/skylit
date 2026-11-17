@@ -1112,3 +1112,45 @@ phone camera scanning, Home control or YouTube playback for this batch.
   check also caught existing resize-handle overflow; padding now accommodates the
   full touch target. No household data or settings were cleared.
 - Final publication and updater acceptance are recorded after the release is live.
+
+## 2.18 photo persistence (2026-11-16)
+
+This change is limited to latest 12/30/60/90 ordinary-picture selection plus
+additive Keepers, one-time migration, archive preservation and 96-hour disk-pressure
+cleanup. The automated stock-source experiment was removed, including its settings,
+embedded ADB client, accessibility service, permissions, dependencies and daily jobs.
+Pictures already imported during the experiment remain ordinary local pictures.
+
+Hardware acceptance on identity-verified D156 (Android 12 / WebView 95):
+
+- Published 2.17.2 → 2.18 upgrades ran in a separate synthetic app/UID, for both
+  a 120-picture old archive and an old age-window library. Every cached JPEG,
+  Keeper, exclusion, curation choice and seeded setting survived. Both migrate to
+  30 plus visible Keepers, and a later choice of 60 survives another update.
+  A fresh install opens the setup guide with no pictures or mail credentials.
+- The kitchen application upgraded in place with its existing signer. All 56
+  pictures, including the 41 previously imported stock originals, remain
+  byte-identical. Keepers, cached and hash-only exclusions, curation, mail identity,
+  general/frame/dashboard/household/Momo preferences and calendar configuration
+  survive. The guide stays closed and HOME remains unchanged.
+- All four counts select the expected ordinary pictures plus visible Keepers
+  without deleting archives. A forced maintenance check on the healthy device
+  retains every picture. Android reports the persisted four-day job; retired source
+  jobs, source flags and the experimental debugging permission are absent.
+  Original preferences and file hashes match again after an actual process restart.
+- 57 isolated real-Android PhotoStore checks cover once-only migration, count and
+  archive rules, healthy/low disk, 96-hour guards, protected pictures, tombstones,
+  import/exclusion races and privacy cancellation.
+- The separate synthetic frame app passes seven native media/privacy groups, nine
+  playback/export/touch groups, eight encrypted phone-management groups (including
+  valid/invalid counts), actual touch approval/thumbnail/revocation checks, and
+  credential-free first run. Its owned Downloads files and test package are removed.
+- 113 Node tests, 24 Python tests, TypeScript and formatting pass. Browser regression
+  checks cover both legacy slideshow migrations (including no saved document),
+  additive Keepers, exclusions, 508-picture archives and manual browsing beyond 300,
+  dropdown persistence and frame/desktop/narrow bounds. All 13 Settings workflows
+  pass with no runtime errors. Public source/history/APK and Gitleaks scans pass
+  before publication; the final release helper rechecks the clean build.
+
+Publication and final exact-artifact acceptance are recorded in the task report.
+No claim of unattended stock import is made or needed for this change.

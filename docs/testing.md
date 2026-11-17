@@ -306,3 +306,31 @@ It asserts work boundaries rather than desktop timing thresholds. Profile the
 physical frame separately: cached desktop rendering is not a substitute for its
 WebView/GPU. During resizing, the existing preview scales until release, when its
 responsive typography and artwork settle into the final dimensions.
+
+
+
+## Count selection and photo persistence
+
+Run `scripts/check_photo_selection.cjs` against the isolated synthetic preview.
+It covers the one-time migration, 12/30/60/90 dropdown, additive Keepers, exclusions,
+archive preservation, reload and frame/desktop/narrow layouts. Run
+`python3 scripts/test_photo_device.py` for the real PhotoStore's isolated synthetic
+checks: count selection, migration, healthy and low disk, 96-hour scheduling,
+protected pictures, eviction tombstones, privacy cancellation and preservation of
+already-imported local pictures. This never reads or changes household pictures.
+
+`python3 scripts/build_photo_upgrade_tests.py` builds private legacy (published
+2.17.2) and current APKs in `.local/photo-upgrade/`. Their separate application ID is
+`com.wesbos.homehq.persistencetests`; neither registers as HOME. Install the legacy
+APK, then start `com.wesbos.homehq.MainActivity` with `--es seed count` to create 120
+synthetic old pictures, or `--es seed days` for the old age-based policy. Both cases
+include Keepers and exclusions. Save synthetic dashboard/curation/slideshow settings,
+record photo hashes and preferences, and install the current APK with `-r` over it.
+Check that all files and settings survive, the new policy is 30 plus visible Keepers,
+and choosing a different count survives another install. Also test a fresh current
+install for the guide and empty credentials. Never clear, uninstall, seed, or change
+the household package to perform these checks. Test fixtures are excluded from the
+normal APK.
+
+Device runners accept `--address IP:PORT` when paired TLS discovery is incomplete.
+The normal identity checks still apply.

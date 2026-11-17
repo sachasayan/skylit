@@ -33,16 +33,29 @@ pictures can be inspected deliberately without restoring them to automatic play.
 
 ## Curation and retention
 
-Recent photos use received-date or count retention. Choices include last
-7/30/90/180 days with a capacity, or last 10/20/30/40/50/100/200 non-excluded photos.
-Defaults remain last 30 days / 30 photos. **Keepers** survive rolling retention,
-up to 100 items / 128 MiB. All cached items share 300 items / 256 MiB, including at
-most 20 muted clips. A full Keepers area is reported; older unpinned photos may
-be replaced. Favourite status is a playback preference, not storage protection.
+The default slideshow shows the latest **30 ordinary pictures plus all Keepers**.
+Choose **12, 30, 60 or 90** in Settings → Photos → Slideshow. Pictures are ranked by
+source receipt/import time, rather than capture date. Excluded and pending pictures
+consume no slots. Keepers are additional and appear once. Presentation order and
+collections filter this selection; they do not bring archived ordinary pictures back.
+
+Older pictures remain in the library and can still be opened and browsed manually. Lowering the count, changing collections or
+removing Keeper status never deletes a file. A persistent Android job checks disk
+space every 96 hours (execution is subject to Android scheduling). Only when free
+space is below the larger of 256 MiB or 5% of the volume does it evict oldest archived
+pictures, stopping at that reserve. Keepers and the current latest-picture selection
+are protected; imports fail safely if protected pictures leave insufficient space.
+Hash-only exclusions survive eviction. Only Skylit's copies are eligible for cleanup.
+
+Keepers retain their 100-item / 128 MiB allowance. Favourite status affects playback;
+use Keep explicitly to protect an item. New local/phone uploads are ordinary pictures.
+An upgrade migrates the old date/count policy and slideshow selection once to 30 plus
+Keepers, preserving all surviving media, exclusions, albums and presentation settings.
+Already-deleted media from an older version cannot be recovered by migration.
 
 Library & collections offers title/note/date search, multi-select, Keep, Favourite,
 Exclude/Restore, and up to 24 named collections. Collections reference cached IDs;
-put important photos in Keepers to protect them from expiry. Empty filters never
+put important photos in Keepers to protect them from low-disk eviction. Empty filters never
 fall back to another collection. Up to 12 presets save presentation settings.
 Season ranges can cross the end of the year; they restrict the chosen presentation
 and do not silently switch collections or presets.
@@ -116,3 +129,4 @@ photo library, Keepers and exclusions. Collection membership and local picture
 choices reset with the cache epoch. Revoke the Gmail app password separately.
 Uninstalling removes private media; an upgrade with the same signing key preserves
 it. Exported files in Downloads remain until explicitly deleted.
+

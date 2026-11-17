@@ -17,6 +17,7 @@ function Phone() {
     [ended, setEnded] = useState(false);
   const connectedBefore = useRef(false);
   const initialOptions: State["options"] = {
+    maximum: 30,
     duration: 30,
     style: "fade",
     collection: "recent",
@@ -108,6 +109,7 @@ function Phone() {
     );
     draft.receive(
       {
+        maximum: next.options.maximum ?? 30,
         duration: next.options.duration,
         style: next.options.style,
         collection: next.options.collection,

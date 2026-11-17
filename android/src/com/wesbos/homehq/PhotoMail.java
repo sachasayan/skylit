@@ -41,10 +41,10 @@ final class PhotoMail {
   PhotoMail(Context context,PhotoStore store,Listener changed){this(context.getSharedPreferences("skylit-photo-mail",Context.MODE_PRIVATE),store,new Handler(Looper.getMainLooper()),changed);}
   PhotoMail(SharedPreferences prefs,PhotoStore store,Handler handler,Listener changed){preferences=prefs;photos=store;main=handler;listener=changed;if(!preferences.contains("epoch"))preferences.edit().putString("epoch",java.util.UUID.randomUUID().toString()).apply();photos.prune(days(),maximum());}
 
-  int days(){int value=preferences.getInt("days",30);return PhotoPolicy.limits(value,30)?value:30;}
-  int maximum(){int value=preferences.getInt("maximum",30);return Math.max(5,Math.min(200,value));}
+  int days(){return 0;}
+  int maximum(){return photos.maximum();}
   private void notifyChange(){main.post(()->listener.changed());}
-  boolean configure(int days,int maximum){if(!PhotoPolicy.limits(days,maximum))return false;preferences.edit().putInt("days",days).putInt("maximum",maximum).apply();photos.prune(days,maximum);notifyChange();return true;}
+  boolean configure(int days,int maximum){if(!PhotoPolicy.limits(days,maximum))return false;preferences.edit().remove("days").remove("maximum").apply();photos.prune(0,maximum);notifyChange();return true;}
   boolean exclude(String id,boolean value){boolean saved=photos.exclude(id,value);if(saved){photos.prune(days(),maximum());notifyChange();}return saved;}
   boolean restoreExcluded(){boolean saved=photos.restoreExcluded();if(saved){photos.prune(days(),maximum());notifyChange();}return saved;}
   private int interval(){int value=preferences.getInt("interval",86400);return MailImportPolicy.interval(value)?value:86400;}

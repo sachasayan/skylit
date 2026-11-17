@@ -169,7 +169,7 @@
           "id": "storage",
           "title": "Storage and removal",
           "paragraphs": [
-            "Skylit reads the inbox over encrypted IMAP. It keeps a bounded private cache, not mail bodies. Saved pictures remain playable offline. Storage & retention controls which pictures stay; Keepers have a separate bounded budget.",
+            "Skylit reads the inbox over encrypted IMAP. It keeps a bounded private cache, not mail bodies. Saved pictures remain playable offline. The slideshow shows the latest 30 ordinary pictures by default, plus Keepers. Choose 12, 30, 60 or 90 in Slideshow. Older pictures stay saved unless disk space is low at a 96-hour cleanup check.",
             "Disconnect email and erase saved pictures removes the local credential and photo cache. Revoke the app password in your Google Account too. Changing accounts or erasing the cache also clears local photo choices and exclusions."
           ]
         }
@@ -194,7 +194,7 @@
           "id": "play",
           "title": "Choose a slideshow",
           "paragraphs": [
-            "Settings → Photos → Slideshow has Soft fade, Falling prints, Photo collage, Gentle pan & zoom and Still gallery. Choose a viewing time, order and collection. Keepers survive rolling retention within their separate storage limit.",
+            "Settings → Photos → Slideshow has Soft fade, Falling prints, Photo collage, Gentle pan & zoom and Still gallery. Choose a viewing time, order and collection. Keepers appear in addition to the latest-picture count and remain protected during disk-pressure cleanup.",
             "The player has Previous, Play/Pause, Zoom/Fit, Next and Close. Controls fade when you leave the player alone. Touch or pointer movement brings them back.",
             "Set Show photos after for idle playback. The first touch exits an idle slideshow. When the frame is offline, it uses pictures already saved."
           ]
@@ -368,7 +368,7 @@
           "id": "services",
           "title": "Photos, calendars and websites",
           "paragraphs": [
-            "Photos: check the selected source, mail status, retention window, exclusions and review queue. An email failure keeps previously saved pictures. Check the dedicated account’s app password on the frame; never share it with support.",
+            "Photos: check the selected source, mail status, picture count, Keepers, exclusions and review queue. An email failure keeps previously saved pictures. Check the dedicated account’s app password on the frame; never share it with support.",
             "Calendar: check source visibility, inviter rules, the selected date and last refresh. Overview shows today’s upcoming events regardless of the month you are browsing.",
             "Home and YouTube: sign in on the frame if required. A website may impose WebView compatibility limits. An opened shortcut does not guarantee sign-in, playback or a working home control."
           ]

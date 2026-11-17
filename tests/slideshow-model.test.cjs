@@ -19,7 +19,7 @@ test('optional favourite weighting adds spaced turns without adjacent duplicates
 });
 test('collections never expose pending, excluded or another album when a filter is empty',()=>{
  const list=[photo(1,{keeper:true,recent:false}),photo(2,{pending:true}),photo(3),photo(4)],choices={[id(4)]:{hidden:true}};
- assert.deepEqual(M.select(list,choices,{collection:'keepers'}).map(p=>p.id),[id(1)]);assert.deepEqual(M.select(list,choices,{collection:'recent'}).map(p=>p.id),[id(3)]);assert.equal(M.select(list,choices,{collection:'missing'}).length,0);assert.equal(M.select(list,choices,{collection:'album-one'},[{id:'album-one',name:'One',photos:[id(1),id(2)]}]).length,1);
+ assert.deepEqual(M.select(list,choices,{collection:'keepers'}).map(p=>p.id),[id(1)]);assert.deepEqual(M.select(list,choices,{collection:'recent'}).map(p=>p.id),[id(3),id(1)]);assert.equal(M.select(list,choices,{collection:'missing'}).length,0);assert.equal(M.select(list,choices,{collection:'album-one'},[{id:'album-one',name:'One',photos:[id(1),id(2)]}]).length,1);
 });
 test('capture-date memories and seasons respect city date, leap days and year boundaries',()=>{
  const list=[photo(1,{taken:'2020-10-12'}),photo(2,{taken:'2026-10-12'}),photo(3)];
@@ -34,3 +34,33 @@ test('portrait pairing, rotated shapes, videos and small collages select distinc
  const list=[photo(1,{width:600,height:900}),photo(2),photo(3,{width:600,height:900})];assert.deepEqual(M.composition(list,0,{}).map(p=>p.id),[id(1),id(3)]);assert.equal(M.composition(list,1,{}).length,1);assert.equal(M.composition(list,1,{}, {[id(2)]:{rotation:90}}).length,2);assert.equal(M.composition([photo(1,{kind:'video'}),photo(2)],0,{style:'collage'}).length,1);assert.equal(new Set(M.composition(list.slice(0,2),0,{style:'collage'}).map(p=>p.id)).size,2);
 });
 test('zoom panning cannot move the picture completely outside its canvas',()=>{assert.deepEqual(M.pan(900,-900,2,800,400),{x:400,y:-200});assert.deepEqual(M.pan(30,40,1,800,400),{x:0,y:0});});
+
+test('latest count adds Keepers without using ordinary slots',()=>{
+ const list=Array.from({length:100},(_,i)=>photo(i+1));
+ list.push(photo(1001,{at:0,keeper:true,recent:false}),photo(1002,{at:-1,keeper:true}));
+ const choices={[id(100)]:{hidden:true},[id(1002)]:{hidden:true}};
+ const selected=M.select(list,choices,{maximum:30});
+ assert.equal(selected.length,31);assert.ok(selected.some(p=>p.id===id(1001)));
+ assert.ok(!selected.some(p=>p.id===id(100)||p.id===id(1002)));
+ assert.equal(selected.filter(p=>!p.keeper).length,30);
+ assert.equal(M.select(list,choices,{maximum:12,order:'oldest'}).filter(p=>!p.keeper).length,12);
+ assert.equal(list.length,102); // Selection never mutates/deletes library records.
+});
+test('legacy upgrade resets the selection once while preserving collections and presentation',()=>{
+ const migrated=M.library({version:1,options:{collection:'all',maximum:200,style:'collage'},albums:[{id:'family',name:'Family',photos:[id(1)]}]});
+ assert.equal(migrated.version,2);assert.equal(migrated.options.collection,'recent');assert.equal(migrated.options.maximum,30);
+ assert.equal(migrated.options.style,'collage');assert.equal(migrated.albums.length,1);
+ migrated.options.maximum=60;migrated.options.collection='keepers';
+ assert.equal(M.library(migrated).options.maximum,60);assert.equal(M.library(migrated).options.collection,'keepers');
+});
+test('archive pictures never enter a slideshow through a different ordering or collection',()=>{
+ const list=Array.from({length:50},(_,i)=>photo(i+1)),choices={[id(1)]:{favourite:true}};
+ assert.equal(M.select(list,choices,{collection:'favourites',maximum:12}).length,0);
+ assert.equal(M.select(list,{}, {collection:'all',maximum:12,order:'oldest'})[0].id,id(39));
+});
+
+test('manual browsing queues can reach archived pictures beyond the old 300-picture bound',()=>{
+ const all=Array.from({length:500},(_,i)=>id(i+1)),q=new M.Queue(all);
+ assert.equal(q.available.length,500);assert.equal(q.start(id(490)),id(490));
+ assert.equal(M.ids(all).length,300); // Persisted collection/action limits stay bounded.
+});

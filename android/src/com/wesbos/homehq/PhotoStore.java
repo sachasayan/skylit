@@ -25,8 +25,10 @@ final class PhotoStore {
   private final File directory;
   private final SharedPreferences preferences;
   private static final int MAX_EXCLUDED=4096;
-  static final int MAX_FILES=300,MAX_KEEPERS=100;
-  static final long MAX_STORAGE=256L*1024*1024,KEEPER_STORAGE=128L*1024*1024;
+  static final int MAX_KEEPERS=100;
+  static final long KEEPER_STORAGE=128L*1024*1024;
+  private static PhotoStore shared;
+  static synchronized PhotoStore get(Context context){if(shared==null)shared=new PhotoStore(context.getApplicationContext());return shared;}
   private long generation;
   private final java.util.concurrent.Semaphore decoding=new java.util.concurrent.Semaphore(1);
   private static final class Item {String id,taken="",visual="";long at;int width,height;float x=.5f,y=.5f;boolean recent=true;Item(String i,long t){id=i;at=t;}}
@@ -36,13 +38,15 @@ final class PhotoStore {
   synchronized boolean reviewMany(String raw,boolean approve){try{HashSet<String> changes=checkedIds(raw),waiting=pending();changes.retainAll(waiting);HashSet<String> blocked=exclusions();if(!approve){blocked.addAll(changes);if(blocked.size()>MAX_EXCLUDED)return false;}waiting.removeAll(changes);return preferences.edit().putString("pending",new JSONArray(waiting).toString()).putString("excluded",new JSONArray(blocked).toString()).commit();}catch(Exception ignored){return false;}}
   private HashSet<String> keepers(){HashSet<String> result=new HashSet<>();try{JSONArray rows=new JSONArray(preferences.getString("keepers","[]"));for(int i=0;i<rows.length()&&result.size()<MAX_KEEPERS;i++){String id=rows.optString(i);if(PhotoPolicy.photoId(id))result.add(id);}}catch(Exception ignored){}return result;}
   synchronized boolean keeper(String id,boolean keep){if(!PhotoPolicy.photoId(id))return false;HashSet<String> ids=keepers();if(keep){if(!new File(directory,id+".jpg").isFile()||(!ids.contains(id)&&ids.size()>=MAX_KEEPERS))return false;long bytes=0;for(String key:ids)bytes+=size(key);if(!ids.contains(id)&&bytes+size(id)>KEEPER_STORAGE)return false;ids.add(id);}else ids.remove(id);return preferences.edit().putString("keepers",new JSONArray(ids).toString()).commit();}
+  private static int compareNewest(Item a,Item b){int order=Long.compare(b.at,a.at);return order!=0?order:a.id.compareTo(b.id);}
   private long size(String id){return new File(directory,id+".jpg").length()+new File(directory,id+".mp4").length();}
   synchronized boolean review(String id,boolean approve){if(!PhotoPolicy.photoId(id))return false;HashSet<String> waiting=pending();waiting.remove(id);if(!approve&&!exclude(id,true))return false;return preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();}
-  private HashSet<String> pending(){HashSet<String> result=new HashSet<>();try{JSONArray rows=new JSONArray(preferences.getString("pending","[]"));for(int i=0;i<rows.length()&&result.size()<MAX_FILES;i++)if(PhotoPolicy.photoId(rows.optString(i)))result.add(rows.optString(i));}catch(Exception ignored){}return result;}
+  private HashSet<String> pending(){HashSet<String> result=new HashSet<>();try{JSONArray rows=new JSONArray(preferences.getString("pending","[]"));for(int i=0;i<rows.length();i++)if(PhotoPolicy.photoId(rows.optString(i)))result.add(rows.optString(i));}catch(Exception ignored){}return result;}
   synchronized boolean importOptions(boolean review,boolean dates){return preferences.edit().putBoolean("review",review).putBoolean("dates",dates).commit();}
-  synchronized JSONObject storage(){JSONObject row=new JSONObject();try{long used=0,pinned=0;HashSet<String> ids=keepers();for(Item item:read()){used+=size(item.id);if(ids.contains(item.id))pinned+=size(item.id);}row.put("used",used).put("limit",MAX_STORAGE).put("keepers",ids.size()).put("keeperBytes",pinned).put("keeperLimit",KEEPER_STORAGE).put("review",preferences.getBoolean("review",false)).put("dates",preferences.getBoolean("dates",false));}catch(Exception ignored){}return row;}
+  synchronized JSONObject storage(){JSONObject row=new JSONObject();try{long used=0,pinned=0;HashSet<String> ids=keepers();for(Item item:read()){used+=size(item.id);if(ids.contains(item.id))pinned+=size(item.id);}row.put("used",used).put("limit",directory.getTotalSpace()).put("free",directory.getUsableSpace()).put("keepers",ids.size()).put("keeperBytes",pinned).put("keeperLimit",KEEPER_STORAGE).put("review",preferences.getBoolean("review",false)).put("dates",preferences.getBoolean("dates",false));}catch(Exception ignored){}return row;}
   PhotoStore(Context context){this(new File(context.getFilesDir(),"mail-photos"),context.getSharedPreferences("skylit-photo-index",Context.MODE_PRIVATE));}
-  PhotoStore(File files,SharedPreferences prefs){directory=files;directory.mkdirs();preferences=prefs;File[] abandoned=directory.listFiles(file->file.getName().endsWith(".tmp"));if(abandoned!=null)for(File file:abandoned)file.delete();}
+  PhotoStore(File files,SharedPreferences prefs){directory=files;directory.mkdirs();preferences=prefs;if(preferences.getInt("selectionVersion",0)<2)preferences.edit().putInt("maximum",30).putInt("selectionVersion",2).commit();File[] abandoned=directory.listFiles(file->file.getName().endsWith(".tmp"));if(abandoned!=null)for(File file:abandoned)file.delete();}
+  synchronized int maximum(){return PhotoPolicy.count(preferences.getInt("maximum",30));}
   private HashSet<String> exclusions(){HashSet<String> ids=new HashSet<>();try{JSONArray rows=new JSONArray(preferences.getString("excluded","[]"));for(int i=0;i<rows.length()&&ids.size()<MAX_EXCLUDED;i++){String id=rows.optString(i);if(PhotoPolicy.photoId(id))ids.add(id);}}catch(Exception ignored){}return ids;}
   synchronized JSONArray excluded(){return new JSONArray(exclusions());}
   synchronized boolean exclude(String id,boolean value){if(!PhotoPolicy.photoId(id))return false;HashSet<String> ids=exclusions();if(value){if(!ids.contains(id)&&ids.size()>=MAX_EXCLUDED)return false;ids.add(id);}else ids.remove(id);return preferences.edit().putString("excluded",new JSONArray(ids).toString()).commit();}
@@ -65,7 +69,7 @@ final class PhotoStore {
     if(original.length<(owner?32:4096)||original.length>PhotoPolicy.MAX_DOWNLOAD)return false;
     String id=sourceId==null?digest(original):sourceId;if(!PhotoPolicy.photoId(id))return false;
     synchronized(this){
-      if(version!=generation||!active.getAsBoolean())return false;if(exclusions().contains(id)){identity.accept(id);return false;}
+      if(version!=generation||!active.getAsBoolean())return false;if(exclusions().contains(id)||!owner&&evicted().contains(id)){identity.accept(id);return false;}
       ArrayList<Item> existing=read();
       for(Item item:existing)if(item.id.equals(id)&&cached(id)){item.at=Math.max(item.at,receivedAt);write(existing);identity.accept(id);return false;}
     }
@@ -91,8 +95,6 @@ final class PhotoStore {
           }
           File target=new File(directory,id+".jpg");
           if(!temporary.renameTo(target))throw new java.io.IOException("Could not save image");
-          long bytes=0;for(Item entry:items)bytes+=size(entry.id);HashSet<String> pins=keepers();
-          while(items.size()>=MAX_FILES||bytes+target.length()>MAX_STORAGE){Item oldest=null;for(Item entry:items)if(!pins.contains(entry.id)&&(oldest==null||entry.at<oldest.at))oldest=entry;if(oldest==null){target.delete();return false;}bytes-=size(oldest.id);new File(directory,oldest.id+".jpg").delete();new File(directory,oldest.id+".mp4").delete();items.remove(oldest);}
           Item item=new Item(id,receivedAt);item.width=width;item.height=height;item.visual=visual;item.taken=taken;item.x=focus[0];item.y=focus[1];items.add(item);write(items);
           if(preferences.getBoolean("review",false)){HashSet<String> waiting=pending();waiting.add(id);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();}identity.accept(id);return true;
         }
@@ -102,27 +104,41 @@ final class PhotoStore {
   }
   synchronized int prune(int days,int maximum){
     if(!PhotoPolicy.limits(days,maximum))throw new IllegalArgumentException("Invalid photo limits");
-    long now=System.currentTimeMillis(),bytes=0;ArrayList<Item> items=read(),kept=new ArrayList<>();Collections.sort(items,(a,b)->Long.compare(b.at,a.at));HashSet<String> ids=new HashSet<>(),blocked=exclusions(),pins=keepers();int recent=0;
-    for(Item item:items){item.recent=false;if(pins.contains(item.id)&&new File(directory,item.id+".jpg").isFile()){kept.add(item);ids.add(item.id);bytes+=size(item.id);}}
-    for(Item item:items)if(!blocked.contains(item.id)&&PhotoPolicy.retain(item.at,now,days)&&recent<maximum&&new File(directory,item.id+".jpg").isFile()){
-      if(ids.contains(item.id)){item.recent=true;recent++;}else if(kept.size()<MAX_FILES&&bytes+size(item.id)<=MAX_STORAGE){item.recent=true;kept.add(item);ids.add(item.id);bytes+=size(item.id);recent++;}
-    }
-    // Preserve a bounded Undo cache, while hash-only exclusions outlive its images.
-    int undo=0;for(Item item:items)if(blocked.contains(item.id)&&!ids.contains(item.id)&&PhotoPolicy.retain(item.at,now,days)&&kept.size()<Math.min(MAX_FILES,Math.max(50,maximum)+pins.size())&&undo<50&&bytes+size(item.id)<=MAX_STORAGE&&new File(directory,item.id+".jpg").isFile()){kept.add(item);ids.add(item.id);bytes+=size(item.id);undo++;}
-    write(kept);HashSet<String> waiting=pending();waiting.retainAll(ids);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();File[] files=directory.listFiles();if(files!=null)for(File file:files)if((file.getName().endsWith(".jpg")||file.getName().endsWith(".mp4"))&&!ids.contains(file.getName().replace(".jpg","").replace(".mp4","")))file.delete();return kept.size();
+    preferences.edit().putInt("maximum",maximum).commit();
+    ArrayList<Item> items=read();Collections.sort(items,(a,b)->compareNewest(a,b));HashSet<String> blocked=exclusions(),pins=keepers(),waiting=pending(),present=new HashSet<>();int recent=0;
+    // Selection is metadata only. Crossing a count boundary never removes media.
+    items.removeIf(item->!new File(directory,item.id+".jpg").isFile());
+    for(Item item:items){present.add(item.id);item.recent=!pins.contains(item.id)&&!blocked.contains(item.id)&&!waiting.contains(item.id)&&recent<maximum;if(item.recent)recent++;}
+    write(items);waiting.retainAll(present);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();return items.size();
   }
-  synchronized JSONArray list(){ArrayList<Item> items=read();Collections.sort(items,(a,b)->Long.compare(b.at,a.at));HashSet<String> pins=keepers(),waiting=pending();JSONArray rows=new JSONArray();for(Item item:items)if(new File(directory,item.id+".jpg").isFile()){JSONObject row=new JSONObject();try{row.put("id",item.id).put("at",item.at).put("width",item.width).put("height",item.height).put("taken",item.taken).put("visual",item.visual).put("focalX",item.x).put("focalY",item.y).put("keeper",pins.contains(item.id)).put("pending",waiting.contains(item.id)).put("recent",item.recent).put("kind",new File(directory,item.id+".mp4").isFile()?"video":"image").put("url","https://appassets.androidplatform.net/private-photos/"+item.id+".jpg");if(new File(directory,item.id+".mp4").isFile())row.put("media","https://appassets.androidplatform.net/private-clips/"+item.id+".mp4");rows.put(row);}catch(Exception ignored){}}return rows;}
+  synchronized int cleanup(long now){return cleanup(now,directory.getUsableSpace(),directory.getTotalSpace());}
+  synchronized int cleanup(long now,long free,long total){
+    long last=preferences.getLong("lastCleanup",0);if(!PhotoPolicy.cleanupDue(last,now))return 0;
+    // A completed check, including a healthy disk, starts the next 96-hour interval.
+    preferences.edit().putLong("lastCleanup",now).commit();if(total<=0||free>=PhotoPolicy.reserve(total))return 0;
+    prune(0,maximum());ArrayList<Item> items=read();Collections.sort(items,(a,b)->Long.compare(a.at,b.at));HashSet<String> pins=keepers(),tombstones=evicted();int removed=0;
+    java.util.Iterator<Item> iterator=items.iterator();
+    while(iterator.hasNext()&&free<PhotoPolicy.reserve(total)){
+      Item item=iterator.next();if(item.recent||pins.contains(item.id))continue;
+      File image=new File(directory,item.id+".jpg"),clip=new File(directory,item.id+".mp4");long bytes=size(item.id);
+      if(clip.exists()&&!clip.delete())continue;if(image.exists()&&!image.delete())continue;
+      iterator.remove();tombstones.add(item.id);free+=bytes;removed++;
+    }
+    if(removed>0){write(items);preferences.edit().putString("evicted",new JSONArray(tombstones).toString()).commit();}return removed;
+  }
+  synchronized JSONArray list(){ArrayList<Item> items=read();Collections.sort(items,(a,b)->compareNewest(a,b));HashSet<String> pins=keepers(),waiting=pending();JSONArray rows=new JSONArray();for(Item item:items)if(new File(directory,item.id+".jpg").isFile()){JSONObject row=new JSONObject();try{row.put("id",item.id).put("at",item.at).put("width",item.width).put("height",item.height).put("taken",item.taken).put("visual",item.visual).put("focalX",item.x).put("focalY",item.y).put("keeper",pins.contains(item.id)).put("pending",waiting.contains(item.id)).put("recent",item.recent).put("kind",new File(directory,item.id+".mp4").isFile()?"video":"image").put("url","https://appassets.androidplatform.net/private-photos/"+item.id+".jpg");if(new File(directory,item.id+".mp4").isFile())row.put("media","https://appassets.androidplatform.net/private-clips/"+item.id+".mp4");rows.put(row);}catch(Exception ignored){}}return rows;}
   synchronized boolean cached(String id){if(!PhotoPolicy.photoId(id))return false;File file=new File(directory,id+".jpg");if(!file.isFile())return false;BitmapFactory.Options options=new BitmapFactory.Options();options.inJustDecodeBounds=true;BitmapFactory.decodeFile(file.getAbsolutePath(),options);return options.outWidth>0&&options.outHeight>0;}
-  synchronized boolean known(String id){return PhotoPolicy.photoId(id)&&(exclusions().contains(id)||cached(id));}
+  synchronized boolean known(String id){return PhotoPolicy.photoId(id)&&(exclusions().contains(id)||cached(id)||evicted().contains(id));}
+  private HashSet<String> evicted(){HashSet<String> result=new HashSet<>();try{JSONArray rows=new JSONArray(preferences.getString("evicted","[]"));for(int i=0;i<rows.length();i++)if(PhotoPolicy.photoId(rows.optString(i)))result.add(rows.optString(i));}catch(Exception ignored){}return result;}
   private static String taken(byte[] source){try{String value=new android.media.ExifInterface(new ByteArrayInputStream(source)).getAttribute(android.media.ExifInterface.TAG_DATETIME_ORIGINAL);if(value!=null&&value.matches("[0-9]{4}:[0-9]{2}:[0-9]{2} .*")){java.text.SimpleDateFormat f=new java.text.SimpleDateFormat("yyyy:MM:dd",java.util.Locale.ROOT);f.setLenient(false);java.util.Date date=f.parse(value.substring(0,10));return new java.text.SimpleDateFormat("yyyy-MM-dd",java.util.Locale.ROOT).format(date);}}catch(Exception ignored){}return "";}
   private static String visualHash(Bitmap image){Bitmap small=Bitmap.createScaledBitmap(image,9,8,true);long hash=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){int a=small.getPixel(x,y),b=small.getPixel(x+1,y);int ga=((a>>16)&255)*3+((a>>8)&255)*6+(a&255),gb=((b>>16)&255)*3+((b>>8)&255)*6+(b&255);hash=(hash<<1)|(ga>gb?1:0);}if(small!=image)small.recycle();return String.format(java.util.Locale.ROOT,"%016x",hash);}
   private static float[] focus(Bitmap image){float[] point={.5f,.5f};Bitmap scaled=null;try{int width=Math.min(360,image.getWidth());width-=width%2;int height=Math.max(2,image.getHeight()*width/image.getWidth());Bitmap temp=Bitmap.createScaledBitmap(image,width,height,true);scaled=temp.copy(Bitmap.Config.RGB_565,false);if(temp!=image)temp.recycle();android.media.FaceDetector.Face[] faces=new android.media.FaceDetector.Face[8];int count=new android.media.FaceDetector(width,height,8).findFaces(scaled,faces);float x=0,y=0;int accepted=0;for(int i=0;i<count;i++)if(faces[i].confidence()>=.5){android.graphics.PointF p=new android.graphics.PointF();faces[i].getMidPoint(p);x+=p.x/width;y+=p.y/height;accepted++;}if(accepted>0){point[0]=x/accepted;point[1]=y/accepted;}}catch(Exception ignored){}finally{if(scaled!=null)scaled.recycle();}return point;}
   String importImage(byte[] bytes) throws Exception {return importImage(bytes,()->true);}
   String importImage(byte[] bytes,java.util.function.BooleanSupplier active) throws Exception {String id=digest(bytes);if(!active.getAsBoolean())return "";final long version;synchronized(this){version=generation;}addBytes(bytes,System.currentTimeMillis(),active,idValue->{},version,true,null);synchronized(this){return active.getAsBoolean()&&!exclusions().contains(id)&&new File(directory,id+".jpg").isFile()?id:"";}}
   String importPoster(byte[] bytes,String sourceId,java.util.function.BooleanSupplier active) throws Exception {if(!PhotoPolicy.photoId(sourceId)||!active.getAsBoolean())return "";final long version;synchronized(this){version=generation;}addBytes(bytes,System.currentTimeMillis(),active,id->{},version,true,sourceId);synchronized(this){return active.getAsBoolean()&&!exclusions().contains(sourceId)&&new File(directory,sourceId+".jpg").isFile()?sourceId:"";}}
-  synchronized boolean attachClip(String id,File source){if(!PhotoPolicy.photoId(id)||exclusions().contains(id)||!new File(directory,id+".jpg").isFile()||source.length()>32L*1024*1024)return false;int clips=0;long bytes=source.length();for(Item item:read()){bytes+=size(item.id);if(new File(directory,item.id+".mp4").isFile())clips++;}if(new File(directory,id+".mp4").isFile())return true;if(clips>=20||bytes>MAX_STORAGE)return false;if(keepers().contains(id)){long pinned=source.length();for(String key:keepers())pinned+=size(key);if(pinned>KEEPER_STORAGE)return false;}return source.renameTo(new File(directory,id+".mp4"));}
+  synchronized boolean attachClip(String id,File source){if(!PhotoPolicy.photoId(id)||exclusions().contains(id)||!new File(directory,id+".jpg").isFile()||source.length()>32L*1024*1024)return false;int clips=0;for(Item item:read())if(new File(directory,item.id+".mp4").isFile())clips++;if(new File(directory,id+".mp4").isFile())return true;if(clips>=20)return false;if(keepers().contains(id)){long pinned=source.length();for(String key:keepers())pinned+=size(key);if(pinned>KEEPER_STORAGE)return false;}return source.renameTo(new File(directory,id+".mp4"));}
   synchronized void rollbackPoster(String id){if(!PhotoPolicy.photoId(id)||keepers().contains(id)||new File(directory,id+".mp4").isFile())return;ArrayList<Item> items=read();items.removeIf(item->item.id.equals(id));write(items);HashSet<String> waiting=pending();waiting.remove(id);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();new File(directory,id+".jpg").delete();}
   synchronized File clip(String id){if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException();return new File(directory,id+".mp4");}
   synchronized InputStream open(String id) throws Exception {if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException("Invalid photo");File image=new File(directory,id+".jpg");if(!image.isFile())throw new java.io.FileNotFoundException();return new FileInputStream(image);}
-  synchronized void clear(){generation++;preferences.edit().remove("items").remove("excluded").remove("keepers").remove("pending").commit();File[] files=directory.listFiles();if(files!=null)for(File file:files)file.delete();}
+  synchronized void clear(){generation++;preferences.edit().remove("items").remove("excluded").remove("keepers").remove("pending").remove("evicted").commit();File[] files=directory.listFiles();if(files!=null)for(File file:files)file.delete();}
 }

@@ -7,7 +7,7 @@
   const cache=new Map(),dimensions=new Map(),failed=new Set(),historyScenes=new Map(),points=new Map();let gesture=null,lastTap=0,music=null;
   const now=()=>performance.now(),zone=()=>window.SkylitApp.calendarPreferences().timezone;
   const settings=()=>window.SkylitLibrary?window.SkylitLibrary.options(idle):M.options({duration:(Number(localStorage.getItem('skylit.photoSpeed'))||30000)/1000,style:localStorage.getItem('skylit.photoStyle')||'fade'});
-  const eligible=()=>browsing&&photos.snapshot().showHidden?state.photos.filter(photo=>!photo.pending):window.SkylitLibrary?window.SkylitLibrary.playlist(p):M.select(state.photos,choices,p);
+  const eligible=()=>browsing?state.photos.filter(photo=>M.id(photo.id)&&!photo.pending&&(photos.snapshot().showHidden||!M.photoChoice(choices[photo.id]).hidden)):window.SkylitLibrary?window.SkylitLibrary.playlist(p):M.select(state.photos,choices,p);
   const imagePhoto=photo=>Object.assign({},photo,dimensions.get(photo.id)||{});
   const current=()=>queue&&state.photos.find(photo=>photo.id===queue.current());
   const accessible=photo=>M.photoChoice(choices[photo.id]).description||M.photoChoice(choices[photo.id]).title||'Picture '+(state.photos.indexOf(photo)+1);

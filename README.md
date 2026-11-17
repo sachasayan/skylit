@@ -59,7 +59,7 @@ not a household account. They demonstrate the interface, not a live service sign
 | --- | --- |
 | Overview | Configurable, responsive modules: clock/date, weather, photos, upcoming events, hourly forecast, note, shopping list, countdowns and timers |
 | Weather | Live Open-Meteo forecast, city search, hourly and five-day outlook, saved forecast when offline, nine illustrated condition scenes with day/night variants |
-| Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, date/count retention, responsive framing, five styles, stable shuffle/history, Keepers/collections, review, local pictures/muted clips, optional soundtrack/video export and temporary encrypted phone curation |
+| Photos | Shared Google album or a private Gmail picture cache; browse/zoom, favourites, persistent trash/exclusion with Undo, latest 12/30/60/90 pictures plus Keepers, responsive framing, five styles, stable shuffle/history, Keepers/collections, review, local pictures/muted clips, optional soundtrack/video export and temporary encrypted phone curation |
 | Calendar | Read-only month and selected-date agenda, source visibility in Settings, editable labels/colours, loaded-date search, direct Google iCal feeds, offline cache and on-frame inviter review |
 | Home | Google Home’s website, using its supported controls and your own session |
 | YouTube | Direct mobile-site browsing beside the sidebar, with full-screen video support |
@@ -113,7 +113,7 @@ are excluded from display-preference transfer.
 Settings starts with General and uses focused destinations with focused tasks. Appearance provides
 visible mode, palette and text choices, with Momo in its accessory workspace. Photos
 opens a task list for browsing, slideshow presentation, collections, delivery,
-retention and other photo work. Browse pictures normally; **Select pictures** shows
+picture-count and other photo work. Browse pictures normally; **Select pictures** shows
 batch actions. Opening a picture provides direct crop editing with explicit saving.
 Frame contains city/time, daily routine, software updates and Android shortcuts.
 Help & maintenance contains service recovery, setup help and display transfer.

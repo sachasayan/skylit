@@ -48,13 +48,14 @@ Automatic failures back off from five minutes to
 one hour; the last good cache is retained. **Check now** starts an immediate check. It scans recent inbox
 messages, accepts image parts with sane dimensions and size, resizes them to at most
 2400 pixels on the long edge, removes EXIF metadata by re-encoding, and keeps a
-private rolling library of up to 200 unique pictures plus up to 100 Keepers, sharing a 256 MiB total budget. Gallery retention can use the last
-7, 30, 90 or 180 days (by email received date), with a separate 5–200-picture
-capacity, or the last 10, 20, 30, 40, 50, 100 or 200 non-excluded photos regardless of age.
-Keepers have a separate 100-item / 128 MiB budget and survive rolling retention. The default remains 30 pictures from 30 days; existing preferences are retained. Email bodies and sender data are
-not saved. Other mail folders and cloud photo albums are not scanned. A picture
-deleted from email may remain until its retention window expires or the user
-disconnects. When offline, the last saved pictures remain playable.
+private archive. The slideshow defaults to the latest 30 ordinary pictures plus all
+Keepers. Choose 12, 30, 60 or 90 in Settings → Photos → Slideshow. There is no age
+cutoff. Exclusions and pending approval do not consume slots; Keepers are additional.
+Pictures outside the selection remain stored. A 96-hour low-disk check can evict old
+archived copies while protecting Keepers and the slideshow selection. See the
+[slideshow guide](slideshow.md) for cleanup thresholds and migration.
+Email bodies and sender data are not saved. Other mail folders are not scanned.
+Deleting email does not delete Skylit's saved copy. Offline pictures remain playable.
 
 The app password is encrypted using Android Keystore with the address bound as
 authenticated data. Backups are disabled. **Disconnect email and erase saved
@@ -83,24 +84,19 @@ same file do not restore an unwanted photo. Different file bytes have a differen
 ID; this is not a visual-similarity or person-recognition filter.
 
 Use **Photo settings → Framing & photo details** to show excluded pictures still
-cached, restore one, or restore all exclusions. If its cached copy has expired,
-restoring permits the next Check now to import it again. Excluded pictures do not
-consume the selected gallery count. A cached excluded copy can remain for Undo
-when space permits, but all cached items together stay bounded to 300 and 256 MiB. Hash-only
-exclusions remain when their image is removed, with a limit of 4,096 exclusions.
-At the limit, new exclusions are refused rather than silently forgetting old ones.
-Changing the Gmail account, disconnecting or explicitly erasing the cache also
-clears exclusions and local choices. Favourite, framing and caption choices are
-kept for currently cached IDs and are pruned when those pictures expire.
+cached, restore one, or restore all exclusions. Restoring an excluded picture returns
+it to the normal count/Keepers rules. Exclusion hashes survive disk-pressure eviction,
+up to 4,096 records; the app refuses further exclusions instead of forgetting old
+ones. Changing accounts, disconnecting or explicitly erasing the library clears
+its local pictures, choices and exclusions. In-flight mail imports are cancelled so a later completion cannot silently
+repopulate the erased library.
 
-**Gallery retention** lives under **Photo settings → Storage**. Date choices use
-received time rather than capture dates. Count choices keep the newest eligible,
-non-excluded unique files without an age cutoff. Each check still scans at most
-1,000 inbox messages and 300 image parts, so a very large inbox may yield fewer
-than the requested number. The optional sender rule applies before import. Lowering
-retention/capacity removes old cached files immediately; expanding it does not
-restore them until Check now imports eligible files again. Favourites-only playback
-and favourite preference on Overview affect presentation, not retention.
+**Pictures to include** in **Settings → Photos → Slideshow** has a labelled
+**Latest pictures** dropdown with 12, 30, 60 and 90 choices. Reducing
+the count preserves stored files. Each mail check still scans at most 1,000 inbox
+messages and 300 image parts, without a received-age cutoff. A very large inbox may
+yield fewer pictures than requested. The optional sender rule applies before import.
+Favourite and collection choices filter playback; they do not protect storage.
 
 Delivery's optional trusted-sender list accepts up to 50 exact addresses. When
 switched on, all From addresses must match before attachments are saved. Empty or
@@ -129,7 +125,7 @@ support. The downloaded Android mail libraries are pinned and credited in
 
 Before calling household email delivery verified, test sign-in, a real sent
 picture, browser/zoom and slideshow advance, offline playback, idle entry and return
-on the physical frame. Age pruning needs a separate aged-message test. A
+on the physical frame. Count selection and low-disk eviction have separate synthetic device tests. A
 desktop preview only checks layout and browser logic. See [verification](verification.md).
 
 ## Local slideshow and media tools (2.15)

@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
     prefs=getSharedPreferences("skylit",MODE_PRIVATE);
     updates=AppUpdates.get(this);
     calendars=new CalendarStore(getSharedPreferences("skylit-calendars",MODE_PRIVATE));
-    photos=new PhotoStore(this);photoMail=new PhotoMail(this,photos,this::notifyLibrary);
+    photos=PhotoStore.get(this);photoMail=new PhotoMail(this,photos,this::notifyLibrary);PhotoMaintenance.schedule(this);
     media=new LocalMedia(this,photos);exports=new AsyncExport(new AsyncExport.Target(){public String begin(){return media.beginExport();}public boolean append(String id,String chunk){return media.appendExport(id,chunk);}public String finish(String id)throws Exception{return media.finishExport(id);}public void cancel(){media.cancelExport();}});phone=new PhoneManagement(this,photos,media,new PhoneManagement.Dashboard(){
       public String request(JSONObject action,long version) throws Exception {
         java.util.concurrent.CompletableFuture<String> result=new java.util.concurrent.CompletableFuture<>();

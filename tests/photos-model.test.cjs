@@ -13,7 +13,7 @@ test('malformed native status cannot provide external images or unsafe limits',(
   const state=Photos.normalize(JSON.stringify({connected:true,email:'person@example.invalid',days:365,maximum:999,lastSync:-1,photos:[{url:good,at:123},{url:'https://example.com/secret.jpg'}]}));
   assert.equal(state.photos.length,1);
   assert.equal(state.photos[0].url,good);
-  assert.equal(state.days,30);assert.equal(state.maximum,30);assert.equal(state.lastSync,0);
+  assert.equal(state.days,0);assert.equal(state.maximum,30);assert.equal(state.lastSync,0);
   assert.match(Photos.caption(state),/not yet verified|verify mail access/);
 });
 
@@ -26,10 +26,8 @@ test('last check displays in the configured city time rather than Android timezo
   assert.doesNotMatch(caption,/10:26/);
 });
 
-test('retention accepts recent-day and count modes with bounded persistent exclusions',()=>{
- for(const days of [0,7,30,90,180])assert.equal(Photos.normalize({days}).days,days);
- for(const days of [-1,1,365,Infinity,'30'])assert.equal(Photos.normalize({days}).days,30);
- const id='a'.repeat(64),state=Photos.normalize({excluded:[id,id,'../file','https://example.invalid/photo.jpg',null]});
- assert.deepEqual(state.excluded,[id]);
- assert.equal(Photos.normalize({excluded:Array.from({length:5000},(_,i)=>i.toString(16).padStart(64,'0'))}).excluded.length,4096);
+test('count-only selection accepts exactly 12, 30, 60 and 90, ignoring legacy day windows',()=>{
+ for(const days of [0,7,30,90,180,-1,Infinity,'30'])assert.equal(Photos.normalize({days}).days,0);
+ for(const maximum of [12,30,60,90])assert.equal(Photos.normalize({maximum}).maximum,maximum);
+ for(const maximum of [5,50,100,200,'12'])assert.equal(Photos.normalize({maximum}).maximum,30);
 });

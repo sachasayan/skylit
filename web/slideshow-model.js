@@ -5,12 +5,13 @@
   const pick=(v,values,d)=>values.includes(v)?v:d;
   const number=(v,min,max,d)=>typeof v==='number'&&Number.isFinite(v)?Math.min(max,Math.max(min,v)):d;
   const text=(v,n)=>typeof v==='string'?v.trim().slice(0,n):'';
-  const ids=values=>Array.isArray(values)?Array.from(new Set(values.filter(id))).slice(0,MAX_PHOTOS):[];
+  const validIds=values=>Array.isArray(values)?Array.from(new Set(values.filter(id))):[];
+  const ids=values=>validIds(values).slice(0,MAX_PHOTOS);
   const validDate=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T12:00:00Z'))&&new Date(value+'T12:00:00Z').toISOString().slice(0,10)===value;
   const time=value=>typeof value==='string'&&/^([01]\d|2[0-3]):[0-5]\d$/.test(value);
   function options(raw={}){
     if(!raw||typeof raw!=='object')raw={};
-    return {duration:number(raw.duration,5,3600,30),browseDuration:number(raw.browseDuration,5,300,8),transition:pick(raw.transition,[0,300,800,1500],800),style:pick(raw.style,['fade','stack','collage','gentle','still'],'fade'),transitionType:pick(raw.transitionType,['fade','cut','slide','wipe','mixed'],'fade'),background:pick(raw.background,['mat','black','blur'],'mat'),fit:pick(raw.fit,['contain','cover','auto'],'contain'),layout:pick(raw.layout,['auto','single','pair'],'auto'),order:pick(raw.order,['newest','oldest','manual','shuffle'],'newest'),repeat:raw.repeat!==false,motion:raw.motion!==false,weighted:raw.weighted===true,newFirst:raw.newFirst!==false,resume:raw.resume!==false,collection:text(raw.collection,64)||'recent',manual:ids(raw.manual),schedule:raw.schedule===true,start:time(raw.start)?raw.start:'07:00',end:time(raw.end)?raw.end:'22:00',brightness:number(raw.brightness,0.05,1,1),nightBrightness:number(raw.nightBrightness,0.05,1,0.1),dim:raw.dim===true,title:text(raw.title,100),outro:text(raw.outro,100),titleSeconds:number(raw.titleSeconds,2,10,3),music:raw.music===true,musicVolume:number(raw.musicVolume,0,1,.2),story:raw.story===true,storySeconds:number(raw.storySeconds,5,60,8),seasonal:raw.seasonal===true,seasonStart:number(raw.seasonStart,1,12,1),seasonEnd:number(raw.seasonEnd,1,12,12)};
+    return {maximum:pick(raw.maximum,[12,30,60,90],30),duration:number(raw.duration,5,3600,30),browseDuration:number(raw.browseDuration,5,300,8),transition:pick(raw.transition,[0,300,800,1500],800),style:pick(raw.style,['fade','stack','collage','gentle','still'],'fade'),transitionType:pick(raw.transitionType,['fade','cut','slide','wipe','mixed'],'fade'),background:pick(raw.background,['mat','black','blur'],'mat'),fit:pick(raw.fit,['contain','cover','auto'],'contain'),layout:pick(raw.layout,['auto','single','pair'],'auto'),order:pick(raw.order,['newest','oldest','manual','shuffle'],'newest'),repeat:raw.repeat!==false,motion:raw.motion!==false,weighted:raw.weighted===true,newFirst:raw.newFirst!==false,resume:raw.resume!==false,collection:text(raw.collection,64)||'recent',manual:ids(raw.manual),schedule:raw.schedule===true,start:time(raw.start)?raw.start:'07:00',end:time(raw.end)?raw.end:'22:00',brightness:number(raw.brightness,0.05,1,1),nightBrightness:number(raw.nightBrightness,0.05,1,0.1),dim:raw.dim===true,title:text(raw.title,100),outro:text(raw.outro,100),titleSeconds:number(raw.titleSeconds,2,10,3),music:raw.music===true,musicVolume:number(raw.musicVolume,0,1,.2),story:raw.story===true,storySeconds:number(raw.storySeconds,5,60,8),seasonal:raw.seasonal===true,seasonStart:number(raw.seasonStart,1,12,1),seasonEnd:number(raw.seasonEnd,1,12,12)};
   }
   function photoChoice(raw={}){
     if(!raw||typeof raw!=='object')raw={};
@@ -20,7 +21,8 @@
     if(!raw||typeof raw!=='object')raw={};
     const albums=Array.isArray(raw.albums)?raw.albums.filter(a=>a&&/^[a-z0-9-]{1,64}$/.test(a.id)&&text(a.name,60)).slice(0,MAX_ALBUMS).map(a=>({id:a.id,name:text(a.name,60),photos:ids(a.photos)})):[];
     const presets=Array.isArray(raw.presets)?raw.presets.filter(p=>p&&text(p.name,60)).slice(0,MAX_PRESETS).map(p=>({name:text(p.name,60),options:options(p.options)})):[];
-    return {version:1,options:options(raw.options),albums,presets};
+    const selected=options(raw.options);if(raw.version===1){selected.collection='recent';selected.maximum=30;}
+    return {version:2,options:selected,albums,presets};
   }
   function dateParts(now,zone){if(!(now instanceof Date)||!Number.isFinite(now.getTime()))return null;try{return new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now).reduce((r,p)=>(r[p.type]=p.value,r),{});}catch(_){return dateParts(now,'UTC');}}
   function allowed(p,now=new Date(),zone='UTC'){p=options(p);if(!p.schedule||p.start===p.end)return true;const parts=dateParts(now,zone);if(!parts)return false;const t=parts.hour+':'+parts.minute;return p.start<p.end?t>=p.start&&t<p.end:t>=p.start||t<p.end;}
@@ -29,9 +31,13 @@
     if(p.seasonal&&!(p.seasonStart<=p.seasonEnd?month>=p.seasonStart&&month<=p.seasonEnd:month>=p.seasonStart||month<=p.seasonEnd))return [];
     const album=albums.find(a=>a.id===p.collection),members=album?new Set(album.photos):null;
     let result=photos.filter(photo=>photo&&id(photo.id)&&!photo.pending&&!photoChoice(choices[photo.id]).hidden);
+    // Count the newest ordinary pictures before applying presentation order/filters.
+    // Keepers are additive, regardless of their age or position in this ordering.
+    const newest=result.filter(photo=>!photo.keeper).sort((a,b)=>b.at-a.at||a.id.localeCompare(b.id)).slice(0,p.maximum);
+    const selected=new Set(newest.map(photo=>photo.id));result=result.filter(photo=>photo.keeper||selected.has(photo.id));
     if(p.collection==='keepers')result=result.filter(photo=>photo.keeper);
     else if(p.collection==='favourites')result=result.filter(photo=>photoChoice(choices[photo.id]).favourite);
-    else if(p.collection==='recent')result=result.filter(photo=>!photo.keeper||photo.recent!==false);
+    else if(p.collection==='recent'||p.collection==='all'){}
     else if(p.collection==='memories')result=result.filter(photo=>{const d=photoChoice(choices[photo.id]).taken||photo.taken;return validDate(d)&&d.slice(5)===parts.month+'-'+parts.day&&Number(d.slice(0,4))<Number(parts.year);});
     else if(members)result=result.filter(photo=>members.has(photo.id));
     else if(p.collection!=='all')return [];
@@ -43,7 +49,7 @@
   // Queue changes never reshuffle the current cycle or replace viewing history.
   class Queue{
     constructor(items=[],p={},random=Math.random){this.random=random;this.p=options(p);this.available=[];this.queue=[];this.history=[];this.cursor=-1;this.cycles=0;this.favourites=[];this.update(items,p);}
-    update(items,p=this.p){this.p=options(p);const next=ids(items),valid=new Set(next),old=new Set(this.available);this.available=next;this.queue=this.queue.filter(x=>valid.has(x));const before=this.history.slice(0,this.cursor+1).filter(x=>valid.has(x)),after=this.history.slice(this.cursor+1).filter(x=>valid.has(x));this.history=before.concat(after);this.cursor=before.length-1;const additions=next.filter(x=>!old.has(x));if(this.cursor<0&&!this.queue.length)this.queue=this.cycle(null);else{const queued=new Set(this.queue);const fresh=additions.filter(x=>!queued.has(x));this.queue=this.p.newFirst?fresh.concat(this.queue):this.queue.concat(fresh);}return this.current();}
+    update(items,p=this.p){this.p=options(p);const next=validIds(items),valid=new Set(next),old=new Set(this.available);this.available=next;this.queue=this.queue.filter(x=>valid.has(x));const before=this.history.slice(0,this.cursor+1).filter(x=>valid.has(x)),after=this.history.slice(this.cursor+1).filter(x=>valid.has(x));this.history=before.concat(after);this.cursor=before.length-1;const additions=next.filter(x=>!old.has(x));if(this.cursor<0&&!this.queue.length)this.queue=this.cycle(null);else{const queued=new Set(this.queue);const fresh=additions.filter(x=>!queued.has(x));this.queue=this.p.newFirst?fresh.concat(this.queue):this.queue.concat(fresh);}return this.current();}
     cycle(previous){this.cycles++;const out=this.p.order==='shuffle'?shuffled(this.available,this.random,previous):this.available.slice();if(this.p.weighted&&out.length>1){for(const id of this.favourites||[]){if(!out.includes(id))continue;for(let i=Math.floor(out.length/2);i<=out.length;i++)if(out[i-1]!==id&&out[i]!==id){out.splice(i,0,id);break;}}}if(out.length>1&&out[0]===previous){const index=out.findIndex(x=>x!==previous);if(index>0)[out[0],out[index]]=[out[index],out[0]];}return out;}
     current(){return this.history[this.cursor]||null;}
     start(value){if(value&&this.available.includes(value)){this.queue=this.queue.filter(x=>x!==value);this.history=[value];this.cursor=0;return value;}return this.next();}

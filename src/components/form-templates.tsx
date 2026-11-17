@@ -108,23 +108,18 @@ const templates: Record<string, () => ReactNode> = {
               </Select>
             </div>
             <div>
-              <label htmlFor="photo-age">{"Keep pictures from"}</label>
-              <Select id="photo-age">
-                <option value="30">{"Last 30 days"}</option>
-                <option value="90">{"Last 90 days"}</option>
-              </Select>
+              <p>
+                {"Older pictures remain stored until disk space is needed."}
+              </p>
             </div>
             <div>
               <label htmlFor="photo-limit">{"Maximum pictures"}</label>
               <Select id="photo-limit">
-                <option value="5">{"5"}</option>
-                <option value="10">{"10"}</option>
-                <option value="20">{"20"}</option>
-                <option value="30">{"30"}</option>
-                <option value="40">{"40"}</option>
-                <option value="50">{"50"}</option>
-                <option value="100">{"100"}</option>
-                <option value="200">{"200"}</option>
+                {[12, 30, 60, 90].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
               </Select>
             </div>
           </div>
@@ -146,27 +141,30 @@ const templates: Record<string, () => ReactNode> = {
     </>
   ),
   PhotoRetention: () => (
-    <>
-      <label htmlFor="photo-retention">{"Gallery retention"}</label>
-      <Select id="photo-retention">
-        <optgroup label="By received date">
-          <option value="d7">{"Last 7 days"}</option>
-          <option value="d30">{"Last 30 days"}</option>
-          <option value="d90">{"Last 90 days"}</option>
-          <option value="d180">{"Last 180 days"}</option>
-        </optgroup>
-        <optgroup label="By photo count">
-          <option value="n10">{"Last 10 photos"}</option>
-          <option value="n20">{"Last 20 photos"}</option>
-          <option value="n30">{"Last 30 photos"}</option>
-          <option value="n40">{"Last 40 photos"}</option>
-          <option value="n50">{"Last 50 photos"}</option>
-          <option value="n100">{"Last 100 photos"}</option>
-          <option value="n200">{"Last 200 photos"}</option>
-        </optgroup>
+    <article
+      id="photo-count-settings"
+      className="card setting-block"
+      aria-labelledby="photo-count-title"
+    >
+      <h3 id="photo-count-title">{"Pictures to include"}</h3>
+      <p id="photo-count-description" className="small subtle">
+        {
+          "Choose how many of your newest pictures play. Keepers are added on top; excluded pictures stay hidden."
+        }
+      </p>
+      <label htmlFor="photo-retention">{"Latest pictures"}</label>
+      <Select
+        id="photo-retention"
+        aria-describedby="photo-count-description photo-retention-note"
+      >
+        {[12, 30, 60, 90].map((n) => (
+          <option key={n} value={n}>
+            {n + " pictures"}
+          </option>
+        ))}
       </Select>
       <p id="photo-retention-note" className="small subtle"></p>
-    </>
+    </article>
   ),
   PictureChoices: () => (
     <>
@@ -454,7 +452,7 @@ const templates: Record<string, () => ReactNode> = {
       </div>
       <p className="small subtle">
         {
-          "Up to 24 collections. Removing a collection never erases its pictures. Keepers survives recent-photo retention, within its own 100-picture / 128 MiB allowance."
+          "Up to 24 collections. Removing a collection never erases its pictures. Keepers stay in the slideshow in addition to the latest picture count, within their 100-picture / 128 MiB allowance."
         }
       </p>
       <Disclosure className="library-advanced">
@@ -552,7 +550,7 @@ const templates: Record<string, () => ReactNode> = {
       </label>
       <p className="small subtle">
         {
-          "Date retention is opt-in. Raw EXIF, GPS, filenames and mail contents are still discarded. Existing cached photos cannot recover their discarded dates."
+          "Keeping the original capture date is opt-in. Raw EXIF, GPS, filenames and mail contents are still discarded. Existing cached photos cannot recover their discarded dates."
         }
       </p>
       <div id="library-pending" className="library-collection-grid"></div>
@@ -574,7 +572,7 @@ const templates: Record<string, () => ReactNode> = {
       ></meter>
       <p className="small subtle">
         {
-          "Recent photos: up to 200. Keepers: up to 100. All photos and muted clips share a 256 MiB budget. New imports can replace older unpinned pictures; Keepers never silently evicts a saved picture."
+          "The slideshow shows the latest 12, 30, 60 or 90 ordinary pictures plus Keepers. Other pictures stay stored. Every 96 hours, low-disk cleanup can remove the oldest pictures outside that selection; Keepers and slideshow pictures are protected."
         }
       </p>
     </>

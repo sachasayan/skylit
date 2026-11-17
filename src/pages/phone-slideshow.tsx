@@ -5,9 +5,8 @@ import { SegmentedControl } from "../components/ui/segmented-control";
 import type { PhoneState, SlideshowOptions, Photo } from "../lib/phone-data";
 import { photoUrl } from "./phone-ui";
 const collections = [
-  ["recent", "Recent photos"],
+  ["recent", "Latest pictures + Keepers"],
   ["keepers", "Keepers"],
-  ["all", "All pictures"],
   ["favourites", "Favourites"],
   ["memories", "On this day"],
 ];
@@ -119,6 +118,24 @@ export function SlideshowSettings({
             />
           </label>
         )}
+        <label htmlFor="maximum">Latest pictures in slideshow</label>
+        <Select
+          id="maximum"
+          value={options.maximum ?? 30}
+          onChange={(e) =>
+            setOptions({ ...options, maximum: Number(e.target.value) })
+          }
+        >
+          {[12, 30, 60, 90].map((n) => (
+            <option key={n} value={n}>
+              {"Last " + n + " pictures + Keepers"}
+            </option>
+          ))}
+        </Select>
+        <p className="subtle">
+          Keepers are additional. Excluded pictures stay hidden. Older pictures
+          remain in the library.
+        </p>
         <label htmlFor="collection">Play from</label>
         <Select
           id="collection"

@@ -67,7 +67,9 @@ if Google's account setting omitted it from the feed.
 app password entered on the frame. The password is sealed with an Android Keystore
 AES-GCM key and bound to the account address. It never reaches web assets or the
 remote service WebViews. `PhotoPolicy` centralizes limits; `PhotoStore` keeps only
-deduplicated, resized JPEGs in app-private storage and deletes expired/excess files.
+deduplicated, resized JPEGs in app-private storage. Slideshow count changes retain
+archived files; the separate 96-hour maintenance job evicts unprotected archives
+only under disk pressure.
 Successful checks set a last-checked time, and failures retain usable pictures.
 Each check has a 120-second total deadline and a cancellation token that closes
 its tracked TLS sockets using the default trust store and hostname verification.
@@ -171,11 +173,9 @@ open; browser quiet scheduling follows the same rule. No preference storage
 format changes. The implementation uses APIs supported by WebView 95.
 
 In 2.13.0, Settings has a left-side category rail inside its dialog and uses the
-labelled selector only on narrow previews. Native photo retention accepts 7/30/90/180
-days or a zero-day count mode. Count mode reads the most recent 1,000 inbox messages
-without an age cutoff; all modes retain the existing 100-part per-check limit.
-`PhotoStore` gives visible pictures their selected capacity first, retains excluded
-cached copies for Undo only when space remains, and caps all images together at 50.
+labelled selector only on narrow previews. The current native policy accepts only counts 12/30/60/90, with no age cutoff.
+Mail reads at most 1,000 inbox messages and 300 image parts per check. PhotoStore
+retains archives until a scheduled low-space check can evict unprotected files.
 Network reads, decode/rotation, JPEG encoding and temporary-file writes happen
 outside the cache monitor. Publication, exclusion and pruning share a short lock;
 a generation fence prevents an erased cache from being repopulated by old work.
@@ -226,9 +226,9 @@ image buffering, real viewing history, paused timers, video, motion and gestures
 canvas/MediaRecorder export. Settings stay in localStorage; native storage remains
 the authority for persistent exclusions, Keepers, review and media files.
 
-PhotoStore has a 300-item / 256 MiB total bound, including at most 100 Keepers /
-128 MiB and 20 muted clips. Rolling retention defaults remain unchanged; Keepers
-never silently evict a pinned item. JPEG re-encoding discards raw EXIF and GPS. An
+PhotoStore protects up to 100 Keepers / 128 MiB and supports 20 muted clips.
+The current count policy defaults to 30 ordinary pictures plus Keepers. Archive
+files are preserved across count changes and healthy-disk maintenance. JPEG re-encoding discards raw EXIF and GPS. An
 opt-in normalized capture date, local face midpoint and perceptual signature are
 derived without identity recognition or network requests. New arrivals can be
 gated for owner review. A semaphore bounds concurrent image decoding; generation
@@ -395,3 +395,23 @@ until the gesture ends. This preserves decoded photos and avoids repeated layout
 work while crossing grid cells. Detailed layout and persistence still use the
 canonical release path. Settings control synchronization happens after the gesture,
 and hidden Dashboard settings no longer render on other-category navigation.
+
+## Count selection and pressure-only archives (2.18)
+
+PhotoStore selectionVersion 2 migrates the native count to 30 once. The slideshow
+library schema version 2 migrates its legacy selection to Latest pictures + Keepers.
+Older installations without a saved slideshow document use that same default while
+retaining their other presentation preferences.
+The 12/30/60/90 ordinary-picture count applies before presentation ordering/filters;
+Keepers are additive. Native and browser ties use hash order. Selection recomputation
+retains every present file, including archives and excluded pictures. PhotoMaintenance
+persists a 96-hour Android job that evicts only under disk pressure, protecting
+Keepers and the current latest-picture selection. Evicted source hashes prevent
+mail checks from immediately refilling the archive. There is no former 300-file /
+256 MiB eviction budget; per-image, clip, request and Keepers limits remain.
+
+Pictures already saved by unpublished import experiments remain ordinary local
+pictures. Their files, curation and exclusions survive the upgrade. The upgrade
+cancels obsolete jobs and discards their credentials without changing stored media.
+The shipped app includes no stock-source polling, embedded ADB client, accessibility
+helper or integration controls.

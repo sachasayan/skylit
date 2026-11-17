@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--usb',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--usb',action='store_true');parser.add_argument('--address',help='Current paired TLS IP:port');args=parser.parse_args()
     config=json.loads((ROOT/'.local/build.json').read_text());build=ROOT/'.local/photo-test';build.mkdir(exist_ok=True);classes=build/'classes';classes.mkdir(exist_ok=True)
     java=Path(config['java']);env=dict(os.environ,JAVA_HOME=str(java),PATH=str(java/'bin')+':'+os.environ['PATH'])
     sources=[ROOT/'android/src/com/wesbos/homehq'/name for name in ['PhotoStore.java','PhotoPolicy.java','PhotoMail.java','MailCheck.java','MailParts.java','MailImportPolicy.java','MailSecret.java']]+[ROOT/'tests/android/PhotoStoreTest.java']
@@ -20,7 +20,7 @@ def main():
         if not transport:raise SystemExit('Configured USB frame is unavailable')
         frame=[adb,'-s',transport]
         print('Identity-verified USB frame; isolated synthetic image checks only.')
-    else:frame=['python3',str(ROOT/'scripts/frame.py')]
+    else:frame=['python3',str(ROOT/'scripts/frame.py')]+(['--address',args.address] if args.address else [])
     remote='/data/local/tmp/skylit-photo-test.dex';scratch='/data/local/tmp/skylit-photo-test-'+str(os.getpid())
     try:
         subprocess.run(frame+['push',str(build/'classes.dex'),remote],check=True,capture_output=True)

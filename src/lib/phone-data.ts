@@ -17,6 +17,7 @@ export type Photo = {
   choice: Choice;
 };
 export type SlideshowOptions = {
+  maximum?: number;
   duration: number;
   style: string;
   collection: string;
@@ -79,6 +80,11 @@ export function parsePhoneState(raw: unknown): PhoneState {
     throw Error("Invalid collection response.");
   if (raw.sessionRemainingMs !== undefined && !finite(raw.sessionRemainingMs))
     throw Error("Invalid session expiry.");
+  if (
+    raw.options.maximum !== undefined &&
+    ![12, 30, 60, 90].includes(raw.options.maximum as number)
+  )
+    throw Error("Invalid picture count.");
   return raw as PhoneState;
 }
 

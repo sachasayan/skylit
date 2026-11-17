@@ -74,6 +74,7 @@
     window.SkylitUI.photos.stack({pictures:items.map((photo,i)=>({id:frame.photoId(photo),url:photo.url,angle:playback.angle(i)}))});
   }
   function render(){
+
     const album=source==='album';
     $('photo-source').value=source;
     $('photo-mail-setup').hidden=source!=='email';
@@ -85,7 +86,7 @@
     $('photo-check').disabled=!native||!state.connected||state.busy;
     $('photo-play').disabled=window.SkylitLibrary?!window.SkylitLibrary.playlist().length:!frame.pictures(state.photos,curated,preferences()).length;
     if(document.activeElement!==$('photo-email'))$('photo-email').value='';
-    const retention=(state.days?'d'+state.days:'n'+state.maximum);if(!Array.from($('photo-retention').options).some(o=>o.value===retention)){const option=document.createElement('option');option.value=retention;option.textContent='Last '+state.maximum+' photos';$('photo-retention').append(option);}$('photo-retention').value=retention;$('photo-limit-row').hidden=state.days===0;$('photo-retention-note').textContent=state.days?'Uses the email received date, up to the capacity below. Reducing retention removes older cached pictures.':'Newest non-excluded pictures, regardless of age. Check now to refresh the gallery.';
+    $('photo-retention').value=String(state.maximum);$('photo-limit-row').hidden=true;$('photo-retention-note').textContent='Older pictures remain in your library.';
     $('photo-limit').value=String(state.maximum);
     $('photo-speed').value=String(interval/1000);
     $('photo-style').value=style;
@@ -97,15 +98,15 @@
     renderOverviewPhotos();paintChoice();if(scroll)window.scrollTo(0,scroll);const visibility=$('photo-visibility');if(visibility)visibility.textContent=(native&&native.photoExclude?state.excluded.length:state.photos.filter(p=>choice(p).hidden).length)+' excluded · Checks and retention pruning keep exclusions. Restore to allow import again. Email is never deleted.';
     const headline=page.querySelector('.photo-copy .eyebrow'),title=page.querySelector('.photo-copy h2'),description=page.querySelector('.photo-copy p:not(.eyebrow)');
     headline.textContent=album?'YOUR SHARED GOOGLE PHOTOS ALBUM':'PICTURES ON THIS FRAME';
-    title.textContent=album?'Shared album':'Recent photos';
-    description.textContent=album?'Play your Google Photos album full screen.':'A private slideshow of recent and kept pictures stored on this frame.';
+    title.textContent=album?'Shared album':'Your pictures';
+    description.textContent=album?'Play your Google Photos album full screen.':'Your latest pictures plus Keepers, stored privately on this frame.';
     heroStatus.textContent=album||state.photos.length?'':model.caption(state,timezone);
     const action=album?'Start slideshow':state.photos.length?'Start slideshow':state.connected?'Check for photos':'Set up email photos';
     const actionButton=$('start-photos');Array.from(actionButton.childNodes).filter(n=>n.nodeType===3).forEach(n=>n.remove());actionButton.append(document.createTextNode(action));const playIcon=actionButton.querySelector('svg');if(playIcon)playIcon.style.display=action==='Start slideshow'?'':'none';
     page.querySelector('.photo-copy .quiet').textContent=album?'Album and timing settings →':'Delivery settings →';
     $('album-status').textContent=album?($('album-url').value?'Your shared album is ready to open.':'Add a shared album link in Settings to get started.'):(state.photos.length?state.photos.length+' pictures are ready to play.':'No saved pictures yet. Connect an account and check mail.');
     const details=page.querySelectorAll('.detail');
-    if(details[1]){details[1].querySelector('h3').textContent=album?'One shared album':'Private photo cache';details[1].querySelector('.subtle').textContent=album?'Uses Google’s slideshow. Skylit stores no copies.':'Old pictures are removed automatically. Only resized pictures are saved, without email contents or image metadata.';}
+    if(details[1]){details[1].querySelector('h3').textContent=album?'One shared album':'Private photo cache';details[1].querySelector('.subtle').textContent=album?'Uses Google’s slideshow. Skylit stores no copies.':'Older pictures stay in your library. Every 96 hours, cleanup can remove archived copies only when disk space is low. Cleanup only removes local copies.';}
   }
   function open(asIdle,start=0,autoplay=true){return window.SkylitPlayer?window.SkylitPlayer.open(asIdle,start,autoplay):false;}
   function close(){if(window.SkylitPlayer)window.SkylitPlayer.close();}
@@ -117,8 +118,9 @@
   photoSettingsButton.onclick=openSettings;page.querySelector('.photo-copy .quiet').onclick=openSettings;
   $('photo-check').onclick=()=>{if(native&&native.photoRefresh){native.photoRefresh();$('photo-setup-status').textContent='Checking mail…';setTimeout(refresh,300)}};
   $('photo-connect').onclick=()=>{if(!native||!native.photoConnect){$('photo-setup-status').textContent='Connect from the Android frame.';return;}const email=$('photo-email').value.trim(),password=$('photo-password').value;$('photo-password').value='';if(!native.photoConnect(email,password)){$('photo-setup-status').textContent='Use a Gmail address and its 16-character app password. Wait for any current check to finish.';return;}$('photo-setup-status').textContent='Connection saved. Checking mail…';setSource('email');refresh();};
-  function configureRetention(){const value=$('photo-retention').value,count=value.startsWith('n'),days=count?0:Number(value.slice(1)),maximum=count?Number(value.slice(1)):Number($('photo-limit').value);if(native&&native.photoConfigure&&native.photoConfigure(days,maximum)){$('photo-setup-status').textContent='Gallery retention saved. Check now to refill if needed.';refresh();}else{$('photo-setup-status').textContent='Could not save retention on this frame.';render();}}
+  function configureRetention(){const maximum=Number($('photo-retention').value);if(native&&native.photoConfigure&&native.photoConfigure(0,maximum)){$('photo-setup-status').textContent='Slideshow picture count saved. Stored pictures were kept.';refresh();}else{$('photo-setup-status').textContent='Could not save the slideshow picture count on this frame.';render();}}
   $('photo-retention').onchange=configureRetention;$('photo-limit').onchange=configureRetention;
+
   $('photo-style').onchange=()=>{style=playback.style($('photo-style').value);localStorage.setItem('skylit.photoStyle',style);if(window.SkylitLibrary)window.SkylitLibrary.setOptions({style});};
   $('photo-speed').onchange=()=>{interval=Number($('photo-speed').value)*1000;localStorage.setItem('skylit.photoSpeed',String(interval));if(window.SkylitLibrary)window.SkylitLibrary.setOptions({duration:interval/1000})};
   const savedSpeed=Number(localStorage.getItem('skylit.photoSpeed'));if([5000,8000,12000,20000,30000,60000,300000,900000].includes(savedSpeed))interval=savedSpeed;
