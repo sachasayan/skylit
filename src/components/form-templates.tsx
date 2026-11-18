@@ -282,14 +282,6 @@ const templates: Record<string, () => ReactNode> = {
           </Select>
         </div>
         <div>
-          <label htmlFor="slideshow-background">{"Surrounding space"}</label>
-          <Select id="slideshow-background">
-            <option value="mat">{"Theme mat"}</option>
-            <option value="black">{"Black"}</option>
-            <option value="blur">{"Soft background from the picture"}</option>
-          </Select>
-        </div>
-        <div>
           <label htmlFor="slideshow-transition">{"Transition duration"}</label>
           <Select id="slideshow-transition">
             <option value="0">{"No transition"}</option>

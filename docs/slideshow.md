@@ -9,12 +9,12 @@ A shared Google album continues to use Google’s player and its own capabilitie
 
 The default is Soft fade, 30 seconds and whole-picture Fit. Existing interval and
 style preferences migrate. Five styles are available: Soft fade, Falling prints,
-Photo collage, Gentle pan & zoom, and Still gallery. Choose theme mat, black or a
-blurred picture surround; dissolve, cut, slide, reveal or varied transitions. Device
+Photo collage, Gentle pan & zoom, and Still gallery. Each photo has an even white border on a black background. Falling prints settle at an angle of up to two degrees in either direction. Each photo keeps its angle when revisited.
+Choose dissolve, cut, slide, reveal or varied transitions. Device
 reduced-motion preferences override animation and show clip posters.
 
 Automatic layout pairs portrait photos when a suitable partner exists. Explicit
-one/two-picture layouts are available. Collage updates one region at a time when
+one/two-picture layouts are available. Pairs advance together and Previous restores both pictures. Collage updates one region at a time when
 three suitable pictures exist. Missing pictures are quarantined for the session.
 Images are decoded before their full viewing interval begins. Refresh retains the
 current picture, remaining time, history and shuffle queue; new arrivals can be

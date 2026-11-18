@@ -206,6 +206,16 @@ function WidgetMiniature({
   temperature: string;
   pictures: string[];
 }) {
+  if (type === "photo-email")
+    return (
+      <svg className="widget-mini-qr" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          fillRule="evenodd"
+          d="M2 2h8v8H2zm2 2v4h4V4zM14 2h8v8h-8zm2 2v4h4V4zM2 14h8v8H2zm2 2v4h4v-4z"
+        />
+        <path d="M5 5h2v2H5zm12 0h2v2h-2zM5 17h2v2H5zm7-5h4v3h-2v4h-2zm6 0h4v4h-2v-2h-2zm-2 5h3v3h3v2h-6z" />
+      </svg>
+    );
   if (type === "photos")
     return (
       <>

@@ -14,7 +14,9 @@
   for(const definition of model.catalog){
     const wrapper=node('section','dashboard-module');wrapper.dataset.module=definition.type;wrapper.setAttribute('aria-label',definition.name);
     if(originals.has(definition.type))wrapper.append(originals.get(definition.type));
-    else {
+    else if(definition.type==='photo-email'){
+      wrapper.classList.add('card','dashboard-photo-email');
+    }else {
       wrapper.classList.add('card','dashboard-utility');const heading=node('div','section-title'),title=node('h2',null,definition.name),action=node('button','quiet');
       window.SkylitUI.renderNode(action,window.SkylitUI.template("ModuleActionIcon"));
       action.setAttribute('aria-label',definition.type==='forecast'?'Open full weather forecast':'Manage '+definition.name.toLowerCase());
@@ -79,30 +81,114 @@
   const photoEmpty=node('button','dashboard-photo-empty');photoEmpty.textContent='Choose photos';photoEmpty.onclick=()=>app.openSettings('photos','overview');wrappers.get('photos').append(photoEmpty);
   const empty=node('div','dashboard-empty');empty.append(node('h2',null,'Your dashboard is empty'));const configure=node('button','secondary','Choose modules');configure.onclick=()=>app.openSettings('dashboard','overview');empty.append(configure);grid.append(empty);
   function position(n,item){n.dataset.widgetStyle=item.style||model.styles[item.type]?.[0]||'';n.style.gridColumn=(item.x+1)+' / span '+item.w;n.style.gridRow=(item.y+1)+' / span '+item.h;}
+  function emailCode(uri){
+    function encode(version){
+      const code=window.qrcode(version,'H');
+      code.addData(uri,'Byte');
+      code.make();
+      return code;
+    }
+    let code=encode(0);
+    const version=(code.getModuleCount()-17)/4;
+    // Odd alignment grids from version 7 onward have a locator near the center.
+    // Select the next even grid so the envelope covers data modules only.
+    if(version>=7&&version<=13)code=encode(14);
+    if(version>=21&&version<=27)code=encode(28);
+    const size=code.getModuleCount(),middle=Math.floor(size/2),path=[];
+    for(let row=0;row<size;row++){
+      for(let col=0;col<size;col++){
+        if(Math.abs(col-middle)<=3&&Math.abs(row-middle)<=3)continue;
+        if(code.isDark(row,col))path.push('M'+col+' '+row+'h1v1h-1z');
+      }
+    }
+    const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('class','photo-email-qr');
+    svg.setAttribute('role','img');
+    svg.setAttribute('aria-label','Scan to email pictures to this frame');
+    svg.setAttribute('viewBox','-4 -4 '+(size+8)+' '+(size+8));
+    const modules=document.createElementNS(ns,'path');
+    modules.setAttribute('d',path.join(''));
+    modules.setAttribute('fill','currentColor');
+    modules.setAttribute('stroke','none');
+    modules.setAttribute('shape-rendering','crispEdges');
+    const envelope=document.createElementNS(ns,'path');
+    envelope.setAttribute('transform','translate('+(middle+.5)+' '+(middle+.5)+')');
+    envelope.setAttribute('d','M-2.65-1.8h5.3v3.6h-5.3z M-2.5-1.65 0 .25 2.5-1.65');
+    envelope.setAttribute('fill','none');
+    envelope.setAttribute('stroke','currentColor');
+    envelope.setAttribute('stroke-width','.55');
+    envelope.setAttribute('stroke-linejoin','round');
+    svg.append(modules,envelope);
+    return svg;
+  }
+  let inboxView='';
+  function renderPhotoEmail(){
+    const host=wrappers.get('photo-email');
+    const photos=window.SkylitPhotos,source=photos.selectedSource(),state=photos.snapshot().state;
+    const uri=host.hidden?'':SkylitPhotoModel.inboxMailto(source,state);
+    const view=host.hidden?'hidden':JSON.stringify([uri,source]);
+    if(view===inboxView)return;
+    inboxView=view;
+    // The script-free editor clones this card and may be closed during an account change.
+    livePreview?.invalidate('photo-email');
+    host.replaceChildren();
+    if(host.hidden)return;
+    if(uri){
+      host.append(emailCode(uri));
+      return;
+    }
+    const copy=node('div','photo-email-copy');
+    copy.append(node('h2',null,'Email photos'),node('p',null,source==='email'?'No receiving email address is set.':'Email delivery is turned off.'));
+    const setup=node('button','secondary','Receiving photos');
+    setup.onclick=()=>app.openSettings('photo-source','overview');
+    copy.append(setup);
+    host.append(copy);
+  }
+  window.addEventListener('skylit-service-status',renderPhotoEmail);
   function applyLayout(){
     for(const [type,n] of wrappers){const item=saved.modules.find(item=>item.type===type);n.hidden=!item;if(item)position(n,item);}
     // Match reading and keyboard order to the visible arrangement.
     saved.modules.slice().sort((a,b)=>a.y-b.y||a.x-b.x).forEach(item=>grid.append(wrappers.get(item.type)));
-    empty.hidden=!!saved.modules.length;paintClock();sizeModules();renderUtilities();
+    empty.hidden=!!saved.modules.length;renderPhotoEmail();paintClock();sizeModules();renderUtilities();
   }
   function sizePhotos(host,w,h){
     if(host.dataset.widgetStyle!=='prints')return;
-    const images=[...host.querySelectorAll('.overview-photo-stack img')],count=images.length;
+    if(!w||!h)return;
+    const tall=w<h*.8;
+    const available=[...host.querySelectorAll('.overview-photo-stack img')];
+    const capacity=Math.max(1,Math.round((tall?h:w)/(tall?160:125)));
+    const images=available.slice(0,Math.min(capacity,tall?3:5)),count=images.length;
+    host.dataset.printCount=String(count);
     if(!count)return;
-    const tall=w<h*.8,pad=Math.max(8,Math.min(16,Math.min(w,h)*.055)),border=5,bottom=12;
-    const frames=images.map(img=>{
-      if(!img.complete&&!img._printLoad){img._printLoad=true;img.addEventListener('load',()=>{img._printLoad=false;sizePhotos(host,host.clientWidth,host.clientHeight);},{once:true});}
-      const ratio=img.naturalWidth&&img.naturalHeight?img.naturalWidth/img.naturalHeight:1.5;
-      const maxWidth=(w-pad*2)*(count===1?.94:tall?.88:.68);
-      const maxHeight=tall?(h-pad*2)/(1+(count-1)*.72):(h-pad*2)*.88;
-      const pw=Math.max(1,Math.min(maxWidth,(maxHeight-border-bottom)*ratio+border*2));
-      return {pw,ph:(pw-border*2)/ratio+border+bottom};
+    const pad=Math.max(8,Math.min(16,Math.min(w,h)*.055)),border=5,bottom=12;
+    const width=w-2*pad,height=h-2*pad;
+    const ratios=images.map(img=>{
+      if(!img.complete&&!img._printLoad){
+        img._printLoad=true;
+        img.addEventListener('load',()=>{img._printLoad=false;sizePhotos(host,host.clientWidth,host.clientHeight);},{once:true});
+      }
+      return img.naturalHeight?img.naturalWidth/img.naturalHeight:1.5;
     });
+    // A row of mixed portraits and landscapes shares a photo height. Budget
+    // paper borders and a gap for each print before fitting the actual pictures.
+    const gap=Math.min(10,width*.018);
+    const photoHeight=Math.max(1,Math.min(height*.92-border-bottom,
+      (width-count*2*border-(count-1)*gap)/ratios.reduce((total,r)=>total+r,0)));
+    const frames=ratios.map(ratio=>{
+      if(!tall)return {pw:photoHeight*ratio+2*border,ph:photoHeight+border+bottom};
+      const maxHeight=height/(1+(count-1)*.76);
+      const pw=Math.min(width*.92,(maxHeight-border-bottom)*ratio+2*border);
+      return {pw,ph:(pw-2*border)/ratio+border+bottom};
+    });
+    const remaining=width-frames.reduce((total,f)=>total+f.pw,0);
+    let x=pad+(count===1?remaining/2:0);
     images.forEach((img,i)=>{
       const {pw,ph}=frames[i],fraction=count===1?.5:i/(count-1);
-      const left=tall?(w-pw)/2+(count===1?0:(fraction-.5)*pad):pad+(w-pad*2-pw)*fraction;
-      const top=tall?pad+(h-pad*2-ph)*fraction:(h-ph)/2+(count===1?0:(fraction-.5)*pad*.7);
-      img.style.setProperty('--print-width',pw+'px');img.style.setProperty('--print-height',ph+'px');img.style.setProperty('--print-left',left+'px');img.style.setProperty('--print-top',top+'px');
+      const left=tall?(w-pw)/2+(fraction-.5)*pad:x;
+      const top=tall?pad+(height-ph)*fraction:(h-ph)/2+(fraction-.5)*pad*.7;
+      img.style.setProperty('--print-width',pw+'px');img.style.setProperty('--print-height',ph+'px');
+      img.style.setProperty('--print-left',left+'px');img.style.setProperty('--print-top',top+'px');
+      x+=pw+remaining/Math.max(1,count-1);
     });
   }
   function sizeModules(){
@@ -116,6 +202,7 @@
   }
   if(document.fonts){document.fonts.ready.then(sizeModules);document.fonts.addEventListener('loadingdone',sizeModules);}
   const observer=new ResizeObserver(sizeModules);wrappers.forEach(n=>observer.observe(n));
+  new MutationObserver(()=>{const host=wrappers.get('photos');sizePhotos(host,host.clientWidth,host.clientHeight);}).observe($('overview-photo-stack'),{childList:true,subtree:true,attributes:true,attributeFilter:['src']});
   new MutationObserver(()=>{photoEmpty.hidden=!$('overview-photos').hidden;}).observe($('overview-photos'),{attributes:true,attributeFilter:['hidden']});
   photoEmpty.hidden=!$('overview-photos').hidden;
   function renderForecast(){

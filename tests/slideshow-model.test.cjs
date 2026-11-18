@@ -64,3 +64,46 @@ test('manual browsing queues can reach archived pictures beyond the old 300-pict
  assert.equal(q.available.length,500);assert.equal(q.start(id(490)),id(490));
  assert.equal(M.ids(all).length,300); // Persisted collection/action limits stay bounded.
 });
+test('pairs consume queue entries together across shuffle and repeat boundaries',()=>{
+ for(const order of ['newest','shuffle']){
+  for(const count of [4,5,8]){
+   for(const weighted of [false,true]){
+   const ids=Array.from({length:count},(_,i)=>id(i+1)),q=new M.Queue(ids,{order,repeat:true,weighted},()=>.31);
+   q.favourites=ids.slice(1,3);
+   let previous=[];
+   for(let i=0;i<25;i++){
+    q.next(previous);
+    const scene=q.pair(ids);
+    assert.equal(new Set(scene).size,2);
+    assert.ok(scene.every(id=>!previous.includes(id)));
+    previous=scene;
+   }
+   q.previous();assert.notDeepEqual(q.pair(ids),previous);
+   q.next();assert.deepEqual(q.pair(ids),previous);
+   }
+  }
+ }
+});
+test('finite and small collections finish without a duplicate print',()=>{
+ for(const count of [1,2,3,5]){
+  const ids=Array.from({length:count},(_,i)=>id(i+1)),q=new M.Queue(ids,{repeat:false});
+  const seen=[];while(q.next())seen.push(...q.pair(ids));
+  assert.deepEqual(seen,ids);
+ }
+});
+test('legacy surrounds normalize to black and print margins fit rotated portraits',()=>{
+ const source=photo(1,{width:400,height:700});
+ for(const background of ['mat','black','blur'])assert.equal(M.options({background}).background,'black');
+ for(const rotation of [0,90]){
+  const size=M.printGeometry(source,{rotation},{fit:'contain'},500,600);
+  assert.ok(size.width+2*size.edge<=501&&size.height+2*size.edge<=601);
+  assert.ok(size.edge>0);assert.ok(Math.abs(size.width/size.height-M.aspect(source,{rotation}))<.001);
+ }
+});
+test('each photo keeps a subtle tilt across appearances',()=>{
+ const photos=Array.from({length:96},(_,i)=>id(i)),angles=photos.map(M.printTilt);
+ assert.ok(angles.every(angle=>Number.isFinite(angle)&&Math.abs(angle)<=2));
+ assert.ok(angles.some(angle=>angle<0)&&angles.some(angle=>angle>0));
+ assert.ok(new Set(angles).size>10);
+ assert.deepEqual(photos.reverse().map(M.printTilt).reverse(),angles);
+});

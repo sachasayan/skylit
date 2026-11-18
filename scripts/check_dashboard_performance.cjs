@@ -25,7 +25,7 @@ for(const mode of ['move','resize']){
  await page.evaluate(({x,y})=>document.dispatchEvent(new PointerEvent('pointercancel',{clientX:x,clientY:y,pointerId:1,bubbles:true})),point);await page.mouse.up();
 }
 // Release before the scheduled frame must commit the newest position; cancel must not.
-for(const cancel of [false,true]){
+for(const cancel of [true,false]){
  const saved=await page.evaluate(()=>SkylitDashboard.layout());
  const box=await page.locator('.dashboard-editor-tile[data-module=clock] .corner-se').boundingBox();
  const grid=await page.locator('#dashboard-editor-grid').boundingBox();
