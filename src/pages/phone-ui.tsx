@@ -2,6 +2,8 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { Button } from "../components/ui/button";
 export const photoUrl = (id: string) =>
   "/photo/" + encodeURIComponent(id) + ".jpg";
+export const thumbnailUrl = (id: string) =>
+  "/photo/thumb/" + encodeURIComponent(id) + ".jpg";
 export function PhoneIcon({ name }: { name: string }) {
   const paths: Record<string, string> = {
     photos: "M3 3h18v18H3zM3 16l6-6 4 4 3-3 5 5",

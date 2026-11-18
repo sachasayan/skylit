@@ -5,10 +5,11 @@
   const model = window.SkylitPhotoModel;
   const playback = window.SkylitPhotoPlayback, frame=window.SkylitFrameModel;
   let curated={},epoch='',showHidden=false,previousHidden=null,settingsPhoto='',migratedExclusions=false;
-  try{const saved=JSON.parse(localStorage.getItem('skylit.photoChoices')||'{}');curated=saved.choices||{};epoch=saved.epoch||'';}catch(_){}
+  let savedChoices='';
+  try{savedChoices=localStorage.getItem('skylit.photoChoices')||'';const saved=JSON.parse(savedChoices||'{}');curated=saved.choices||{};epoch=saved.epoch||'';}catch(_){}
   const preferences=()=>{try{return frame.preferences(JSON.parse(localStorage.getItem('skylit.frame')||'{}'));}catch(_){return frame.preferences();}};
   const choice=photo=>curated[frame.photoId(photo)]||{favourite:false,hidden:false,fit:'auto',caption:''};
-  function saveChoices(){try{localStorage.setItem('skylit.photoChoices',JSON.stringify({epoch,choices:curated}));return true;}catch(_){window.SkylitApp.notify('Could not save photo choices.');return false;}}
+  function saveChoices(){try{const value=JSON.stringify({epoch,choices:curated});if(value!==savedChoices){localStorage.setItem('skylit.photoChoices',value);savedChoices=value;}return true;}catch(_){window.SkylitApp.notify('Could not save photo choices.');return false;}}
 
 
   const page = $('photos');
@@ -53,30 +54,60 @@
 
   function control(id,name,label){const button=$(id);window.SkylitUI.playbackIcon(button,name,id==='photo-play'?label:undefined);button.setAttribute('aria-label',label==='Fit'?'Fit picture to screen':label==='Play'?'Play slideshow':label==='Pause'?'Pause slideshow':label+' picture');}
   control('photo-play','play','Slideshow');$('photo-play').setAttribute('aria-label','Start slideshow');control('photo-prev','previous','Previous');control('photo-next','next','Next');control('photo-close','close','Close');$('photo-close').setAttribute('aria-label','Close photo viewer');
-  function paintChoice(){const select=$('photo-choice-select'),current=state.photos.find(p=>frame.photoId(p)===settingsPhoto)||state.photos[0];settingsPhoto=current?frame.photoId(current):'';select.replaceChildren();state.photos.forEach((photo,i)=>{const option=document.createElement('option');option.value=frame.photoId(photo);option.textContent='Picture '+(i+1)+(choice(photo).hidden?' · Excluded':'')+(choice(photo).favourite?' · Favourite':'');select.append(option);});select.value=settingsPhoto;$('photo-choice-editor').hidden=!current;if(!current){$('photo-choice-preview').removeAttribute('src');return;}const selected=choice(current);$('photo-choice-preview').src=current.url;$('photo-favourite').textContent=selected.favourite?'Unfavourite':'Favourite';$('photo-favourite').setAttribute('aria-pressed',String(selected.favourite));$('photo-hide').checked=selected.hidden;$('photo-fit').value=selected.fit;if(document.activeElement!==$('photo-caption'))$('photo-caption').value=selected.caption;$('photo-received').textContent=current.at?'Received '+new Date(current.at).toLocaleDateString(undefined,{timeZone:window.SkylitApp.calendarPreferences().timezone}):'Received date unavailable';}
+  function paintChoice(){const select=$('photo-choice-select'),current=state.photos.find(p=>frame.photoId(p)===settingsPhoto)||state.photos[0];settingsPhoto=current?frame.photoId(current):'';select.replaceChildren();state.photos.forEach((photo,i)=>{const option=document.createElement('option');option.value=frame.photoId(photo);option.textContent='Picture '+(i+1)+(choice(photo).hidden?' · Excluded':'')+(choice(photo).favourite?' · Favourite':'');select.append(option);});select.value=settingsPhoto;$('photo-choice-editor').hidden=!current;if(!current){$('photo-choice-preview').removeAttribute('src');return;}const selected=choice(current);$('photo-choice-preview').src=current.thumbnail;$('photo-favourite').textContent=selected.favourite?'Unfavourite':'Favourite';$('photo-favourite').setAttribute('aria-pressed',String(selected.favourite));$('photo-hide').checked=selected.hidden;$('photo-fit').value=selected.fit;if(document.activeElement!==$('photo-caption'))$('photo-caption').value=selected.caption;$('photo-received').textContent=current.at?'Received '+new Date(current.at).toLocaleDateString(undefined,{timeZone:window.SkylitApp.calendarPreferences().timezone}):'Received date unavailable';}
 
   function selectedSource(){return source;}
   function setSource(value){if(value!=='album'&&value!=='email')return;source=value;localStorage.setItem(sourceKey,source);if(native&&native.photoSource)native.photoSource(source);render();window.dispatchEvent(new Event('skylit-service-status'));}
-  function receive(raw,fresh=false){let next=model.normalize(raw);
+  function receive(raw,fresh=false){
     // Current native rules win over a status callback queued before an exclusion.
-    if(!fresh&&native&&native.photoExclude&&native.photoStatus)next=model.normalize(native.photoStatus());
-    if(epoch&&next.epoch&&epoch!==next.epoch){curated={};migratedExclusions=true;}
+    let next=model.normalize(!fresh&&native&&native.photoExclude&&native.photoStatus?native.photoStatus():raw);
+    if(epoch&&next.epoch&&epoch!==next.epoch){
+      curated={};migratedExclusions=true;previousHidden=null;settingsPhoto='';
+      $('photo-undo').hidden=true;
+      // A closed screen may still own a decoded image from the previous account.
+      for(const id of ['photo-tiles','overview-photo-stack']){
+        if($(id).hasChildNodes())window.SkylitUI.renderNode($(id),null);
+      }
+      $('photo-choice-preview').removeAttribute('src');
+      galleryKey=overviewKey=undefined;
+    }
     if(!migratedExclusions&&native&&native.photoExclude){for(const [id,entry] of Object.entries(curated))if(/^[a-f0-9]{64}$/.test(id)&&entry.hidden&&!next.excluded.includes(id))native.photoExclude(id,true);next=model.normalize(native.photoStatus());migratedExclusions=true;}
     state=next;epoch=state.epoch||epoch;curated=frame.curation(curated,state.photos);
     if(native&&native.photoExclude){const excluded=new Set(state.excluded);for(const photo of state.photos){const id=frame.photoId(photo);if(excluded.has(id)||curated[id])curated[id]=Object.assign({},choice(photo),{hidden:excluded.has(id)});}}
-    saveChoices();render();if(window.SkylitLibrary)window.SkylitLibrary.receive(state,curated);if(window.SkylitPlayer)window.SkylitPlayer.receive(state,curated);window.dispatchEvent(new Event('skylit-service-status'));}
+    saveChoices();if(window.SkylitLibrary)window.SkylitLibrary.receive(state,curated);render();if(window.SkylitPlayer)window.SkylitPlayer.receive(state,curated);window.dispatchEvent(new Event('skylit-service-status'));}
   function refresh(){if(!native||!native.photoStatus)return;try{receive(native.photoStatus(),true);}catch(e){$('photo-mail-status').textContent='Could not read the photo status from this frame.';}}
+  let overviewKey, galleryKey;
   function renderOverviewPhotos(){
     const items=source==='email'?frame.overviewPictures(state.photos,curated,preferences()):[];
-    const button=$('overview-photos'),host=$('overview-photo-stack');
+    const key=JSON.stringify(items.map(photo=>photo.url));
+    if(key===overviewKey)return;
+    overviewKey=key;
+    const button=$('overview-photos');
     button.hidden=!items.length;
     document.querySelector('.overview-grid').classList.toggle('with-photos',items.length>0);
-    window.SkylitUI.photos.stack({pictures:items.map((photo,i)=>({id:frame.photoId(photo),url:photo.url,angle:playback.angle(i)}))});
+    window.SkylitUI.photos.stack({pictures:items.map((photo,i)=>({id:frame.photoId(photo),url:photo.thumbnail,angle:playback.angle(i)}))});
+  }
+  function renderTiles(){
+    const tiles=$('photo-tiles'),scroll=window.scrollY;
+    const visible=state.photos.filter(photo=>!photo.pending&&(showHidden||!choice(photo).hidden));
+    const empty=!state.photos.length?(state.connected?'No pictures saved yet. Tap Check now after sending one to your inbox.':'Import pictures or connect a dedicated inbox in Photo settings to start your library.'):!visible.length?'All saved pictures are excluded. Restore them in Photo settings or check for new pictures.':'';
+    const pictures=visible.map(photo=>({id:frame.photoId(photo),url:photo.thumbnail,...choice(photo)}));
+    const key=JSON.stringify([pictures,empty]);
+    if(key===galleryKey)return;
+    galleryKey=key;
+    window.SkylitUI.photos.tiles({pictures,empty,onOpen(id){const index=state.photos.findIndex(photo=>frame.photoId(photo)===id);if(index<0)return;if(native&&native.photoBrowse)native.photoBrowse(index);else open(false,index,false);},onExclude(id,i){const photo=state.photos.find(photo=>frame.photoId(photo)===id);if(!photo||!updateChoice(id,{hidden:!choice(photo).hidden}))return;const remaining=Array.from(tiles.querySelectorAll('.photo-exclude'));(remaining[Math.min(i,remaining.length-1)]||$('photo-undo')).focus({preventScroll:true});}});
+    if(scroll)window.scrollTo(0,scroll);
   }
   function render(){
 
     const album=source==='album';
     $('photo-source').value=source;
+    if(document.hidden||!overlay.hidden||document.body.classList.contains('privacy-paused'))return;
+    const app=window.SkylitApp,tab=app.status().tab;
+    const area=app.settingsOpen?.()?$('settings').dataset.area:'';
+    const galleryVisible=!area&&tab==='photos';
+    if((!area&&tab==='overview')||area==='dashboard')renderOverviewPhotos();
+    if(!galleryVisible&&!area.startsWith('photo-')&&area!=='photos')return;
     $('photo-mail-setup').hidden=source!=='email';
     workspace.hidden=album;
     page.querySelector('.photo-feature').hidden=!album;
@@ -88,14 +119,11 @@
     if(document.activeElement!==$('photo-email'))$('photo-email').value='';
     $('photo-retention').value=String(state.maximum);$('photo-limit-row').hidden=true;$('photo-retention-note').textContent='Older pictures remain in your library.';
     $('photo-limit').value=String(state.maximum);
-    $('photo-speed').value=String(interval/1000);
-    $('photo-style').value=style;
+    if(!window.SkylitLibrary){$('photo-speed').value=String(interval/1000);$('photo-style').value=style;}
     $('photo-disconnect').hidden=!state.connected;
-    const tiles=$('photo-tiles'),scroll=window.scrollY;
-    const visible=state.photos.filter(photo=>!photo.pending&&(showHidden||!choice(photo).hidden));
-    const empty=!state.photos.length?(state.connected?'No pictures saved yet. Tap Check now after sending one to your inbox.':'Import pictures or connect a dedicated inbox in Photo settings to start your library.'):!visible.length?'All saved pictures are excluded. Restore them in Photo settings or check for new pictures.':'';
-    window.SkylitUI.photos.tiles({pictures:visible.map(photo=>({id:frame.photoId(photo),url:photo.url,...choice(photo)})),empty,onOpen(id){const index=state.photos.findIndex(photo=>frame.photoId(photo)===id);if(index<0)return;if(native&&native.photoBrowse)native.photoBrowse(index);else open(false,index,false);},onExclude(id,i){const photo=state.photos.find(photo=>frame.photoId(photo)===id);if(!photo||!updateChoice(id,{hidden:!choice(photo).hidden}))return;const remaining=Array.from(tiles.querySelectorAll('.photo-exclude'));(remaining[Math.min(i,remaining.length-1)]||$('photo-undo')).focus({preventScroll:true});}});
-    renderOverviewPhotos();paintChoice();if(scroll)window.scrollTo(0,scroll);const visibility=$('photo-visibility');if(visibility)visibility.textContent=(native&&native.photoExclude?state.excluded.length:state.photos.filter(p=>choice(p).hidden).length)+' excluded · Checks and retention pruning keep exclusions. Restore to allow import again. Email is never deleted.';
+    if(area==='photo-storage'){const visibility=$('photo-visibility');if(visibility)visibility.textContent=(native&&native.photoExclude?state.excluded.length:state.photos.filter(p=>choice(p).hidden).length)+' excluded · Checks and retention pruning keep exclusions. Restore to allow import again. Email is never deleted.';}
+    if(!galleryVisible)return;
+    if(!album)renderTiles();
     const headline=page.querySelector('.photo-copy .eyebrow'),title=page.querySelector('.photo-copy h2'),description=page.querySelector('.photo-copy p:not(.eyebrow)');
     headline.textContent=album?'YOUR SHARED GOOGLE PHOTOS ALBUM':'PICTURES ON THIS FRAME';
     title.textContent=album?'Shared album':'Your pictures';
@@ -151,6 +179,7 @@
   $('test-idle').onclick=()=>{if(source==='email'){if(native&&native.photoOpen)native.photoOpen(true);else open(true)}else if(native)native.openPhotos($('album-url').value,true);else if($('album-url').value)window.open($('album-url').value,'_blank','noopener')};
   if(native&&native.photoSource)native.photoSource(source);
   refresh();render();
+  window.addEventListener('skylit-tab',render);window.addEventListener('skylit-settings',render);
   window.addEventListener('skylit-preferences',render);window.addEventListener('skylit-display',()=>{render();if(window.SkylitPlayer)window.SkylitPlayer.preferencesChanged();});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 })();

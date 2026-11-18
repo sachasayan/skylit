@@ -76,6 +76,8 @@ picture, and favourite/exclude it, choose **Fit** (the default, whole image) or 
 or edit photo information. Existing local captions are retained but are not shown in the slideshow. Received dates appear there; Capture-date retention is opt-in for new imports, or entered manually. Skylit does not invent dates or identify people. The photo viewer has only Previous, Play/Pause, Zoom/Fit,
 Next and Close, each shown as an icon with an accessible name.
 
+The frame and paired phone grids request JPEG thumbnails up to 384 pixels on the long edge and 128 KiB each. Android generates them on demand from the private photo store, including older imports, and keeps up to 4 MiB of encoded thumbnails in memory. Opening a picture or starting a slideshow uses the full saved JPEG.
+
 Each gallery thumbnail has a trash icon. It **excludes** that picture from this
 frame's gallery, Overview and every slideshow; it never deletes email. Undo is
 available immediately. Exclusions are stored privately by the original image's

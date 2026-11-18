@@ -7,6 +7,7 @@
   if(new URLSearchParams(location.search).get('slides')==='advanced'){
     photos.push({id:'a'.repeat(64),url:'demo-photos/portrait-garden.svg',at:Date.now()-10*86400000,width:600,height:900,keeper:true,recent:false,taken:'2020-10-12',visual:'abcdef0123456789'}, {id:'b'.repeat(64),url:'demo-photos/portrait-house.svg',at:Date.now()-11*86400000,width:600,height:900,keeper:true,recent:false,taken:'2021-10-12',visual:'abcdef0123456788'}, {id:'c'.repeat(64),url:'demo-photos/lake.png',media:'demo-photos/sample-clip.mp4',at:Date.now()-12*86400000,width:640,height:480,kind:'video',keeper:true,recent:false});
   }
+  photos.forEach(photo=>{photo.thumbnail=photo.url;});
   const storedKeepers=localStorage.getItem('demo.keepers');const savedKeepers=new Set(storedKeepers?JSON.parse(storedKeepers):photos.filter(p=>p.keeper).map(p=>p.id));photos.forEach(photo=>{photo.keeper=savedKeepers.has(photo.id);});let review=localStorage.getItem('demo.review')==='true',dates=localStorage.getItem('demo.dates')==='true';
   const excluded=new Set(JSON.parse(localStorage.getItem('demo.photoExclusions')||'[]'));let days=0,maximum=Number(localStorage.getItem('demo.photoMaximum')||30);
   const normalize=window.SkylitPhotoModel.normalize;

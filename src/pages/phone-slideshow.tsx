@@ -3,7 +3,7 @@ import { Button } from "../components/ui/button";
 import { Input, Select } from "../components/ui/field";
 import { SegmentedControl } from "../components/ui/segmented-control";
 import type { PhoneState, SlideshowOptions, Photo } from "../lib/phone-data";
-import { photoUrl } from "./phone-ui";
+import { thumbnailUrl } from "./phone-ui";
 const collections = [
   ["recent", "Latest pictures + Keepers"],
   ["keepers", "Keepers"],
@@ -76,7 +76,7 @@ export function SlideshowSettings({
                   : [null, null, null]
                 ).map((p, i) =>
                   p ? (
-                    <img key={i} src={photoUrl(p.id)} alt="" />
+                    <img key={i} src={thumbnailUrl(p.id)} alt="" />
                   ) : (
                     <span key={i} className="sample-art" />
                   ),

@@ -85,7 +85,17 @@ public class MainActivity extends Activity {
       @Override public WebResourceResponse shouldInterceptRequest(WebView view,WebResourceRequest request){
         Uri u=request.getUrl();if(!"https".equals(u.getScheme())||!"appassets.androidplatform.net".equals(u.getHost()))return null;
         String path=u.getPath();if(path==null||"/".equals(path))path="/index.html";
-        if(path.startsWith("/private-photos/")){String id=path.substring("/private-photos/".length());if(!id.matches("[a-f0-9]{64}\\.jpg"))return missing();try{java.util.Map<String,String> headers=new java.util.HashMap<>();headers.put("Cache-Control","no-store");return new WebResourceResponse("image/jpeg",null,200,"OK",headers,photos.open(id.substring(0,64)));}catch(Exception e){return missing();}}
+        if(path.startsWith("/private-photos/")){
+          String name=path.substring("/private-photos/".length());
+          boolean thumbnail=name.startsWith("thumb/");
+          if(thumbnail)name=name.substring("thumb/".length());
+          if(!name.matches("[a-f0-9]{64}\\.jpg"))return missing();
+          String id=name.substring(0,64);
+          try{
+            java.util.Map<String,String> headers=java.util.Collections.singletonMap("Cache-Control","no-store");
+            return new WebResourceResponse("image/jpeg",null,200,"OK",headers,thumbnail?photos.openThumbnail(id):photos.open(id));
+          }catch(Exception e){return missing();}
+        }
         if(path.startsWith("/private-clips/")){String id=path.substring("/private-clips/".length());if(!id.matches("[a-f0-9]{64}\\.mp4"))return missing();try{return mediaResponse(photos.clip(id.substring(0,64)),"video/mp4",request.getRequestHeaders().containsKey("Range")?request.getRequestHeaders().get("Range"):request.getRequestHeaders().get("range"));}catch(Exception ignored){return missing();}}
         if("/private-music/soundtrack.m4a".equals(path)){try{java.util.Map<String,String> headers=new java.util.HashMap<>();headers.put("Cache-Control","no-store");return new WebResourceResponse("audio/mp4",null,200,"OK",headers,media.openMusic());}catch(Exception ignored){return missing();}}
         if(path.contains(".."))return missing();

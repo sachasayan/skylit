@@ -5,6 +5,9 @@ const Photos=require('../web/photos-model.js');
 test('only a private local photo URL is accepted for slideshow images',()=>{
   const id='a'.repeat(64),good='https://appassets.androidplatform.net/private-photos/'+id+'.jpg';
   assert.equal(Photos.safePhoto(good),good);
+  const photo=Photos.normalize({photos:[{url:good,thumbnail:'https://example.invalid/large.jpg'}]}).photos[0];
+  assert.equal(photo.url,good);
+  assert.equal(photo.thumbnail,good.replace('/private-photos/','/private-photos/thumb/'));
   for(const bad of ['https://appassets.androidplatform.net.evil.test/private-photos/'+id+'.jpg','http://appassets.androidplatform.net/private-photos/'+id+'.jpg','https://appassets.androidplatform.net/private-photos/../index.html','https://appassets.androidplatform.net/private-photos/'+id+'.jpg?x=1'])assert.equal(Photos.safePhoto(bad),null);
 });
 

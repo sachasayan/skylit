@@ -3,6 +3,7 @@ package com.wesbos.homehq;
 /** Side-effect-free limits shared by mail import and private photo storage. */
 final class PhotoPolicy {
   static final int MAX_DOWNLOAD=12*1024*1024,MAX_JPEG=4*1024*1024;
+  static final int THUMB_EDGE=384,MAX_THUMB_BYTES=128*1024;
   private PhotoPolicy(){}
   static boolean gmail(String email){return email!=null&&(email.matches("[^\\s@]+@gmail\\.com")||email.matches("[^\\s@]+@googlemail\\.com"));}
   static final long CLEANUP_INTERVAL=96L*60*60*1000;

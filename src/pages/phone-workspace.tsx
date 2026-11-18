@@ -13,7 +13,7 @@ import {
   type SlideshowOptions,
 } from "../lib/phone-data";
 
-import { PhoneDialog, PhoneIcon, photoUrl } from "./phone-ui";
+import { PhoneDialog, PhoneIcon, thumbnailUrl } from "./phone-ui";
 export function PhoneWorkspace({
   data,
   busy,
@@ -173,7 +173,7 @@ export function PhoneWorkspace({
         }}
       >
         {cover ? (
-          <img src={photoUrl(cover.id)} alt="" />
+          <img src={thumbnailUrl(cover.id)} alt="" />
         ) : (
           <span className="collection-placeholder">
             <PhoneIcon name="collections" />
@@ -367,7 +367,7 @@ export function PhoneWorkspace({
                     } else openPhoto(photo);
                   }}
                 >
-                  <img src={photoUrl(photo.id)} alt="" loading="lazy" />
+                  <img src={thumbnailUrl(photo.id)} alt="" loading="lazy" />
                   {selecting && (
                     <span className="selection-tick">
                       {selected.has(photo.id) && <PhoneIcon name="check" />}
@@ -485,7 +485,7 @@ export function PhoneWorkspace({
                 <h1>Show this picture?</h1>
                 <img
                   className="review-picture"
-                  src={photoUrl(pending[0].id)}
+                  src={thumbnailUrl(pending[0].id)}
                   alt={pending[0].title}
                 />
                 <p>{pending[0].title}</p>

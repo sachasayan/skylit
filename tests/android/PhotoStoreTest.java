@@ -50,6 +50,12 @@ public final class PhotoStoreTest {
     try{
       Memory memory=new Memory();File folder=new File(root,"persistence");PhotoStore store=new PhotoStore(folder,memory);
       check(store.add(new ByteArrayInputStream(first),now-day),"initial image saved");String id=store.list().getJSONObject(0).getString("id");
+      try(InputStream thumbnail=store.openThumbnail(id)){
+        check(thumbnail.available()>0&&thumbnail.available()<=PhotoPolicy.MAX_THUMB_BYTES,"thumbnail byte ceiling");
+        android.graphics.BitmapFactory.Options bounds=new android.graphics.BitmapFactory.Options();
+        bounds.inJustDecodeBounds=true;android.graphics.BitmapFactory.decodeStream(thumbnail,null,bounds);
+        check(bounds.outWidth>0&&bounds.outHeight>0&&Math.max(bounds.outWidth,bounds.outHeight)<=PhotoPolicy.THUMB_EDGE,"thumbnail pixel ceiling");
+      }
       check(!store.add(new ByteArrayInputStream(first),now),"duplicate deduplicated");check(store.list().length()==1,"duplicate count");
       check(store.exclude(id,true),"exclude saved");check(!store.exclude("../escape",true),"invalid exclusion rejected");
       store=new PhotoStore(folder,memory);check(excluded(store,id),"exclusion survives reopening");
@@ -61,6 +67,7 @@ public final class PhotoStoreTest {
       check(excluded(store,id),"pruning never forgets exclusion");check(!store.add(new ByteArrayInputStream(first),now),"pruned excluded source cannot reimport");
       check(store.restoreExcluded(),"restore exclusions");check(store.add(new ByteArrayInputStream(first),now),"restored source imports again");
       store.exclude(id,true);store.clear();check(store.excluded().length()==0&&store.list().length()==0,"explicit clear removes images and exclusions");
+      try{store.openThumbnail(id);throw new AssertionError("Cleared thumbnail returned");}catch(FileNotFoundException expected){checks++;}
       // Migration resets legacy windows exactly once, preserving picture and exclusion records.
       Memory legacy=new Memory();legacy.data.put("maximum","200");legacy.data.put("days","30");
       PhotoStore migrated=new PhotoStore(new File(root,"migration"),legacy);check(migrated.maximum()==30,"migration defaults to 30");

@@ -30,6 +30,10 @@ final class PhotoStore {
   private static PhotoStore shared;
   static synchronized PhotoStore get(Context context){if(shared==null)shared=new PhotoStore(context.getApplicationContext());return shared;}
   private long generation;
+  private final Object thumbnailDecode=new Object();
+  private final android.util.LruCache<String,byte[]> thumbnails=new android.util.LruCache<String,byte[]>(4*1024*1024){
+    @Override protected int sizeOf(String key,byte[] jpeg){return jpeg.length;}
+  };
   private final java.util.concurrent.Semaphore decoding=new java.util.concurrent.Semaphore(1);
   private static final class Item {String id,taken="",visual="";long at;int width,height;float x=.5f,y=.5f;boolean recent=true;Item(String i,long t){id=i;at=t;}}
   private static HashSet<String> checkedIds(String raw) throws Exception {JSONArray rows=new JSONArray(raw);if(rows.length()>300)throw new IllegalArgumentException();HashSet<String> ids=new HashSet<>();for(int i=0;i<rows.length();i++){String id=rows.getString(i);if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException();ids.add(id);}return ids;}
@@ -122,7 +126,7 @@ final class PhotoStore {
       Item item=iterator.next();if(item.recent||pins.contains(item.id))continue;
       File image=new File(directory,item.id+".jpg"),clip=new File(directory,item.id+".mp4");long bytes=size(item.id);
       if(clip.exists()&&!clip.delete())continue;if(image.exists()&&!image.delete())continue;
-      iterator.remove();tombstones.add(item.id);free+=bytes;removed++;
+      thumbnails.remove(item.id);iterator.remove();tombstones.add(item.id);free+=bytes;removed++;
     }
     if(removed>0){write(items);preferences.edit().putString("evicted",new JSONArray(tombstones).toString()).commit();}return removed;
   }
@@ -137,8 +141,59 @@ final class PhotoStore {
   String importImage(byte[] bytes,java.util.function.BooleanSupplier active) throws Exception {String id=digest(bytes);if(!active.getAsBoolean())return "";final long version;synchronized(this){version=generation;}addBytes(bytes,System.currentTimeMillis(),active,idValue->{},version,true,null);synchronized(this){return active.getAsBoolean()&&!exclusions().contains(id)&&new File(directory,id+".jpg").isFile()?id:"";}}
   String importPoster(byte[] bytes,String sourceId,java.util.function.BooleanSupplier active) throws Exception {if(!PhotoPolicy.photoId(sourceId)||!active.getAsBoolean())return "";final long version;synchronized(this){version=generation;}addBytes(bytes,System.currentTimeMillis(),active,id->{},version,true,sourceId);synchronized(this){return active.getAsBoolean()&&!exclusions().contains(sourceId)&&new File(directory,sourceId+".jpg").isFile()?sourceId:"";}}
   synchronized boolean attachClip(String id,File source){if(!PhotoPolicy.photoId(id)||exclusions().contains(id)||!new File(directory,id+".jpg").isFile()||source.length()>32L*1024*1024)return false;int clips=0;for(Item item:read())if(new File(directory,item.id+".mp4").isFile())clips++;if(new File(directory,id+".mp4").isFile())return true;if(clips>=20)return false;if(keepers().contains(id)){long pinned=source.length();for(String key:keepers())pinned+=size(key);if(pinned>KEEPER_STORAGE)return false;}return source.renameTo(new File(directory,id+".mp4"));}
-  synchronized void rollbackPoster(String id){if(!PhotoPolicy.photoId(id)||keepers().contains(id)||new File(directory,id+".mp4").isFile())return;ArrayList<Item> items=read();items.removeIf(item->item.id.equals(id));write(items);HashSet<String> waiting=pending();waiting.remove(id);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();new File(directory,id+".jpg").delete();}
+  synchronized void rollbackPoster(String id){if(!PhotoPolicy.photoId(id)||keepers().contains(id)||new File(directory,id+".mp4").isFile())return;ArrayList<Item> items=read();items.removeIf(item->item.id.equals(id));write(items);HashSet<String> waiting=pending();waiting.remove(id);preferences.edit().putString("pending",new JSONArray(waiting).toString()).commit();new File(directory,id+".jpg").delete();thumbnails.remove(id);}
   synchronized File clip(String id){if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException();return new File(directory,id+".mp4");}
+  // WebView and paired phone requests share this encoded cache. Decode on the
+  // requesting worker, outside the catalog lock, and bound concurrent misses.
+  InputStream openThumbnail(String id) throws Exception {
+    if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException("Invalid photo");
+    File source=new File(directory,id+".jpg");
+    synchronized(thumbnailDecode){
+      long version;
+      synchronized(this){
+        if(!source.isFile())throw new java.io.FileNotFoundException();
+        byte[] hit=thumbnails.get(id);
+        if(hit!=null)return new ByteArrayInputStream(hit);
+        version=generation;
+      }
+      byte[] jpeg=makeThumbnail(source);
+      synchronized(this){
+        if(generation!=version||!source.isFile())throw new java.io.FileNotFoundException();
+        thumbnails.put(id,jpeg);
+      }
+      return new ByteArrayInputStream(jpeg);
+    }
+  }
+
+  private static byte[] makeThumbnail(File source) throws java.io.IOException {
+    BitmapFactory.Options options=new BitmapFactory.Options();
+    Bitmap decoded;
+    try(FileInputStream input=new FileInputStream(source)){
+      options.inJustDecodeBounds=true;
+      BitmapFactory.decodeStream(input,null,options);
+      int longest=Math.max(options.outWidth,options.outHeight);
+      if(options.outWidth<=0||options.outHeight<=0)throw new java.io.IOException("Invalid photo dimensions");
+      options.inSampleSize=1;
+      while(longest/options.inSampleSize>=2*PhotoPolicy.THUMB_EDGE)options.inSampleSize*=2;
+      input.getChannel().position(0);
+      options.inJustDecodeBounds=false;
+      decoded=BitmapFactory.decodeStream(input,null,options);
+    }
+    if(decoded==null)throw new java.io.IOException("Photo could not be decoded");
+    try{
+      for(int edge=PhotoPolicy.THUMB_EDGE;edge>=1;edge/=2){
+        float scale=Math.min(1f,(float)edge/Math.max(decoded.getWidth(),decoded.getHeight()));
+        Bitmap small=Bitmap.createScaledBitmap(decoded,Math.max(1,Math.round(decoded.getWidth()*scale)),Math.max(1,Math.round(decoded.getHeight()*scale)),true);
+        try{
+          ByteArrayOutputStream output=new ByteArrayOutputStream();
+          if(!small.compress(Bitmap.CompressFormat.JPEG,80,output))throw new java.io.IOException("Thumbnail encoding failed");
+          if(output.size()<=PhotoPolicy.MAX_THUMB_BYTES)return output.toByteArray();
+        }finally{if(small!=decoded)small.recycle();}
+      }
+      throw new java.io.IOException("Thumbnail exceeds size limit");
+    }finally{decoded.recycle();}
+  }
+
   synchronized InputStream open(String id) throws Exception {if(!PhotoPolicy.photoId(id))throw new IllegalArgumentException("Invalid photo");File image=new File(directory,id+".jpg");if(!image.isFile())throw new java.io.FileNotFoundException();return new FileInputStream(image);}
-  synchronized void clear(){generation++;preferences.edit().remove("items").remove("excluded").remove("keepers").remove("pending").remove("evicted").commit();File[] files=directory.listFiles();if(files!=null)for(File file:files)file.delete();}
+  synchronized void clear(){generation++;thumbnails.evictAll();preferences.edit().remove("items").remove("excluded").remove("keepers").remove("pending").remove("evicted").commit();File[] files=directory.listFiles();if(files!=null)for(File file:files)file.delete();}
 }

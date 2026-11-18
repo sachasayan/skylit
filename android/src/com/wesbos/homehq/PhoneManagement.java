@@ -65,7 +65,16 @@ final class PhoneManagement implements AutoCloseable {
       if("GET".equals(method)&&"/pair-state".equals(path)){long now=System.currentTimeMillis();String state=pairing.state(cookie(headers),now);if("unavailable".equals(state)){respond(socket,403,"application/json","{}",null);return;}respond(socket,200,"application/json",new JSONObject().put("state",state).put("number","pending".equals(state)?pairing.number(now):"").toString(),null);return;}
       if(!authorized(headers)){respond(socket,403,"application/json","{}",null);return;}
       if("GET".equals(method)&&"/state".equals(path)){String state=dashboard.request(null,version);if(!active(version))return;respond(socket,state==null?503:200,"application/json",state==null?"{}":new JSONObject(state).put("sessionRemainingMs",Math.max(0,expires-System.currentTimeMillis())).toString(),null);return;}
-      if("GET".equals(method)&&path.matches("/photo/[a-f0-9]{64}\\.jpg")){String id=path.substring(7,path.length()-4);try(InputStream photo=photos.open(id)){respond(socket,200,"image/jpeg",LocalMedia.read(photo,PhotoPolicy.MAX_JPEG),null);}catch(Exception ignored){respond(socket,404,"application/json","{}",null);}return;}
+      if("GET".equals(method)&&path.matches("/photo/(?:thumb/)?[a-f0-9]{64}\\.jpg")){
+        boolean thumbnail=path.startsWith("/photo/thumb/");
+        String id=path.substring(path.lastIndexOf('/')+1,path.length()-4);
+        try(InputStream photo=thumbnail?photos.openThumbnail(id):photos.open(id)){
+          byte[] jpeg=LocalMedia.read(photo,thumbnail?PhotoPolicy.MAX_THUMB_BYTES:PhotoPolicy.MAX_JPEG);
+          if(!active(version)||!authorized(headers))return;
+          respond(socket,200,"image/jpeg",jpeg,null);
+        }catch(Exception ignored){respond(socket,404,"application/json","{}",null);}
+        return;
+      }
       if("POST".equals(method)&&"/action".equals(path)&&"application/json".equals(headers.get("content-type"))){JSONObject action=new JSONObject(new String(readBody(input,length),StandardCharsets.UTF_8));if(!active(version))return;String response=dashboard.request(action,version);respond(socket,"true".equals(response)?200:400,"application/json","{\"ok\":"+("true".equals(response)?"true":"false")+"}",null);return;}
       if("POST".equals(method)&&"/upload".equals(path)&&"image/jpeg".equals(headers.get("content-type"))){byte[] bytes=readBody(input,length);if(!active(version))return;if(bytes.length<3||bytes[0]!=(byte)0xff||bytes[1]!=(byte)0xd8){respond(socket,400,"application/json","{}",null);return;}String id=photos.importImage(bytes,()->active(version));if(id.isEmpty()||!active(version)){respond(socket,400,"application/json","{}",null);return;}photos.review(id,true);photos.prune(0,photos.maximum());dashboard.imported();respond(socket,200,"application/json","{\"ok\":true}",null);return;}
       if("POST".equals(method)&&"/upload-video".equals(path)&&"video/mp4".equals(headers.get("content-type"))){byte[] bytes=readBody(input,length);if(!active(version))return;media.clipBytes(bytes,()->active(version));dashboard.imported();respond(socket,200,"application/json","{\"ok\":true}",null);return;}
