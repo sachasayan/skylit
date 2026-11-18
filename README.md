@@ -98,6 +98,8 @@ the current layout. Modules snap to a 12 × 12 grid. Drag onto another widget to
 a selected widget; Shift + arrows resize it. The preview automatically follows the
 current screen's proportions.
 
+The default Balanced dashboard places **Email photos** between the clock and the photo strip. The Prints style shows up to five photos as the strip gets wider. You can also add it to an existing dashboard from the widget gallery. Scanning its QR code opens a new message addressed to the Gmail inbox configured in **Settings → Photos → Receiving photos**. Attach a picture and send it. The frame applies its usual sender and arrival-review rules.
+
 Tap a gallery preview to add a widget, or drag it into the canvas. The drop
 preview shows its destination. Select a widget to see its style and options;
 click empty canvas or **Back to widgets** to return to the gallery. Corner handles

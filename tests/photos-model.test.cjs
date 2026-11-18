@@ -31,3 +31,15 @@ test('count-only selection accepts exactly 12, 30, 60 and 90, ignoring legacy da
  for(const maximum of [12,30,60,90])assert.equal(Photos.normalize({maximum}).maximum,maximum);
  for(const maximum of [5,50,100,200,'12'])assert.equal(Photos.normalize({maximum}).maximum,30);
 });
+
+test('photo contribution code addresses only the active receiving inbox',()=>{
+  const state={connected:true,email:'frame+photos@example.invalid'};
+  assert.equal(Photos.inboxMailto('email',state),'mailto:frame%2Bphotos@example.invalid');
+  assert.equal(Photos.inboxMailto('email',{...state,email:'other@example.test'}),'mailto:other@example.test');
+  assert.equal(Photos.inboxMailto('email',{...state,email:'frame+party?2026@example.invalid'}),'mailto:frame%2Bparty%3F2026@example.invalid');
+  assert.equal(Photos.inboxMailto('album',state),'');
+  assert.equal(Photos.inboxMailto('email',{...state,connected:false}),'');
+  for(const email of ['',null,'a,b@example.invalid','a..b@example.invalid','a@bad..example','a@b@example.invalid','a\nb@example.invalid']){
+    assert.equal(Photos.inboxMailto('email',{...state,email}),'');
+  }
+});

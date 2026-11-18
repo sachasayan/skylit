@@ -38,5 +38,5 @@ window.SkylitDashboardPreview={create(canvas,options){
  }
  function queueRefresh(layout,sources,data,types){types.forEach(type=>changed.add(type));cancelAnimationFrame(pending);pending=requestAnimationFrame(()=>{const update=changed;changed=new Set();render(layout,sources,data,update);});}
  doc.querySelectorAll('link').forEach(link=>link.addEventListener('load',()=>fit(logical.width,logical.height)));function fontsChanged(){sizes=new WeakMap();fit(logical.width,logical.height);}doc.fonts.ready.then(fontsChanged);doc.fonts.addEventListener('loadingdone',fontsChanged);new ResizeObserver(()=>fit(logical.width,logical.height)).observe(canvas);
- return {render,beginGeometry,geometry,endGeometry,fit,queueRefresh,frame,document:doc};
+ return {render,invalidate(type){deferred.add(type);},beginGeometry,geometry,endGeometry,fit,queueRefresh,frame,document:doc};
 }};

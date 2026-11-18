@@ -43,6 +43,15 @@
 .dashboard-utility .section-title{flex:0 0 auto;gap:6px;min-height:44px;margin:0 0 6px}
 #overview .dashboard-utility h2{font:clamp(20px,2.1vw,30px)/1.2 Georgia,serif;margin:0;overflow-wrap:anywhere}
 .dashboard-utility .quiet{padding:8px;min-width:44px;min-height:44px;flex-shrink:0}
+.dashboard-photo-email{display:flex;align-items:center;justify-content:center;padding:6px}
+.dashboard-photo-email .photo-email-qr{display:block;width:100%;height:100%;color:#111}
+:root[data-mode=dark] .dashboard-photo-email .photo-email-qr{color:#fff}
+.photo-email-copy{padding:8px;min-width:0;overflow-wrap:break-word;max-height:100%;overflow:auto}
+#overview .photo-email-copy h2{margin:0;font:clamp(18px,2vw,30px)/1.1 Georgia,serif}
+.photo-email-copy p{margin:6px 0;line-height:1.25}
+.photo-email-copy small{display:block}
+.dashboard-palette-preview .widget-mini-qr{width:48%;height:75%;color:var(--ink)}
+@media(max-width:799px){.dashboard-photo-email{height:200px}}
 .dashboard-module-content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;overflow-wrap:anywhere}
 .dashboard-module-content p{margin:6px 0;font-size:calc(16px * var(--ui-scale));line-height:1.5}
 .dashboard-note{white-space:pre-wrap}
@@ -311,6 +320,12 @@
 /* Prints keep each photograph’s proportions while positions use the whole slot. */
 #overview .dashboard-module[data-widget-style=prints] .overview-photo-stack{inset:0}
 #overview .dashboard-module[data-widget-style=prints] .overview-photo-stack img{box-sizing:border-box;left:var(--print-left,10%);top:var(--print-top,10%);width:var(--print-width,120px);height:var(--print-height,160px);object-fit:cover;border-width:5px;border-bottom-width:12px}
+
+#overview [data-widget-style=prints][data-print-count="1"] img:nth-child(n+2),
+#overview [data-widget-style=prints][data-print-count="2"] img:nth-child(n+3),
+#overview [data-widget-style=prints][data-print-count="3"] img:nth-child(n+4),
+#overview [data-widget-style=prints][data-print-count="4"] img:nth-child(n+5),
+#overview [data-widget-style=mosaic] .overview-photo-stack img:nth-child(n+4){display:none}
 
 /* Gesture handles must override the shared button manipulation policy. */
 .dashboard-workbench .dashboard-move,.dashboard-workbench .dashboard-resize{touch-action:none}

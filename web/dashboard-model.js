@@ -7,6 +7,7 @@
     {type:'clock',name:'Clock & date',description:'Time and date in your selected city.',minW:3,minH:3},
     {type:'weather',name:'Weather',description:'Current conditions and the familiar landscape.',minW:3,minH:4},
     {type:'photos',name:'Photos',description:'Your curated local pictures; tap to open Photos.',minW:3,minH:3},
+    {type:'photo-email',name:'Email photos',description:'Scan to send pictures to this frame’s photo inbox.',minW:3,minH:4},
     {type:'plans',name:'Upcoming events',description:'Plans anchored to today, independent of month browsing.',minW:3,minH:4},
     {type:'forecast',name:'Hourly forecast',description:'The next few hours from your existing forecast.',minW:3,minH:4},
     {type:'note',name:'Note',description:'The pinned note from Household settings.',minW:3,minH:3},
@@ -17,8 +18,12 @@
   const definition=type=>catalog.find(item=>item.type===type);
   const copy=layout=>({version:1,modules:layout.modules.map(item=>({...item}))});
   function preset(name='balanced'){
-    const positions=name==='photos'?[[0,0,6,4],[0,4,6,8],[6,0,6,6],[6,6,6,6]]:name==='agenda'?[[0,0,4,4],[0,4,4,8],[4,0,8,4],[4,4,8,8]]:[[0,0,6,4],[0,4,6,8],[6,0,6,4],[6,4,6,8]];
-    return {version:1,modules:['clock','weather','photos','plans'].map((type,i)=>({type,x:positions[i][0],y:positions[i][1],w:positions[i][2],h:positions[i][3]}))};
+    const positions=name==='photos'?[[0,0,6,4],[0,4,6,8],[6,0,6,6],[6,6,6,6]]:name==='agenda'?[[0,0,4,4],[0,4,4,8],[4,0,8,4],[4,4,8,8]]:[[0,0,4,4],[0,4,6,8],[7,0,5,4],[6,4,6,8]];
+    const modules=['clock','weather','photos','plans'].map((type,i)=>({type,x:positions[i][0],y:positions[i][1],w:positions[i][2],h:positions[i][3]}));
+    if(name!=='photos'&&name!=='agenda'){
+      modules.push({type:'photo-email',x:4,y:0,w:3,h:4});
+    }
+    return {version:1,modules};
   }
   const overlaps=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
   function valid(item){const d=item&&definition(item.type);return !!d&&['x','y','w','h'].every(k=>Number.isInteger(item[k]))&&item.x>=0&&item.y>=0&&item.w>=d.minW&&item.h>=d.minH&&item.x+item.w<=columns&&item.y+item.h<=rows;}
@@ -55,7 +60,14 @@
       if(distance<score){best=item;score=distance;}
     }return best;
   }
-  function arrange(layout){return {version:1,modules:layout.modules.map((item,i)=>{const next={type:item.type,x:(i%3)*4,y:Math.floor(i/3)*4,w:4,h:4};setStyle(next,item.style);return next;})};}
+  function arrange(layout){
+    const perRow=layout.modules.length>9?4:3,width=columns/perRow;
+    const modules=layout.modules.map((item,i)=>{
+      const next={type:item.type,x:(i%perRow)*width,y:Math.floor(i/perRow)*4,w:width,h:4};
+      return setStyle(next,item.style);
+    });
+    return {version:1,modules};
+  }
   function add(layout,type,position=null){
     if(!definition(type)||layout.modules.some(item=>item.type===type))return {layout:copy(layout),added:false,rearranged:false};
     const next=copy(layout),item={type,x:0,y:0,w:4,h:4};

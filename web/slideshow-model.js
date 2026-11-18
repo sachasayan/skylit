@@ -11,7 +11,7 @@
   const time=value=>typeof value==='string'&&/^([01]\d|2[0-3]):[0-5]\d$/.test(value);
   function options(raw={}){
     if(!raw||typeof raw!=='object')raw={};
-    return {maximum:pick(raw.maximum,[12,30,60,90],30),duration:number(raw.duration,5,3600,30),browseDuration:number(raw.browseDuration,5,300,8),transition:pick(raw.transition,[0,300,800,1500],800),style:pick(raw.style,['fade','stack','collage','gentle','still'],'fade'),transitionType:pick(raw.transitionType,['fade','cut','slide','wipe','mixed'],'fade'),background:pick(raw.background,['mat','black','blur'],'mat'),fit:pick(raw.fit,['contain','cover','auto'],'contain'),layout:pick(raw.layout,['auto','single','pair'],'auto'),order:pick(raw.order,['newest','oldest','manual','shuffle'],'newest'),repeat:raw.repeat!==false,motion:raw.motion!==false,weighted:raw.weighted===true,newFirst:raw.newFirst!==false,resume:raw.resume!==false,collection:text(raw.collection,64)||'recent',manual:ids(raw.manual),schedule:raw.schedule===true,start:time(raw.start)?raw.start:'07:00',end:time(raw.end)?raw.end:'22:00',brightness:number(raw.brightness,0.05,1,1),nightBrightness:number(raw.nightBrightness,0.05,1,0.1),dim:raw.dim===true,title:text(raw.title,100),outro:text(raw.outro,100),titleSeconds:number(raw.titleSeconds,2,10,3),music:raw.music===true,musicVolume:number(raw.musicVolume,0,1,.2),story:raw.story===true,storySeconds:number(raw.storySeconds,5,60,8),seasonal:raw.seasonal===true,seasonStart:number(raw.seasonStart,1,12,1),seasonEnd:number(raw.seasonEnd,1,12,12)};
+    return {maximum:pick(raw.maximum,[12,30,60,90],30),duration:number(raw.duration,5,3600,30),browseDuration:number(raw.browseDuration,5,300,8),transition:pick(raw.transition,[0,300,800,1500],800),style:pick(raw.style,['fade','stack','collage','gentle','still'],'fade'),transitionType:pick(raw.transitionType,['fade','cut','slide','wipe','mixed'],'fade'),background:'black',fit:pick(raw.fit,['contain','cover','auto'],'contain'),layout:pick(raw.layout,['auto','single','pair'],'auto'),order:pick(raw.order,['newest','oldest','manual','shuffle'],'newest'),repeat:raw.repeat!==false,motion:raw.motion!==false,weighted:raw.weighted===true,newFirst:raw.newFirst!==false,resume:raw.resume!==false,collection:text(raw.collection,64)||'recent',manual:ids(raw.manual),schedule:raw.schedule===true,start:time(raw.start)?raw.start:'07:00',end:time(raw.end)?raw.end:'22:00',brightness:number(raw.brightness,0.05,1,1),nightBrightness:number(raw.nightBrightness,0.05,1,0.1),dim:raw.dim===true,title:text(raw.title,100),outro:text(raw.outro,100),titleSeconds:number(raw.titleSeconds,2,10,3),music:raw.music===true,musicVolume:number(raw.musicVolume,0,1,.2),story:raw.story===true,storySeconds:number(raw.storySeconds,5,60,8),seasonal:raw.seasonal===true,seasonStart:number(raw.seasonStart,1,12,1),seasonEnd:number(raw.seasonEnd,1,12,12)};
   }
   function photoChoice(raw={}){
     if(!raw||typeof raw!=='object')raw={};
@@ -48,21 +48,64 @@
   function shuffled(items,random=Math.random,previous=null){const out=items.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}if(out.length>1&&out[0]===previous){[out[0],out[1]]=[out[1],out[0]];}return out;}
   // Queue changes never reshuffle the current cycle or replace viewing history.
   class Queue{
-    constructor(items=[],p={},random=Math.random){this.random=random;this.p=options(p);this.available=[];this.queue=[];this.history=[];this.cursor=-1;this.cycles=0;this.favourites=[];this.update(items,p);}
-    update(items,p=this.p){this.p=options(p);const next=validIds(items),valid=new Set(next),old=new Set(this.available);this.available=next;this.queue=this.queue.filter(x=>valid.has(x));const before=this.history.slice(0,this.cursor+1).filter(x=>valid.has(x)),after=this.history.slice(this.cursor+1).filter(x=>valid.has(x));this.history=before.concat(after);this.cursor=before.length-1;const additions=next.filter(x=>!old.has(x));if(this.cursor<0&&!this.queue.length)this.queue=this.cycle(null);else{const queued=new Set(this.queue);const fresh=additions.filter(x=>!queued.has(x));this.queue=this.p.newFirst?fresh.concat(this.queue):this.queue.concat(fresh);}return this.current();}
+    constructor(items=[],p={},random=Math.random){this.random=random;this.p=options(p);this.available=[];this.queue=[];this.history=[];this.scenes=[];this.cursor=-1;this.cycles=0;this.favourites=[];this.update(items,p);}
+    update(items,p=this.p){this.p=options(p);const next=validIds(items),valid=new Set(next),old=new Set(this.available);this.available=next;this.queue=this.queue.filter(x=>valid.has(x));const before=this.history.slice(0,this.cursor+1).filter(x=>valid.has(x)),after=this.history.slice(this.cursor+1).filter(x=>valid.has(x));this.scenes=this.history.flatMap((id,i)=>valid.has(id)?[this.scenes[i]?.filter(id=>valid.has(id))||null]:[]);this.history=before.concat(after);this.cursor=before.length-1;const additions=next.filter(x=>!old.has(x));if(this.cursor<0&&!this.queue.length)this.queue=this.cycle(null);else{const queued=new Set(this.queue);const fresh=additions.filter(x=>!queued.has(x));this.queue=this.p.newFirst?fresh.concat(this.queue):this.queue.concat(fresh);}return this.current();}
     cycle(previous){this.cycles++;const out=this.p.order==='shuffle'?shuffled(this.available,this.random,previous):this.available.slice();if(this.p.weighted&&out.length>1){for(const id of this.favourites||[]){if(!out.includes(id))continue;for(let i=Math.floor(out.length/2);i<=out.length;i++)if(out[i-1]!==id&&out[i]!==id){out.splice(i,0,id);break;}}}if(out.length>1&&out[0]===previous){const index=out.findIndex(x=>x!==previous);if(index>0)[out[0],out[index]]=[out[index],out[0]];}return out;}
     current(){return this.history[this.cursor]||null;}
-    start(value){if(value&&this.available.includes(value)){this.queue=this.queue.filter(x=>x!==value);this.history=[value];this.cursor=0;return value;}return this.next();}
-    next(){if(this.cursor<this.history.length-1)return this.history[++this.cursor];if(!this.queue.length){if(!this.p.repeat)return null;this.queue=this.cycle(this.current());}const value=this.queue.shift();if(!value)return null;this.history.push(value);if(this.history.length>600)this.history.shift();this.cursor=this.history.length-1;return value;}
+    start(value){if(value&&this.available.includes(value)){this.queue=this.queue.filter(x=>x!==value);this.history=[value];this.scenes=[null];this.cursor=0;return value;}return this.next();}
+    take(allowed,avoid){
+      const fresh=id=>allowed.has(id)&&!avoid.includes(id);
+      if(this.p.repeat&&(!this.queue.length||
+        (!this.queue.some(fresh)&&
+          this.queue.some(id=>avoid.includes(id))&&this.available.some(fresh)))){
+        // Carry unplayed entries ahead of the next cycle without accumulating weighted duplicates.
+        const pending=new Set(this.queue);
+        this.queue.push(...this.cycle(this.current()).filter(id=>!pending.has(id)));
+      }
+      let index=this.queue.findIndex(fresh);
+      if(index<0)index=this.queue.findIndex(id=>allowed.has(id));
+      return index<0?null:this.queue.splice(index,1)[0];
+    }
+    next(avoid=[]){
+      if(this.cursor<this.history.length-1)return this.history[++this.cursor];
+      const value=this.take(new Set(this.available),avoid);
+      if(!value)return null;
+      this.history.push(value);this.scenes.push(null);
+      if(this.history.length>600){this.history.shift();this.scenes.shift();}
+      this.cursor=this.history.length-1;return value;
+    }
+    // The history cursor points to a scene's lead. Its partner is consumed from the same cycle.
+    pair(candidates){
+      const saved=this.scenes[this.cursor];
+      if(saved)return saved;
+      const lead=this.current(),previous=this.scenes[this.cursor-1]||[],result=[lead];
+      const allowed=new Set(candidates.filter(id=>id!==lead));
+      if(allowed.size){
+        const partner=this.take(allowed,[...previous,lead]);
+        if(partner)result.push(partner);
+      }
+      this.scenes[this.cursor]=result;return result;
+    }
     previous(){if(this.cursor>0)return this.history[--this.cursor];return this.current();}
     skip(id){this.update(this.available.filter(x=>x!==id));}
-    snapshot(){return {current:this.current(),queue:this.queue.slice(),history:this.history.slice(-60),cycles:this.cycles};}
+    snapshot(){return {current:this.current(),queue:this.history.slice(this.cursor+1).flatMap((id,i)=>{const scene=this.scenes[this.cursor+1+i];return this.p.style!=='collage'&&scene?scene:[id];}).concat(this.queue),history:this.history.slice(0,this.cursor+1).slice(-60),scenes:this.scenes.slice(0,this.cursor+1).slice(-60),available:this.available.slice(),cycles:this.cycles};}
   }
   function aspect(photo,choice={}){const w=Number(photo.width)||1,h=Number(photo.height)||1;return [90,270].includes(choice.rotation)?h/w:w/h;}
   function composition(photos,index,p,choices={}){if(!photos.length)return [];p=options(p);const first=photos[index%photos.length];if(first.kind==='video')return [first];const portrait=aspect(first,photoChoice(choices[first.id]))<.85;let count=p.style==='collage'?Math.min(3,photos.length):p.layout==='pair'||p.layout==='auto'&&portrait?Math.min(2,photos.length):1;const result=[first];for(let i=1;i<photos.length&&result.length<count;i++){const photo=photos[(index+i)%photos.length];if(photo.kind==='video')continue;if(p.style!=='collage'&&count===2&&p.layout==='auto'&&aspect(photo,photoChoice(choices[photo.id]))>=.85)continue;result.push(photo);}return result;}
   function framing(photo,c,p,width,height){c=photoChoice(c);p=options(p);const rotation=c.rotation,fit=c.fit==='auto'?p.fit==='auto'?(Math.abs(aspect(photo,c)-width/Math.max(1,height))<.2?'cover':'contain'):p.fit:c.fit;let x=c.customCrop?c.x:c.autoCrop&&Number.isFinite(photo.focalX)?photo.focalX*100:50,y=c.customCrop?c.y:c.autoCrop&&Number.isFinite(photo.focalY)?photo.focalY*100:50;if(c.customCrop){if(rotation===90)[x,y]=[y,100-x];else if(rotation===180)[x,y]=[100-x,100-y];else if(rotation===270)[x,y]=[100-y,x];}return {fit,position:x+'% '+y+'%',rotation,width:rotation===90||rotation===270?height:width,height:rotation===90||rotation===270?width:height};}
+  // Photo IDs are content hashes, so each print keeps its angle when revisited.
+  function printTilt(photoId){
+    const seed=Number.parseInt(photoId.slice(-8),16);
+    return ((seed%41)-20)/10;
+  }
+  function printGeometry(photo,choice,settings,width,height){
+    const edge=Math.max(1,Math.min(16,Math.round(Math.min(width,height)*.024)));
+    const w=Math.max(1,width-2*edge),h=Math.max(1,height-2*edge);
+    const ratio=aspect(photo,choice),fit=framing(photo,choice,settings,w,h).fit;
+    return {width:fit==='cover'?w:Math.min(w,h*ratio),height:fit==='cover'?h:Math.min(h,w/ratio),edge,fit};
+  }
   function panImage(x,y,zoom,width,height,imageWidth,imageHeight,fit='contain'){const factor=fit==='cover'?Math.max(width/imageWidth,height/imageHeight):Math.min(width/imageWidth,height/imageHeight),dx=Math.max(0,(imageWidth*factor*zoom-width)/2),dy=Math.max(0,(imageHeight*factor*zoom-height)/2);return {x:Math.max(-dx,Math.min(dx,x)),y:Math.max(-dy,Math.min(dy,y))};}
   function pan(x,y,zoom,width,height){const limitX=Math.max(0,width*(zoom-1)/2),limitY=Math.max(0,height*(zoom-1)/2);return {x:Math.max(-limitX,Math.min(limitX,x)),y:Math.max(-limitY,Math.min(limitY,y))};}
   function similar(a,b){if(typeof a!=='string'||typeof b!=='string'||!/^([a-f0-9]{16})$/.test(a)||!/^([a-f0-9]{16})$/.test(b))return false;let distance=0;for(let i=0;i<16;i++){let n=parseInt(a[i],16)^parseInt(b[i],16);while(n){distance+=n&1;n>>=1;}}return distance<=5;}
-  return {MAX_PHOTOS,MAX_ALBUMS,MAX_PRESETS,id,ids,validDate,options,photoChoice,library,dateParts,allowed,select,shuffled,Queue,aspect,composition,framing,pan,panImage,similar};
+  return {MAX_PHOTOS,MAX_ALBUMS,MAX_PRESETS,id,ids,validDate,options,photoChoice,library,dateParts,allowed,select,shuffled,Queue,aspect,composition,framing,printTilt,printGeometry,pan,panImage,similar};
 });

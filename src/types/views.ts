@@ -22,6 +22,7 @@ export type EventGroup = { key: string; title: string; items: EventRow[] };
 export type ModuleType =
   | "clock"
   | "photos"
+  | "photo-email"
   | "weather"
   | "plans"
   | "forecast"

@@ -66,7 +66,7 @@
  // Replace duplicate text selectors with visual choices.
  choices('photo-style',[['fade','Soft fade'],['stack','Falling prints'],['collage','Photo collage'],['gentle','Gentle pan & zoom'],['still','Still gallery']],true);
  document.querySelectorAll('.style-previews').forEach(n=>n.remove());choices('photo-speed',[['10','10 sec'],['30','30 sec'],['60','1 min'],['300','5 min']]);
- choices('slideshow-layout',null,true);choices('slideshow-fit');choices('slideshow-background',null,true);choices('slideshow-transition');choices('slideshow-transition-type',null,true);choices('slideshow-order');choices('photo-refresh-interval');
+ choices('slideshow-layout',null,true);choices('slideshow-fit');choices('slideshow-transition');choices('slideshow-transition-type',null,true);choices('slideshow-order');choices('photo-refresh-interval');
  // Library batch actions appear only after entering selection mode.
  const selectButton=button('Select pictures',()=>{SkylitLibrary.setSelectionMode(!selectButton.dataset.active||selectButton.dataset.active==='false');},'secondary');$('library-grid').before(selectButton);
  const curation=$('library-curation'),selectBar=$('library-select-all').parentElement,batchBar=$('library-keep').parentElement,albumFields=$('library-album-name').closest('.library-fields'),albumBar=$('library-create-album').parentElement;

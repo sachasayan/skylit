@@ -12,7 +12,11 @@ const collections = [
 ];
 const styles = [
   ["fade", "Soft fade", "One picture gently dissolves into the next."],
-  ["stack", "Falling prints", "Overlapping prints settle onto the screen."],
+  [
+    "stack",
+    "Falling prints",
+    "Individual white prints settle onto a black background.",
+  ],
   ["collage", "Photo collage", "Several pictures share the screen."],
   ["gentle", "Gentle pan & zoom", "Slow movement across each picture."],
   ["still", "Still gallery", "Pictures change without an animated transition."],
