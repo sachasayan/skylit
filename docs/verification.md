@@ -1154,3 +1154,19 @@ Hardware acceptance on identity-verified D156 (Android 12 / WebView 95):
 
 Publication and final exact-artifact acceptance are recorded in the task report.
 No claim of unattended stock import is made or needed for this change.
+
+## 2.19.0 photo refresh, thumbnails, and dashboard prints
+
+The dashboard email QR, responsive photo strip, individually framed slideshow pairs,
+and photo refresh changes were exercised on an Android 12 frame running WebView 95.
+Checks covered QR decoding and the missing-address fallback, different strip widths,
+timed pair advances, Previous, and stable per-photo tilt. On Overview an unchanged
+photo refresh skipped the gallery, strip, order, pending and similarity renders.
+The frame gallery and library requested zero full-size JPEGs in the thumbnail check.
+Opening a picture used the full saved JPEG. Synthetic phone tests exercised grid
+thumbnail URLs and navigation. The isolated Android photo-store tests covered the
+384-pixel and 128 KiB thumbnail limits and invalidation on erase.
+
+These checks used the feature builds. The production artifact is built and signed
+from the clean merged commit. This release does not change the mail protocol or
+shared album integration.
