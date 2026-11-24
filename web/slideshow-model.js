@@ -92,6 +92,28 @@
   }
   function aspect(photo,choice={}){const w=Number(photo.width)||1,h=Number(photo.height)||1;return [90,270].includes(choice.rotation)?h/w:w/h;}
   function composition(photos,index,p,choices={}){if(!photos.length)return [];p=options(p);const first=photos[index%photos.length];if(first.kind==='video')return [first];const portrait=aspect(first,photoChoice(choices[first.id]))<.85;let count=p.style==='collage'?Math.min(3,photos.length):p.layout==='pair'||p.layout==='auto'&&portrait?Math.min(2,photos.length):1;const result=[first];for(let i=1;i<photos.length&&result.length<count;i++){const photo=photos[(index+i)%photos.length];if(photo.kind==='video')continue;if(p.style!=='collage'&&count===2&&p.layout==='auto'&&aspect(photo,photoChoice(choices[photo.id]))>=.85)continue;result.push(photo);}return result;}
+  function stageComposition(photos,index,p,choices={},containerAspect=16/9){
+    if(!photos.length)return {photos:[],direction:'row'};
+    p=options(p);
+    const first=photos[index%photos.length];
+    if(first.kind==='video')return {photos:[first],direction:'row'};
+    if(p.style==='collage')return {photos:composition(photos,index,p,choices),direction:'collage'};
+    const tallStage=Number.isFinite(containerAspect)&&containerAspect<1.25;
+    const firstRatio=aspect(first,photoChoice(choices[first.id]));
+    if(!tallStage){
+      return {photos:composition(photos,index,p,choices),direction:'row'};
+    }
+    const landscape=firstRatio>1.15;
+    const count=p.layout==='pair'||(p.layout==='auto'&&landscape)?Math.min(2,photos.length):1;
+    const result=[first];
+    for(let i=1;i<photos.length&&result.length<count;i++){
+      const photo=photos[(index+i)%photos.length];
+      if(photo.kind==='video')continue;
+      if(count===2&&p.layout==='auto'&&aspect(photo,photoChoice(choices[photo.id]))<=1.15)continue;
+      result.push(photo);
+    }
+    return {photos:result,direction:'column'};
+  }
   function framing(photo,c,p,width,height){c=photoChoice(c);p=options(p);const rotation=c.rotation,fit=c.fit==='auto'?p.fit==='auto'?(Math.abs(aspect(photo,c)-width/Math.max(1,height))<.2?'cover':'contain'):p.fit:c.fit;let x=c.customCrop?c.x:c.autoCrop&&Number.isFinite(photo.focalX)?photo.focalX*100:50,y=c.customCrop?c.y:c.autoCrop&&Number.isFinite(photo.focalY)?photo.focalY*100:50;if(c.customCrop){if(rotation===90)[x,y]=[y,100-x];else if(rotation===180)[x,y]=[100-x,100-y];else if(rotation===270)[x,y]=[100-y,x];}return {fit,position:x+'% '+y+'%',rotation,width:rotation===90||rotation===270?height:width,height:rotation===90||rotation===270?width:height};}
   // Photo IDs are content hashes, so each print keeps its angle when revisited.
   function printTilt(photoId){
@@ -107,5 +129,5 @@
   function panImage(x,y,zoom,width,height,imageWidth,imageHeight,fit='contain'){const factor=fit==='cover'?Math.max(width/imageWidth,height/imageHeight):Math.min(width/imageWidth,height/imageHeight),dx=Math.max(0,(imageWidth*factor*zoom-width)/2),dy=Math.max(0,(imageHeight*factor*zoom-height)/2);return {x:Math.max(-dx,Math.min(dx,x)),y:Math.max(-dy,Math.min(dy,y))};}
   function pan(x,y,zoom,width,height){const limitX=Math.max(0,width*(zoom-1)/2),limitY=Math.max(0,height*(zoom-1)/2);return {x:Math.max(-limitX,Math.min(limitX,x)),y:Math.max(-limitY,Math.min(limitY,y))};}
   function similar(a,b){if(typeof a!=='string'||typeof b!=='string'||!/^([a-f0-9]{16})$/.test(a)||!/^([a-f0-9]{16})$/.test(b))return false;let distance=0;for(let i=0;i<16;i++){let n=parseInt(a[i],16)^parseInt(b[i],16);while(n){distance+=n&1;n>>=1;}}return distance<=5;}
-  return {MAX_PHOTOS,MAX_ALBUMS,MAX_PRESETS,id,ids,validDate,options,photoChoice,library,dateParts,allowed,select,shuffled,Queue,aspect,composition,framing,printTilt,printGeometry,pan,panImage,similar};
+  return {MAX_PHOTOS,MAX_ALBUMS,MAX_PRESETS,id,ids,validDate,options,photoChoice,library,dateParts,allowed,select,shuffled,Queue,aspect,composition,stageComposition,framing,printTilt,printGeometry,pan,panImage,similar};
 });

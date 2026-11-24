@@ -78,3 +78,29 @@
 
 #photo-mail-setup .photo-options{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
 .update-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.update-window{display:flex;gap:16px;max-width:420px}.update-window>div{flex:1}#update-notes{white-space:pre-wrap;overflow-wrap:anywhere}#update-progress{width:100%;accent-color:var(--accent);margin:12px 0}.rail-bottom .update-sidebar{width:100%;margin:0 0 12px;padding:12px 8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--accent)}
+
+/* Compact icon-only left navigation rail; preserves Momo, touch targets and accessible labels. */
+.rail{width:clamp(76px,6.6vw,92px);min-width:clamp(76px,6.6vw,92px);padding:18px 8px 16px;align-items:center}
+.momo-home{width:100%;height:clamp(54px,8.8vh,70px);margin-top:0}
+.momo-button{width:100%;height:100%;border-radius:16px}
+.momo-button canvas{width:100%;height:100%;max-width:100%;object-fit:contain}
+.rail nav{width:100%;align-items:center;gap:6px;margin-top:16px}
+.nav{position:relative;width:clamp(48px,4.2vw,56px);height:clamp(48px,4.2vw,56px);min-width:48px;min-height:48px;padding:0;gap:0;justify-content:center;border-radius:14px}
+.nav:not(.active):hover{background:var(--soft);color:var(--ink)}
+.nav svg{width:24px;height:24px}
+.nav-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.rail-bottom{width:100%;padding:12px 0 0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.rail-bottom .update-sidebar{order:-1;width:clamp(48px,4.2vw,56px);height:clamp(48px,4.2vw,56px);min-width:48px;min-height:48px;margin:0;padding:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--accent)}
+.rail-status{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;color:var(--muted)}
+.rail-status svg{width:20px;height:20px}
+.rail-status[data-online=true] .rail-status-offline,.rail-status[data-online=false] .rail-status-online{display:none}
+.rail-status[data-online=false]{color:var(--accent)}
+@media(min-width:800px) and (max-height:650px) and (orientation:landscape){.rail{padding:10px 8px}.momo-home{height:48px}.rail nav{margin-top:8px;gap:3px}.nav,.rail-bottom .update-sidebar{width:46px;height:44px;min-width:44px;min-height:44px;border-radius:12px}.rail-bottom{padding-top:6px;gap:6px}.rail-status{width:34px;height:34px}.rail-status svg{width:18px;height:18px}}
+@media(max-width:799px){.rail{width:100%;min-width:0;height:auto;padding:8px 10px;align-items:stretch}.momo-home,.rail-bottom{display:none}.rail nav{width:100%;margin:0;flex-direction:row;flex-wrap:nowrap;justify-content:space-around;gap:4px;overflow-x:auto}.nav{flex:0 1 48px;width:48px;height:44px;min-width:44px;min-height:44px;padding:0;border-radius:12px}.nav svg{width:22px;height:22px}}
+/* Top greeting/location bar removed; reclaim its height cleanly across landscape viewports. */
+:root{--main-pad-y:var(--page-pad)}
+.page-heading{padding:4px 0 16px}
+#weather .page-heading{padding:4px 0 18px}
+@media(min-width:1000px) and (max-height:800px){:root{--main-pad-y:16px}main{padding:16px 32px}#weather .page-heading{padding:2px 0 12px}}
+@media(min-width:800px) and (orientation:landscape){#overview .overview-grid,#calendar.active{height:calc(100vh - 2 * var(--main-pad-y))}#overview .overview-grid{padding-top:0}#calendar .page-heading{padding:2px 0 10px}}
+@media(min-width:800px) and (max-height:650px) and (orientation:landscape){:root{--main-pad-y:var(--page-pad)}main{padding:var(--page-pad)}#overview .overview-grid,#calendar.active{height:calc(100vh - 2 * var(--page-pad))}#calendar .page-heading{padding:0 0 6px}}

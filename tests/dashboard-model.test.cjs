@@ -17,11 +17,11 @@ test('invalid and overlapping records cannot break the grid or supply markup',()
 test('move and resize reject collisions, non-integers and offscreen geometry without mutating input',()=>{
   const layout=model.preset(),before=JSON.stringify(layout);
   assert.equal(model.change(layout,'clock',{x:1}),null);
-  assert.equal(model.change(layout,'clock',{h:5}),null);
+  assert.equal(model.change(layout,'clock',{h:4}),null);
   assert.equal(model.change(layout,'clock',{x:-1}),null);
   assert.equal(model.change(layout,'clock',{w:2}),null);
   assert.equal(model.change(layout,'clock',{h:3.1}),null);
-  const next=model.change(layout,'clock',{w:3,h:3});sound(next);assert.equal(model.change(next,'clock',{x:1,y:1}).modules[0].x,1);
+  const next=model.change(model.preset('photos'),'clock',{w:3,h:3});sound(next);assert.equal(model.change(next,'clock',{x:1,y:1}).modules[0].x,1);
   assert.equal(JSON.stringify(layout),before);
 });
 test('adding to a full dashboard makes space, preserves every module and supports every catalog entry',()=>{
@@ -32,7 +32,7 @@ test('adding to a full dashboard makes space, preserves every module and support
 });
 test('gallery drop needs free space; explicit removal leaves an empty layout usable',()=>{
   const layout=model.preset();assert.equal(model.add(layout,'note',{x:0,y:0}).added,false);
-  const reduced=model.change(layout,'clock',{w:3,h:4});assert.equal(model.add(reduced,'note',{x:3,y:0}).added,false);
+  const reduced=model.change(model.preset('photos'),'clock',{w:5,h:4});assert.equal(model.add(reduced,'note',{x:5,y:0}).added,false);
   let empty=layout;for(const item of layout.modules)empty=model.remove(empty,item.type);
   assert.equal(model.add(empty,'note',{x:8,y:8}).added,true);
   assert.equal(model.add(empty,'note',{x:9,y:9}).added,false);
@@ -50,20 +50,20 @@ test('bounded arbitrary edit sequences preserve valid, unique and non-overlappin
 });
 
 test('widget swaps exchange complete slots while preserving style and size constraints',()=>{
- const layout=model.preset();layout.modules[0].style='analog';const before=JSON.stringify(layout);
+ const layout=model.preset('photos');layout.modules[0].style='analog';const before=JSON.stringify(layout);
  const swapped=model.swap(layout,'clock','weather');sound(swapped);assert.equal(swapped.modules[0].h,8);assert.equal(swapped.modules[1].h,4);assert.equal(swapped.modules[0].style,'analog');assert.equal(JSON.stringify(layout),before);
  assert.deepEqual(model.swap(swapped,'clock','weather'),layout);
  const small={version:1,modules:[{type:'clock',x:0,y:0,w:3,h:3},{type:'weather',x:3,y:0,w:3,h:4}]};assert.equal(model.swap(small,'clock','weather'),null);assert.equal(model.swap(layout,'clock','missing'),null);
 });
 
 test('palette placements fit a three-row gap and reject a fully occupied grid',()=>{
- const l=model.remove(model.preset(),'photo-email');l.modules.find(m=>m.type==='weather').y=7;l.modules.find(m=>m.type==='weather').h=5;l.modules.find(m=>m.type==='plans').y=7;l.modules.find(m=>m.type==='plans').h=5;
+ const l={version:1,modules:[{type:'clock',x:0,y:0,w:4,h:4},{type:'photos',x:7,y:0,w:5,h:4},{type:'weather',x:0,y:7,w:6,h:5},{type:'plans',x:6,y:7,w:6,h:5}]};
  for(const type of ['timers','countdowns']){const slot=model.placement(l,type,{x:6,y:5.5});assert.equal(slot.h,3);assert.equal(slot.y,4);const result=model.add(l,type,slot);assert.equal(result.added,true);sound(result.layout);}
  assert.equal(model.placement(model.preset(),'timers',{x:6,y:6}),null);assert.equal(model.placement(l,'clock',{x:6,y:6}),null);
 });
 test('photo and weather styles persist through normalize, resize, swap and packing without accepting unknown values',()=>{
  for(const type of ['photos','weather'])for(const style of model.styles[type]){
-  let layout=model.change(model.preset(),type,{style});assert.ok(layout);const actual=l=>l.modules.find(m=>m.type===type).style||model.styles[type][0];assert.equal(actual(model.normalize(JSON.parse(JSON.stringify(layout)))),style);assert.equal(actual(model.arrange(layout)),style);assert.equal(actual(model.swap(layout,type,'clock')),style);
+  let layout=model.change(model.preset('photos'),type,{style});assert.ok(layout);const actual=l=>l.modules.find(m=>m.type===type).style||model.styles[type][0];assert.equal(actual(model.normalize(JSON.parse(JSON.stringify(layout)))),style);assert.equal(actual(model.arrange(layout)),style);assert.equal(actual(model.swap(layout,type,'clock')),style);
  }
  assert.equal(model.change(model.preset(),'photos',{style:'analog'}),null);const raw=model.preset();raw.modules[2].style='<script>';assert.equal(model.normalize(raw).modules[2].style,undefined);
 });
@@ -75,8 +75,15 @@ test('fresh Balanced layout includes the inbox QR and saved layouts retain their
   const clock=fresh.modules.find(m=>m.type==='clock');
   const qr=fresh.modules.find(m=>m.type==='photo-email');
   const photos=fresh.modules.find(m=>m.type==='photos');
+  const weather=fresh.modules.find(m=>m.type==='weather');
+  const plans=fresh.modules.find(m=>m.type==='plans');
   assert.equal(qr.y,clock.y);assert.equal(photos.y,qr.y);
-  assert.equal(qr.x,clock.x+clock.w);assert.equal(photos.x,qr.x+qr.w);
+  assert.equal(clock.w,3);assert.equal(clock.h,3);
+  assert.equal(qr.x,clock.x+clock.w);assert.equal(qr.w,2);assert.equal(qr.h,3);
+  assert.equal(qr.x+qr.w,weather.x+weather.w);
+  assert.equal(photos.x,qr.x+qr.w);assert.equal(photos.w,7);assert.equal(photos.h,12);assert.equal(photos.style,'spotlight');
+  assert.equal(weather.x,0);assert.equal(weather.y,3);assert.equal(weather.w,5);assert.equal(weather.h,6);
+  assert.equal(plans.x,0);assert.equal(plans.y,9);assert.equal(plans.w,5);assert.equal(plans.h,3);
   const custom=model.remove(fresh,'photo-email');
   assert.deepEqual(model.normalize(custom),custom);
 });

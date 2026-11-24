@@ -107,3 +107,18 @@ test('each photo keeps a subtle tilt across appearances',()=>{
  assert.ok(new Set(angles).size>10);
  assert.deepEqual(photos.reverse().map(M.printTilt).reverse(),angles);
 });
+test('tall dashboard stage stacks two landscape photos vertically and keeps portrait photos solo',()=>{
+ const landA=photo(1,{width:1600,height:1000}),landB=photo(2,{width:1500,height:1000}),portA=photo(3,{width:800,height:1200}),portB=photo(4,{width:700,height:1100});
+ const stacked=M.stageComposition([landA,portA,landB],0,{layout:'auto'},{},0.95);
+ assert.equal(stacked.direction,'column');
+ assert.deepEqual(stacked.photos.map(p=>p.id),[landA.id,landB.id]);
+ const soloPortrait=M.stageComposition([portA,portB,landA],0,{layout:'auto'},{},0.95);
+ assert.equal(soloPortrait.direction,'column');
+ assert.deepEqual(soloPortrait.photos.map(p=>p.id),[portA.id]);
+ const widePair=M.stageComposition([portA,landA,portB],0,{layout:'auto'},{},1.8);
+ assert.equal(widePair.direction,'row');
+ assert.deepEqual(widePair.photos.map(p=>p.id),[portA.id,portB.id]);
+ const wideSingle=M.stageComposition([landA,landB],0,{layout:'auto'},{},1.8);
+ assert.equal(wideSingle.direction,'row');
+ assert.deepEqual(wideSingle.photos.map(p=>p.id),[landA.id]);
+});

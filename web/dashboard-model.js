@@ -7,8 +7,8 @@
     {type:'clock',name:'Clock & date',description:'Time and date in your selected city.',minW:3,minH:3},
     {type:'weather',name:'Weather',description:'Current conditions and the familiar landscape.',minW:3,minH:4},
     {type:'photos',name:'Photos',description:'Your curated local pictures; tap to open Photos.',minW:3,minH:3},
-    {type:'photo-email',name:'Email photos',description:'Scan to send pictures to this frame’s photo inbox.',minW:3,minH:4},
-    {type:'plans',name:'Upcoming events',description:'Plans anchored to today, independent of month browsing.',minW:3,minH:4},
+    {type:'photo-email',name:'Email photos',description:'Scan to send pictures to this frame’s photo inbox.',minW:2,minH:3},
+    {type:'plans',name:'Upcoming events',description:'Plans anchored to today, independent of month browsing.',minW:3,minH:3},
     {type:'forecast',name:'Hourly forecast',description:'The next few hours from your existing forecast.',minW:3,minH:4},
     {type:'note',name:'Note',description:'The pinned note from Household settings.',minW:3,minH:3},
     {type:'shopping',name:'Shopping list',description:'Check off items on your shared on-frame list.',minW:3,minH:4},
@@ -18,10 +18,11 @@
   const definition=type=>catalog.find(item=>item.type===type);
   const copy=layout=>({version:1,modules:layout.modules.map(item=>({...item}))});
   function preset(name='balanced'){
-    const positions=name==='photos'?[[0,0,6,4],[0,4,6,8],[6,0,6,6],[6,6,6,6]]:name==='agenda'?[[0,0,4,4],[0,4,4,8],[4,0,8,4],[4,4,8,8]]:[[0,0,4,4],[0,4,6,8],[7,0,5,4],[6,4,6,8]];
+    const positions=name==='photos'?[[0,0,6,4],[0,4,6,8],[6,0,6,6],[6,6,6,6]]:name==='agenda'?[[0,0,4,4],[0,4,4,8],[4,0,8,4],[4,4,8,8]]:[[0,0,3,3],[0,3,5,6],[5,0,7,12],[0,9,5,3]];
     const modules=['clock','weather','photos','plans'].map((type,i)=>({type,x:positions[i][0],y:positions[i][1],w:positions[i][2],h:positions[i][3]}));
     if(name!=='photos'&&name!=='agenda'){
-      modules.push({type:'photo-email',x:4,y:0,w:3,h:4});
+      setStyle(modules[2],'spotlight');
+      modules.push({type:'photo-email',x:3,y:0,w:2,h:3});
     }
     return {version:1,modules};
   }

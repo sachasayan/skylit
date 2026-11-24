@@ -17,7 +17,7 @@
   function section(id,title,html){const details=el('details','library-section');details.id=id;window.SkylitUI.librarySection(details,title,html);host.append(details);return details;}
   function notify(message){$('library-status').textContent=message;window.SkylitApp.settingsFeedback(message);}
   function save(next){next=M.library(next);try{localStorage.setItem('skylit.slideshow',JSON.stringify(next));data=next;return true;}catch(_){notify('Could not save slideshow settings. Your previous choices are retained.');return false;}}
-  function setOptions(update,{render=true}={}){if(!save({...data,options:{...data.options,...update}}))return false;if(window.SkylitPlayer)window.SkylitPlayer.preferencesChanged();brightness();if(render){paint();if(phoneVisible())$('photo-play').disabled=!playlist().length;}return true;}
+  function setOptions(update,{render=true}={}){if(!save({...data,options:{...data.options,...update}}))return false;if(window.SkylitPlayer)window.SkylitPlayer.preferencesChanged();window.dispatchEvent(new Event('skylit-slideshow-options'));brightness();if(render){paint();if(phoneVisible())$('photo-play').disabled=!playlist().length;}return true;}
   function options(idle=false){return M.options({...data.options,maximum:state.maximum});}
   function playlist(p=options()){return M.select(state.photos,choices,p,data.albums,new Date(),window.SkylitApp.calendarPreferences().timezone);}
   const basic=el('div','library-basic','');window.SkylitUI.renderNode(basic,window.SkylitUI.template("CollectionSelector"));

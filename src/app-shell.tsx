@@ -25,49 +25,92 @@ export function AppShell() {
             </NativeButton>
           </div>
           <nav aria-label="Main navigation">
-            <NativeButton data-tab="overview" className="nav">
+            <NativeButton
+              data-tab="overview"
+              className="nav"
+              aria-label="Overview"
+              title="Overview"
+            >
               <span data-icon="overview"></span>
-              {"Overview"}
+              <span className="nav-label">{"Overview"}</span>
             </NativeButton>
-            <NativeButton data-tab="weather" className="nav active">
+            <NativeButton
+              data-tab="weather"
+              className="nav active"
+              aria-label="Weather"
+              title="Weather"
+            >
               <span data-icon="sun"></span>
-              {"Weather"}
+              <span className="nav-label">{"Weather"}</span>
             </NativeButton>
-            <NativeButton data-tab="photos" className="nav">
+            <NativeButton
+              data-tab="photos"
+              className="nav"
+              aria-label="Photos"
+              title="Photos"
+            >
               <span data-icon="photo"></span>
-              {"Photos"}
+              <span className="nav-label">{"Photos"}</span>
             </NativeButton>
-            <NativeButton data-tab="calendar" className="nav">
+            <NativeButton
+              data-tab="calendar"
+              className="nav"
+              aria-label="Calendar"
+              title="Calendar"
+            >
               <span data-icon="calendar"></span>
-              {"Calendar"}
+              <span className="nav-label">{"Calendar"}</span>
             </NativeButton>
-            <NativeButton data-tab="home" className="nav">
+            <NativeButton
+              data-tab="home"
+              className="nav"
+              aria-label="Home"
+              title="Home"
+            >
               <span data-icon="home"></span>
-              {"Home"}
+              <span className="nav-label">{"Home"}</span>
             </NativeButton>
-            <NativeButton data-tab="youtube" className="nav">
+            <NativeButton
+              data-tab="youtube"
+              className="nav"
+              aria-label="YouTube"
+              title="YouTube"
+            >
               <span data-icon="tv"></span>
-              {"YouTube"}
+              <span className="nav-label">{"YouTube"}</span>
             </NativeButton>
-            <NativeButton data-tab="settings" className="nav">
+            <NativeButton
+              data-tab="settings"
+              className="nav"
+              aria-label="Settings"
+              title="Settings"
+            >
               <span data-icon="settings"></span>
-              {"Settings"}
+              <span className="nav-label">{"Settings"}</span>
             </NativeButton>
           </nav>
           <div className="rail-bottom">
-            <span className="tiny" id="connection">
-              {"Checking connection"}
+            <span
+              className="rail-status"
+              id="connection-indicator"
+              data-online="true"
+              title="Checking connection"
+            >
+              <span
+                className="rail-status-icon rail-status-online"
+                data-icon="wifi"
+              ></span>
+              <span
+                className="rail-status-icon rail-status-offline"
+                data-icon="wifi-off"
+              ></span>
+              <span className="sr-only" id="connection">
+                {"Checking connection"}
+              </span>
             </span>
           </div>
         </aside>
         <main>
-          <header className="topline">
-            <span id="greeting">{"Welcome home."}</span>
-            <span className="location">
-              <span className="status-dot"></span>
-              <span id="location-name">{"Choose your city"}</span>
-            </span>
-          </header>
           <section
             id="setup"
             className="page"

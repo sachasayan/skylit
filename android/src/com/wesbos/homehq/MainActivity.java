@@ -161,7 +161,7 @@ public class MainActivity extends Activity {
     @JavascriptInterface public void configure(String album,int seconds){if(!album.isEmpty()&&!validAlbum(album))return;int delay=(seconds==0||seconds==60||seconds==120||seconds==300||seconds==600)?seconds:120;prefs.edit().putString("album",album).putInt("idle",delay).apply();runOnUiThread(()->resetIdle());}
     @JavascriptInterface public void openPhotos(String album,boolean idle){if(validAlbum(album))runOnUiThread(()->openRemote(album,true,idle));}
     @JavascriptInterface public void openService(String service,String url,double railFraction){
-      if(!Double.isFinite(railFraction)||railFraction<.08||railFraction>.45)return;
+      if(!Double.isFinite(railFraction)||railFraction<.03||railFraction>.45)return;
       if(!("home".equals(service)&&validHome(url)||"youtube".equals(service)&&validYouTube(url)))return;
       runOnUiThread(()->{openRemote(url,false,false);if(remote==null)return;remoteDocked=true;remoteRailFraction=railFraction;layoutRemote();if(returnButton!=null){root.removeView(returnButton);returnButton=null;}});
     }

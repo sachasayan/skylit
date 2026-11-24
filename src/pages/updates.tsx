@@ -293,10 +293,26 @@ export function Updates() {
           variant="ghost"
           className="nav update-sidebar"
           hidden={!model.badge(state)}
+          aria-label={
+            state.stage === "confirm"
+              ? "Confirm update"
+              : state.stage === "ready"
+                ? "Install update"
+                : "Update"
+          }
+          title={
+            state.stage === "confirm"
+              ? "Confirm update"
+              : state.stage === "ready"
+                ? "Install update"
+                : "Update"
+          }
           onClick={() => app.openSettings("updates")}
         >
-          <span aria-hidden="true">↑</span>
-          <span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 19V5m-6 6 6-6 6 6" />
+          </svg>
+          <span className="nav-label">
             {state.stage === "confirm"
               ? "Confirm update"
               : state.stage === "ready"
